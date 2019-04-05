@@ -7,9 +7,18 @@ using UnityEngine.EventSystems;
 public class Coin : MonoBehaviour, IPointerClickHandler
 {
     public static event Action OnDestroy;
+	public float bounceRate;
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		GetComponent<Rigidbody>().AddForce(Vector3.up * 1, ForceMode.Impulse);
+		GetComponent<Rigidbody>().AddForce(Vector3.up * bounceRate, ForceMode.Impulse);
+
+		Debug.Log("click");
 	}
+
+	void Enlarge()
+	{
+
+	}
+
 }
