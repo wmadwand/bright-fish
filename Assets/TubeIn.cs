@@ -18,7 +18,7 @@ public class TubeIn : MonoBehaviour
 	{
 		_renderer = GetComponent<Renderer>();
 
-		Generate();
+		//Generate();
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -29,6 +29,28 @@ public class TubeIn : MonoBehaviour
 	private void OnTriggerExit(Collider other)
 	{
 		other.GetComponent<Coin>().SelfDestroy();
+	}
+
+	public void Setup(CoinType type)
+	{
+		this.type = type;
+
+		switch (this.type)
+		{
+			case CoinType.A:
+				_color = ColorA;
+				break;
+			case CoinType.B:
+				_color = ColorB;
+				break;
+			case CoinType.C:
+				_color = ColorC;
+				break;
+			default:
+				break;
+		}
+
+		_renderer.material.color = _color;
 	}
 
 	void Generate()

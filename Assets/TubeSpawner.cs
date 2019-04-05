@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TubeSpawner : MonoBehaviour
@@ -10,8 +11,31 @@ public class TubeSpawner : MonoBehaviour
 	public GameObject[] tubeInSpawnPoints;
 	public GameObject[] tubeOutSpawnPoints;
 
+	System.Random _rnd;
+
+	private void Awake()
+	{
+		_rnd = new System.Random();
+	}
+
 	private void Start()
 	{
-		
+		GenerateTubes();
+	}
+
+	void GenerateTubes()
+	{
+
+		int[] coinTypeArray = { 0, 1, 2 };
+		int[] MyRandomArray = coinTypeArray.OrderBy(x => _rnd.Next()).ToArray();
+
+		for (int i = 0; i < MyRandomArray.Length; i++)
+		{
+			var go = Instantiate(tubeOutPrefab, tubeOutSpawnPoints[i].transform.position, Quaternion.identity);
+
+			var tubeIn = Instantiate(tubeInPrefab, tubeInSpawnPoints[i].transform.position, Quaternion.identity);
+			tubeIn.GetComponent<TubeIn>().Setup((CoinType)MyRandomArray[i]);
+
+		}
 	}
 }
