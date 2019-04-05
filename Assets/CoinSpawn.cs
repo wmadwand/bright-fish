@@ -7,7 +7,7 @@ public class CoinSpawn : MonoBehaviour
 	public GameObject coinPrefab;
 	public Transform spawnPoint;
 
-	bool isNeedCoin;
+	bool isRequiredCoin = true;
 
 	private void Awake()
 	{
@@ -16,19 +16,22 @@ public class CoinSpawn : MonoBehaviour
 
 	private void Coin_OnDestroy()
 	{
-		throw new System.NotImplementedException();
+		isRequiredCoin = true;
 	}
 
 	private void Update()
 	{
-		if (isNeedCoin)
+		if (isRequiredCoin)
 		{
+			isRequiredCoin = false;
+
 			CreateCoin();
 		}
 	}
 
 	void CreateCoin()
 	{
-		var go = Instantiate(coinPrefab, spawnPoint);
+
+		var go = Instantiate(coinPrefab, spawnPoint.position, Quaternion.identity);
 	}
 }

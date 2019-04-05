@@ -4,15 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
+public enum CoinType
+{
+	A, B, C
+}
+
 public class Coin : MonoBehaviour, IPointerClickHandler
 {
 	public static event Action OnDestroy;
 	public float bounceRate = 20;
 	public float blinkRate = 0.15f;
 
+	public CoinType type;
+
+	Color ColorA = Color.blue;
+	Color ColorB = Color.yellow;
+	Color ColorC = Color.green;
+
 	int _clickCount;
 	bool _startSelfDestroy;
 	float _countdownRate = 4;
+	Color _color;
 
 	private Renderer _renderer;
 
@@ -32,11 +45,35 @@ public class Coin : MonoBehaviour, IPointerClickHandler
 	private void Awake()
 	{
 		_renderer = GetComponent<Renderer>();
+
+		GenerateCoin();
 	}
 
 	private void Start()
 	{
 		//StartCoroutine(BlinkRoutine());
+	}
+
+	void GenerateCoin()
+	{
+		type = (CoinType)UnityEngine.Random.Range(0, 2);
+
+		switch (type)
+		{
+			case CoinType.A:
+				_color = ColorA;
+				break;
+			case CoinType.B:
+				_color = ColorB;
+				break;
+			case CoinType.C:
+				_color = ColorC;
+				break;
+			default:
+				break;
+		}
+
+		_renderer.material.color = _color;
 	}
 
 	public void OnPointerClick(PointerEventData eventData)
@@ -70,8 +107,10 @@ public class Coin : MonoBehaviour, IPointerClickHandler
 		}
 	}
 
-	void SelfDestroy()
+	public void SelfDestroy()
 	{
+		OnDestroy?.Invoke();
+
 		Destroy(gameObject);
 	}
 
@@ -86,11 +125,12 @@ public class Coin : MonoBehaviour, IPointerClickHandler
 		{
 			yield return new WaitForSeconds(blinkRate);
 
-			_renderer.material.color = new Color(255, 208, 0, 0);
+			
+			_renderer.material.color = new Color(_color.r, _color.g, _color.b, 0);
 
 			yield return new WaitForSeconds(blinkRate);
 
-			_renderer.material.color =  new Color32(255, 208, 0, 100);
+			_renderer.material.color = new Color(_color.r, _color.g, _color.b, 100);
 		}
 	}
 
