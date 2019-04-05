@@ -46,7 +46,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler
 	{
 		_renderer = GetComponent<Renderer>();
 
-		GenerateCoin();
+		Init();
 	}
 
 	private void Start()
@@ -54,9 +54,9 @@ public class Coin : MonoBehaviour, IPointerClickHandler
 		//StartCoroutine(BlinkRoutine());
 	}
 
-	void GenerateCoin()
+	void Init()
 	{
-		type = (CoinType)UnityEngine.Random.Range(0, 2);
+		type = (CoinType)UnityEngine.Random.Range(0, 3);
 
 		switch (type)
 		{
