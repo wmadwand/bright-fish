@@ -65,4 +65,6 @@ public class Coin : MonoBehaviour, IPointerClickHandler
 
 	}
 
+	//IEnumerator
+
 }
