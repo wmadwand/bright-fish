@@ -588,7 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac274d46f5512254b95c1affd202c915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceRate: 50
+  bounceRate: 20
 --- !u!54 &1944773564
 Rigidbody:
   m_ObjectHideFlags: 0
