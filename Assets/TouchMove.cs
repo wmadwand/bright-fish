@@ -1,12 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class TouchMove : MonoBehaviour
+public class TouchMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	private Vector3 position;
 	private float width;
 	private float height;
+
+	bool dragStarted;
+
+	public void OnBeginDrag(PointerEventData eventData)
+	{
+		if ((eventData != null && eventData.used))
+		{
+			return;
+		}
+
+		dragStarted = true;
+	}
+
+	public void OnDrag(PointerEventData eventData)
+	{
+		transform.position = eventData.position;
+	}
+
+	public void OnEndDrag(PointerEventData eventData)
+	{
+		dragStarted = false;
+	}
+
+	public void OnPointerDown(PointerEventData eventData)
+	{
+
+		//eventData.
+	}
+
+	public void OnPointerUp(PointerEventData eventData)
+	{
+
+	}
 
 	void Awake()
 	{
@@ -29,6 +63,11 @@ public class TouchMove : MonoBehaviour
 
 	void Update()
 	{
+		if (dragStarted)
+		{
+			transform.position = Input.mousePosition;
+		}
+
 		//// Handle screen touches.
 		//if (Input.touchCount > 0)
 		//{
