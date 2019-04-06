@@ -99,11 +99,11 @@ public class Coin : MonoBehaviour, IPointerClickHandler
 	{
 		if (_clickCount == 4)
 		{
-			transform.localScale = new Vector3(1, 1, 1);
+			transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 		}
 		else if (_clickCount == 8)
 		{
-			transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+			transform.localScale = new Vector3(2, 2, 2);
 
 			_startSelfDestroy = true;
 			StartCoroutine(BlinkRoutine());
