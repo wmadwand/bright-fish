@@ -32,6 +32,7 @@ public class TubeSpawner : MonoBehaviour
 		for (int i = 0; i < MyRandomArray.Length; i++)
 		{
 			var go = Instantiate(tubeOutPrefab, tubeOutSpawnPoints[i].transform.position, Quaternion.identity);
+			go.GetComponent<TubeOut>().Id = i;
 
 			var tubeIn = Instantiate(tubeInPrefab, tubeInSpawnPoints[i].transform.position, Quaternion.identity);
 			tubeIn.GetComponent<TubeIn>().Setup((CoinType)MyRandomArray[i]);

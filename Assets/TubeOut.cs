@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinSpawn : MonoBehaviour
+public class TubeOut : MonoBehaviour
 {
+	public int Id;
 	public GameObject coinPrefab;
 	public Transform spawnPoint;
 
@@ -14,9 +15,12 @@ public class CoinSpawn : MonoBehaviour
 		Coin.OnDestroy += Coin_OnDestroy;
 	}
 
-	private void Coin_OnDestroy()
+	private void Coin_OnDestroy(int id)
 	{
-		isRequiredCoin = true;
+		if (Id == id)
+		{
+			isRequiredCoin = true;
+		}
 	}
 
 	private void Update()
@@ -33,5 +37,6 @@ public class CoinSpawn : MonoBehaviour
 	{
 
 		var go = Instantiate(coinPrefab, spawnPoint.position, Quaternion.identity);
+		go.GetComponent<Coin>().tubeId = Id;
 	}
 }

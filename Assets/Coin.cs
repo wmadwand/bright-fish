@@ -12,9 +12,12 @@ public enum CoinType
 
 public class Coin : MonoBehaviour, IPointerClickHandler
 {
-	public static event Action OnDestroy;
+	public static event Action<int> OnDestroy;
+
 	public float bounceRate = 20;
 	public float blinkRate = 0.15f;
+
+	public int tubeId;
 
 	public CoinType type;
 
@@ -109,7 +112,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler
 
 	public void SelfDestroy()
 	{
-		OnDestroy?.Invoke();
+		OnDestroy?.Invoke(tubeId);
 
 		Destroy(gameObject);
 	}
@@ -125,7 +128,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler
 		{
 			yield return new WaitForSeconds(blinkRate);
 
-			
+
 			_renderer.material.color = new Color(_color.r, _color.g, _color.b, 0);
 
 			yield return new WaitForSeconds(blinkRate);

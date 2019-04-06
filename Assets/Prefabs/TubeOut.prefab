@@ -87,7 +87,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2229134975021074863}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 2
@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e6ee70e14f8744db545d6c59647660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 0
   coinPrefab: {fileID: 413995343877953130, guid: e2a8e77d51ffbb74eaabaf050c4a198a,
     type: 3}
   spawnPoint: {fileID: 2229134975021074859}
