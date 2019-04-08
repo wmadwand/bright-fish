@@ -10,9 +10,41 @@ public enum CoinType
 	A, B, C
 }
 
+public enum CoinState
+{
+	Small, Medium, Big
+}
+
 public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
 	public static event Action<int> OnDestroy;
+
+	public int ScoreCount
+	{
+		get
+		{
+			int count = 0;
+
+			switch (_state)
+			{
+				case CoinState.Small:
+					count = 10;
+					break;
+				case CoinState.Medium:
+					count = 100;
+					break;
+				case CoinState.Big:
+					count = 500;
+					break;
+				default:
+					break;
+			}
+
+			return count;
+		}
+	}
+
+	private CoinState _state;
 
 	public float bounceRate = 20;
 	public float blinkRate = 0.15f;
@@ -60,6 +92,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 	void Init()
 	{
 		type = (CoinType)UnityEngine.Random.Range(0, 3);
+		_state = CoinState.Small;
 
 		switch (type)
 		{
@@ -97,7 +130,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		////Very nice for 2D objects dragging
+		////Very nice approach for 2D objects dragging
 		//transform.position = eventData.position;
 
 
@@ -125,10 +158,14 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 		if (_clickCount == 4)
 		{
 			transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+
+			_state = CoinState.Medium;
 		}
 		else if (_clickCount == 8)
 		{
 			transform.localScale = new Vector3(2, 2, 2);
+
+			_state = CoinState.Big;
 
 			_startSelfDestroy = true;
 			StartCoroutine(BlinkRoutine());

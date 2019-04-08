@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TubeIn : MonoBehaviour
 {
+	public static event Action<int> OnCoinMatch;
+
 	public CoinType type;
 
 	Color ColorA = Color.blue;
@@ -23,7 +26,16 @@ public class TubeIn : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
+		if (other.GetComponent<Coin>() && other.GetComponent<Coin>().type == type)
+		{
+			OnCoinMatch?.Invoke(other.GetComponent<Coin>().ScoreCount);
+		}
+		else if (other.GetComponent<Coin>() && other.GetComponent<Coin>().type != type)
+		{
+			OnCoinMatch?.Invoke(-other.GetComponent<Coin>().ScoreCount);
+		}
 
+		other.GetComponent<Coin>().SelfDestroy();
 	}
 
 	private void OnTriggerExit(Collider other)
