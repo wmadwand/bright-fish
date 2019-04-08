@@ -28,13 +28,13 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 			switch (_state)
 			{
 				case CoinState.Small:
-					count = 10;
+					count = 50;
 					break;
 				case CoinState.Medium:
 					count = 100;
 					break;
 				case CoinState.Big:
-					count = 500;
+					count = 200;
 					break;
 				default:
 					break;
@@ -92,6 +92,10 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	void Init()
 	{
+		bounceRate = GameController.Instance.gameSettings.bounceRate;
+		GetComponent<Rigidbody>().drag = GameController.Instance.gameSettings.dragRate;
+
+
 		type = (CoinType)UnityEngine.Random.Range(0, 2);
 		_state = CoinState.Small;
 

@@ -8,6 +8,8 @@ public class TubeSpawner : MonoBehaviour
 	public GameObject tubeInPrefab;
 	public GameObject tubeOutPrefab;
 
+	public CoinType[] coinTypeArray;
+
 	public GameObject[] tubeInSpawnPoints;
 	public GameObject[] tubeOutSpawnPoints;
 
@@ -26,10 +28,10 @@ public class TubeSpawner : MonoBehaviour
 	void GenerateTubes()
 	{
 
-		int[] coinTypeArray = { 0, 1/*, 2*/ };
-		int[] MyRandomArray = coinTypeArray.OrderBy(x => _rnd.Next()).ToArray();
+		//int[] coinTypeArray = { 0, 1, 2 };
+		CoinType[] MyRandomArray = coinTypeArray.OrderBy(x => _rnd.Next()).ToArray();
 
-		for (int i = 0; i < 2 /*MyRandomArray.Length*/; i++)
+		for (int i = 0; i < /*2*/ MyRandomArray.Length; i++)
 		{
 			var go = Instantiate(tubeOutPrefab, tubeOutSpawnPoints[i].transform.position, Quaternion.identity);
 			go.GetComponent<TubeOut>().Id = i;

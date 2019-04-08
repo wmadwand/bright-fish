@@ -893,6 +893,7 @@ MonoBehaviour:
     type: 3}
   tubeOutPrefab: {fileID: 2229134975021074863, guid: d2fde07d49558f8479b674f8f0ba471b,
     type: 3}
+  coinTypeArray: 000000000100000002000000
   tubeInSpawnPoints:
   - {fileID: 2112847262}
   - {fileID: 921734387}

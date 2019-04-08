@@ -8,9 +8,12 @@ public enum ColorMode
 	Implicit
 }
 
-[CreateAssetMenu(fileName ="GameSettings")]
+[CreateAssetMenu(fileName = "GameSettings")]
 public class GameSettings : ScriptableObject
 {
 	public ColorMode colorMode;
 
+	[Header("Coin behaviour")]
+	public float bounceRate = 20;
+	public float dragRate = 4;
 }
