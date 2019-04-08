@@ -10,7 +10,7 @@ public enum CoinType
 	A, B, C
 }
 
-public class Coin : MonoBehaviour, IPointerClickHandler
+public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
 	public static event Action<int> OnDestroy;
 
@@ -93,6 +93,31 @@ public class Coin : MonoBehaviour, IPointerClickHandler
 		Enlarge();
 
 		Debug.Log("click");
+	}
+
+	public void OnDrag(PointerEventData eventData)
+	{
+		////Very nice for 2D objects dragging
+		//transform.position = eventData.position;
+
+
+		// Solution #01
+		Plane plane = new Plane(Vector3.forward, transform.position);
+		Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
+
+		if (plane.Raycast(ray, out float distamce))
+		{
+			transform.position = ray.origin + ray.direction * distamce;
+		}
+
+		// Solution #02
+		//Ray R = Camera.main.ScreenPointToRay(Input.mousePosition); // Get the ray from mouse position
+		//Vector3 PO = transform.position; // Take current position of this draggable object as Plane's Origin
+		//Vector3 PN = -Camera.main.transform.forward; // Take current negative camera's forward as Plane's Normal
+		//float t = Vector3.Dot(PO - R.origin, PN) / Vector3.Dot(R.direction, PN); // plane vs. line intersection in algebric form. It find t as distance from the camera of the new point in the ray's direction.
+		//Vector3 P = R.origin + R.direction * t; // Find the new point.
+
+		//transform.position = P;
 	}
 
 	void Enlarge()

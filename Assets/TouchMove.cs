@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TouchMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class TouchMove : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	private Vector3 position;
 	private float width;
@@ -23,23 +23,32 @@ public class TouchMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		transform.position = eventData.position;
+		////Very nice for 2D objects dragging
+		//transform.position = eventData.position;
+
+
+		// Solution #01
+		Plane plane = new Plane(Vector3.forward, transform.position);
+		Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
+
+		if (plane.Raycast(ray, out float distamce))
+		{
+			transform.position = ray.origin + ray.direction * distamce;
+		}
+
+		// Solution #02
+		//Ray R = Camera.main.ScreenPointToRay(Input.mousePosition); // Get the ray from mouse position
+		//Vector3 PO = transform.position; // Take current position of this draggable object as Plane's Origin
+		//Vector3 PN = -Camera.main.transform.forward; // Take current negative camera's forward as Plane's Normal
+		//float t = Vector3.Dot(PO - R.origin, PN) / Vector3.Dot(R.direction, PN); // plane vs. line intersection in algebric form. It find t as distance from the camera of the new point in the ray's direction.
+		//Vector3 P = R.origin + R.direction * t; // Find the new point.
+
+		//transform.position = P;
 	}
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
 		dragStarted = false;
-	}
-
-	public void OnPointerDown(PointerEventData eventData)
-	{
-
-		//eventData.
-	}
-
-	public void OnPointerUp(PointerEventData eventData)
-	{
-
 	}
 
 	void Awake()
@@ -63,30 +72,38 @@ public class TouchMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
 
 	void Update()
 	{
-		if (dragStarted)
-		{
-			transform.position = Input.mousePosition;
-		}
-
 		//// Handle screen touches.
 		//if (Input.touchCount > 0)
 		//{
 		//	Touch touch = Input.GetTouch(0);
 
-		//	//if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
-		//	//{
+		//	////if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+		//	////{
 
-		//		// Move the cube if the screen has the finger moving.
-		//		if (touch.phase == TouchPhase.Moved)
+		//	Ray ray = Camera.main.ScreenPointToRay(touch.position);
+
+		//	if (Physics.Raycast(ray, out RaycastHit hit, 1 << LayerMask.NameToLayer("Draggable")))
 		//	{
-		//		Vector2 pos = touch.position;
-		//		//pos.x = (pos.x - width) / width;
-		//		//pos.y = (pos.y - height) / height;
-		//		position = new Vector3(pos.x, pos.y, 0.0f);
+		//		if (touch.phase == TouchPhase.Moved)
+		//		{
+		//			var vec = new Vector3(touch.position.x, touch.position.y, 0);
 
-		//		// Position the cube.
-		//		transform.position = position;
+		//			hit.transform.position = Camera.main.WorldToScreenPoint(vec);
+		//			Debug.Log($"vec: {vec}");
+		//		}
 		//	}
+
+		//	// Move the cube if the screen has the finger moving.
+		//	//if (touch.phase == TouchPhase.Moved)
+		//	//{
+		//	//	Vector2 pos = touch.position;
+		//	//	//pos.x = (pos.x - width) / width;
+		//	//	//pos.y = (pos.y - height) / height;
+		//	//	position = new Vector3(pos.x, pos.y, 0.0f);
+
+		//	//	// Position the cube.
+		//	//	transform.position = position;
+		//	//}
 
 		//	if (Input.touchCount == 2)
 		//	{
