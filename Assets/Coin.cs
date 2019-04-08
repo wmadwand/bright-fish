@@ -167,20 +167,23 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	void Enlarge()
 	{
-		if (_clickCount == 4)
+		if (_clickCount == GameController.Instance.gameSettings.enlargeSizeClickCount)
 		{
 			transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 
 			_state = CoinState.Medium;
 		}
-		else if (_clickCount == 8)
+		else if (_clickCount == GameController.Instance.gameSettings.enlargeSizeClickCount * 2)
 		{
 			transform.localScale = new Vector3(2, 2, 2);
 
 			_state = CoinState.Big;
 
 			_startSelfDestroy = true;
-			StartCoroutine(BlinkRoutine());
+
+			_renderer.material.color = _color;
+
+			//StartCoroutine(BlinkRoutine());
 		}
 	}
 
