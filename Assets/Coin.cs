@@ -91,7 +91,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	void Init()
 	{
-		type = (CoinType)UnityEngine.Random.Range(0, 3);
+		type = (CoinType)UnityEngine.Random.Range(0, 2);
 		_state = CoinState.Small;
 
 		switch (type)
