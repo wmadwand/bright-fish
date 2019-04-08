@@ -53,6 +53,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	public CoinType type;
 
+	Color ColorDummy = Color.grey;
 	Color ColorA = Color.blue;
 	Color ColorB = Color.yellow;
 	Color ColorC = Color.green;
@@ -94,6 +95,8 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 		type = (CoinType)UnityEngine.Random.Range(0, 2);
 		_state = CoinState.Small;
 
+		_renderer.material.color = ColorDummy;
+
 		switch (type)
 		{
 			case CoinType.A:
@@ -109,7 +112,12 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 				break;
 		}
 
-		_renderer.material.color = _color;
+		if (GameController.Instance.gameSettings.colorMode == ColorMode.Explicit)
+		{
+			_renderer.material.color = _color;
+		}
+
+		//_renderer.material.color = _color;
 	}
 
 	public void OnPointerClick(PointerEventData eventData)
