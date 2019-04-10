@@ -63,6 +63,8 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 	float _countdownRate = 4;
 	Color _color;
 
+	public bool IsReleased { get; private set; }
+
 	private Renderer _renderer;
 
 	private void Update()
@@ -90,8 +92,15 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 		//StartCoroutine(BlinkRoutine());
 	}
 
+	public void SetReleased()
+	{
+		IsReleased = true;
+	}
+
 	void Init()
 	{
+		IsReleased = false;
+
 		bounceRate = GameController.Instance.gameSettings.bounceRate;
 		GetComponent<Rigidbody>().drag = GameController.Instance.gameSettings.dragRate;
 
