@@ -15,4 +15,4 @@ MonoBehaviour:
   colorMode: 1
   bounceRate: 20
   dragRate: 5
-  enlargeSizeClickCount: 1
+  enlargeSizeClickCount: 2

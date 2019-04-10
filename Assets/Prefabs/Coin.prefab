@@ -122,6 +122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceRate: 15
-  blinkRate: 0.2
+  blinkRate: 0.5
   tubeId: 0
   type: 0

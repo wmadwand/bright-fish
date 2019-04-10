@@ -105,7 +105,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 		GetComponent<Rigidbody>().drag = GameController.Instance.gameSettings.dragRate;
 
 
-		type = (CoinType)UnityEngine.Random.Range(0, 2);
+		type = (CoinType)UnityEngine.Random.Range(0, 3);
 		_state = CoinState.Small;
 
 		_renderer.material.color = ColorDummy;
@@ -192,7 +192,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 			_renderer.material.color = _color;
 
-			//StartCoroutine(BlinkRoutine());
+			StartCoroutine(BlinkRoutine());
 		}
 	}
 
