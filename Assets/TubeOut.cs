@@ -10,6 +10,8 @@ public class TubeOut : MonoBehaviour
 
 	bool isRequiredCoin = true;
 
+	public float initialBounceRate;
+
 	private void Awake()
 	{
 		Coin.OnDestroy += Coin_OnDestroy;
@@ -21,6 +23,25 @@ public class TubeOut : MonoBehaviour
 		{
 			isRequiredCoin = true;
 		}
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+
+
+		if (other.GetComponent<Coin>())
+		{
+			if (other.GetComponent<Coin>().IsReleased)
+			{
+				other.GetComponent<Coin>().SelfDestroy();				
+			}
+			else
+			{
+				other.GetComponent<Coin>().SetReleased();
+			}
+
+			
+		}		
 	}
 
 	private void Update()
@@ -38,5 +59,10 @@ public class TubeOut : MonoBehaviour
 
 		var go = Instantiate(coinPrefab, spawnPoint.position, Quaternion.identity);
 		go.GetComponent<Coin>().tubeId = Id;
+
+
+		var randomBounceRate = Random.Range(initialBounceRate, initialBounceRate * 1.7f);
+
+		go.GetComponent<Rigidbody>().AddForce(Vector3.up * randomBounceRate, ForceMode.Impulse);
 	}
 }

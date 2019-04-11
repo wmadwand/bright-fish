@@ -384,6 +384,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes
       objectReference: {fileID: 0}
+    - target: {fileID: 807138045663280392, guid: 6415ed3fb76a9ff40ba6bf0b15ec0a95,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4413498561302801172, guid: 6415ed3fb76a9ff40ba6bf0b15ec0a95,
         type: 3}
       propertyPath: m_LocalPosition.x
