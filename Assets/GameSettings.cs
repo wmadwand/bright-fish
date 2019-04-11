@@ -13,6 +13,9 @@ public class GameSettings : ScriptableObject
 {
 	public ColorMode colorMode;
 
+	[Header("TubeOut behaviour")]
+	public bool delayCoinThrow;
+
 	[Header("Coin behaviour")]
 	public float bounceRate = 20;
 	public float dragRate = 4;

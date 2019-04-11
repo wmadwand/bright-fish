@@ -70,7 +70,7 @@ public class TubeOut : MonoBehaviour
 
 	async void SomeDelay(Action callback)
 	{
-		var delayRate = UnityEngine.Random.Range(.5f, 1.5f);
+		var delayRate = GameController.Instance.gameSettings.delayCoinThrow ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
 
 		await Task.Delay(TimeSpan.FromSeconds(delayRate));
 		callback();

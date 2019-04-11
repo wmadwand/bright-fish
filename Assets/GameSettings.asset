@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   colorMode: 1
+  delayCoinThrow: 1
   bounceRate: 20
   dragRate: 5
   enlargeSizeClickCount: 2
