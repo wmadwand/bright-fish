@@ -52,8 +52,8 @@ public class TubeOut : MonoBehaviour
 		{
 			isRequiredCoin = false;
 
-			//SomeDelay(CreateCoin);
-			StartCoroutine(SomeDelayRoutine(CreateCoin));
+			SomeDelay(CreateCoin);
+			//StartCoroutine(SomeDelayRoutine(CreateCoin));
 		}
 	}
 
@@ -77,11 +77,11 @@ public class TubeOut : MonoBehaviour
 		callback();
 	}
 
-	IEnumerator SomeDelayRoutine(Action callback)
-	{
-		var delayRate = GameController.Instance.gameSettings.delayCoinThrow ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
+	//IEnumerator SomeDelayRoutine(Action callback)
+	//{
+	//	var delayRate = GameController.Instance.gameSettings.delayCoinThrow ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
 
-		yield return new WaitForSeconds(delayRate);
-		callback();
-	}
+	//	yield return new WaitForSeconds(delayRate);
+	//	callback();
+	//}
 }

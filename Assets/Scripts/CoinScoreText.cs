@@ -18,18 +18,18 @@ public class CoinScoreText : MonoBehaviour
 		text.text = $"{str}{value}";
 	}
 
-	//async void Start()
-	//{
-	//	await Task.Delay(TimeSpan.FromSeconds(showTime));
-
-	//	Destroy(gameObject);
-	//}
-
-	IEnumerator Start()
+	async void Start()
 	{
-		yield return new WaitForSeconds(showTime);
+		await Task.Delay(TimeSpan.FromSeconds(showTime));
 
 		Destroy(gameObject);
 	}
+
+	//IEnumerator Start()
+	//{
+	//	yield return new WaitForSeconds(showTime);
+
+	//	Destroy(gameObject);
+	//}
 
 }
