@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class TubeOut : MonoBehaviour
@@ -33,15 +35,15 @@ public class TubeOut : MonoBehaviour
 		{
 			if (other.GetComponent<Coin>().IsReleased)
 			{
-				other.GetComponent<Coin>().SelfDestroy();				
+				other.GetComponent<Coin>().SelfDestroy();
 			}
 			else
 			{
 				other.GetComponent<Coin>().SetReleased();
 			}
 
-			
-		}		
+
+		}
 	}
 
 	private void Update()
@@ -50,7 +52,7 @@ public class TubeOut : MonoBehaviour
 		{
 			isRequiredCoin = false;
 
-			CreateCoin();
+			SomeDelay(CreateCoin);
 		}
 	}
 
@@ -61,8 +63,16 @@ public class TubeOut : MonoBehaviour
 		go.GetComponent<Coin>().tubeId = Id;
 
 
-		var randomBounceRate = Random.Range(initialBounceRate, initialBounceRate * 1.7f);
+		var randomBounceRate = UnityEngine.Random.Range(initialBounceRate, initialBounceRate * 1.7f);
 
 		go.GetComponent<Rigidbody>().AddForce(Vector3.up * randomBounceRate, ForceMode.Impulse);
+	}
+
+	async void SomeDelay(Action callback)
+	{
+		var delayRate = UnityEngine.Random.Range(.5f, 1.5f);
+
+		await Task.Delay(TimeSpan.FromSeconds(delayRate));
+		callback();
 	}
 }
