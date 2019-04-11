@@ -9,6 +9,8 @@ public class TubeIn : MonoBehaviour
 
 	public CoinType type;
 
+	public Transform scoreTextSpawnPoint;
+
 	Color ColorA = Color.blue;
 	Color ColorB = Color.yellow;
 	Color ColorC = Color.green;
@@ -29,13 +31,27 @@ public class TubeIn : MonoBehaviour
 		if (other.GetComponent<Coin>() && other.GetComponent<Coin>().type == type)
 		{
 			OnCoinMatch?.Invoke(other.GetComponent<Coin>().ScoreCount);
+
+			SpawnCoinScroreText(other.GetComponent<Coin>().ScoreCount);
 		}
 		else if (other.GetComponent<Coin>() && other.GetComponent<Coin>().type != type)
 		{
 			OnCoinMatch?.Invoke(-other.GetComponent<Coin>().ScoreCount);
+
+			SpawnCoinScroreText(other.GetComponent<Coin>().ScoreCount, true);
 		}
 
 		other.GetComponent<Coin>().SelfDestroy();
+	}
+
+	void SpawnCoinScroreText(int scoreCount, bool wrongCoin = false)
+	{
+		Vector3 pos = Camera.main.WorldToScreenPoint(scoreTextSpawnPoint.position);
+
+		var scoreGO = Instantiate(GameController.Instance.coinScoreTextPref, GameController.Instance.canvas.transform);
+		scoreGO.transform.position = pos;
+
+		scoreGO.GetComponent<CoinScoreText>().SetScore(scoreCount, wrongCoin);
 	}
 
 	private void OnTriggerExit(Collider other)

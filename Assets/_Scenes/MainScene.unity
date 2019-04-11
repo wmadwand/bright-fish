@@ -597,6 +597,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: e1dc0dcb75a7a2345889b99d59718d7c, type: 2}
+  canvas: {fileID: 1721885716}
+  coinScoreTextPref: {fileID: 5481622671131321485, guid: 8a4d5f369e27d104089babfee31748d7,
+    type: 3}
 --- !u!1 &1108728156
 GameObject:
   m_ObjectHideFlags: 0
