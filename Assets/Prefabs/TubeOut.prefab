@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Id: 0
-  coinPrefab: {fileID: 413995343877953130, guid: e2a8e77d51ffbb74eaabaf050c4a198a,
+  coinPrefab: {fileID: 6680996825359011617, guid: 8dc5bf2910c15594bb2a6e87b3d63966,
     type: 3}
   spawnPoint: {fileID: 2229134975021074859}
   initialBounceRate: 30
