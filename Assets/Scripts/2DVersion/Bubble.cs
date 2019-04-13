@@ -42,7 +42,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	public CoinType type;
 
-	Color ColorDummy = Color.grey;
+	Color ColorDummy = Color.white;
 	Color ColorA = Color.blue;
 	Color ColorB = Color.yellow;
 	Color ColorC = Color.green;
@@ -175,13 +175,13 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		if (_clickCount == GameController.Instance.gameSettings.enlargeSizeClickCount)
 		{
-			transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+			transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
 			_state = CoinState.Medium;
 		}
 		else if (_clickCount == GameController.Instance.gameSettings.enlargeSizeClickCount * 2)
 		{
-			transform.localScale = new Vector3(2, 2, 2);
+			transform.localScale = new Vector3(.7f, .7f, .7f);
 
 			_state = CoinState.Big;
 

@@ -16,4 +16,4 @@ MonoBehaviour:
   delayCoinThrow: 0
   bounceRate: 20
   dragRate: 5
-  enlargeSizeClickCount: 2
+  enlargeSizeClickCount: 1

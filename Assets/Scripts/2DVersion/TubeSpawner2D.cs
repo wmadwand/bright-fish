@@ -37,7 +37,7 @@ public class TubeSpawner2D : MonoBehaviour
 			go.GetComponent<TubeOut2D>().Id = i;
 
 			var tubeIn = Instantiate(tubeInPrefab, tubeOutSpawnPoints[i].transform.position, Quaternion.identity);
-			tubeIn.GetComponent<TubeIn>().Setup(MyRandomArray[i]);
+			tubeIn.GetComponent<Fish>().Setup(MyRandomArray[i]);
 
 		}
 	}

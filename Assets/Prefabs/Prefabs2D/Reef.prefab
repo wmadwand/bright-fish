@@ -123,4 +123,4 @@ MonoBehaviour:
   coinPrefab: {fileID: 6680996825359011617, guid: 8dc5bf2910c15594bb2a6e87b3d63966,
     type: 3}
   spawnPoint: {fileID: 2969211920604872270}
-  initialBounceRate: 30
+  initialBounceRate: 20
