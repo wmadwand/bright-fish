@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Fish : MonoBehaviour
+public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	public static event Action<int> OnCoinMatch;
 
@@ -19,6 +20,9 @@ public class Fish : MonoBehaviour
 
 	private Renderer _renderer;
 
+	public Vector2 originPos;
+	bool isDraggable;
+
 	private void Awake()
 	{
 		_renderer = GetComponent<Renderer>();
@@ -28,20 +32,35 @@ public class Fish : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().type == type)
+		if (other.GetComponent<Bubble>())
 		{
-			OnCoinMatch?.Invoke(other.GetComponent<Bubble>().ScoreCount);
+			if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().type == type)
+			{
+				OnCoinMatch?.Invoke(other.GetComponent<Bubble>().ScoreCount);
 
-			SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount);
+				SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount);
+			}
+			else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().type != type)
+			{
+				OnCoinMatch?.Invoke(-other.GetComponent<Bubble>().ScoreCount);
+
+				SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount, true);
+			}
+
+			other.GetComponent<Bubble>().SelfDestroy();
 		}
-		else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().type != type)
+		else if (other.GetComponent<Fish>())
 		{
-			OnCoinMatch?.Invoke(-other.GetComponent<Bubble>().ScoreCount);
+			if (!isDraggable)
+			{
+				return;
+			}
 
-			SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount, true);
+			isDraggable = false;
+			transform.position = other.GetComponent<Fish>().transform.position;
+			other.GetComponent<Fish>().transform.position = originPos;
+			
 		}
-
-		other.GetComponent<Bubble>().SelfDestroy();
 	}
 
 	void SpawnCoinScroreText(int scoreCount, bool wrongCoin = false)
@@ -54,8 +73,51 @@ public class Fish : MonoBehaviour
 		scoreGO.GetComponent<CoinScoreText>().SetScore(scoreCount, wrongCoin);
 	}
 
+	public void OnDrag(PointerEventData eventData)
+	{
+		if (!isDraggable)
+		{
+			return;
+		}
+
+		//return;
+
+		////Very nice approach for 2D objects dragging
+		//transform.position = eventData.position;
+
+
+		// Solution #01
+		Plane plane = new Plane(Vector3.forward, transform.position);
+		Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
+
+		if (plane.Raycast(ray, out float distamce))
+		{
+			var vec = ray.origin + ray.direction * distamce;
+			transform.position = new Vector2(vec.x, transform.position.y);
+		}
+
+		// Solution #02
+		//Ray R = Camera.main.ScreenPointToRay(Input.mousePosition); // Get the ray from mouse position
+		//Vector3 PO = transform.position; // Take current position of this draggable object as Plane's Origin
+		//Vector3 PN = -Camera.main.transform.forward; // Take current negative camera's forward as Plane's Normal
+		//float t = Vector3.Dot(PO - R.origin, PN) / Vector3.Dot(R.direction, PN); // plane vs. line intersection in algebric form. It find t as distance from the camera of the new point in the ray's direction.
+		//Vector3 P = R.origin + R.direction * t; // Find the new point.
+
+		//transform.position = P;
+	}
+
+	public void ChangePosition(Vector3 value)
+	{
+		gameObject.transform.position = value;
+	}
+
 	private void OnTriggerExit2D(Collider2D other)
 	{
+		if (!other.GetComponent<Bubble>())
+		{
+			return;
+		}
+
 		other.GetComponent<Bubble>().SelfDestroy();
 	}
 
@@ -101,5 +163,16 @@ public class Fish : MonoBehaviour
 		}
 
 		_renderer.material.color = _color;
+	}
+
+	public void OnBeginDrag(PointerEventData eventData)
+	{
+		isDraggable = true;
+		originPos = transform.position;
+	}
+
+	public void OnEndDrag(PointerEventData eventData)
+	{
+		
 	}
 }

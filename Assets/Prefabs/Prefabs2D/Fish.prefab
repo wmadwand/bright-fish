@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 8020691421616234144}
   - component: {fileID: 5383118360562889542}
   - component: {fileID: 6278174920718703305}
+  - component: {fileID: 7641692589350160732}
   m_Layer: 0
   m_Name: Fish
   m_TagString: Untagged
@@ -152,3 +153,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   scoreTextSpawnPoint: {fileID: 7041403533798403033}
+  originPos: {x: 0, y: 0}
+--- !u!50 &7641692589350160732
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066991538648877187}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
