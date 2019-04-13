@@ -17,6 +17,7 @@ public class GameSettings : ScriptableObject
 	public bool delayCoinThrow;
 
 	[Header("Coin behaviour")]
+	public float moveUpSpeed = 10;
 	public float bounceRate = 20;
 	public float dragRate = 4;
 	public int enlargeSizeClickCount = 4;

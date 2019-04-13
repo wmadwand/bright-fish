@@ -74,6 +74,11 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	//	Debug.Log("sdf");
 	//}
 
+	private void FixedUpdate()
+	{
+		//GetComponent<Rigidbody2D>().velocity = transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * Time.deltaTime;
+		transform.Translate(transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
+	}
 
 	private void Awake()
 	{
@@ -139,7 +144,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 		_clickCount++;
 
-		GetComponent<Rigidbody2D>().AddForce(Vector3.up * bounceRate, ForceMode2D.Impulse);
+		GetComponent<Rigidbody2D>().AddForce(Vector3.down * bounceRate, ForceMode2D.Impulse);
 
 		Enlarge();
 
@@ -148,6 +153,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	public void OnDrag(PointerEventData eventData)
 	{
+		return;
+
 		////Very nice approach for 2D objects dragging
 		//transform.position = eventData.position;
 
