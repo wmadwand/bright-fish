@@ -16,7 +16,7 @@ public class TubeOut2D : MonoBehaviour
 
 	private void Awake()
 	{
-		Coin.OnDestroy += Coin_OnDestroy;
+		Bubble.OnDestroy += Coin_OnDestroy;
 	}
 
 	private void Coin_OnDestroy(int id)
