@@ -23,11 +23,23 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	public Vector2 originPos;
 	bool isDraggable;
 
+	private FishHealth _fishHealth;
+
 	private void Awake()
 	{
 		_renderer = GetComponent<Renderer>();
+		_fishHealth = GetComponent<FishHealth>();
 
 		//Generate();
+	}
+
+	void Update()
+	{
+		if (_fishHealth.IsFedup)
+		{
+			GameObject.Destroy(gameObject);
+		}
+
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
@@ -38,6 +50,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			{
 				OnCoinMatch?.Invoke(other.GetComponent<Bubble>().ScoreCount);
 
+				_fishHealth.ChangeHealth(20);
+
 				SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount);
 			}
 			else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().type != type)
@@ -45,6 +59,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 				OnCoinMatch?.Invoke(-other.GetComponent<Bubble>().ScoreCount);
 
 				SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount, true);
+
+				_fishHealth.ChangeHealth(-20);
 			}
 
 			other.GetComponent<Bubble>().SelfDestroy();
@@ -59,7 +75,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			isDraggable = false;
 			transform.position = other.GetComponent<Fish>().transform.position;
 			other.GetComponent<Fish>().transform.position = originPos;
-			
+
 		}
 	}
 
@@ -173,6 +189,6 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		
+
 	}
 }
