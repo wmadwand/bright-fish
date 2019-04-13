@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorMode: 1
   delayCoinThrow: 0
-  moveUpSpeed: 10
+  moveUpSpeed: 8
   bounceRate: 10
   dragRate: 5
   enlargeSizeClickCount: 1

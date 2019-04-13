@@ -192,11 +192,15 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 			_state = CoinState.Big;
 
-			_startSelfDestroy = true;
+			//_startSelfDestroy = true;
 
 			_renderer.material.color = _color;
 
-			StartCoroutine(BlinkRoutine());
+			//StartCoroutine(BlinkRoutine());
+		}
+		else
+		{
+			SelfDestroy();
 		}
 	}
 
