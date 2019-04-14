@@ -42,10 +42,10 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	public CoinType type;
 
-	Color ColorDummy = Color.white;
-	Color ColorA = Color.blue;
-	Color ColorB = Color.yellow;
-	Color ColorC = Color.green;
+	Color ColorDummy;
+	Color ColorA;
+	Color ColorB;
+	Color ColorC;
 
 	int _clickCount;
 	bool _startSelfDestroy;
@@ -55,6 +55,14 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	public bool IsReleased { get; private set; }
 
 	private Renderer _renderer;
+
+	void SetColors()
+	{
+		ColorDummy = GameController.Instance.gameSettings.colorDummy;
+		ColorA = GameController.Instance.gameSettings.colorA;
+		ColorB = GameController.Instance.gameSettings.colorB;
+		ColorC = GameController.Instance.gameSettings.colorC;
+	}
 
 	private void Update()
 	{
@@ -83,7 +91,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	private void Awake()
 	{
 		_renderer = GetComponent<Renderer>();
-
+		SetColors();
 		Init();
 	}
 

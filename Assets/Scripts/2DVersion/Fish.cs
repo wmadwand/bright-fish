@@ -12,9 +12,9 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	public Transform scoreTextSpawnPoint;
 
-	Color ColorA = Color.blue;
-	Color ColorB = Color.yellow;
-	Color ColorC = Color.green;
+	Color ColorA;
+	Color ColorB;
+	Color ColorC;
 
 	Color _color;
 
@@ -25,11 +25,20 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	private FishHealth _fishHealth;
 
+	void SetColors()
+	{
+
+		ColorA = GameController.Instance.gameSettings.colorA;
+		ColorB = GameController.Instance.gameSettings.colorB;
+		ColorC = GameController.Instance.gameSettings.colorC;
+	}
+
 	private void Awake()
 	{
 		_renderer = GetComponent<Renderer>();
 		_fishHealth = GetComponent<FishHealth>();
 
+		SetColors();
 		//Generate();
 	}
 

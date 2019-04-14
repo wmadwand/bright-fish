@@ -21,4 +21,10 @@ public class GameSettings : ScriptableObject
 	public float bounceRate = 20;
 	public float dragRate = 4;
 	public int enlargeSizeClickCount = 4;
+
+	[Header("Fish color")]
+	public Color colorDummy = Color.white;
+	public Color colorA = Color.magenta;
+	public Color colorB = Color.yellow;
+	public Color colorC = Color.green;
 }

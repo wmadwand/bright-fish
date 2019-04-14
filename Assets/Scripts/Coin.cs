@@ -53,10 +53,10 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	public CoinType type;
 
-	Color ColorDummy = Color.grey;
-	Color ColorA = Color.blue;
-	Color ColorB = Color.yellow;
-	Color ColorC = Color.green;
+	Color ColorDummy;
+	Color ColorA;
+	Color ColorB;
+	Color ColorC;
 
 	int _clickCount;
 	bool _startSelfDestroy;
@@ -84,6 +84,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		_renderer = GetComponent<Renderer>();
 
+		SetColors();
 		Init();
 	}
 
@@ -95,6 +96,14 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 	public void SetReleased()
 	{
 		IsReleased = true;
+	}
+
+	void SetColors()
+	{
+		 ColorDummy = GameController.Instance.gameSettings.colorDummy;
+		 ColorA = GameController.Instance.gameSettings.colorA;
+		 ColorB = GameController.Instance.gameSettings.colorB;
+		 ColorC = GameController.Instance.gameSettings.colorC;
 	}
 
 	void Init()

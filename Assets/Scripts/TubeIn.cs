@@ -11,7 +11,7 @@ public class TubeIn : MonoBehaviour
 
 	public Transform scoreTextSpawnPoint;
 
-	Color ColorA = Color.blue;
+	Color ColorA = Color.magenta;
 	Color ColorB = Color.yellow;
 	Color ColorC = Color.green;
 
