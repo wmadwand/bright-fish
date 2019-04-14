@@ -824,7 +824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: e1dc0dcb75a7a2345889b99d59718d7c, type: 2}
-  sound: {fileID: 0}
+  sound: {fileID: 676347748}
   canvas: {fileID: 1721885716}
   audioSource: {fileID: 1038882098}
   coinScoreTextPref: {fileID: 5481622671131321485, guid: 8a4d5f369e27d104089babfee31748d7,
@@ -1252,7 +1252,7 @@ Transform:
   m_GameObject: {fileID: 1491965299}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.7, y: 1.64, z: 0}
-  m_LocalScale: {x: 22.2, y: 13.8, z: 1}
+  m_LocalScale: {x: 23.865002, y: 13.8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9

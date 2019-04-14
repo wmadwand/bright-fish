@@ -10,12 +10,19 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	public CoinType type;
 
+	[SerializeField] private GameObject _enemyHealthBarPref;
+	[SerializeField] private Transform _healthbarPoint;
+
+	public EnemyHealthBar healthBar;
+
 	[SerializeField]
 	Sounds feedFishGood,
 	feedFishBad,
 	fishDead,
 	fishHappy;
-	
+
+	public Sprite[] sprites;
+
 
 	public Transform scoreTextSpawnPoint;
 
@@ -53,9 +60,24 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	{
 		if (_fishHealth.IsFedup)
 		{
+			GameController.Instance.sound.PlaySound(fishDead);
+
 			GameObject.Destroy(gameObject);
+
+
 		}
 
+	}
+
+	private void Start()
+	{
+		healthBar = Instantiate(_enemyHealthBarPref, GameController.Instance.canvas.transform).GetComponent<EnemyHealthBar>();
+		healthBar.Init(_healthbarPoint);
+	}
+
+	public void UpdateHealthBar(int value)
+	{
+		healthBar.UpdateState(value);
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
@@ -69,6 +91,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 				_fishHealth.ChangeHealth(20);
 
 				SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount);
+
+				GameController.Instance.sound.PlaySound(feedFishGood);
 			}
 			else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().type != type)
 			{
@@ -77,6 +101,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 				SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount, true);
 
 				_fishHealth.ChangeHealth(-20);
+
+				GameController.Instance.sound.PlaySound(feedFishBad);
 			}
 
 			other.GetComponent<Bubble>().SelfDestroy();

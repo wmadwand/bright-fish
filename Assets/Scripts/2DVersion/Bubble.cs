@@ -9,7 +9,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	public static event Action<int> OnDestroy;
 
 	[SerializeField]
-	Sounds soundName01;
+	Sounds soundName01, explosionSound;
 
 	public int ScoreCount
 	{
@@ -153,6 +153,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 			return;
 		}
 
+		GameController.Instance.sound. PlaySound(soundName01);
+
 		_clickCount++;
 
 		GetComponent<Rigidbody2D>().AddForce(Vector3.down * bounceRate, ForceMode2D.Impulse);
@@ -217,6 +219,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	public void SelfDestroy()
 	{
+		GameController.Instance.sound.PlaySound(explosionSound);
+
 		OnDestroy?.Invoke(tubeId);
 
 		Destroy(gameObject);

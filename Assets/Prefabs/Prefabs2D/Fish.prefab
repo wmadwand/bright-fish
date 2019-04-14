@@ -63,6 +63,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7041403533798403033}
+  - {fileID: 2742760955510437075}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -103,7 +104,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: 2d0cb816c3ec104438d147ac0bea6a3d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b713cdd06a5f67d4185df5b8b0a38c5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -131,7 +132,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.84, y: 1.48}
+    oldSize: {x: 1.87, y: 1.58}
     newSize: {x: 1.84, y: 1.48}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -153,6 +154,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  _enemyHealthBarPref: {fileID: 3602389873474134920, guid: 58549a057a2a8ef419e0dfae62e27d52,
+    type: 3}
+  _healthbarPoint: {fileID: 2742760955510437075}
+  healthBar: {fileID: 0}
+  feedFishGood: 2
+  feedFishBad: 3
+  fishDead: 4
+  fishHappy: 5
+  sprites:
+  - {fileID: 21300000, guid: b713cdd06a5f67d4185df5b8b0a38c5e, type: 3}
+  - {fileID: 21300000, guid: e0ae9de2b0ecf7b43b88083d1c1b98cb, type: 3}
+  - {fileID: 21300000, guid: 4be926fdd39a63a4a930173b1dd8ec19, type: 3}
   scoreTextSpawnPoint: {fileID: 7041403533798403033}
   originPos: {x: 0, y: 0}
 --- !u!114 &8659573865520767744
@@ -189,3 +202,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &8517667593153225507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2742760955510437075}
+  m_Layer: 0
+  m_Name: HealthbarPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2742760955510437075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517667593153225507}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.098, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4429634996203637731}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
