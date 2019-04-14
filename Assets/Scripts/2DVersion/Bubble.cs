@@ -8,6 +8,9 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
 	public static event Action<int> OnDestroy;
 
+	[SerializeField]
+	Sounds soundName01;
+
 	public int ScoreCount
 	{
 		get

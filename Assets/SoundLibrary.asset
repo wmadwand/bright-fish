@@ -12,4 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f000dc8704e4fc499d90eb7783826c5, type: 3}
   m_Name: SoundLibrary
   m_EditorClassIdentifier: 
-  data: []
+  data:
+  - name: 0
+    audioClip: {fileID: 8300000, guid: c668fd79b528b254b99670a8d40f4caa, type: 3}
+    volume: 0.5
+  - name: 1
+    audioClip: {fileID: 8300000, guid: 74f08f0b4b7b64aa5ba6045c0e34b101, type: 3}
+    volume: 0.5
+  - name: 2
+    audioClip: {fileID: 8300000, guid: 0b972192b6a0b42e19182b3aaa54e819, type: 3}
+    volume: 0.5
+  - name: 3
+    audioClip: {fileID: 8300000, guid: 3f7ecf9ecc76514459b4831f154a1f6a, type: 3}
+    volume: 0.5
+  - name: 4
+    audioClip: {fileID: 8300000, guid: 72c97e08ea9a0184bb31abc21af384c4, type: 3}
+    volume: 0.5
+  - name: 5
+    audioClip: {fileID: 8300000, guid: 0b972192b6a0b42e19182b3aaa54e819, type: 3}
+    volume: 0.5
+  - name: 6
+    audioClip: {fileID: 8300000, guid: ca5119b2eadea40eba7e35ae4eb17509, type: 3}
+    volume: 0.5
+  - name: 7
+    audioClip: {fileID: 8300000, guid: 188ca074f8ec65a4db08187b433ec668, type: 3}
+    volume: 0.5

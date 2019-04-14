@@ -10,6 +10,13 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	public CoinType type;
 
+	[SerializeField]
+	Sounds feedFishGood,
+	feedFishBad,
+	fishDead,
+	fishHappy;
+	
+
 	public Transform scoreTextSpawnPoint;
 
 	Color ColorA;
