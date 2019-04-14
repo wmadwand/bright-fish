@@ -15,6 +15,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	public EnemyHealthBar healthBar;
 
+	bool isDone;
+
 	[SerializeField]
 	Sounds feedFishGood,
 	feedFishBad,
@@ -58,26 +60,52 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	void Update()
 	{
-		if (_fishHealth.IsFedup)
+		if (isDone)
+		{
+			return;
+		}
+
+		if (_fishHealth.IsDead)
 		{
 			GameController.Instance.sound.PlaySound(fishDead);
 
-			GameObject.Destroy(gameObject);
-
+			//GameObject.Destroy(gameObject);
+			isDone = true;
 
 		}
 
+		UpdateSprite();
+
+	}
+
+	public void Destroy()
+	{
+		GameObject.Destroy(gameObject);
 	}
 
 	private void Start()
 	{
 		healthBar = Instantiate(_enemyHealthBarPref, GameController.Instance.canvas.transform).GetComponent<EnemyHealthBar>();
 		healthBar.Init(_healthbarPoint);
+
+		UpdateHealthBar(_fishHealth.value);
 	}
 
 	public void UpdateHealthBar(int value)
 	{
 		healthBar.UpdateState(value);
+	}
+
+	void UpdateSprite()
+	{
+		if (_fishHealth.IsFedup)
+		{
+			GetComponent<SpriteRenderer>().sprite = sprites[1];
+		}
+		else if (_fishHealth.IsDead)
+		{
+			GetComponent<SpriteRenderer>().sprite = sprites[2];
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
@@ -88,7 +116,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			{
 				OnCoinMatch?.Invoke(other.GetComponent<Bubble>().ScoreCount);
 
-				_fishHealth.ChangeHealth(20);
+				_fishHealth.ChangeHealth(30);
+				UpdateHealthBar(_fishHealth.value);
 
 				SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount);
 
@@ -100,7 +129,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 				SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount, true);
 
-				_fishHealth.ChangeHealth(-20);
+				_fishHealth.ChangeHealth(-30);
+				UpdateHealthBar(_fishHealth.value);
 
 				GameController.Instance.sound.PlaySound(feedFishBad);
 			}

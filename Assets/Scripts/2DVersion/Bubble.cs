@@ -166,7 +166,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		return;
+		//return;
 
 		////Very nice approach for 2D objects dragging
 		//transform.position = eventData.position;

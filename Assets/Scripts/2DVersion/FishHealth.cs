@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class FishHealth : MonoBehaviour
 {
-	private float value = 50;
+	public int value = 50;
 
 	float timer;
 	public float countdownRate = 2;
@@ -21,11 +21,36 @@ public class FishHealth : MonoBehaviour
 
 	//}
 
+	private Fish _enemy;
+
+	private void Awake()
+	{
+		_enemy = GetComponent<Fish>();
+	}
+
+	public void OnGetDamage()
+	{
+		_enemy.UpdateHealthBar(value);
+
+		if (IsDead)
+		{
+			_enemy.Destroy();
+		}
+	}
+
 	public bool IsFedup
 	{
 		get
 		{
 			return value >= 100;
+		}
+	}
+
+	public bool IsDead
+	{
+		get
+		{
+			return value <= 0;
 		}
 	}
 
@@ -42,6 +67,7 @@ public class FishHealth : MonoBehaviour
 			{
 				value--;
 				timer = Time.time + countdownRate;
+				_enemy.UpdateHealthBar(value);
 			}
 			else
 			{
@@ -52,7 +78,7 @@ public class FishHealth : MonoBehaviour
 
 	}
 
-	public void ChangeHealth(float value)
+	public void ChangeHealth(int value)
 	{
 		this.value += value;
 	}
