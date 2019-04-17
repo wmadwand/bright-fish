@@ -103,17 +103,20 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	async void SOmeDelayBeforeHide(Action callback)
 	{
-		GetComponent<SpriteRenderer>().DOFade(0, 2);
-		healthBar.GetComponent<CanvasGroup>().DOFade(0, 2);
 
-		await Task.Delay(TimeSpan.FromSeconds(2));
+		await Task.Delay(TimeSpan.FromSeconds(1));
+
+		GetComponent<SpriteRenderer>().DOFade(0, 1);
+		healthBar.GetComponent<CanvasGroup>().DOFade(0, 1);
+
+		await Task.Delay(TimeSpan.FromSeconds(1));
 
 		callback();
 	}
 
 	public void Destroy()
 	{
-		Destroy(healthBar);
+		Destroy(healthBar.gameObject);
 		Destroy(gameObject);
 	}
 
