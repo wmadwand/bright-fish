@@ -188,11 +188,16 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 			isCollided = true;
 
-			isDraggable = false;
+			//isDraggable = false;
 			transform.position = other.GetComponent<Fish>().transform.position;
 			other.GetComponent<Fish>().transform.position = originPos;
 			originPos = transform.position;
 		}
+	}
+
+	private void OnTriggerStay(Collider other)
+	{
+		//if
 	}
 
 	void SpawnCoinScroreText(int scoreCount, bool wrongCoin = false)
@@ -210,6 +215,11 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		if (!isDraggable)
 		{
 			return;
+		}
+
+		if (isCollided)
+		{
+			isCollided = false;
 		}
 
 		//return;
@@ -310,5 +320,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		{
 			transform.position = originPos;
 		}
+
+		isDraggable = false;
 	}
 }
