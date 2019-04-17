@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4061257422014190730}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.403, z: 0}
+  m_LocalPosition: {x: 0, y: -0.721, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2969211920604872270}
@@ -101,7 +101,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300010, guid: da3cf8ef0adb70843b283d3db0f105c9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 09a664979d8f33a4686d2149e7b75620, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -129,7 +129,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.76, y: 1.18}
+    oldSize: {x: 1.79, y: 1.26}
     newSize: {x: 1.76, y: 1.18}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -154,4 +154,4 @@ MonoBehaviour:
   coinPrefab: {fileID: 6680996825359011617, guid: 8dc5bf2910c15594bb2a6e87b3d63966,
     type: 3}
   spawnPoint: {fileID: 8591860830884403957}
-  initialBounceRate: 7
+  initialBounceRate: -7

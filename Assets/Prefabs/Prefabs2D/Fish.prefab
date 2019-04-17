@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b97d4c4e4c7d44ebabd094aff4f3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value: 50
   countdownRate: 0.5
 --- !u!50 &7641692589350160732
 Rigidbody2D:
@@ -226,7 +227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8517667593153225507}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.098, z: 0}
+  m_LocalPosition: {x: 0, y: 1.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4429634996203637731}

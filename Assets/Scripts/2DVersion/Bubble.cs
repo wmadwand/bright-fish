@@ -88,7 +88,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	private void FixedUpdate()
 	{
 		//GetComponent<Rigidbody2D>().velocity = transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * Time.deltaTime;
-		transform.Translate(transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
+		transform.Translate(-transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
 	}
 
 	private void Awake()
@@ -157,7 +157,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 		_clickCount++;
 
-		GetComponent<Rigidbody2D>().AddForce(Vector3.down * bounceRate, ForceMode2D.Impulse);
+		GetComponent<Rigidbody2D>().AddForce(Vector3.up * bounceRate, ForceMode2D.Impulse);
 
 		Enlarge();
 
