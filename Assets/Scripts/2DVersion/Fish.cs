@@ -30,6 +30,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	public Sprite[] sprites;
 
 
+	bool isCollided;
+
 	public Transform scoreTextSpawnPoint;
 
 	Color ColorA;
@@ -184,10 +186,12 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 				return;
 			}
 
+			isCollided = true;
+
 			isDraggable = false;
 			transform.position = other.GetComponent<Fish>().transform.position;
 			other.GetComponent<Fish>().transform.position = originPos;
-
+			originPos = transform.position;
 		}
 	}
 
@@ -295,12 +299,16 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
+		isCollided = false;
 		isDraggable = true;
 		originPos = transform.position;
 	}
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-
+		if (!isCollided)
+		{
+			transform.position = originPos;
+		}
 	}
 }
