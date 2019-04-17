@@ -82,7 +82,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	private void Awake()
 	{
-		_renderer = GetComponent<Renderer>();
+		_renderer = GetComponentInChildren<Renderer>();
 
 		SetColors();
 		Init();

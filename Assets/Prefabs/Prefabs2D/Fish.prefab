@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 50
-  countdownRate: 0.5
+  countdownRate: 2
 --- !u!50 &7641692589350160732
 Rigidbody2D:
   serializedVersion: 4

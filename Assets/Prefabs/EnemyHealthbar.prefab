@@ -85,6 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1082927628552576388}
   - component: {fileID: 290913813064475739}
+  - component: {fileID: 2302304777664120383}
   m_Layer: 5
   m_Name: EnemyHealthbar
   m_TagString: Untagged
@@ -127,6 +128,18 @@ MonoBehaviour:
   indicatorPivotPoint: {fileID: 0}
   green: {fileID: 1587662711403081480}
   bar: {fileID: 791697216446325016}
+--- !u!225 &2302304777664120383
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602389873474134920}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &3688886528619757924
 GameObject:
   m_ObjectHideFlags: 0

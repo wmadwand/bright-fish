@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f749209d6eea024cbc556ba2ef85134, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  colorMode: 1
+  colorMode: 0
   delayCoinThrow: 0
-  moveUpSpeed: 10
-  bounceRate: 10
+  moveUpSpeed: 6
+  bounceRate: 8
   dragRate: 5
   enlargeSizeClickCount: 1
   colorDummy: {r: 1, g: 1, b: 1, a: 1}

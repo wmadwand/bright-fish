@@ -36,8 +36,8 @@ public class TubeSpawner : MonoBehaviour
 			var go = Instantiate(tubeOutPrefab, tubeInSpawnPoints[i].transform.position, Quaternion.identity);
 			go.GetComponent<TubeOut>().Id = i;
 
-			var tubeIn = Instantiate(tubeInPrefab, tubeOutSpawnPoints[i].transform.position, Quaternion.identity);
-			tubeIn.GetComponent<TubeIn>().Setup(MyRandomArray[i]);
+			//var tubeIn = Instantiate(tubeInPrefab, tubeOutSpawnPoints[i].transform.position, Quaternion.identity);
+			//tubeIn.GetComponent<TubeIn>().Setup(MyRandomArray[i]);
 
 		}
 	}

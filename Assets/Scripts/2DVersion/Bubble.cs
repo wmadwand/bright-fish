@@ -59,6 +59,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	private Renderer _renderer;
 
+	GameObject _view;
+
 	void SetColors()
 	{
 		ColorDummy = GameController.Instance.gameSettings.colorDummy;
@@ -93,9 +95,11 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	private void Awake()
 	{
-		_renderer = GetComponent<Renderer>();
+		_renderer = GetComponentInChildren<Renderer>();
 		SetColors();
 		Init();
+
+		_view = GetComponentInChildren<Renderer>().gameObject;
 	}
 
 	private void Start()
@@ -195,13 +199,13 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		if (_clickCount == GameController.Instance.gameSettings.enlargeSizeClickCount)
 		{
-			transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+			_view.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
 			_state = CoinState.Medium;
 		}
 		else if (_clickCount == GameController.Instance.gameSettings.enlargeSizeClickCount * 2)
 		{
-			transform.localScale = new Vector3(.7f, .7f, .7f);
+			_view.transform.localScale = new Vector3(.7f, .7f, .7f);
 
 			_state = CoinState.Big;
 

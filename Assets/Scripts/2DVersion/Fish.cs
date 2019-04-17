@@ -1,12 +1,16 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	public static event Action<int> OnCoinMatch;
+	public static event Action<CoinType, Vector3> OnDeath;
+	public static event Action<CoinType, Vector3> OnHappy;
 
 	public CoinType type;
 
@@ -72,15 +76,45 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			//GameObject.Destroy(gameObject);
 			isDone = true;
 
+			//OnDeath?.Invoke(type, transform.position);
+
+			SOmeDelayBeforeHide(() =>
+			{
+				OnDeath?.Invoke(type, transform.position);
+				Destroy();
+			});
+
+			//Destroy();
+		}
+		else if (_fishHealth.IsFedup)
+		{
+			isDone = true;
+
+			SOmeDelayBeforeHide(() =>
+			{
+				OnHappy?.Invoke(type, transform.position);
+				Destroy();
+			});
 		}
 
 		UpdateSprite();
 
 	}
 
+	async void SOmeDelayBeforeHide(Action callback)
+	{
+		GetComponent<SpriteRenderer>().DOFade(0, 2);
+		healthBar.GetComponent<CanvasGroup>().DOFade(0, 2);
+
+		await Task.Delay(TimeSpan.FromSeconds(2));
+
+		callback();
+	}
+
 	public void Destroy()
 	{
-		GameObject.Destroy(gameObject);
+		Destroy(healthBar);
+		Destroy(gameObject);
 	}
 
 	private void Start()
@@ -101,6 +135,9 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		if (_fishHealth.IsFedup)
 		{
 			GetComponent<SpriteRenderer>().sprite = sprites[1];
+
+
+
 		}
 		else if (_fishHealth.IsDead)
 		{

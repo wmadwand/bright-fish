@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class TubeSpawner2D : MonoBehaviour
 {
-	public GameObject tubeInPrefab;
+	
 	public GameObject tubeOutPrefab;
 
 	public CoinType[] coinTypeArray;
 
-	public GameObject[] tubeInSpawnPoints;
+	
 	public GameObject[] tubeOutSpawnPoints;
 
 	System.Random _rnd;
@@ -35,10 +35,6 @@ public class TubeSpawner2D : MonoBehaviour
 		{
 			var go = Instantiate(tubeOutPrefab, tubeOutSpawnPoints[i].transform.position, Quaternion.identity);
 			go.GetComponent<TubeOut2D>().Id = i;
-
-			var tubeIn = Instantiate(tubeInPrefab, tubeInSpawnPoints[i].transform.position, Quaternion.identity);
-			tubeIn.GetComponent<Fish>().Setup(MyRandomArray[i]);
-
 		}
 	}
 }
