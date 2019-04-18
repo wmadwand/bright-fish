@@ -53,6 +53,6 @@ public class FishSpawner : MonoBehaviour
 	void Spawn(CoinType coinType, Vector3 position)
 	{
 		var fishGo = Instantiate(fish, position, Quaternion.identity);
-		fishGo.GetComponent<Fish>().Setup(coinType);
+		fishGo.GetComponent<Fish>().Setup((CoinType)Random.Range(0, coinTypeArray.Length)/*coinType*/);
 	}
 }
