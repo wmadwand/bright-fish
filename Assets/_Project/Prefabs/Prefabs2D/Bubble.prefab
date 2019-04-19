@@ -172,9 +172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44bba5777570b941b726398e358cf6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   soundName01: 0
   explosionSound: 1
-  bounceRate: 20
-  blinkRate: 0.15
-  tubeId: 0
-  type: 0
+  _bounceRate: 10
+  _blinkRate: 0.15
+  _selfDestroyTimerRate: 4

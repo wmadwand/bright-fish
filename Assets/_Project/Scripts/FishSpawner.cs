@@ -7,7 +7,7 @@ public class FishSpawner : MonoBehaviour
 {
 	public GameObject fish;
 
-	public CoinType[] coinTypeArray;
+	public BubbleType[] coinTypeArray;
 
 	public GameObject[] points;
 
@@ -21,12 +21,12 @@ public class FishSpawner : MonoBehaviour
 		Fish.OnHappy += Fish_OnHappy; ;
 	}
 
-	private void Fish_OnHappy(CoinType arg1, Vector3 arg2)
+	private void Fish_OnHappy(BubbleType arg1, Vector3 arg2)
 	{
 		Spawn(arg1, arg2);
 	}
 
-	private void Fish_OnDeath(CoinType arg1, Vector3 arg2)
+	private void Fish_OnDeath(BubbleType arg1, Vector3 arg2)
 	{
 		Spawn(arg1, arg2);
 	}
@@ -40,7 +40,7 @@ public class FishSpawner : MonoBehaviour
 	{
 
 		//int[] coinTypeArray = { 0, 1, 2 };
-		CoinType[] MyRandomArray = coinTypeArray.OrderBy(x => _rnd.Next()).ToArray();
+		BubbleType[] MyRandomArray = coinTypeArray.OrderBy(x => _rnd.Next()).ToArray();
 
 		for (int i = 0; i < /*2*/ MyRandomArray.Length; i++)
 		{
@@ -50,9 +50,9 @@ public class FishSpawner : MonoBehaviour
 		}
 	}
 
-	void Spawn(CoinType coinType, Vector3 position)
+	void Spawn(BubbleType coinType, Vector3 position)
 	{
 		var fishGo = Instantiate(fish, position, Quaternion.identity);
-		fishGo.GetComponent<Fish>().Setup((CoinType)Random.Range(0, coinTypeArray.Length)/*coinType*/);
+		fishGo.GetComponent<Fish>().Setup((BubbleType)Random.Range(0, coinTypeArray.Length)/*coinType*/);
 	}
 }

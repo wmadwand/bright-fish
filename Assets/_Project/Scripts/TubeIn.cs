@@ -7,7 +7,7 @@ public class TubeIn : MonoBehaviour
 {
 	public static event Action<int> OnCoinMatch;
 
-	public CoinType type;
+	public BubbleType type;
 
 	public Transform scoreTextSpawnPoint;
 
@@ -59,19 +59,19 @@ public class TubeIn : MonoBehaviour
 		other.GetComponent<Coin>().SelfDestroy();
 	}
 
-	public void Setup(CoinType type)
+	public void Setup(BubbleType type)
 	{
 		this.type = type;
 
 		switch (this.type)
 		{
-			case CoinType.A:
+			case BubbleType.A:
 				_color = ColorA;
 				break;
-			case CoinType.B:
+			case BubbleType.B:
 				_color = ColorB;
 				break;
-			case CoinType.C:
+			case BubbleType.C:
 				_color = ColorC;
 				break;
 			default:
@@ -83,17 +83,17 @@ public class TubeIn : MonoBehaviour
 
 	void Generate()
 	{
-		type = (CoinType)UnityEngine.Random.Range(0, 2);
+		type = (BubbleType)UnityEngine.Random.Range(0, 2);
 
 		switch (type)
 		{
-			case CoinType.A:
+			case BubbleType.A:
 				_color = ColorA;
 				break;
-			case CoinType.B:
+			case BubbleType.B:
 				_color = ColorB;
 				break;
-			case CoinType.C:
+			case BubbleType.C:
 				_color = ColorC;
 				break;
 			default:

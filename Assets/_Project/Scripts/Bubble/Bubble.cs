@@ -7,7 +7,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
 	public static event Action<int> OnDestroy;
 
-	[SerializeField] Sounds soundName01, explosionSound;
+	public bool IsReleased { get; private set; }
 
 	public int ScoreCount
 	{
@@ -34,15 +34,15 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		}
 	}
 
-	private CoinState _state;
+	public BubbleType type;
 
+	[SerializeField] Sounds soundName01, explosionSound;
 	[SerializeField] float _bounceRate = 20;
 	[SerializeField] float _blinkRate = 0.15f;
+	[SerializeField] float _selfDestroyTimerRate = 4;
 
-	//TODO: make it private
-	public int _tubeId { get; set; }
-
-	public CoinType type;
+	private int _factoryID;
+	private CoinState _state;
 
 	private Color ColorDummy;
 	private Color ColorA;
@@ -50,11 +50,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	private Color ColorC;
 
 	private int _clickCount;
-	private bool _startSelfDestroy;
-	private float _countdownRate = 4;
+	private bool _selfDestroyStarted;
 	private Color _color;
-
-	public bool IsReleased { get; private set; }
 
 	private Renderer _renderer;
 	private Rigidbody2D _rigidbody2D;
@@ -65,7 +62,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	public void SetFactoryID(int value)
 	{
-		_tubeId = value;
+		_factoryID = value;
 	}
 
 	public void AddForce(float value)
@@ -82,8 +79,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		GameController.Instance.sound.PlaySound(explosionSound);
 
-		OnDestroy?.Invoke(_tubeId);
-
+		OnDestroy?.Invoke(_factoryID);
 		Destroy(gameObject);
 	}
 
@@ -93,25 +89,19 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		_renderer = GetComponentInChildren<Renderer>();
 		_rigidbody2D = GetComponentInChildren<Rigidbody2D>();
+		_view = _renderer.gameObject;
 
-		SetColors();
+		InitColors();
 		Init();
-
-		_view = GetComponentInChildren<Renderer>().gameObject;
-	}
-
-	private void Start()
-	{
-		//StartCoroutine(BlinkRoutine());
 	}
 
 	private void Update()
 	{
-		if (_startSelfDestroy)
+		if (_selfDestroyStarted)
 		{
-			_countdownRate -= Time.fixedDeltaTime;
+			_selfDestroyTimerRate -= Time.fixedDeltaTime;
 
-			if (_countdownRate <= 0)
+			if (_selfDestroyTimerRate <= 0)
 			{
 				SelfDestroy();
 			}
@@ -121,10 +111,54 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	private void FixedUpdate()
 	{
 		//GetComponent<Rigidbody2D>().velocity = transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * Time.deltaTime;
-		transform.Translate(-transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
+		transform.Translate(-transform.up * (GameController.Instance.gameSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
 	}
 
-	private void SetColors()
+	void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+	{
+		if (_selfDestroyStarted)
+		{
+			return;
+		}
+
+		GameController.Instance.sound.PlaySound(soundName01);
+
+		_clickCount++;
+
+		AddForce(_bounceRate);
+		Enlarge();
+
+		Debug.Log("click");
+	}
+
+	void IDragHandler.OnDrag(PointerEventData eventData)
+	{
+		//return;
+
+		////Very nice approach for UI objects dragging
+		//transform.position = eventData.position;
+
+
+		// Solution #01
+		Plane plane = new Plane(Vector3.forward, transform.position);
+		Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
+
+		if (plane.Raycast(ray, out float distance))
+		{
+			transform.position = ray.origin + ray.direction * distance;
+		}
+
+		// Solution #02
+		//Ray R = Camera.main.ScreenPointToRay(Input.mousePosition); // Get the ray from mouse position
+		//Vector3 PO = transform.position; // Take current position of this draggable object as Plane's Origin
+		//Vector3 PN = -Camera.main.transform.forward; // Take current negative camera's forward as Plane's Normal
+		//float t = Vector3.Dot(PO - R.origin, PN) / Vector3.Dot(R.direction, PN); // plane vs. line intersection in algebric form. It find t as distance from the camera of the new point in the ray's direction.
+		//Vector3 P = R.origin + R.direction * t; // Find the new point.
+		//transform.position = P;
+	}
+
+	//TODO: get rid of this void
+	private void InitColors()
 	{
 		ColorDummy = GameController.Instance.gameSettings.colorDummy;
 		ColorA = GameController.Instance.gameSettings.colorA;
@@ -136,92 +170,41 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		IsReleased = false;
 
-		_bounceRate = GameController.Instance.gameSettings.bounceRate;
-		GetComponent<Rigidbody2D>().drag = GameController.Instance.gameSettings.dragRate;
+		_bounceRate = GameController.Instance.gameSettings.BounceRate;
+		_rigidbody2D.drag = GameController.Instance.gameSettings.DragRate;
 
-
-		type = (CoinType)UnityEngine.Random.Range(0, 3);
+		type = (BubbleType)UnityEngine.Random.Range(0, 3);
 		_state = CoinState.Small;
 
 		_renderer.material.color = ColorDummy;
 
-		switch (type)
-		{
-			case CoinType.A:
-				_color = ColorA;
-				break;
-			case CoinType.B:
-				_color = ColorB;
-				break;
-			case CoinType.C:
-				_color = ColorC;
-				break;
-			default:
-				break;
-		}
+		SetColor();
 
-		if (GameController.Instance.gameSettings.colorMode == ColorMode.Explicit)
+		if (GameController.Instance.gameSettings.colorMode == BubbleColorMode.Explicit)
 		{
 			_renderer.material.color = _color;
 		}
-
-		//_renderer.material.color = _color;
 	}
 
-	void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+	private void SetColor()
 	{
-		if (_startSelfDestroy)
+		switch (type)
 		{
-			return;
+			case BubbleType.A: _color = ColorA; break;
+			case BubbleType.B: _color = ColorB; break;
+			case BubbleType.C: _color = ColorC; break;
 		}
-
-		GameController.Instance.sound.PlaySound(soundName01);
-
-		_clickCount++;
-
-		GetComponent<Rigidbody2D>().AddForce(Vector3.up * _bounceRate, ForceMode2D.Impulse);
-
-		Enlarge();
-
-		Debug.Log("click");
-	}
-
-	void IDragHandler.OnDrag(PointerEventData eventData)
-	{
-		//return;
-
-		////Very nice approach for 2D objects dragging
-		//transform.position = eventData.position;
-
-
-		// Solution #01
-		Plane plane = new Plane(Vector3.forward, transform.position);
-		Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
-
-		if (plane.Raycast(ray, out float distamce))
-		{
-			transform.position = ray.origin + ray.direction * distamce;
-		}
-
-		// Solution #02
-		//Ray R = Camera.main.ScreenPointToRay(Input.mousePosition); // Get the ray from mouse position
-		//Vector3 PO = transform.position; // Take current position of this draggable object as Plane's Origin
-		//Vector3 PN = -Camera.main.transform.forward; // Take current negative camera's forward as Plane's Normal
-		//float t = Vector3.Dot(PO - R.origin, PN) / Vector3.Dot(R.direction, PN); // plane vs. line intersection in algebric form. It find t as distance from the camera of the new point in the ray's direction.
-		//Vector3 P = R.origin + R.direction * t; // Find the new point.
-
-		//transform.position = P;
 	}
 
 	private void Enlarge()
 	{
-		if (_clickCount == GameController.Instance.gameSettings.enlargeSizeClickCount)
+		if (_clickCount == GameController.Instance.gameSettings.EnlargeSizeClickCount)
 		{
 			_view.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
 			_state = CoinState.Medium;
 		}
-		else if (_clickCount == GameController.Instance.gameSettings.enlargeSizeClickCount * 2)
+		else if (_clickCount == GameController.Instance.gameSettings.EnlargeSizeClickCount * 2)
 		{
 			_view.transform.localScale = new Vector3(.7f, .7f, .7f);
 
@@ -233,15 +216,10 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 			//StartCoroutine(BlinkRoutine());
 		}
-		else
+		else if(_clickCount > GameController.Instance.gameSettings.EnlargeSizeClickCount * 2)
 		{
 			SelfDestroy();
 		}
-	}
-
-	private void Blink()
-	{
-
 	}
 
 	private IEnumerator BlinkRoutine()

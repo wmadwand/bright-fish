@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-public enum CoinType
+public enum BubbleType
 {
 	A, B, C
 }
@@ -51,7 +51,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	public int tubeId;
 
-	public CoinType type;
+	public BubbleType type;
 
 	Color ColorDummy;
 	Color ColorA;
@@ -110,31 +110,31 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		IsReleased = false;
 
-		bounceRate = GameController.Instance.gameSettings.bounceRate;
-		GetComponent<Rigidbody>().drag = GameController.Instance.gameSettings.dragRate;
+		bounceRate = GameController.Instance.gameSettings.BounceRate;
+		GetComponent<Rigidbody>().drag = GameController.Instance.gameSettings.DragRate;
 
 
-		type = (CoinType)UnityEngine.Random.Range(0, 3);
+		type = (BubbleType)UnityEngine.Random.Range(0, 3);
 		_state = CoinState.Small;
 
 		_renderer.material.color = ColorDummy;
 
 		switch (type)
 		{
-			case CoinType.A:
+			case BubbleType.A:
 				_color = ColorA;
 				break;
-			case CoinType.B:
+			case BubbleType.B:
 				_color = ColorB;
 				break;
-			case CoinType.C:
+			case BubbleType.C:
 				_color = ColorC;
 				break;
 			default:
 				break;
 		}
 
-		if (GameController.Instance.gameSettings.colorMode == ColorMode.Explicit)
+		if (GameController.Instance.gameSettings.colorMode == BubbleColorMode.Explicit)
 		{
 			_renderer.material.color = _color;
 		}
@@ -185,13 +185,13 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	void Enlarge()
 	{
-		if (_clickCount == GameController.Instance.gameSettings.enlargeSizeClickCount)
+		if (_clickCount == GameController.Instance.gameSettings.EnlargeSizeClickCount)
 		{
 			transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 
 			_state = CoinState.Medium;
 		}
-		else if (_clickCount == GameController.Instance.gameSettings.enlargeSizeClickCount * 2)
+		else if (_clickCount == GameController.Instance.gameSettings.EnlargeSizeClickCount * 2)
 		{
 			transform.localScale = new Vector3(2, 2, 2);
 

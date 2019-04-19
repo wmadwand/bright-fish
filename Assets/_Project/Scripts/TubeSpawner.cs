@@ -8,7 +8,7 @@ public class TubeSpawner : MonoBehaviour
 	public GameObject tubeInPrefab;
 	public GameObject tubeOutPrefab;
 
-	public CoinType[] coinTypeArray;
+	public BubbleType[] coinTypeArray;
 
 	public GameObject[] tubeInSpawnPoints;
 	public GameObject[] tubeOutSpawnPoints;
@@ -29,7 +29,7 @@ public class TubeSpawner : MonoBehaviour
 	{
 
 		//int[] coinTypeArray = { 0, 1, 2 };
-		CoinType[] MyRandomArray = coinTypeArray.OrderBy(x => _rnd.Next()).ToArray();
+		BubbleType[] MyRandomArray = coinTypeArray.OrderBy(x => _rnd.Next()).ToArray();
 
 		for (int i = 0; i < /*2*/ MyRandomArray.Length; i++)
 		{

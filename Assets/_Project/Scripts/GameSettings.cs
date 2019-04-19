@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public enum ColorMode
+public enum BubbleColorMode
 {
 	Explicit,
 	Implicit
@@ -11,16 +9,16 @@ public enum ColorMode
 [CreateAssetMenu(fileName = "GameSettings")]
 public class GameSettings : ScriptableObject
 {
-	public ColorMode colorMode;
+	public BubbleColorMode colorMode;
 
-	[Header("TubeOut behaviour")]
-	public bool delayCoinThrow;
+	[Header("BubbleFactory behaviour")]
+	public bool BubbleThrowDelay;
 
-	[Header("Coin behaviour")]
-	public float moveUpSpeed = 10;
-	public float bounceRate = 20;
-	public float dragRate = 4;
-	public int enlargeSizeClickCount = 4;
+	[Header("Bubble behaviour")]
+	public float BubbleMoveSpeed = 10;
+	public float BounceRate = 20;
+	public float DragRate = 4;
+	public int EnlargeSizeClickCount = 4;
 
 	[Header("Fish color")]
 	public Color colorDummy = Color.white;

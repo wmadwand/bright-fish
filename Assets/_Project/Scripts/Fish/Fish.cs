@@ -9,10 +9,10 @@ using UnityEngine.EventSystems;
 public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	public static event Action<int> OnCoinMatch;
-	public static event Action<CoinType, Vector3> OnDeath;
-	public static event Action<CoinType, Vector3> OnHappy;
+	public static event Action<BubbleType, Vector3> OnDeath;
+	public static event Action<BubbleType, Vector3> OnHappy;
 
-	public CoinType type;
+	public BubbleType type;
 
 	[SerializeField] private GameObject _enemyHealthBarPref;
 	[SerializeField] private Transform _healthbarPoint;
@@ -263,19 +263,19 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		other.GetComponent<Bubble>().SelfDestroy();
 	}
 
-	public void Setup(CoinType type)
+	public void Setup(BubbleType type)
 	{
 		this.type = type;
 
 		switch (this.type)
 		{
-			case CoinType.A:
+			case BubbleType.A:
 				_color = ColorA;
 				break;
-			case CoinType.B:
+			case BubbleType.B:
 				_color = ColorB;
 				break;
-			case CoinType.C:
+			case BubbleType.C:
 				_color = ColorC;
 				break;
 			default:
@@ -287,17 +287,17 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	void Generate()
 	{
-		type = (CoinType)UnityEngine.Random.Range(0, 2);
+		type = (BubbleType)UnityEngine.Random.Range(0, 2);
 
 		switch (type)
 		{
-			case CoinType.A:
+			case BubbleType.A:
 				_color = ColorA;
 				break;
-			case CoinType.B:
+			case BubbleType.B:
 				_color = ColorB;
 				break;
-			case CoinType.C:
+			case BubbleType.C:
 				_color = ColorC;
 				break;
 			default:

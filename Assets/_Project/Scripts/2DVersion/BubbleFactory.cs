@@ -68,7 +68,7 @@ public class BubbleFactory : MonoBehaviour
 
 	private async void SomeDelay(Action callback)
 	{
-		var delayRate = GameController.Instance.gameSettings.delayCoinThrow ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
+		var delayRate = GameController.Instance.gameSettings.BubbleThrowDelay ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
 
 		await Task.Delay(TimeSpan.FromSeconds(delayRate));
 		callback();

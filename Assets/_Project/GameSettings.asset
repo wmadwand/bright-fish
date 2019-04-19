@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   colorMode: 1
-  delayCoinThrow: 0
-  moveUpSpeed: 7
-  bounceRate: 8
-  dragRate: 5
-  enlargeSizeClickCount: 1
+  BubbleThrowDelay: 0
+  BubbleMoveSpeed: 10
+  BounceRate: 10
+  DragRate: 4
+  EnlargeSizeClickCount: 1
   colorDummy: {r: 1, g: 1, b: 1, a: 1}
   colorA: {r: 0.9737315, g: 0, b: 1, a: 1}
   colorB: {r: 0.99272287, g: 1, b: 0.015686274, a: 1}
