@@ -1,18 +1,20 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class TubeOut2D : MonoBehaviour
+public class BubbleFactory : MonoBehaviour
 {
 	public int Id;
 	public GameObject coinPrefab;
 	public Transform spawnPoint;
 
-	bool isRequiredCoin = true;
+	private bool isRequiredCoin = true;
 
 	public float initialBounceRate;
+
+	private float _randomBounceRate;
+
+	//----------------------------------------------------------------
 
 	private void Awake()
 	{
@@ -50,36 +52,25 @@ public class TubeOut2D : MonoBehaviour
 		{
 			isRequiredCoin = false;
 
-			SomeDelay(CreateCoin);
-			//StartCoroutine(SomeDelayRoutine(CreateCoin));
+			SomeDelay(MakeBubble);
 		}
 	}
 
-	void CreateCoin()
+	private void MakeBubble()
 	{
+		GameObject go = Instantiate(coinPrefab, spawnPoint.position, Quaternion.identity);
+		Bubble bubble = go.GetComponent<Bubble>();
+		bubble.SetFactoryID(Id);
 
-		var go = Instantiate(coinPrefab, spawnPoint.position, Quaternion.identity);
-		go.GetComponent<Bubble>().tubeId = Id;
-
-
-		var randomBounceRate = UnityEngine.Random.Range(initialBounceRate, initialBounceRate * 1.7f);
-
-		go.GetComponent<Rigidbody2D>().AddForce(Vector3.up * randomBounceRate, ForceMode2D.Impulse);
+		_randomBounceRate = UnityEngine.Random.Range(initialBounceRate, initialBounceRate * 1.7f);
+		bubble.AddForce(_randomBounceRate);
 	}
 
-	async void SomeDelay(Action callback)
+	private async void SomeDelay(Action callback)
 	{
 		var delayRate = GameController.Instance.gameSettings.delayCoinThrow ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
 
 		await Task.Delay(TimeSpan.FromSeconds(delayRate));
 		callback();
 	}
-
-	//IEnumerator SomeDelayRoutine(Action callback)
-	//{
-	//	var delayRate = GameController.Instance.gameSettings.delayCoinThrow ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
-
-	//	yield return new WaitForSeconds(delayRate);
-	//	callback();
-	//}
 }

@@ -34,7 +34,7 @@ public class TubeSpawner2D : MonoBehaviour
 		for (int i = 0; i < /*2*/ MyRandomArray.Length; i++)
 		{
 			var go = Instantiate(tubeOutPrefab, tubeOutSpawnPoints[i].transform.position, Quaternion.identity);
-			go.GetComponent<TubeOut2D>().Id = i;
+			go.GetComponent<BubbleFactory>().Id = i;
 		}
 	}
 }

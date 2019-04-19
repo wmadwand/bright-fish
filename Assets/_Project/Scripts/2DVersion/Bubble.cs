@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,8 +7,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
 	public static event Action<int> OnDestroy;
 
-	[SerializeField]
-	Sounds soundName01, explosionSound;
+	[SerializeField] Sounds soundName01, explosionSound;
 
 	public int ScoreCount
 	{
@@ -38,35 +36,73 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	private CoinState _state;
 
-	public float bounceRate = 20;
-	public float blinkRate = 0.15f;
+	[SerializeField] float _bounceRate = 20;
+	[SerializeField] float _blinkRate = 0.15f;
 
-	public int tubeId;
+	//TODO: make it private
+	public int _tubeId { get; set; }
 
 	public CoinType type;
 
-	Color ColorDummy;
-	Color ColorA;
-	Color ColorB;
-	Color ColorC;
+	private Color ColorDummy;
+	private Color ColorA;
+	private Color ColorB;
+	private Color ColorC;
 
-	int _clickCount;
-	bool _startSelfDestroy;
-	float _countdownRate = 4;
-	Color _color;
+	private int _clickCount;
+	private bool _startSelfDestroy;
+	private float _countdownRate = 4;
+	private Color _color;
 
 	public bool IsReleased { get; private set; }
 
 	private Renderer _renderer;
+	private Rigidbody2D _rigidbody2D;
 
-	GameObject _view;
+	private GameObject _view;
 
-	void SetColors()
+	//----------------------------------------------------------------
+
+	public void SetFactoryID(int value)
 	{
-		ColorDummy = GameController.Instance.gameSettings.colorDummy;
-		ColorA = GameController.Instance.gameSettings.colorA;
-		ColorB = GameController.Instance.gameSettings.colorB;
-		ColorC = GameController.Instance.gameSettings.colorC;
+		_tubeId = value;
+	}
+
+	public void AddForce(float value)
+	{
+		_rigidbody2D.AddForce(Vector3.up * value, ForceMode2D.Impulse);
+	}
+
+	public void SetReleased()
+	{
+		IsReleased = true;
+	}
+
+	public void SelfDestroy()
+	{
+		GameController.Instance.sound.PlaySound(explosionSound);
+
+		OnDestroy?.Invoke(_tubeId);
+
+		Destroy(gameObject);
+	}
+
+	//----------------------------------------------------------------
+
+	private void Awake()
+	{
+		_renderer = GetComponentInChildren<Renderer>();
+		_rigidbody2D = GetComponentInChildren<Rigidbody2D>();
+
+		SetColors();
+		Init();
+
+		_view = GetComponentInChildren<Renderer>().gameObject;
+	}
+
+	private void Start()
+	{
+		//StartCoroutine(BlinkRoutine());
 	}
 
 	private void Update()
@@ -82,43 +118,25 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		}
 	}
 
-	//private void OnMouseDown()
-	//{
-	//	Debug.Log("sdf");
-	//}
-
 	private void FixedUpdate()
 	{
 		//GetComponent<Rigidbody2D>().velocity = transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * Time.deltaTime;
 		transform.Translate(-transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
 	}
 
-	private void Awake()
+	private void SetColors()
 	{
-		_renderer = GetComponentInChildren<Renderer>();
-		SetColors();
-		Init();
-
-		_view = GetComponentInChildren<Renderer>().gameObject;
+		ColorDummy = GameController.Instance.gameSettings.colorDummy;
+		ColorA = GameController.Instance.gameSettings.colorA;
+		ColorB = GameController.Instance.gameSettings.colorB;
+		ColorC = GameController.Instance.gameSettings.colorC;
 	}
 
-	private void Start()
-	{
-		//StartCoroutine(BlinkRoutine());
-	}
-
-	public void SetReleased()
-	{
-		IsReleased = true;
-	}
-
-
-
-	void Init()
+	private void Init()
 	{
 		IsReleased = false;
 
-		bounceRate = GameController.Instance.gameSettings.bounceRate;
+		_bounceRate = GameController.Instance.gameSettings.bounceRate;
 		GetComponent<Rigidbody2D>().drag = GameController.Instance.gameSettings.dragRate;
 
 
@@ -150,25 +168,25 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		//_renderer.material.color = _color;
 	}
 
-	public void OnPointerClick(PointerEventData eventData)
+	void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
 	{
 		if (_startSelfDestroy)
 		{
 			return;
 		}
 
-		GameController.Instance.sound. PlaySound(soundName01);
+		GameController.Instance.sound.PlaySound(soundName01);
 
 		_clickCount++;
 
-		GetComponent<Rigidbody2D>().AddForce(Vector3.up * bounceRate, ForceMode2D.Impulse);
+		GetComponent<Rigidbody2D>().AddForce(Vector3.up * _bounceRate, ForceMode2D.Impulse);
 
 		Enlarge();
 
 		Debug.Log("click");
 	}
 
-	public void OnDrag(PointerEventData eventData)
+	void IDragHandler.OnDrag(PointerEventData eventData)
 	{
 		//return;
 
@@ -195,7 +213,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		//transform.position = P;
 	}
 
-	void Enlarge()
+	private void Enlarge()
 	{
 		if (_clickCount == GameController.Instance.gameSettings.enlargeSizeClickCount)
 		{
@@ -221,33 +239,23 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		}
 	}
 
-	public void SelfDestroy()
-	{
-		GameController.Instance.sound.PlaySound(explosionSound);
-
-		OnDestroy?.Invoke(tubeId);
-
-		Destroy(gameObject);
-	}
-
-	void Blink()
+	private void Blink()
 	{
 
 	}
 
-	IEnumerator BlinkRoutine()
+	private IEnumerator BlinkRoutine()
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(blinkRate);
+			yield return new WaitForSeconds(_blinkRate);
 
 
 			_renderer.material.color = new Color(_color.r, _color.g, _color.b, 0);
 
-			yield return new WaitForSeconds(blinkRate);
+			yield return new WaitForSeconds(_blinkRate);
 
 			_renderer.material.color = new Color(_color.r, _color.g, _color.b, 100);
 		}
 	}
-
 }

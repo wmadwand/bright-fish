@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8591860830884403957}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: BubbleSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 6042952580381005089}
   - component: {fileID: 5629279795271183945}
   m_Layer: 0
-  m_Name: Reef
+  m_Name: BubbleFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
