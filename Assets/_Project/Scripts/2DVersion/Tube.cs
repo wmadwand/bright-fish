@@ -40,6 +40,7 @@ public class Tube : MonoBehaviour
 		RunAfterDelay(MakeBubble);
 	}
 
+	//TODO: consider collision ignore during initialization and skip after trigger exit
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.GetComponent<Bubble>())
