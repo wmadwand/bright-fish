@@ -42,7 +42,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	[SerializeField] private float _blinkRate = 0.15f;
 	[SerializeField] private float _selfDestroyTimerRate = 4;
 
-	private int _factoryID;
+	private int _tubeID;
 	private CoinState _state;
 
 	private Color ColorDummy;
@@ -62,9 +62,9 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	//----------------------------------------------------------------
 
-	public void SetFactoryID(int value)
+	public void SetTubeID(int value)
 	{
-		_factoryID = value;
+		_tubeID = value;
 	}
 
 	public void AddForce(float value)
@@ -81,7 +81,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		GameController.Instance.sound.PlaySound(explosionSound);
 
-		OnDestroy?.Invoke(_factoryID);
+		OnDestroy?.Invoke(_tubeID);
 		Destroy(gameObject);
 	}
 

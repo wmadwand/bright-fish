@@ -11,8 +11,9 @@ public class GameSettings : ScriptableObject
 {
 	public BubbleColorMode colorMode;
 
-	[Header("BubbleFactory behaviour")]
+	[Header("Tube behaviour")]
 	public bool BubbleThrowDelay;
+	public float BubbleInitialBounceRate;
 
 	[Header("Bubble behaviour")]
 	public float BubbleMoveSpeed = 10;
