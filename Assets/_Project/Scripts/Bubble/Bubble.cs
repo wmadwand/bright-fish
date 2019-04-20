@@ -245,11 +245,5 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		}
 	}
 
-
-
-	public class BFactory : PlaceholderFactory<Bubble>
-	{
-	}
-
+	public class BubbleDIFactory : PlaceholderFactory<Bubble> { }
 }
-

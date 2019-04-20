@@ -18,7 +18,7 @@ MonoBehaviour:
     BubbleMoveSpeed: 10
     BounceRate: 20
     DragRate: 4
-    EnlargeSizeClickCount: 4
+    EnlargeSizeClickCount: 1
     colorDummy: {r: 0, g: 0, b: 0, a: 1}
     colorA: {r: 1, g: 0, b: 1, a: 1}
     colorB: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}

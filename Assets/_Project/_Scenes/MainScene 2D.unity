@@ -1159,6 +1159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BubblePrefab: {fileID: 6680996825359011617, guid: 8dc5bf2910c15594bb2a6e87b3d63966,
     type: 3}
+  BubbleFactoryPrefab: {fileID: 4368104105572240329, guid: f59506842051ecd4995485be73807bd2,
+    type: 3}
 --- !u!4 &1269847594
 Transform:
   m_ObjectHideFlags: 0
@@ -1551,10 +1553,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9618f9d8a5459cc4c952f241318c19db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tubeOutPrefab: {fileID: 4368104105572240329, guid: f59506842051ecd4995485be73807bd2,
-    type: 3}
-  coinTypeArray: 000000000100000002000000
-  tubeOutSpawnPoints:
+  _bubbleTypes: 000000000100000002000000
+  _tubeSpawnPoints:
   - {fileID: 766027260}
   - {fileID: 1599527683}
   - {fileID: 1108728156}

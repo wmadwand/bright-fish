@@ -13,7 +13,7 @@ public class MainMonoInstaller : MonoInstaller
 		var das = Container.Bind<GameSettings>().FromScriptableObjectResource("GameSettings").AsSingle().BindInfo;
 		//Container.BindFactory<Bubble, Bubble.BFactory>();
 
-		Container.BindFactory<Bubble, Bubble.BFactory>().FromComponentInNewPrefab(BubblePrefab);
-		Container.BindFactory<BubbleFactory, BubbleFactory.BubbleFactoryFactory>().FromComponentInNewPrefab(BubbleFactoryPrefab);
+		Container.BindFactory<Bubble, Bubble.BubbleDIFactory>().FromComponentInNewPrefab(BubblePrefab);
+		Container.BindFactory<Tube, Tube.TubeDIFactory>().FromComponentInNewPrefab(BubbleFactoryPrefab);
 	}
 }
