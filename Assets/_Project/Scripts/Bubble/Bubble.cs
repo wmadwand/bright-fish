@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
@@ -36,10 +37,10 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	public BubbleType type;
 
-	[SerializeField] Sounds soundName01, explosionSound;
-	[SerializeField] float _bounceRate = 20;
-	[SerializeField] float _blinkRate = 0.15f;
-	[SerializeField] float _selfDestroyTimerRate = 4;
+	[SerializeField] private Sounds soundName01, explosionSound;
+	[SerializeField] private float _bounceRate = 20;
+	[SerializeField] private float _blinkRate = 0.15f;
+	[SerializeField] private float _selfDestroyTimerRate = 4;
 
 	private int _factoryID;
 	private CoinState _state;
@@ -55,6 +56,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	private Renderer _renderer;
 	private Rigidbody2D _rigidbody2D;
+	private GameSettingsA _gameSettings;
 
 	private GameObject _view;
 
@@ -84,6 +86,12 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	}
 
 	//----------------------------------------------------------------
+
+	[Inject]
+	private void Construct(GameSettingsA gameSettings)
+	{
+		_gameSettings = gameSettings;
+	}
 
 	private void Awake()
 	{
@@ -198,13 +206,13 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	private void Enlarge()
 	{
-		if (_clickCount == GameController.Instance.gameSettings.EnlargeSizeClickCount)
+		if (_clickCount == _gameSettings.EnlargeSizeClickCount)
 		{
 			_view.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
 			_state = CoinState.Medium;
 		}
-		else if (_clickCount == GameController.Instance.gameSettings.EnlargeSizeClickCount * 2)
+		else if (_clickCount == _gameSettings.EnlargeSizeClickCount * 2)
 		{
 			_view.transform.localScale = new Vector3(.7f, .7f, .7f);
 
@@ -216,7 +224,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 			//StartCoroutine(BlinkRoutine());
 		}
-		else if(_clickCount > GameController.Instance.gameSettings.EnlargeSizeClickCount * 2)
+		else if (_clickCount > GameController.Instance.gameSettings.EnlargeSizeClickCount * 2)
 		{
 			SelfDestroy();
 		}
@@ -236,4 +244,12 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 			_renderer.material.color = new Color(_color.r, _color.g, _color.b, 100);
 		}
 	}
+
+
+
+	public class BFactory : PlaceholderFactory<Bubble>
+	{
+	}
+
 }
+

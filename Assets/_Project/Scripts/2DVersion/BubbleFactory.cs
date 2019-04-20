@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 
 public class BubbleFactory : MonoBehaviour
 {
@@ -14,7 +15,15 @@ public class BubbleFactory : MonoBehaviour
 
 	private float _randomBounceRate;
 
+	private Bubble.BFactory _bFactory;
+
 	//----------------------------------------------------------------
+
+	[Inject]
+	void Construct(Bubble.BFactory bFactory)
+	{
+		_bFactory = bFactory;
+	}
 
 	private void Awake()
 	{
@@ -58,8 +67,18 @@ public class BubbleFactory : MonoBehaviour
 
 	private void MakeBubble()
 	{
-		GameObject go = Instantiate(coinPrefab, spawnPoint.position, Quaternion.identity);
-		Bubble bubble = go.GetComponent<Bubble>();
+		var bubble = _bFactory.Create();
+
+		bubble.transform.SetPositionAndRotation(spawnPoint.position, Quaternion.identity);
+
+		//GameObject go = Instantiate(coinPrefab, spawnPoint.position, Quaternion.identity);
+		//Bubble bubble = go.GetComponent<Bubble>();
+		//bubble.SetFactoryID(Id);
+
+		//_randomBounceRate = UnityEngine.Random.Range(initialBounceRate, initialBounceRate * 1.7f);
+		//bubble.AddForce(_randomBounceRate);
+
+		
 		bubble.SetFactoryID(Id);
 
 		_randomBounceRate = UnityEngine.Random.Range(initialBounceRate, initialBounceRate * 1.7f);
@@ -72,5 +91,9 @@ public class BubbleFactory : MonoBehaviour
 
 		await Task.Delay(TimeSpan.FromSeconds(delayRate));
 		callback();
+	}
+
+	public class BubbleFactoryFactory : PlaceholderFactory<BubbleFactory>
+	{
 	}
 }
