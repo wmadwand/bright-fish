@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class BubbleScore : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	//public int ScoreCount
+	//{
+	//	get
+	//	{
+	//		int count = 0;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	//		switch (_state)
+	//		{
+	//			case CoinState.Small:
+	//				count = 50;
+	//				break;
+	//			case CoinState.Medium:
+	//				count = 100;
+	//				break;
+	//			case CoinState.Big:
+	//				count = 200;
+	//				break;
+	//			default:
+	//				break;
+	//		}
+
+	//		return count;
+	//	}
+	//}
 }

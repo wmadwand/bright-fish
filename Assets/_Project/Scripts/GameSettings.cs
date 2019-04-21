@@ -20,6 +20,9 @@ public class GameSettings : ScriptableObject
 	public float BounceRate = 20;
 	public float DragRate = 4;
 	public int EnlargeSizeClickCount = 4;
+	public float BlinkRate = 0.15f;
+	public bool BigBubbleSelfDestroy = false;
+	public float SelfDestroyTimerRate = 4;
 
 	[Header("Fish color")]
 	public Color colorDummy = Color.white;

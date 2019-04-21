@@ -10,7 +10,7 @@ public enum BubbleType
 	A, B, C
 }
 
-public enum CoinState
+public enum BubbleState
 {
 	Small, Medium, Big
 }
@@ -27,13 +27,13 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 			switch (_state)
 			{
-				case CoinState.Small:
+				case BubbleState.Small:
 					count = 50;
 					break;
-				case CoinState.Medium:
+				case BubbleState.Medium:
 					count = 100;
 					break;
-				case CoinState.Big:
+				case BubbleState.Big:
 					count = 200;
 					break;
 				default:
@@ -44,7 +44,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 		}
 	}
 
-	private CoinState _state;
+	private BubbleState _state;
 
 	public float bounceRate = 20;
 	public float blinkRate = 0.15f;
@@ -115,7 +115,7 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 
 		type = (BubbleType)UnityEngine.Random.Range(0, 3);
-		_state = CoinState.Small;
+		_state = BubbleState.Small;
 
 		_renderer.material.color = ColorDummy;
 
@@ -189,13 +189,13 @@ public class Coin : MonoBehaviour, IPointerClickHandler, IDragHandler
 		{
 			transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 
-			_state = CoinState.Medium;
+			_state = BubbleState.Medium;
 		}
 		else if (_clickCount == GameController.Instance.gameSettings.EnlargeSizeClickCount * 2)
 		{
 			transform.localScale = new Vector3(2, 2, 2);
 
-			_state = CoinState.Big;
+			_state = BubbleState.Big;
 
 			_startSelfDestroy = true;
 

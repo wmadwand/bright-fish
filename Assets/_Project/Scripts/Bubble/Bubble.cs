@@ -8,6 +8,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
 	public static event Action<int> OnDestroy;
 
+	public BubbleType Type { get; private set; }
 	public bool IsReleased { get; private set; }
 
 	public int ScoreCount
@@ -18,13 +19,13 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 			switch (_state)
 			{
-				case CoinState.Small:
+				case BubbleState.Small:
 					count = 50;
 					break;
-				case CoinState.Medium:
+				case BubbleState.Medium:
 					count = 100;
 					break;
-				case CoinState.Big:
+				case BubbleState.Big:
 					count = 200;
 					break;
 				default:
@@ -35,36 +36,24 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		}
 	}
 
-	public BubbleType type;
-
 	[SerializeField] private Sounds soundName01, explosionSound;
-	[SerializeField] private float _bounceRate = 20;
-	[SerializeField] private float _blinkRate = 0.15f;
-	[SerializeField] private float _selfDestroyTimerRate = 4;
 
-	private int _tubeID;
-	private CoinState _state;
-
-	private Color ColorDummy;
-	private Color ColorA;
-	private Color ColorB;
-	private Color ColorC;
-
+	private int _parentTubeID;
+	private BubbleState _state;
 	private int _clickCount;
 	private bool _selfDestroyStarted;
-	private Color _color;
 
+	private Color _color;
 	private Renderer _renderer;
 	private Rigidbody2D _rigidbody2D;
-	private GameSettingsA _gameSettings;
-
+	private GameSettings _gameSettings;
 	private GameObject _view;
 
 	//----------------------------------------------------------------
 
-	public void SetTubeID(int value)
+	public void SetParentTubeID(int value)
 	{
-		_tubeID = value;
+		_parentTubeID = value;
 	}
 
 	public void AddForce(float value)
@@ -81,14 +70,14 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		GameController.Instance.sound.PlaySound(explosionSound);
 
-		OnDestroy?.Invoke(_tubeID);
+		OnDestroy?.Invoke(_parentTubeID);
 		Destroy(gameObject);
 	}
 
 	//----------------------------------------------------------------
 
 	[Inject]
-	private void Construct(GameSettingsA gameSettings)
+	private void Construct(GameSettings gameSettings)
 	{
 		_gameSettings = gameSettings;
 	}
@@ -99,7 +88,6 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		_rigidbody2D = GetComponentInChildren<Rigidbody2D>();
 		_view = _renderer.gameObject;
 
-		InitColors();
 		Init();
 	}
 
@@ -107,9 +95,9 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		if (_selfDestroyStarted)
 		{
-			_selfDestroyTimerRate -= Time.fixedDeltaTime;
+			_gameSettings.SelfDestroyTimerRate -= Time.fixedDeltaTime;
 
-			if (_selfDestroyTimerRate <= 0)
+			if (_gameSettings.SelfDestroyTimerRate <= 0)
 			{
 				SelfDestroy();
 			}
@@ -119,7 +107,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	private void FixedUpdate()
 	{
 		//GetComponent<Rigidbody2D>().velocity = transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * Time.deltaTime;
-		transform.Translate(-transform.up * (GameController.Instance.gameSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
+		transform.Translate(-transform.up * (_gameSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
 	}
 
 	void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
@@ -133,7 +121,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 		_clickCount++;
 
-		AddForce(_bounceRate);
+		AddForce(_gameSettings.BounceRate);
 		Enlarge();
 
 		Debug.Log("click");
@@ -165,42 +153,31 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		//transform.position = P;
 	}
 
-	//TODO: get rid of this void
-	private void InitColors()
-	{
-		ColorDummy = GameController.Instance.gameSettings.colorDummy;
-		ColorA = GameController.Instance.gameSettings.colorA;
-		ColorB = GameController.Instance.gameSettings.colorB;
-		ColorC = GameController.Instance.gameSettings.colorC;
-	}
-
 	private void Init()
 	{
 		IsReleased = false;
 
-		_bounceRate = GameController.Instance.gameSettings.BounceRate;
-		_rigidbody2D.drag = GameController.Instance.gameSettings.DragRate;
+		_rigidbody2D.drag = _gameSettings.DragRate;
 
-		type = (BubbleType)UnityEngine.Random.Range(0, 3);
-		_state = CoinState.Small;
+		Type = (BubbleType)UnityEngine.Random.Range(0, 3);
+		_state = BubbleState.Small;
 
-		_renderer.material.color = ColorDummy;
+		_renderer.material.color = _gameSettings.colorDummy;
+		SetColor(Type);
 
-		SetColor();
-
-		if (GameController.Instance.gameSettings.colorMode == BubbleColorMode.Explicit)
+		if (_gameSettings.colorMode == BubbleColorMode.Explicit)
 		{
 			_renderer.material.color = _color;
 		}
 	}
 
-	private void SetColor()
+	private void SetColor(BubbleType bubbleType)
 	{
-		switch (type)
+		switch (bubbleType)
 		{
-			case BubbleType.A: _color = ColorA; break;
-			case BubbleType.B: _color = ColorB; break;
-			case BubbleType.C: _color = ColorC; break;
+			case BubbleType.A: _color = _gameSettings.colorA; break;
+			case BubbleType.B: _color = _gameSettings.colorB; break;
+			case BubbleType.C: _color = _gameSettings.colorC; break;
 		}
 	}
 
@@ -210,21 +187,27 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		{
 			_view.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
-			_state = CoinState.Medium;
+			_state = BubbleState.Medium;
 		}
 		else if (_clickCount == _gameSettings.EnlargeSizeClickCount * 2)
 		{
 			_view.transform.localScale = new Vector3(.7f, .7f, .7f);
 
-			_state = CoinState.Big;
+			_state = BubbleState.Big;
 
-			//_startSelfDestroy = true;
+			if (_gameSettings.BigBubbleSelfDestroy)
+			{
+				_selfDestroyStarted = true;
+			}
 
 			_renderer.material.color = _color;
 
-			//StartCoroutine(BlinkRoutine());
+			if (_selfDestroyStarted)
+			{
+				StartCoroutine(BlinkRoutine());
+			}
 		}
-		else if (_clickCount > GameController.Instance.gameSettings.EnlargeSizeClickCount * 2)
+		else if (_clickCount > _gameSettings.EnlargeSizeClickCount * 2)
 		{
 			SelfDestroy();
 		}
@@ -234,12 +217,11 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(_blinkRate);
-
+			yield return new WaitForSeconds(_gameSettings.BlinkRate);
 
 			_renderer.material.color = new Color(_color.r, _color.g, _color.b, 0);
 
-			yield return new WaitForSeconds(_blinkRate);
+			yield return new WaitForSeconds(_gameSettings.BlinkRate);
 
 			_renderer.material.color = new Color(_color.r, _color.g, _color.b, 100);
 		}

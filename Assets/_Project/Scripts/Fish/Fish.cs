@@ -154,7 +154,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	{
 		if (other.GetComponent<Bubble>())
 		{
-			if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().type == type)
+			if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type == type)
 			{
 				OnCoinMatch?.Invoke(other.GetComponent<Bubble>().ScoreCount);
 
@@ -165,7 +165,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 				GameController.Instance.sound.PlaySound(feedFishGood);
 			}
-			else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().type != type)
+			else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type != type)
 			{
 				OnCoinMatch?.Invoke(-other.GetComponent<Bubble>().ScoreCount);
 

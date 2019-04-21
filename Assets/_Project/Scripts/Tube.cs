@@ -71,7 +71,7 @@ public class Tube : MonoBehaviour
 		_bubble = _bubbleDIFactory.Create();
 
 		_bubble.transform.SetPositionAndRotation(_bubbleSpawnPoint.position, Quaternion.identity);
-		_bubble.SetTubeID(_id);
+		_bubble.SetParentTubeID(_id);
 
 		_randomBounceRate = UnityEngine.Random.Range(_gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f);
 		_bubble.AddForce(_randomBounceRate);
