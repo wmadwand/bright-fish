@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class EnemyHealthBar : MonoBehaviour
+public class FishHealthBar : MonoBehaviour
 {
 	public Transform indicatorPivotPoint;
 	public Image green;

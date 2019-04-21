@@ -11,6 +11,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	public BubbleType Type { get; private set; }
 	public bool IsReleased { get; private set; }
 
+	//TODO: move to separate class
 	public int ScoreCount
 	{
 		get
@@ -36,6 +37,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		}
 	}
 
+	//TODO: move to separate class
 	[SerializeField] private Sounds soundName01, explosionSound;
 
 	private int _parentTubeID;

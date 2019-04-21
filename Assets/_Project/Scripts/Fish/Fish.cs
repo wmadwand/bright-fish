@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	public static event Action<int> OnCoinMatch;
+
 	public static event Action<BubbleType, Vector3> OnDeath;
 	public static event Action<BubbleType, Vector3> OnHappy;
 
@@ -17,7 +18,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	[SerializeField] private GameObject _enemyHealthBarPref;
 	[SerializeField] private Transform _healthbarPoint;
 
-	public EnemyHealthBar healthBar;
+	public FishHealthBar healthBar;
 
 	bool isDone;
 
@@ -47,7 +48,12 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	private FishHealth _fishHealth;
 
-	void SetColors()
+	//----------------------------------------------------------------
+
+
+	//----------------------------------------------------------------
+
+	private void SetColors()
 	{
 
 		ColorA = GameController.Instance.gameSettings.colorA;
@@ -57,14 +63,14 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	private void Awake()
 	{
-		_renderer = GetComponent<Renderer>();
+		_renderer = GetComponentInChildren<Renderer>();
 		_fishHealth = GetComponent<FishHealth>();
 
 		SetColors();
 		//Generate();
 	}
 
-	void Update()
+	private  void Update()
 	{
 		if (isDone)
 		{
@@ -103,12 +109,12 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	}
 
-	async void SOmeDelayBeforeHide(Action callback)
+	private async void SOmeDelayBeforeHide(Action callback)
 	{
 
 		await Task.Delay(TimeSpan.FromSeconds(1));
 
-		GetComponent<SpriteRenderer>().DOFade(0, 1);
+		GetComponentInChildren<SpriteRenderer>().DOFade(0, 1);
 		healthBar.GetComponent<CanvasGroup>().DOFade(0, 1);
 
 		await Task.Delay(TimeSpan.FromSeconds(1));
@@ -124,7 +130,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	private void Start()
 	{
-		healthBar = Instantiate(_enemyHealthBarPref, GameController.Instance.canvas.transform).GetComponent<EnemyHealthBar>();
+		healthBar = Instantiate(_enemyHealthBarPref, GameController.Instance.canvas.transform).GetComponent<FishHealthBar>();
 		healthBar.Init(_healthbarPoint);
 
 		UpdateHealthBar(_fishHealth.value);
@@ -135,18 +141,18 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		healthBar.UpdateState(value);
 	}
 
-	void UpdateSprite()
+	private void UpdateSprite()
 	{
 		if (_fishHealth.IsFedup)
 		{
-			GetComponent<SpriteRenderer>().sprite = sprites[1];
+			GetComponentInChildren<SpriteRenderer>().sprite = sprites[1];
 
 
 
 		}
 		else if (_fishHealth.IsDead)
 		{
-			GetComponent<SpriteRenderer>().sprite = sprites[2];
+			GetComponentInChildren<SpriteRenderer>().sprite = sprites[2];
 		}
 	}
 
@@ -200,7 +206,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		//if
 	}
 
-	void SpawnCoinScroreText(int scoreCount, bool wrongCoin = false)
+	private void SpawnCoinScroreText(int scoreCount, bool wrongCoin = false)
 	{
 		Vector3 pos = Camera.main.WorldToScreenPoint(scoreTextSpawnPoint.position);
 
@@ -285,7 +291,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		_renderer.material.color = _color;
 	}
 
-	void Generate()
+	private void Generate()
 	{
 		type = (BubbleType)UnityEngine.Random.Range(0, 2);
 

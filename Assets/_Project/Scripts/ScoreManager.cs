@@ -11,7 +11,7 @@ public class ScoreManager : MonoSingleton<ScoreManager>
 
 	private void Awake()
 	{
-		TubeIn.OnCoinMatch += TubeIn_OnCoinMatch;
+		Fish.OnCoinMatch += TubeIn_OnCoinMatch;
 	}
 
 	private void TubeIn_OnCoinMatch(int obj)
@@ -25,7 +25,7 @@ public class ScoreManager : MonoSingleton<ScoreManager>
 
 	private void OnDestroy()
 	{
-		TubeIn.OnCoinMatch -= TubeIn_OnCoinMatch;
+		Fish.OnCoinMatch -= TubeIn_OnCoinMatch;
 	}
 
 	private void GameController_OnGameStart()
