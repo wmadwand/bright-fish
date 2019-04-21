@@ -1159,7 +1159,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BubblePrefab: {fileID: 6680996825359011617, guid: 8dc5bf2910c15594bb2a6e87b3d63966,
     type: 3}
-  BubbleFactoryPrefab: {fileID: 4368104105572240329, guid: f59506842051ecd4995485be73807bd2,
+  TubePrefab: {fileID: 4368104105572240329, guid: f59506842051ecd4995485be73807bd2,
+    type: 3}
+  FishPrefab: {fileID: 4066991538648877187, guid: 8999d3103f1191044b21c24032c60206,
     type: 3}
 --- !u!4 &1269847594
 Transform:

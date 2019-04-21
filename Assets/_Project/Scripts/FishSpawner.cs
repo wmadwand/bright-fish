@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
+using Zenject;
 
 public class FishSpawner : MonoBehaviour
 {
@@ -12,6 +11,13 @@ public class FishSpawner : MonoBehaviour
 	public GameObject[] points;
 
 	System.Random _rnd;
+	Fish.FishDIFactory _fishDIFactory;
+
+	[Inject]
+	private void Construct(Fish.FishDIFactory fishDIFactory)
+	{
+		_fishDIFactory = fishDIFactory;
+	}
 
 	private void Awake()
 	{
@@ -36,7 +42,7 @@ public class FishSpawner : MonoBehaviour
 		InitSpawn();
 	}
 
-	void InitSpawn()
+	private void InitSpawn()
 	{
 
 		//int[] coinTypeArray = { 0, 1, 2 };
@@ -44,15 +50,19 @@ public class FishSpawner : MonoBehaviour
 
 		for (int i = 0; i < /*2*/ MyRandomArray.Length; i++)
 		{
-			var tubeIn = Instantiate(fish, points[i].transform.position, Quaternion.identity);
-			tubeIn.GetComponent<Fish>().Setup(MyRandomArray[i]);
+			var fish = _fishDIFactory.Create();
+			fish.transform.SetPositionAndRotation(points[i].transform.position, Quaternion.identity);
+
+			fish.Setup(MyRandomArray[i]);
 
 		}
 	}
 
-	void Spawn(BubbleType coinType, Vector3 position)
+	private void Spawn(BubbleType coinType, Vector3 position)
 	{
-		var fishGo = Instantiate(fish, position, Quaternion.identity);
-		fishGo.GetComponent<Fish>().Setup((BubbleType)Random.Range(0, coinTypeArray.Length)/*coinType*/);
+		Fish fish = _fishDIFactory.Create();
+		fish.transform.SetPositionAndRotation(position, Quaternion.identity);
+
+		fish.Setup((BubbleType)Random.Range(0, coinTypeArray.Length)/*coinType*/);
 	}
 }

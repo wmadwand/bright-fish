@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-	public static event Action<int> OnCoinMatch;
+	public static event Action<int> OnBubbleColorMatch;
 
 	public static event Action<BubbleType, Vector3> OnDeath;
 	public static event Action<BubbleType, Vector3> OnHappy;
@@ -20,7 +21,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	public FishHealthBar healthBar;
 
-	bool isDone;
+	private bool isDone;
 
 	[SerializeField]
 	Sounds feedFishGood,
@@ -31,13 +32,9 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	public Sprite[] sprites;
 
 
-	bool isCollided;
+	private bool isCollided;
 
 	public Transform scoreTextSpawnPoint;
-
-	Color ColorA;
-	Color ColorB;
-	Color ColorC;
 
 	Color _color;
 
@@ -47,30 +44,26 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	bool isDraggable;
 
 	private FishHealth _fishHealth;
+	private GameSettings _gameSettings;
 
 	//----------------------------------------------------------------
 
 
 	//----------------------------------------------------------------
 
-	private void SetColors()
+	[Inject]
+	private void Construct(GameSettings gameSettings)
 	{
-
-		ColorA = GameController.Instance.gameSettings.colorA;
-		ColorB = GameController.Instance.gameSettings.colorB;
-		ColorC = GameController.Instance.gameSettings.colorC;
+		_gameSettings = gameSettings;
 	}
 
 	private void Awake()
 	{
 		_renderer = GetComponentInChildren<Renderer>();
 		_fishHealth = GetComponent<FishHealth>();
-
-		SetColors();
-		//Generate();
 	}
 
-	private  void Update()
+	private void Update()
 	{
 		if (isDone)
 		{
@@ -162,7 +155,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		{
 			if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type == type)
 			{
-				OnCoinMatch?.Invoke(other.GetComponent<Bubble>().ScoreCount);
+				OnBubbleColorMatch?.Invoke(other.GetComponent<Bubble>().ScoreCount);
 
 				_fishHealth.ChangeHealth(30);
 				UpdateHealthBar(_fishHealth.value);
@@ -173,7 +166,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			}
 			else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type != type)
 			{
-				OnCoinMatch?.Invoke(-other.GetComponent<Bubble>().ScoreCount);
+				OnBubbleColorMatch?.Invoke(-other.GetComponent<Bubble>().ScoreCount);
 
 				SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount, true);
 
@@ -269,45 +262,15 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		other.GetComponent<Bubble>().SelfDestroy();
 	}
 
-	public void Setup(BubbleType type)
+	public void Setup(BubbleType bubbleType)
 	{
-		this.type = type;
+		type = bubbleType;
 
-		switch (this.type)
+		switch (bubbleType)
 		{
-			case BubbleType.A:
-				_color = ColorA;
-				break;
-			case BubbleType.B:
-				_color = ColorB;
-				break;
-			case BubbleType.C:
-				_color = ColorC;
-				break;
-			default:
-				break;
-		}
-
-		_renderer.material.color = _color;
-	}
-
-	private void Generate()
-	{
-		type = (BubbleType)UnityEngine.Random.Range(0, 2);
-
-		switch (type)
-		{
-			case BubbleType.A:
-				_color = ColorA;
-				break;
-			case BubbleType.B:
-				_color = ColorB;
-				break;
-			case BubbleType.C:
-				_color = ColorC;
-				break;
-			default:
-				break;
+			case BubbleType.A: _color = _gameSettings.colorA; break;
+			case BubbleType.B: _color = _gameSettings.colorB; break;
+			case BubbleType.C: _color = _gameSettings.colorC; break;
 		}
 
 		_renderer.material.color = _color;
@@ -329,4 +292,6 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 		isDraggable = false;
 	}
+
+	public class FishDIFactory : PlaceholderFactory<Fish> { }
 }
