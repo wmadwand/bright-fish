@@ -26,7 +26,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	private Color _color;
 	private SpriteRenderer _spriteRenderer;
 	private Vector2 _originPosition;
-	private bool isDraggable;
+	private bool _isDraggable;
 	private FishHealth _fishHealth;
 	private GameSettings _gameSettings;
 
@@ -93,20 +93,20 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 		if (_fishHealth.IsDead)
 		{
-			GameController.Instance.sound.PlaySound(fishDead);			
-			_isDead = true;			
+			GameController.Instance.sound.PlaySound(fishDead);
+			_isDead = true;
 
-			SOmeDelayBeforeHide(() =>
+			DelayBeforeHide(() =>
 			{
 				OnDeath?.Invoke(_type, transform.position);
 				Destroy();
-			});			
+			});
 		}
 		else if (_fishHealth.IsFedup)
 		{
 			_isDead = true;
 
-			SOmeDelayBeforeHide(() =>
+			DelayBeforeHide(() =>
 			{
 				OnHappy?.Invoke(_type, transform.position);
 				Destroy();
@@ -117,7 +117,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	}
 
-	private async void SOmeDelayBeforeHide(Action callback)
+	private async void DelayBeforeHide(Action callback)
 	{
 		await Task.Delay(TimeSpan.FromSeconds(1));
 
@@ -172,7 +172,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		}
 		else if (other.GetComponent<Fish>())
 		{
-			if (!isDraggable)
+			if (!_isDraggable)
 			{
 				return;
 			}
@@ -184,21 +184,6 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			other.GetComponent<Fish>().transform.position = _originPosition;
 			_originPosition = transform.position;
 		}
-	}
-
-	private void OnTriggerStay(Collider other)
-	{
-		//if
-	}
-
-	private void OnTriggerExit2D(Collider2D other)
-	{
-		if (!other.GetComponent<Bubble>())
-		{
-			return;
-		}
-
-		other.GetComponent<Bubble>().SelfDestroy();
 	}
 
 	private void SpawnCoinScroreText(int scoreCount, bool wrongCoin = false)
@@ -214,13 +199,13 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
 	{
 		_isCollided = false;
-		isDraggable = true;
+		_isDraggable = true;
 		_originPosition = transform.position;
 	}
 
 	void IDragHandler.OnDrag(PointerEventData eventData)
 	{
-		if (!isDraggable)
+		if (!_isDraggable)
 		{
 			return;
 		}
@@ -229,8 +214,6 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		{
 			_isCollided = false;
 		}
-
-		//return;
 
 		////Very nice approach for 2D objects dragging
 		//transform.position = eventData.position;
@@ -263,7 +246,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			transform.position = _originPosition;
 		}
 
-		isDraggable = false;
+		_isDraggable = false;
 	}
 
 	//----------------------------------------------------------------

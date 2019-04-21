@@ -240,9 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b36222bdd370cb4f830c4119644e40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fish: {fileID: 4066991538648877187, guid: 8999d3103f1191044b21c24032c60206, type: 3}
-  coinTypeArray: 000000000100000002000000
-  points:
+  _fishTypes: 000000000100000002000000
+  _spawnPoints:
   - {fileID: 724471202}
   - {fileID: 740539964}
   - {fileID: 1243208408}
