@@ -10,44 +10,57 @@ using Zenject;
 public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	public static event Action<int> OnBubbleColorMatch;
-
 	public static event Action<BubbleType, Vector3> OnDeath;
 	public static event Action<BubbleType, Vector3> OnHappy;
 
-	public BubbleType type;
-
+	[SerializeField] private Sprite[] _sprites;
+	[SerializeField] private Sounds feedFishGood, feedFishBad, fishDead, fishHappy;
 	[SerializeField] private GameObject _enemyHealthBarPref;
 	[SerializeField] private Transform _healthbarPoint;
+	[SerializeField] private Transform _scoreTextSpawnPoint;
 
-	public FishHealthBar healthBar;
-
-	private bool isDone;
-
-	[SerializeField]
-	Sounds feedFishGood,
-	feedFishBad,
-	fishDead,
-	fishHappy;
-
-	public Sprite[] sprites;
-
-
-	private bool isCollided;
-
-	public Transform scoreTextSpawnPoint;
-
-	Color _color;
-
-	private Renderer _renderer;
-
-	public Vector2 originPos;
-	bool isDraggable;
-
+	private FishHealthBar _healthBar;
+	private BubbleType _type;
+	private bool _isDead;
+	private bool _isCollided;
+	private Color _color;
+	private SpriteRenderer _spriteRenderer;
+	private Vector2 _originPosition;
+	private bool isDraggable;
 	private FishHealth _fishHealth;
 	private GameSettings _gameSettings;
 
 	//----------------------------------------------------------------
 
+	public void Setup(BubbleType bubbleType)
+	{
+		_type = bubbleType;
+
+		switch (bubbleType)
+		{
+			case BubbleType.A: _color = _gameSettings.colorA; break;
+			case BubbleType.B: _color = _gameSettings.colorB; break;
+			case BubbleType.C: _color = _gameSettings.colorC; break;
+		}
+
+		_spriteRenderer.material.color = _color;
+	}
+
+	public void ChangePosition(Vector3 value)
+	{
+		gameObject.transform.position = value;
+	}
+
+	public void UpdateHealthBar(int value)
+	{
+		_healthBar.UpdateState(value);
+	}
+
+	public void Destroy()
+	{
+		Destroy(_healthBar.gameObject);
+		Destroy(gameObject);
+	}
 
 	//----------------------------------------------------------------
 
@@ -59,41 +72,43 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	private void Awake()
 	{
-		_renderer = GetComponentInChildren<Renderer>();
+		_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		_fishHealth = GetComponent<FishHealth>();
+	}
+
+	private void Start()
+	{
+		_healthBar = Instantiate(_enemyHealthBarPref, GameController.Instance.canvas.transform).GetComponent<FishHealthBar>();
+		_healthBar.Init(_healthbarPoint);
+
+		UpdateHealthBar(_fishHealth.value);
 	}
 
 	private void Update()
 	{
-		if (isDone)
+		if (_isDead)
 		{
 			return;
 		}
 
 		if (_fishHealth.IsDead)
 		{
-			GameController.Instance.sound.PlaySound(fishDead);
-
-			//GameObject.Destroy(gameObject);
-			isDone = true;
-
-			//OnDeath?.Invoke(type, transform.position);
+			GameController.Instance.sound.PlaySound(fishDead);			
+			_isDead = true;			
 
 			SOmeDelayBeforeHide(() =>
 			{
-				OnDeath?.Invoke(type, transform.position);
+				OnDeath?.Invoke(_type, transform.position);
 				Destroy();
-			});
-
-			//Destroy();
+			});			
 		}
 		else if (_fishHealth.IsFedup)
 		{
-			isDone = true;
+			_isDead = true;
 
 			SOmeDelayBeforeHide(() =>
 			{
-				OnHappy?.Invoke(type, transform.position);
+				OnHappy?.Invoke(_type, transform.position);
 				Destroy();
 			});
 		}
@@ -104,48 +119,25 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	private async void SOmeDelayBeforeHide(Action callback)
 	{
-
 		await Task.Delay(TimeSpan.FromSeconds(1));
 
-		GetComponentInChildren<SpriteRenderer>().DOFade(0, 1);
-		healthBar.GetComponent<CanvasGroup>().DOFade(0, 1);
+		_spriteRenderer.DOFade(0, 1);
+		_healthBar.GetComponent<CanvasGroup>().DOFade(0, 1);
 
 		await Task.Delay(TimeSpan.FromSeconds(1));
 
 		callback();
 	}
 
-	public void Destroy()
-	{
-		Destroy(healthBar.gameObject);
-		Destroy(gameObject);
-	}
-
-	private void Start()
-	{
-		healthBar = Instantiate(_enemyHealthBarPref, GameController.Instance.canvas.transform).GetComponent<FishHealthBar>();
-		healthBar.Init(_healthbarPoint);
-
-		UpdateHealthBar(_fishHealth.value);
-	}
-
-	public void UpdateHealthBar(int value)
-	{
-		healthBar.UpdateState(value);
-	}
-
 	private void UpdateSprite()
 	{
 		if (_fishHealth.IsFedup)
 		{
-			GetComponentInChildren<SpriteRenderer>().sprite = sprites[1];
-
-
-
+			_spriteRenderer.sprite = _sprites[1];
 		}
 		else if (_fishHealth.IsDead)
 		{
-			GetComponentInChildren<SpriteRenderer>().sprite = sprites[2];
+			_spriteRenderer.sprite = _sprites[2];
 		}
 	}
 
@@ -153,7 +145,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	{
 		if (other.GetComponent<Bubble>())
 		{
-			if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type == type)
+			if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type == _type)
 			{
 				OnBubbleColorMatch?.Invoke(other.GetComponent<Bubble>().ScoreCount);
 
@@ -164,7 +156,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 				GameController.Instance.sound.PlaySound(feedFishGood);
 			}
-			else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type != type)
+			else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type != _type)
 			{
 				OnBubbleColorMatch?.Invoke(-other.GetComponent<Bubble>().ScoreCount);
 
@@ -185,12 +177,12 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 				return;
 			}
 
-			isCollided = true;
+			_isCollided = true;
 
 			//isDraggable = false;
 			transform.position = other.GetComponent<Fish>().transform.position;
-			other.GetComponent<Fish>().transform.position = originPos;
-			originPos = transform.position;
+			other.GetComponent<Fish>().transform.position = _originPosition;
+			_originPosition = transform.position;
 		}
 	}
 
@@ -199,9 +191,19 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		//if
 	}
 
+	private void OnTriggerExit2D(Collider2D other)
+	{
+		if (!other.GetComponent<Bubble>())
+		{
+			return;
+		}
+
+		other.GetComponent<Bubble>().SelfDestroy();
+	}
+
 	private void SpawnCoinScroreText(int scoreCount, bool wrongCoin = false)
 	{
-		Vector3 pos = Camera.main.WorldToScreenPoint(scoreTextSpawnPoint.position);
+		Vector3 pos = Camera.main.WorldToScreenPoint(_scoreTextSpawnPoint.position);
 
 		var scoreGO = Instantiate(GameController.Instance.coinScoreTextPref, GameController.Instance.canvas.transform);
 		scoreGO.transform.position = pos;
@@ -209,16 +211,23 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		scoreGO.GetComponent<CoinScoreText>().SetScore(scoreCount, wrongCoin);
 	}
 
-	public void OnDrag(PointerEventData eventData)
+	void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
+	{
+		_isCollided = false;
+		isDraggable = true;
+		_originPosition = transform.position;
+	}
+
+	void IDragHandler.OnDrag(PointerEventData eventData)
 	{
 		if (!isDraggable)
 		{
 			return;
 		}
 
-		if (isCollided)
+		if (_isCollided)
 		{
-			isCollided = false;
+			_isCollided = false;
 		}
 
 		//return;
@@ -247,51 +256,17 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		//transform.position = P;
 	}
 
-	public void ChangePosition(Vector3 value)
+	void IEndDragHandler.OnEndDrag(PointerEventData eventData)
 	{
-		gameObject.transform.position = value;
-	}
-
-	private void OnTriggerExit2D(Collider2D other)
-	{
-		if (!other.GetComponent<Bubble>())
+		if (!_isCollided)
 		{
-			return;
-		}
-
-		other.GetComponent<Bubble>().SelfDestroy();
-	}
-
-	public void Setup(BubbleType bubbleType)
-	{
-		type = bubbleType;
-
-		switch (bubbleType)
-		{
-			case BubbleType.A: _color = _gameSettings.colorA; break;
-			case BubbleType.B: _color = _gameSettings.colorB; break;
-			case BubbleType.C: _color = _gameSettings.colorC; break;
-		}
-
-		_renderer.material.color = _color;
-	}
-
-	public void OnBeginDrag(PointerEventData eventData)
-	{
-		isCollided = false;
-		isDraggable = true;
-		originPos = transform.position;
-	}
-
-	public void OnEndDrag(PointerEventData eventData)
-	{
-		if (!isCollided)
-		{
-			transform.position = originPos;
+			transform.position = _originPosition;
 		}
 
 		isDraggable = false;
 	}
+
+	//----------------------------------------------------------------
 
 	public class FishDIFactory : PlaceholderFactory<Fish> { }
 }

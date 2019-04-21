@@ -236,21 +236,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b9bfeb6aeea74d4198a71c7dfd4a18d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  _enemyHealthBarPref: {fileID: 3602389873474134920, guid: 58549a057a2a8ef419e0dfae62e27d52,
-    type: 3}
-  _healthbarPoint: {fileID: 2742760955510437075}
-  healthBar: {fileID: 0}
+  _sprites:
+  - {fileID: 21300000, guid: b713cdd06a5f67d4185df5b8b0a38c5e, type: 3}
+  - {fileID: 21300000, guid: e0ae9de2b0ecf7b43b88083d1c1b98cb, type: 3}
+  - {fileID: 21300000, guid: 4be926fdd39a63a4a930173b1dd8ec19, type: 3}
   feedFishGood: 2
   feedFishBad: 3
   fishDead: 4
   fishHappy: 5
-  sprites:
-  - {fileID: 21300000, guid: b713cdd06a5f67d4185df5b8b0a38c5e, type: 3}
-  - {fileID: 21300000, guid: e0ae9de2b0ecf7b43b88083d1c1b98cb, type: 3}
-  - {fileID: 21300000, guid: 4be926fdd39a63a4a930173b1dd8ec19, type: 3}
-  scoreTextSpawnPoint: {fileID: 7041403533798403033}
-  originPos: {x: 0, y: 0}
+  _enemyHealthBarPref: {fileID: 3602389873474134920, guid: 58549a057a2a8ef419e0dfae62e27d52,
+    type: 3}
+  _healthbarPoint: {fileID: 2742760955510437075}
+  _scoreTextSpawnPoint: {fileID: 7041403533798403033}
 --- !u!114 &8659573865520767744
 MonoBehaviour:
   m_ObjectHideFlags: 0
