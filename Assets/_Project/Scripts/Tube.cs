@@ -79,7 +79,7 @@ public class Tube : MonoBehaviour
 
 	private async void RunAfterDelay(Action callback)
 	{
-		float delayRate = _gameSettings.BubbleThrowDelay ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
+		float delayRate = _gameSettings.TubeBubbleThrowDelay ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
 
 		await Task.Delay(TimeSpan.FromSeconds(delayRate));
 		callback();

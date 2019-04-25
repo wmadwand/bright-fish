@@ -91,7 +91,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		_rigidbody2D = GetComponentInChildren<Rigidbody2D>();
 		_view = _renderer.gameObject;
 
-		_selfDestroyTimeRate = _gameSettings.SelfDestroyTimeRate;
+		_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
 
 		Init();
 	}
