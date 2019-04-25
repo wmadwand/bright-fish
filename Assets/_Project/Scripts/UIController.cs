@@ -5,7 +5,8 @@ public class UIController : MonoBehaviour
 {
 	[SerializeField] private GameObject _gameStartPanel;
 	[SerializeField] private GameObject _gameProgressPanel;
-	[SerializeField] private GameObject _gameOverPanel;
+	[SerializeField] private GameObject _gameOverPanelFail;
+	[SerializeField] private GameObject _gameOverPanelSuccess;
 	[SerializeField] private Text _finalScoreText;
 
 	//---------------------------------------------------------
@@ -34,9 +35,9 @@ public class UIController : MonoBehaviour
 		_gameProgressPanel.SetActive(true);
 	}
 
-	private void GameController_OnGameStop()
+	private void GameController_OnGameStop(bool success)
 	{
-		ShowGameOverPanel();
+		ShowGameOverPanel(success);
 	}
 
 	private void ShowGameStartPanel()
@@ -45,12 +46,14 @@ public class UIController : MonoBehaviour
 		_gameStartPanel.SetActive(true);
 	}
 
-	private void ShowGameOverPanel()
+	private void ShowGameOverPanel(bool success)
 	{
 		SetFinalScoreText();
 
 		HideAllPanels();
-		_gameOverPanel.SetActive(true);
+
+		var panel = success ? _gameOverPanelSuccess : _gameOverPanelFail;
+		panel.SetActive(true);
 	}
 
 	private void ShowGameProgressPanel()
@@ -62,8 +65,9 @@ public class UIController : MonoBehaviour
 	private void HideAllPanels()
 	{
 		_gameStartPanel.SetActive(false);
-		_gameOverPanel.SetActive(false);
+		_gameOverPanelFail.SetActive(false);
 		_gameProgressPanel.SetActive(false);
+		_gameOverPanelSuccess.SetActive(false);
 	}
 
 	private void SetFinalScoreText()

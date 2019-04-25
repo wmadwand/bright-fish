@@ -29,7 +29,7 @@ public class TubeSpawner : MonoBehaviour
 		_random = new System.Random();
 	}
 
-	private void GameController_OnStop()
+	private void GameController_OnStop(bool success)
 	{
 		DestroyTubes();
 	}
@@ -68,6 +68,6 @@ public class TubeSpawner : MonoBehaviour
 
 	public void DestroyTubes()
 	{
-		Array.ForEach(_currentTubeCollection, item => Destroy(item.gameObject));
+		Array.ForEach(_currentTubeCollection, item => item.SelfDestroy());
 	}
 }

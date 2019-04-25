@@ -9,7 +9,7 @@ public class FishSpawner : MonoBehaviour
 	[SerializeField] private GameObject[] _spawnPoints;
 
 	private System.Random _random;
-	private Fish.FishDIFactory _fishDIFactory;
+	private Fish.FishDIFactory _fishDIFactory;	
 
 	private List<Fish> _fishes = new List<Fish>();
 
@@ -31,9 +31,14 @@ public class FishSpawner : MonoBehaviour
 		GameController.OnStop += GameController_OnStop;
 	}
 
-	private void GameController_OnStop()
+	//IEnumerator ClearFishes()
+	//{
+	//	yield 
+	//}
+
+	private void GameController_OnStop(bool success)
 	{
-		_fishes.ForEach(fish => Destroy(fish.gameObject));
+		_fishes.ForEach(fish => fish.Destroy());
 		_fishes.Clear();
 	}
 
@@ -55,16 +60,27 @@ public class FishSpawner : MonoBehaviour
 
 	private void Fish_OnHappy(Fish fish, BubbleType arg1, Vector3 arg2)
 	{
-		Spawn(arg1, arg2);
+	
 
 		_fishes.Remove(fish);
+
+		if (GameController.Instance.IsGameActive)
+		{
+			Spawn(arg1, arg2);
+		}
+
+		
 	}
 
 	private void Fish_OnDeath(Fish fish, BubbleType arg1, Vector3 arg2)
 	{
-		Spawn(arg1, arg2);
-
+		
 		_fishes.Remove(fish);
+
+		if (GameController.Instance.IsGameActive)
+		{
+			Spawn(arg1, arg2);
+		}
 	}
 
 	private void InitSpawn()

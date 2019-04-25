@@ -7,8 +7,8 @@ using Zenject;
 
 public class LevelController : MonoBehaviour
 {
-	public static Action OnLevelComplete;
-	public static Action OnLevelFail;
+	public static event Action OnLevelComplete;
+	public static event Action OnLevelFail;
 
 	[SerializeField] private Text _rescuedFishText;
 
@@ -37,6 +37,18 @@ public class LevelController : MonoBehaviour
 		ResetLevel();
 
 		Fish.OnHappy += Fish_OnHappy;
+		LiveController.OnLivesOut += LiveController_OnLivesOut;
+		GameController.OnStart += GameController_OnStart;
+	}
+
+	private void GameController_OnStart()
+	{
+		ResetLevel();
+	}
+
+	private void LiveController_OnLivesOut()
+	{
+		OnLevelFail?.Invoke();
 	}
 
 	private void Fish_OnHappy(Fish fish,BubbleType arg1, Vector3 arg2)

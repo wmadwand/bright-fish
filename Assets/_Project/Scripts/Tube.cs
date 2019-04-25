@@ -21,6 +21,12 @@ public class Tube : MonoBehaviour
 		_id = value;
 	}
 
+	public void SelfDestroy()
+	{
+		Destroy(_bubble.gameObject);
+		Destroy(gameObject);
+	}
+
 	//----------------------------------------------------------------
 
 	[Inject]

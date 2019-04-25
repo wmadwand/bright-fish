@@ -2,12 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class GameController : MonoSingleton<GameController>
 {
+	public bool IsGameActive { get; private set; }
+
 	public static event Action OnStart;
-	public static event Action OnStop;
+	public static event Action<bool> OnStop;
 
 	public GameSettings gameSettings;
 	public SoundController sound;
@@ -22,8 +25,34 @@ public class GameController : MonoSingleton<GameController>
 	GameSettingsA _gameSettingsA;
 	GameSettings _gameSettingsB;
 
+	private void Awake()
+	{
+		LiveController.OnLivesOut += LiveController_OnLivesOut;
+		LevelController.OnLevelComplete += LevelController_OnLevelComplete;
+	}
+
+	private void LevelController_OnLevelComplete()
+	{
+		IsGameActive = false;
+		OnStop?.Invoke(true);
+	}
+
+	private void LiveController_OnLivesOut()
+	{
+		IsGameActive = false;
+		OnStop?.Invoke(false);
+	}
+
+	public void ResetScene()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+	}
+
 	public void StartGame()
 	{
+
+		IsGameActive = true;
 		OnStart?.Invoke();
 	}
 

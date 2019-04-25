@@ -15,7 +15,7 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T
 		{
 			if (_isShuttingDown)
 			{
-				return null;
+				//return null;
 			}
 
 			lock (_lock)

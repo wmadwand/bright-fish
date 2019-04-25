@@ -53,13 +53,21 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	public void UpdateHealthBar(int value)
 	{
-		_healthBar.UpdateState(value);
+		_healthBar?.UpdateState(value);
 	}
 
 	public void Destroy()
 	{
-		Destroy(_healthBar.gameObject);
-		Destroy(gameObject);
+		try
+		{
+			Destroy(_healthBar.gameObject);
+			Destroy(gameObject);
+		}
+		catch (Exception)
+		{
+
+			//throw;
+		}
 	}
 
 	//----------------------------------------------------------------

@@ -7,7 +7,7 @@ using Zenject;
 
 public class LiveController : MonoBehaviour
 {
-	public static Action OnLivesOut;
+	public static event Action OnLivesOut;
 
 	[SerializeField] private Image[] _heartImages;
 
@@ -32,7 +32,14 @@ public class LiveController : MonoBehaviour
 		_livesCount = _gameSettings.LivesCount;
 
 		Fish.OnDeath += Fish_OnDeath;
+		GameController.OnStart += GameController_OnStart;
 	}
+
+	private void GameController_OnStart()
+	{
+		ResetLives();
+	}
+
 	private void OnDestroy()
 	{
 		Fish.OnDeath -= Fish_OnDeath;
