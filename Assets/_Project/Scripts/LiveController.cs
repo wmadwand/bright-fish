@@ -38,7 +38,7 @@ public class LiveController : MonoBehaviour
 		Fish.OnDeath -= Fish_OnDeath;
 	}
 
-	private void Fish_OnDeath(BubbleType arg1, Vector3 arg2)
+	private void Fish_OnDeath(Fish fish, BubbleType arg1, Vector3 arg2)
 	{
 		_livesCount--;
 

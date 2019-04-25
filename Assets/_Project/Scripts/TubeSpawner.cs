@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +11,7 @@ public class TubeSpawner : MonoBehaviour
 
 	private System.Random _random;
 	private Tube.TubeDIFactory _tubeDIFactory;
+	private Tube[] _currentTubeCollection;
 
 	//----------------------------------------------------------------
 
@@ -21,16 +23,35 @@ public class TubeSpawner : MonoBehaviour
 
 	private void Awake()
 	{
+		GameController.OnStart += GameController_OnStart;
+		GameController.OnStop += GameController_OnStop;
+
 		_random = new System.Random();
 	}
 
-	private void Start()
+	private void GameController_OnStop()
+	{
+		DestroyTubes();
+	}
+
+	private void GameController_OnStart()
 	{
 		SpawnTubes();
 	}
 
-	private void SpawnTubes()
+	private void Start()
 	{
+		//SpawnTubes();
+	}
+	private void OnDestroy()
+	{
+		GameController.OnStart -= GameController_OnStart;
+	}
+
+	public void SpawnTubes()
+	{
+		_currentTubeCollection = new Tube[_bubbleTypes.Length];
+
 		//int[] coinTypeArray = { 0, 1, 2 };
 		BubbleType[] randomArray = _bubbleTypes.OrderBy(x => _random.Next()).ToArray();
 
@@ -40,6 +61,13 @@ public class TubeSpawner : MonoBehaviour
 
 			tube.transform.SetPositionAndRotation(_tubeSpawnPoints[i].transform.position, Quaternion.identity);
 			tube.SetTubeID(i);
+
+			_currentTubeCollection[i] = tube;
 		}
+	}
+
+	public void DestroyTubes()
+	{
+		Array.ForEach(_currentTubeCollection, item => Destroy(item.gameObject));
 	}
 }

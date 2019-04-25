@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +10,8 @@ public class FishSpawner : MonoBehaviour
 
 	private System.Random _random;
 	private Fish.FishDIFactory _fishDIFactory;
+
+	private List<Fish> _fishes = new List<Fish>();
 
 	//----------------------------------------------------------------
 
@@ -24,11 +27,24 @@ public class FishSpawner : MonoBehaviour
 
 		Fish.OnDeath += Fish_OnDeath;
 		Fish.OnHappy += Fish_OnHappy;
+		GameController.OnStart += GameController_OnStart;
+		GameController.OnStop += GameController_OnStop;
+	}
+
+	private void GameController_OnStop()
+	{
+		_fishes.ForEach(fish => Destroy(fish.gameObject));
+		_fishes.Clear();
+	}
+
+	private void GameController_OnStart()
+	{
+		InitSpawn();
 	}
 
 	private void Start()
 	{
-		InitSpawn();
+		//InitSpawn();
 	}
 
 	private void OnDestroy()
@@ -37,14 +53,18 @@ public class FishSpawner : MonoBehaviour
 		Fish.OnHappy -= Fish_OnHappy;
 	}
 
-	private void Fish_OnHappy(BubbleType arg1, Vector3 arg2)
+	private void Fish_OnHappy(Fish fish, BubbleType arg1, Vector3 arg2)
 	{
 		Spawn(arg1, arg2);
+
+		_fishes.Remove(fish);
 	}
 
-	private void Fish_OnDeath(BubbleType arg1, Vector3 arg2)
+	private void Fish_OnDeath(Fish fish, BubbleType arg1, Vector3 arg2)
 	{
 		Spawn(arg1, arg2);
+
+		_fishes.Remove(fish);
 	}
 
 	private void InitSpawn()
@@ -58,6 +78,8 @@ public class FishSpawner : MonoBehaviour
 			fish.transform.SetPositionAndRotation(_spawnPoints[i].transform.position, Quaternion.identity);
 
 			fish.Setup(MyRandomArray[i]);
+
+			_fishes.Add(fish);
 		}
 	}
 
@@ -67,5 +89,7 @@ public class FishSpawner : MonoBehaviour
 		fish.transform.SetPositionAndRotation(position, Quaternion.identity);
 
 		fish.Setup((BubbleType)Random.Range(0, _fishTypes.Length)/*coinType*/);
+
+		_fishes.Add(fish);
 	}
 }

@@ -10,8 +10,8 @@ using Zenject;
 public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	public static event Action<int> OnBubbleColorMatch;
-	public static event Action<BubbleType, Vector3> OnDeath;
-	public static event Action<BubbleType, Vector3> OnHappy;
+	public static event Action<Fish, BubbleType, Vector3> OnDeath;
+	public static event Action<Fish, BubbleType, Vector3> OnHappy;
 
 	[SerializeField] private Sprite[] _sprites;
 	[SerializeField] private Sounds feedFishGood, feedFishBad, fishDead, fishHappy;
@@ -98,7 +98,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 			DelayBeforeHide(() =>
 			{
-				OnDeath?.Invoke(_type, transform.position);
+				OnDeath?.Invoke(this, _type, transform.position);
 				Destroy();
 			});
 		}
@@ -108,7 +108,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 			DelayBeforeHide(() =>
 			{
-				OnHappy?.Invoke(_type, transform.position);
+				OnHappy?.Invoke(this, _type, transform.position);
 				Destroy();
 			});
 		}

@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 public class GameController : MonoSingleton<GameController>
 {
+	public static event Action OnStart;
+	public static event Action OnStop;
+
 	public GameSettings gameSettings;
 	public SoundController sound;
 	public Canvas canvas;
@@ -17,6 +21,11 @@ public class GameController : MonoSingleton<GameController>
 
 	GameSettingsA _gameSettingsA;
 	GameSettings _gameSettingsB;
+
+	public void StartGame()
+	{
+		OnStart?.Invoke();
+	}
 
 	private void PlayBgMusic()
 	{

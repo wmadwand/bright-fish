@@ -39,7 +39,7 @@ public class LevelController : MonoBehaviour
 		Fish.OnHappy += Fish_OnHappy;
 	}
 
-	private void Fish_OnHappy(BubbleType arg1, Vector3 arg2)
+	private void Fish_OnHappy(Fish fish,BubbleType arg1, Vector3 arg2)
 	{
 		_rescuedFishCurrentCount++;
 		UpdateText();
