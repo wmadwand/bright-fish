@@ -38,9 +38,9 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 		switch (bubbleType)
 		{
-			case BubbleType.A: _color = _gameSettings.colorA; break;
-			case BubbleType.B: _color = _gameSettings.colorB; break;
-			case BubbleType.C: _color = _gameSettings.colorC; break;
+			case BubbleType.A: _color = _gameSettings.ColorA; break;
+			case BubbleType.B: _color = _gameSettings.ColorB; break;
+			case BubbleType.C: _color = _gameSettings.ColorC; break;
 		}
 
 		_spriteRenderer.material.color = _color;

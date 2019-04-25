@@ -50,6 +50,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	private Rigidbody2D _rigidbody2D;
 	private GameSettings _gameSettings;
 	private GameObject _view;
+	private float _selfDestroyTimeRate;
 
 	//----------------------------------------------------------------
 
@@ -90,6 +91,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		_rigidbody2D = GetComponentInChildren<Rigidbody2D>();
 		_view = _renderer.gameObject;
 
+		_selfDestroyTimeRate = _gameSettings.SelfDestroyTimeRate;
+
 		Init();
 	}
 
@@ -97,9 +100,9 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		if (_selfDestroyStarted)
 		{
-			_gameSettings.SelfDestroyTimerRate -= Time.fixedDeltaTime;
+			_selfDestroyTimeRate -= Time.fixedDeltaTime;
 
-			if (_gameSettings.SelfDestroyTimerRate <= 0)
+			if (_selfDestroyTimeRate <= 0)
 			{
 				SelfDestroy();
 			}
@@ -164,10 +167,10 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		Type = (BubbleType)UnityEngine.Random.Range(0, 3);
 		_state = BubbleState.Small;
 
-		_renderer.material.color = _gameSettings.colorDummy;
+		_renderer.material.color = _gameSettings.ColorDummy;
 		SetColor(Type);
 
-		if (_gameSettings.colorMode == BubbleColorMode.Explicit)
+		if (_gameSettings.ColorMode == BubbleColorMode.Explicit)
 		{
 			_renderer.material.color = _color;
 		}
@@ -177,9 +180,9 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		switch (bubbleType)
 		{
-			case BubbleType.A: _color = _gameSettings.colorA; break;
-			case BubbleType.B: _color = _gameSettings.colorB; break;
-			case BubbleType.C: _color = _gameSettings.colorC; break;
+			case BubbleType.A: _color = _gameSettings.ColorA; break;
+			case BubbleType.B: _color = _gameSettings.ColorB; break;
+			case BubbleType.C: _color = _gameSettings.ColorC; break;
 		}
 	}
 

@@ -9,24 +9,53 @@ public enum BubbleColorMode
 [CreateAssetMenu(fileName = "GameSettings")]
 public class GameSettings : ScriptableObject
 {
-	public BubbleColorMode colorMode;
+	[SerializeField] private BubbleColorMode _colorMode = BubbleColorMode.Implicit;
+	public BubbleColorMode ColorMode => _colorMode;
 
 	[Header("Tube behaviour")]
-	public bool BubbleThrowDelay;
-	public float BubbleInitialBounceRate;
+
+	[SerializeField] private bool _bubbleThrowDelay = false;
+	public bool BubbleThrowDelay => _bubbleThrowDelay;
+
+	[SerializeField] private float _bubbleInitialBounceRate = -4;
+	public float BubbleInitialBounceRate => _bubbleInitialBounceRate;
+
 
 	[Header("Bubble behaviour")]
-	public float BubbleMoveSpeed = 10;
-	public float BounceRate = 20;
-	public float DragRate = 4;
-	public int EnlargeSizeClickCount = 4;
-	public float BlinkRate = 0.15f;
-	public bool BigBubbleSelfDestroy = false;
-	public float SelfDestroyTimerRate = 4;
+
+	[SerializeField] private float _bubbleMoveSpeed = 8;
+	public float BubbleMoveSpeed => _bubbleMoveSpeed;
+
+	[SerializeField] private float _bounceRate = 10;
+	public float BounceRate => _bounceRate;
+
+	[SerializeField] private float _dragRate = 4;
+	public float DragRate => _dragRate;
+
+	[SerializeField] private int _enlargeSizeClickCount = 2;
+	public int EnlargeSizeClickCount => _enlargeSizeClickCount;
+
+	[SerializeField] private float _blinkRate =  0.15f;
+	public float BlinkRate => _blinkRate;
+
+	[SerializeField] private bool _bigBubbleSelfDestroy =false;
+	public bool BigBubbleSelfDestroy => _bigBubbleSelfDestroy;
+
+	[SerializeField] private float _selfDestroyTimeRate = 3;
+	public float SelfDestroyTimeRate => _selfDestroyTimeRate;
+
 
 	[Header("Fish color")]
-	public Color colorDummy = Color.white;
-	public Color colorA = Color.magenta;
-	public Color colorB = Color.yellow;
-	public Color colorC = Color.green;
+
+	[SerializeField] private Color _colorDummy = Color.white;
+	public Color ColorDummy => _colorDummy;
+
+	[SerializeField] private Color _colorA = Color.magenta;
+	public Color ColorA => _colorA;
+
+	[SerializeField] private Color _colorB = Color.yellow;
+	public Color ColorB => _colorB;
+
+	[SerializeField] private Color _colorC = Color.green;
+	public Color ColorC => _colorC;
 }
