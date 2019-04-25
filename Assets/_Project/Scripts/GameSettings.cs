@@ -10,6 +10,8 @@ public enum BubbleColorMode
 public class GameSettings : ScriptableObject
 {
 	public BubbleColorMode ColorMode => _colorMode;
+	public int LivesCount => _livesCount;
+
 	public bool TubeBubbleThrowDelay => _TubeBubbleThrowDelay;
 	public float BubbleInitialBounceRate => _bubbleInitialBounceRate;
 
@@ -30,6 +32,7 @@ public class GameSettings : ScriptableObject
 
 	[Header("Common")]
 	[SerializeField] private BubbleColorMode _colorMode = BubbleColorMode.Implicit;
+	[SerializeField] private int _livesCount = 3;
 
 	[Header("Tube behaviour")]
 	[SerializeField] private bool _TubeBubbleThrowDelay = false;

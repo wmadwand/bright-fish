@@ -12,14 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f749209d6eea024cbc556ba2ef85134, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  colorMode: 1
-  BubbleThrowDelay: 0
-  BubbleInitialBounceRate: -7
-  BubbleMoveSpeed: 10
-  BounceRate: 10
-  DragRate: 4
-  EnlargeSizeClickCount: 1
-  colorDummy: {r: 1, g: 1, b: 1, a: 1}
-  colorA: {r: 0.9737315, g: 0, b: 1, a: 1}
-  colorB: {r: 0.99272287, g: 1, b: 0.015686274, a: 1}
-  colorC: {r: 0, g: 1, b: 0, a: 1}
+  _colorMode: 1
+  _livesCount: 3
+  _TubeBubbleThrowDelay: 0
+  _bubbleInitialBounceRate: -4
+  _bubbleMoveSpeed: 8
+  _bounceRate: 10
+  _dragRate: 4
+  _enlargeSizeClickCount: 1
+  _blinkRate: 0.15
+  _bigBubbleSelfDestroy: 0
+  _selfDestroyTime: 3
+  _colorDummy: {r: 1, g: 1, b: 1, a: 1}
+  _colorA: {r: 1, g: 0, b: 1, a: 1}
+  _colorB: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _colorC: {r: 0, g: 1, b: 0, a: 1}
