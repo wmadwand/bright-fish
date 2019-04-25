@@ -9,10 +9,17 @@ public class LiveController : MonoBehaviour
 {
 	public static Action OnLivesOut;
 
-	[SerializeField] Image[] _heartImages;
+	[SerializeField] private Image[] _heartImages;
 
 	private int _livesCount;
 	private GameSettings _gameSettings;
+
+
+	public void ResetLives()
+	{
+		_livesCount = _gameSettings.LivesCount;
+		Array.ForEach(_heartImages, item => item.color = Color.white);
+	}
 
 	[Inject]
 	private void Construct(GameSettings gameSettings)
@@ -34,6 +41,8 @@ public class LiveController : MonoBehaviour
 	private void Fish_OnDeath(BubbleType arg1, Vector3 arg2)
 	{
 		_livesCount--;
+
+		_heartImages[_livesCount].color = Color.black;
 
 		if (_livesCount <= 0)
 		{
