@@ -4293,7 +4293,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: so sad to lose ...
+  m_Text: so sad to lose
 --- !u!222 &2128403575
 CanvasRenderer:
   m_ObjectHideFlags: 0
