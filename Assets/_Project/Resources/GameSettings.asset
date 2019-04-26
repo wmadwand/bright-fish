@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f749209d6eea024cbc556ba2ef85134, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  _colorMode: 0
+  _godMode: 1
+  _colorMode: 1
   _livesCount: 3
-  _rescuedFishTargetCount: 8
+  _rescuedFishTargetCount: 100
   _TubeBubbleThrowDelay: 0
   _bubbleInitialBounceRate: -4
   _bubbleMoveSpeed: 8

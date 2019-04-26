@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundName01: 0
   explosionSound: 1
-  _spoeedReflection: 25
+  _spoeedReflection: 30
 --- !u!114 &8818493228217231688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,4 +188,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714cc893f7ffe134fb7defa5d60473f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothing: 100
+  smoothing: 200

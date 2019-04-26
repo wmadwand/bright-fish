@@ -52,6 +52,8 @@ public class SwipeController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         Debug.LogFormat("Swipe {0}, {1}", GetDirection().x, GetDirection().y);
 		//OnSwipe(GetDirection());
 
+		Debug.Log("released");
+
 		GetComponent<Bubble>().AddForceDirection(GetDirection());
 
         if (data.pointerId == pointerID)
