@@ -8,8 +8,8 @@ public class DestroyAfterTime : MonoBehaviour
 
 	private void Awake()
 	{
-		GetComponent<ParticleSystem>().Stop();
-		GetComponent<ParticleSystem>().Play();
+		//GetComponent<ParticleSystem>().Stop();
+		//GetComponent<ParticleSystem>().Play();
 	}
 
 

@@ -85,7 +85,11 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	private void SpawnExplosion()
 	{
-		Instantiate(_explosion, this.transform.position, Quaternion.identity);
+		var go=Instantiate(_explosion, transform.position, Quaternion.identity);
+
+		//Vector3 vec = new Vector3(transform.position.x, transform.position.y, -1);		
+
+		//go.transform.SetPositionAndRotation(vec, Quaternion.identity);
 	}
 
 	//----------------------------------------------------------------
