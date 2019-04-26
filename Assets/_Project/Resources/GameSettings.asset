@@ -23,8 +23,9 @@ MonoBehaviour:
   _dragRate: 4
   _enlargeSizeClickCount: 1
   _blinkRate: 0.15
+  _destroyBigBubbleClick: 0
   _bigBubbleSelfDestroy: 0
-  _selfDestroyTime: 3
+  _selfDestroyTime: 2
   _colorDummy: {r: 1, g: 1, b: 1, a: 1}
   _colorA: {r: 1, g: 0, b: 1, a: 1}
   _colorB: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}

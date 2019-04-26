@@ -53,7 +53,7 @@ public class Tube : MonoBehaviour
 		{
 			if (other.GetComponent<Bubble>().IsReleased)
 			{
-				other.GetComponent<Bubble>().SelfDestroy();
+				other.GetComponent<Bubble>().SelfDestroy(true, true);
 			}
 			else
 			{

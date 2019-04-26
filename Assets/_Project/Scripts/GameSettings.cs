@@ -23,6 +23,7 @@ public class GameSettings : ScriptableObject
 	public float DragRate => _dragRate;
 	public int EnlargeSizeClickCount => _enlargeSizeClickCount;
 	public float BlinkRate => _blinkRate;
+	public bool DestroyBigBubbleClick => _destroyBigBubbleClick;
 	public bool BigBubbleSelfDestroy => _bigBubbleSelfDestroy;
 	public float SelfDestroyTime => _selfDestroyTime;
 
@@ -51,6 +52,7 @@ public class GameSettings : ScriptableObject
 	[SerializeField] private float _dragRate = 4;
 	[SerializeField] private int _enlargeSizeClickCount = 2;
 	[SerializeField] private float _blinkRate = 0.15f;
+	[SerializeField] private bool _destroyBigBubbleClick = false;
 	[SerializeField] private bool _bigBubbleSelfDestroy = false;
 	[SerializeField] private float _selfDestroyTime = 3;
 

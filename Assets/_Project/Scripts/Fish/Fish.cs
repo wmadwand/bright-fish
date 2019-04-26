@@ -163,6 +163,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 				SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount);
 
 				GameController.Instance.sound.PlaySound(feedFishGood);
+
+				other.GetComponent<Bubble>().SelfDestroy(isRequiredBadSound: false);
 			}
 			else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type != _type)
 			{
@@ -174,9 +176,11 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 				UpdateHealthBar(_fishHealth.value);
 
 				GameController.Instance.sound.PlaySound(feedFishBad);
+
+				other.GetComponent<Bubble>().SelfDestroy(isRequiredBadSound: false);
 			}
 
-			other.GetComponent<Bubble>().SelfDestroy();
+
 		}
 		else if (other.GetComponent<Fish>())
 		{

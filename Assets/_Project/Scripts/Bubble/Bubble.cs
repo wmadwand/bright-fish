@@ -73,11 +73,19 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		IsReleased = true;
 	}
 
-	public void SelfDestroy()
+	public void SelfDestroy(bool isReqiredExplosion = false, bool isRequiredBadSound = false)
 	{
-		GameController.Instance.sound.PlaySound(explosionSound);
+		if (isRequiredBadSound)
+		{
+			GameController.Instance.sound.PlaySound(explosionSound);
 
-		SpawnExplosion();
+		}
+
+
+		if (isReqiredExplosion)
+		{
+			SpawnExplosion();
+		}
 
 		OnDestroy?.Invoke(_parentTubeID);
 		Destroy(gameObject);
@@ -85,7 +93,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	private void SpawnExplosion()
 	{
-		var go=Instantiate(_explosion, transform.position, Quaternion.identity);
+		var go = Instantiate(_explosion, transform.position, Quaternion.identity);
 
 		//Vector3 vec = new Vector3(transform.position.x, transform.position.y, -1);		
 
@@ -133,6 +141,11 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
 	{
 		if (_selfDestroyStarted)
+		{
+			return;
+		}
+
+		if ( _clickCount >= _gameSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
 		{
 			return;
 		}
@@ -227,7 +240,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 				StartCoroutine(BlinkRoutine());
 			}
 		}
-		else if (_clickCount > _gameSettings.EnlargeSizeClickCount * 2)
+		else if (_gameSettings.DestroyBigBubbleClick && _clickCount > _gameSettings.EnlargeSizeClickCount * 2)
 		{
 			SelfDestroy();
 		}
@@ -252,6 +265,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		_dir.Normalize();
 		_rigidbody2D.AddForce(_dir * _spoeedReflection, ForceMode2D.Impulse);
 	}
+
+	//----------------------------------------------------------------
 
 	public class BubbleDIFactory : PlaceholderFactory<Bubble> { }
 }
