@@ -9,6 +9,8 @@ public enum BubbleColorMode
 [CreateAssetMenu(fileName = "GameSettings")]
 public class GameSettings : ScriptableObject
 {
+	public bool GodMode => _godMode;
+
 	public BubbleColorMode ColorMode => _colorMode;
 	public int LivesCount => _livesCount;
 	public int RescuedFishTargetCount => _rescuedFishTargetCount;
@@ -30,6 +32,9 @@ public class GameSettings : ScriptableObject
 	public Color ColorC => _colorC;
 
 	//----------------------------------------------------------------
+
+	[Header("Debug")]
+	[SerializeField] private bool _godMode = false;
 
 	[Header("Common")]
 	[SerializeField] private BubbleColorMode _colorMode = BubbleColorMode.Implicit;

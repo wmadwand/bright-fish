@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 1818437564036736682}
   - component: {fileID: 6680996825359011647}
   - component: {fileID: 6680996825359011616}
+  - component: {fileID: 8818493228217231688}
   m_Layer: 0
   m_Name: Bubble
   m_TagString: Untagged
@@ -172,9 +173,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44bba5777570b941b726398e358cf6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
   soundName01: 0
   explosionSound: 1
-  _bounceRate: 10
-  _blinkRate: 0.15
-  _selfDestroyTimerRate: 4
+  _spoeedReflection: 25
+--- !u!114 &8818493228217231688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6680996825359011617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714cc893f7ffe134fb7defa5d60473f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothing: 100

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _colorMode: 0
   _livesCount: 3
-  _rescuedFishTargetCount: 2
+  _rescuedFishTargetCount: 8
   _TubeBubbleThrowDelay: 0
   _bubbleInitialBounceRate: -4
   _bubbleMoveSpeed: 8

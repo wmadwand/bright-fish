@@ -40,6 +40,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	//TODO: move to separate class
 	[SerializeField] private Sounds soundName01, explosionSound;
 
+	[SerializeField] private float _spoeedReflection;
+
 	private int _parentTubeID;
 	private BubbleState _state;
 	private int _clickCount;
@@ -140,14 +142,14 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		//transform.position = eventData.position;
 
 
-		// Solution #01
-		Plane plane = new Plane(Vector3.forward, transform.position);
-		Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
+		// Solution #01 !!!! WORKING ONE
+		//Plane plane = new Plane(Vector3.forward, transform.position);
+		//Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
 
-		if (plane.Raycast(ray, out float distance))
-		{
-			transform.position = ray.origin + ray.direction * distance;
-		}
+		//if (plane.Raycast(ray, out float distance))
+		//{
+		//	transform.position = ray.origin + ray.direction * distance;
+		//}
 
 		// Solution #02
 		//Ray R = Camera.main.ScreenPointToRay(Input.mousePosition); // Get the ray from mouse position
@@ -230,6 +232,12 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 			_renderer.material.color = new Color(_color.r, _color.g, _color.b, 100);
 		}
+	}
+
+	public void AddForceDirection(Vector2 _dir/*, float _speed*/)
+	{
+		_dir.Normalize();
+		_rigidbody2D.AddForce(_dir * _spoeedReflection, ForceMode2D.Impulse);
 	}
 
 	public class BubbleDIFactory : PlaceholderFactory<Bubble> { }

@@ -47,6 +47,11 @@ public class LiveController : MonoBehaviour
 
 	private void Fish_OnDeath(Fish fish, BubbleType arg1, Vector3 arg2)
 	{
+		if (_gameSettings.GodMode)
+		{
+			return;
+		}
+
 		_livesCount--;
 
 		_heartImages[_livesCount].color = Color.black;
