@@ -176,6 +176,7 @@ MonoBehaviour:
   soundName01: 0
   explosionSound: 1
   _spoeedReflection: 30
+  _explosion: {fileID: 100000, guid: 6d7c14503652334498b1ded405132496, type: 3}
 --- !u!114 &8818493228217231688
 MonoBehaviour:
   m_ObjectHideFlags: 0

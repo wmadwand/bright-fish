@@ -16,10 +16,10 @@ MonoBehaviour:
   _colorMode: 1
   _livesCount: 3
   _rescuedFishTargetCount: 100
-  _TubeBubbleThrowDelay: 0
-  _bubbleInitialBounceRate: -4
-  _bubbleMoveSpeed: 8
-  _bounceRate: 10
+  _TubeBubbleThrowDelay: 1
+  _bubbleInitialBounceRate: -6
+  _bubbleMoveSpeed: 9
+  _bounceRate: 8
   _dragRate: 4
   _enlargeSizeClickCount: 1
   _blinkRate: 0.15

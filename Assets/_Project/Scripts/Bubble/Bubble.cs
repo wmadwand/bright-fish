@@ -42,6 +42,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	[SerializeField] private float _spoeedReflection;
 
+	[SerializeField] private GameObject _explosion;
+
 	private int _parentTubeID;
 	private BubbleState _state;
 	private int _clickCount;
@@ -75,8 +77,15 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		GameController.Instance.sound.PlaySound(explosionSound);
 
+		SpawnExplosion();
+
 		OnDestroy?.Invoke(_parentTubeID);
 		Destroy(gameObject);
+	}
+
+	private void SpawnExplosion()
+	{
+		Instantiate(_explosion, this.transform.position, Quaternion.identity);
 	}
 
 	//----------------------------------------------------------------
