@@ -203,6 +203,8 @@ public class Food : MonoBehaviour, IPointerClickHandler, IDragHandler
 		_renderer.material.color = _gameSettings.ColorDummy;
 		SetColor(Type);
 
+		_renderer.material.color = _color;
+
 		if (_gameSettings.ColorMode == BubbleColorMode.Explicit)
 		{
 			_renderer.material.color = _color;
@@ -227,5 +229,5 @@ public class Food : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	//----------------------------------------------------------------
 
-	public class BubbleDIFactory : PlaceholderFactory<Bubble> { }
+	public class FoodDIFactory : PlaceholderFactory<Food> { }
 }

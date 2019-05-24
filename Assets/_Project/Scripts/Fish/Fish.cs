@@ -184,6 +184,35 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 
 		}
+		else if (other.GetComponent<Food>())
+		{
+			if (other.GetComponent<Food>() && other.GetComponent<Food>().Type == _type)
+			{
+				OnBubbleColorMatch?.Invoke(other.GetComponent<Food>().ScoreCount);
+
+				_fishHealth.ChangeHealth(30);
+				UpdateHealthBar(_fishHealth.value);
+
+				SpawnCoinScroreText(other.GetComponent<Food>().ScoreCount);
+
+				GameController.Instance.sound.PlaySound(feedFishGood);
+
+				other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
+			}
+			else if (other.GetComponent<Food>() && other.GetComponent<Food>().Type != _type)
+			{
+				OnBubbleColorMatch?.Invoke(-other.GetComponent<Food>().ScoreCount);
+
+				SpawnCoinScroreText(other.GetComponent<Food>().ScoreCount, true);
+
+				_fishHealth.ChangeHealth(-30);
+				UpdateHealthBar(_fishHealth.value);
+
+				GameController.Instance.sound.PlaySound(feedFishBad);
+
+				other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
+			}
+		}
 		else if (other.GetComponent<Fish>())
 		{
 			if (!_isDraggable)

@@ -13,8 +13,10 @@ public class Tube : MonoBehaviour
 	private int _id;
 	private float _randomBounceRate;
 	private Bubble.BubbleDIFactory _bubbleDIFactory;
+	private Food.FoodDIFactory _foodDIFactory;
 	private GameSettings _gameSettings;
 	private Bubble _bubble;
+	private Food _food;
 
 	//----------------------------------------------------------------
 
@@ -32,20 +34,24 @@ public class Tube : MonoBehaviour
 	//----------------------------------------------------------------
 
 	[Inject]
-	private void Construct(Bubble.BubbleDIFactory bubbleDIFactory, GameSettings gameSettings)
+	private void Construct(Bubble.BubbleDIFactory bubbleDIFactory, Food.FoodDIFactory foodDIFactory, GameSettings gameSettings)
 	{
 		_bubbleDIFactory = bubbleDIFactory;
+		_foodDIFactory = foodDIFactory;
 		_gameSettings = gameSettings;
 	}
 
 	private void Awake()
 	{
 		Bubble.OnDestroy += Bubble_OnDestroy;
+		Food.OnDestroy += Bubble_OnDestroy;
 	}
 
 	private void Start()
 	{
-		RunAfterDelay(MakeBubble);
+		//RunAfterDelay(MakeBubble);
+
+		RunAfterDelay(MakeFood);
 	}
 
 	//TODO: consider collision ignore during initialization and skip after trigger exit
@@ -62,6 +68,18 @@ public class Tube : MonoBehaviour
 				other.GetComponent<Bubble>().SetReleased();
 			}
 		}
+		else if (other.GetComponent<Food>())
+		{
+			if (other.GetComponent<Food>().IsReleased)
+			{
+				other.GetComponent<Food>().SelfDestroy(true, true);
+			}
+			else
+			{
+				other.GetComponent<Food>().SetReleased();
+			}
+		}
+
 	}
 
 	private void Bubble_OnDestroy(int id)
@@ -71,7 +89,9 @@ public class Tube : MonoBehaviour
 			return;
 		}
 
-		RunAfterDelay(MakeBubble);
+		//RunAfterDelay(MakeBubble);
+
+		RunAfterDelay(MakeFood);
 	}
 
 	private void MakeBubble()
@@ -85,11 +105,24 @@ public class Tube : MonoBehaviour
 		_bubble.AddForce(_randomBounceRate);
 	}
 
+	private void MakeFood()
+	{
+		_food = _foodDIFactory.Create();
+
+		_food.transform.SetPositionAndRotation(_bubbleSpawnPoint.position, Quaternion.identity);
+		_food.SetParentTubeID(_id);
+
+		_randomBounceRate = UnityEngine.Random.Range(_gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f);
+		_food.AddForce(_randomBounceRate);
+	}
+
 	private void RunAfterDelay(Action callback)
 	{
 		float delayRate = _gameSettings.TubeBubbleThrowDelay ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
 
-		this.AfterSeconds(delayRate, MakeBubble);
+		//this.AfterSeconds(delayRate, MakeBubble);
+
+		this.AfterSeconds(delayRate, MakeFood);
 	}
 
 	public class TubeDIFactory : PlaceholderFactory<Tube> { }

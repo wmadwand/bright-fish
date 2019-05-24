@@ -75,5 +75,7 @@ public class GameController : MonoSingleton<GameController>
 	{
 		//InitGameStuff();
 		PlayBgMusic();
+
+		StartGame();
 	}
 }
