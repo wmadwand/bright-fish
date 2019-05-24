@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
-public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
+public class Food : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
 	public static event Action<int> OnDestroy;
 
@@ -140,6 +140,11 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 	void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
 	{
+		GameController.Instance.sound.PlaySound(soundName01);
+
+		return;
+
+
 		if (_selfDestroyStarted)
 		{
 			return;
@@ -155,9 +160,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		_clickCount++;
 
 		AddForce(_gameSettings.BounceRate);
-
 		//Enlarge();
-		Diffuse();
 
 		Debug.Log("click");
 	}
@@ -214,86 +217,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 			case BubbleType.B: _color = _gameSettings.ColorB; break;
 			case BubbleType.C: _color = _gameSettings.ColorC; break;
 		}
-	}
-
-	private void Enlarge()
-	{
-		if (_clickCount == _gameSettings.EnlargeSizeClickCount)
-		{
-			_view.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-
-			_state = BubbleState.Medium;
-		}
-		else if (_clickCount == _gameSettings.EnlargeSizeClickCount * 2)
-		{
-			_view.transform.localScale = new Vector3(.7f, .7f, .7f);
-
-			_state = BubbleState.Big;
-
-			if (_gameSettings.BigBubbleSelfDestroy)
-			{
-				_selfDestroyStarted = true;
-			}
-
-			_renderer.material.color = _color;
-
-			if (_selfDestroyStarted)
-			{
-				StartCoroutine(BlinkRoutine());
-			}
-		}
-		else if (_gameSettings.DestroyBigBubbleClick && _clickCount > _gameSettings.EnlargeSizeClickCount * 2)
-		{
-			SelfDestroy();
-		}
-	}
-
-	private void Diffuse()
-	{
-		if (_clickCount == _gameSettings.EnlargeSizeClickCount)
-		{
-			//_view.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-
-
-			_state = BubbleState.Medium;
-		}
-		else if (_clickCount == _gameSettings.EnlargeSizeClickCount * 2)
-		{
-			_view.transform.localScale = new Vector3(.7f, .7f, .7f);
-
-			_state = BubbleState.Big;
-
-			if (_gameSettings.BigBubbleSelfDestroy)
-			{
-				_selfDestroyStarted = true;
-			}
-
-			_renderer.material.color = _color;
-
-			if (_selfDestroyStarted)
-			{
-				StartCoroutine(BlinkRoutine());
-			}
-		}
-		else if (_gameSettings.DestroyBigBubbleClick && _clickCount > _gameSettings.EnlargeSizeClickCount * 2)
-		{
-			SelfDestroy();
-		}
-	}
-
-	private IEnumerator BlinkRoutine()
-	{
-		while (true)
-		{
-			yield return new WaitForSeconds(_gameSettings.BlinkRate);
-
-			_renderer.material.color = new Color(_color.r, _color.g, _color.b, 0);
-
-			yield return new WaitForSeconds(_gameSettings.BlinkRate);
-
-			_renderer.material.color = new Color(_color.r, _color.g, _color.b, 100);
-		}
-	}
+	}	
 
 	public void AddForceDirection(Vector2 _dir/*, float _speed*/)
 	{
