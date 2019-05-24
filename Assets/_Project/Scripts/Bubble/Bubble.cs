@@ -201,6 +201,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		_state = BubbleState.Small;
 
 		_renderer.material.color = _gameSettings.ColorDummy;
+		_renderer.material.color = new Color(_renderer.material.color.a, _renderer.material.color.g, _renderer.material.color.b, .85f);
+
 		SetColor(Type);
 
 		if (_gameSettings.ColorMode == BubbleColorMode.Explicit)
