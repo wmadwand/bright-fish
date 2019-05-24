@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
+using Terminus.Extensions;
+
 public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	public static event Action<int> OnBubbleColorMatch;
@@ -104,35 +106,35 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			GameController.Instance.sound.PlaySound(fishDead);
 			_isDead = true;
 
-			DelayBeforeHide(() =>
+			StartCoroutine(DelayBeforeHide(() =>
 			{
 				OnDeath?.Invoke(this, _type, transform.position);
 				Destroy();
-			});
+			}));
 		}
 		else if (_fishHealth.IsFedup)
 		{
 			_isDead = true;
 
-			DelayBeforeHide(() =>
+			StartCoroutine(DelayBeforeHide(() =>
 			{
 				OnHappy?.Invoke(this, _type, transform.position);
 				Destroy();
-			});
+			}));
 		}
 
 		UpdateSprite();
 
 	}
 
-	private async void DelayBeforeHide(Action callback)
+	private IEnumerator DelayBeforeHide(Action callback)
 	{
-		await Task.Delay(TimeSpan.FromSeconds(1));
+		yield return new WaitForSeconds(1);
 
 		_spriteRenderer.DOFade(0, 1);
 		_healthBar.GetComponent<CanvasGroup>().DOFade(0, 1);
 
-		await Task.Delay(TimeSpan.FromSeconds(1));
+		yield return new WaitForSeconds(1);
 
 		callback();
 	}

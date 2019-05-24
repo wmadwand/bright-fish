@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
+using Terminus.Extensions;
+
 public class Tube : MonoBehaviour
 {
 	//[SerializeField] private GameObject _bubblePrefab;
@@ -83,12 +85,11 @@ public class Tube : MonoBehaviour
 		_bubble.AddForce(_randomBounceRate);
 	}
 
-	private async void RunAfterDelay(Action callback)
+	private void RunAfterDelay(Action callback)
 	{
 		float delayRate = _gameSettings.TubeBubbleThrowDelay ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
 
-		await Task.Delay(TimeSpan.FromSeconds(delayRate));
-		callback();
+		this.AfterSeconds(delayRate, MakeBubble);
 	}
 
 	public class TubeDIFactory : PlaceholderFactory<Tube> { }

@@ -11,16 +11,6 @@ public class FishHealth : MonoBehaviour
 	float timer;
 	public float countdownRate = 2;
 
-	//async void ChangeHEalth()
-	//{
-	//	while (value > 0)
-	//	{
-	//		await Task.Delay(TimeSpan.FromSeconds(delayRate));
-	//	}
-
-
-	//}
-
 	private Fish _enemy;
 
 	private void Awake()
