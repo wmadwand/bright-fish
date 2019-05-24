@@ -51,7 +51,9 @@ public class Tube : MonoBehaviour
 	{
 		//RunAfterDelay(MakeBubble);
 
-		RunAfterDelay(MakeFood);
+		//RunAfterDelay(MakeFood);
+
+		MakeShell();
 	}
 
 	//TODO: consider collision ignore during initialization and skip after trigger exit
@@ -91,7 +93,19 @@ public class Tube : MonoBehaviour
 
 		//RunAfterDelay(MakeBubble);
 
-		RunAfterDelay(MakeFood);
+		//RunAfterDelay(MakeFood);
+
+		MakeShell();
+	}
+
+	private void MakeShell()
+	{
+
+		MakeFood(true);
+
+		MakeBubble();
+
+		_food.transform.SetParent(_bubble.transform);
 	}
 
 	private void MakeBubble()
@@ -99,21 +113,28 @@ public class Tube : MonoBehaviour
 		_bubble = _bubbleDIFactory.Create();
 
 		_bubble.transform.SetPositionAndRotation(_bubbleSpawnPoint.position, Quaternion.identity);
-		_bubble.SetParentTubeID(_id);
+		_bubble.SetParentTubeID(_id, _food);
 
 		_randomBounceRate = UnityEngine.Random.Range(_gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f);
 		_bubble.AddForce(_randomBounceRate);
 	}
 
-	private void MakeFood()
+	private void MakeFood(bool asChild)
 	{
 		_food = _foodDIFactory.Create();
+
+		_food.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+		_food.GetComponent<Rigidbody2D>().Sleep();
+		_food.GetComponent<Rigidbody2D>().simulated = false;
 
 		_food.transform.SetPositionAndRotation(_bubbleSpawnPoint.position, Quaternion.identity);
 		_food.SetParentTubeID(_id);
 
-		_randomBounceRate = UnityEngine.Random.Range(_gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f);
-		_food.AddForce(_randomBounceRate);
+		if (!asChild)
+		{
+			_randomBounceRate = UnityEngine.Random.Range(_gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f);
+			_food.AddForce(_randomBounceRate);
+		}
 	}
 
 	private void RunAfterDelay(Action callback)
@@ -122,7 +143,9 @@ public class Tube : MonoBehaviour
 
 		//this.AfterSeconds(delayRate, MakeBubble);
 
-		this.AfterSeconds(delayRate, MakeFood);
+		//this.AfterSeconds(delayRate, MakeFood);
+
+		this.AfterSeconds(delayRate, MakeShell);
 	}
 
 	public class TubeDIFactory : PlaceholderFactory<Tube> { }

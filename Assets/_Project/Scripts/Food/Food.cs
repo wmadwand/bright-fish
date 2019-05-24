@@ -135,7 +135,7 @@ public class Food : MonoBehaviour, IPointerClickHandler, IDragHandler
 	private void FixedUpdate()
 	{
 		//GetComponent<Rigidbody2D>().velocity = transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * Time.deltaTime;
-		transform.Translate(-transform.up * (_gameSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
+		//transform.Translate(-transform.up * (_gameSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
 	}
 
 	void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
@@ -203,12 +203,17 @@ public class Food : MonoBehaviour, IPointerClickHandler, IDragHandler
 		_renderer.material.color = _gameSettings.ColorDummy;
 		SetColor(Type);
 
-		_renderer.material.color = _color;
+		//_renderer.material.color = _color;
 
 		if (_gameSettings.ColorMode == BubbleColorMode.Explicit)
 		{
 			_renderer.material.color = _color;
 		}
+	}
+
+	public void RevealColor()
+	{
+		_renderer.material.color = _color;
 	}
 
 	private void SetColor(BubbleType bubbleType)

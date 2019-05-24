@@ -56,11 +56,14 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	private GameObject _view;
 	private float _selfDestroyTimeRate;
 
+	private Food _childFood;
+
 	//----------------------------------------------------------------
 
-	public void SetParentTubeID(int value)
+	public void SetParentTubeID(int value, Food childFood)
 	{
 		_parentTubeID = value;
+		_childFood = childFood;
 	}
 
 	public void AddForce(float value)
@@ -145,7 +148,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 			return;
 		}
 
-		if ( _clickCount >= _gameSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
+		if (_clickCount >= _gameSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
 		{
 			return;
 		}
@@ -254,21 +257,29 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		{
 			//_view.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
+			_renderer.material.color = new Color(_renderer.material.color.a, _renderer.material.color.g, _renderer.material.color.b, .7f);
 
 			_state = BubbleState.Medium;
 		}
 		else if (_clickCount == _gameSettings.EnlargeSizeClickCount * 2)
 		{
-			_view.transform.localScale = new Vector3(.7f, .7f, .7f);
+			//_view.transform.localScale = new Vector3(.7f, .7f, .7f);
+
+			_renderer.material.color = new Color(_renderer.material.color.a, _renderer.material.color.g, _renderer.material.color.b, .0f);
 
 			_state = BubbleState.Big;
+
+
+			_childFood.RevealColor();
+			Type = _childFood.Type;
+
 
 			if (_gameSettings.BigBubbleSelfDestroy)
 			{
 				_selfDestroyStarted = true;
 			}
 
-			_renderer.material.color = _color;
+			//_renderer.material.color = _color;
 
 			if (_selfDestroyStarted)
 			{
