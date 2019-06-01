@@ -107,10 +107,12 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			GameController.Instance.sound.PlaySound(fishDead);
 			_isDead = true;
 
+			MessageBus.OnFishDying.Send();
+
 			StartCoroutine(DelayBeforeHide(() =>
 			{
 				//OnDeath?.Invoke(this, _type, transform.position);
-				MessageBus.OnFishDeath.Send(this, _type, transform.position);
+				MessageBus.OnFishDead.Send(this, _type, transform.position);
 
 				Destroy();
 			}));

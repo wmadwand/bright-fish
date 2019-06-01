@@ -26,7 +26,7 @@ public class FishSpawner : MonoBehaviour
 	{
 		_random = new System.Random();
 
-		MessageBus.OnFishDeath.Receive += Fish_OnDeath;
+		MessageBus.OnFishDead.Receive += Fish_OnDeath;
 		MessageBus.OnFishHappy.Receive += Fish_OnHappy;
 
 		MessageBus.OnGameStart.Receive += GameController_OnStart;
@@ -64,7 +64,7 @@ public class FishSpawner : MonoBehaviour
 		//Fish.OnDeath -= Fish_OnDeath;
 		//Fish.OnHappy -= Fish_OnHappy;
 
-		MessageBus.OnFishDeath.Receive -= Fish_OnDeath;
+		MessageBus.OnFishDead.Receive -= Fish_OnDeath;
 		MessageBus.OnFishHappy.Receive -= Fish_OnHappy;
 	}
 
