@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Terminus.Game.Messages;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -31,8 +32,12 @@ public class LiveController : MonoBehaviour
 	{
 		_livesCount = _gameSettings.LivesCount;
 
-		Fish.OnDeath += Fish_OnDeath;
-		GameController.OnStart += GameController_OnStart;
+		//Fish.OnDeath += Fish_OnDeath;
+		//GameController.OnStart += GameController_OnStart;
+
+		MessageBus.OnFishDeath.Receive += Fish_OnDeath;
+		MessageBus.OnGameStart.Receive += GameController_OnStart;
+
 	}
 
 	private void GameController_OnStart()
@@ -42,7 +47,8 @@ public class LiveController : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		Fish.OnDeath -= Fish_OnDeath;
+		//Fish.OnDeath -= Fish_OnDeath;
+		MessageBus.OnFishDeath.Receive -= Fish_OnDeath;
 	}
 
 	private void Fish_OnDeath(Fish fish, BubbleType arg1, Vector3 arg2)

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
+using Terminus.Game.Messages;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
 public class Food : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
-	public static event Action<int> OnDestroy;
+	//public static event Action<int> OnDestroy;
 
 	public BubbleType Type { get; private set; }
 	public bool IsReleased { get; private set; }
@@ -87,7 +88,10 @@ public class Food : MonoBehaviour, IPointerClickHandler, IDragHandler
 			SpawnExplosion();
 		}
 
-		OnDestroy?.Invoke(_parentTubeID);
+		//OnDestroy?.Invoke(_parentTubeID);
+
+		MessageBus.OnFoodaDestroy.Send(_parentTubeID);
+
 		Destroy(gameObject);
 	}
 

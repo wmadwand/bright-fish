@@ -5,7 +5,7 @@ public delegate void SwipeEventHandler(Vector2 dir);
 
 public class SwipeController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-	public static event SwipeEventHandler OnSwipe;
+	//public static event SwipeEventHandler OnSwipe;
 
 
 	[SerializeField]

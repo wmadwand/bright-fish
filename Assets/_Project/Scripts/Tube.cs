@@ -4,6 +4,7 @@ using UnityEngine;
 using Zenject;
 
 using Terminus.Extensions;
+using Terminus.Game.Messages;
 
 public class Tube : MonoBehaviour
 {
@@ -43,8 +44,11 @@ public class Tube : MonoBehaviour
 
 	private void Awake()
 	{
-		Bubble.OnDestroy += Bubble_OnDestroy;
-		Food.OnDestroy += Bubble_OnDestroy;
+		//Bubble.OnDestroy += Bubble_OnDestroy;
+		//Food.OnDestroy += Bubble_OnDestroy;
+
+		MessageBus.OnBubbleDestroy.Receive += Bubble_OnDestroy;
+		MessageBus.OnFoodaDestroy.Receive += Bubble_OnDestroy;
 	}
 
 	private void Start()

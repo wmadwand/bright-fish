@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Terminus.Game.Messages;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
@@ -13,14 +14,17 @@ public class UIController : MonoBehaviour
 
 	private void Awake()
 	{
-		GameController.OnStart += GameController_OnGameStart;
-		GameController.OnStop += GameController_OnGameStop;
+		//GameController.OnStart += GameController_OnGameStart;
+		//GameController.OnStop += GameController_OnGameStop;
+
+		MessageBus.OnGameStart.Receive += GameController_OnGameStart;
+		MessageBus.OnGameStop.Receive += GameController_OnGameStop;
 	}
 
 	private void OnDestroy()
 	{
-		GameController.OnStart -= GameController_OnGameStart;
-		GameController.OnStop -= GameController_OnGameStop;
+		//GameController.OnStart -= GameController_OnGameStart;
+		//GameController.OnStop -= GameController_OnGameStop;
 	}
 
 	private void Start()

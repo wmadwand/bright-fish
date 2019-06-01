@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Terminus.Game.Messages;
 using UnityEngine;
 using Zenject;
 
@@ -25,10 +26,16 @@ public class FishSpawner : MonoBehaviour
 	{
 		_random = new System.Random();
 
-		Fish.OnDeath += Fish_OnDeath;
-		Fish.OnHappy += Fish_OnHappy;
-		GameController.OnStart += GameController_OnStart;
-		GameController.OnStop += GameController_OnStop;
+		MessageBus.OnFishDeath.Receive += Fish_OnDeath;
+		MessageBus.OnFishHappy.Receive += Fish_OnHappy;
+
+		MessageBus.OnGameStart.Receive += GameController_OnStart;
+		MessageBus.OnGameStop.Receive += GameController_OnStop;
+
+		//Fish.OnDeath += Fish_OnDeath;
+		//Fish.OnHappy += Fish_OnHappy;
+		//GameController.OnStart += GameController_OnStart;
+		//GameController.OnStop += GameController_OnStop;
 	}
 
 	//IEnumerator ClearFishes()
@@ -54,8 +61,11 @@ public class FishSpawner : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		Fish.OnDeath -= Fish_OnDeath;
-		Fish.OnHappy -= Fish_OnHappy;
+		//Fish.OnDeath -= Fish_OnDeath;
+		//Fish.OnHappy -= Fish_OnHappy;
+
+		MessageBus.OnFishDeath.Receive -= Fish_OnDeath;
+		MessageBus.OnFishHappy.Receive -= Fish_OnHappy;
 	}
 
 	private void Fish_OnHappy(Fish fish, BubbleType arg1, Vector3 arg2)

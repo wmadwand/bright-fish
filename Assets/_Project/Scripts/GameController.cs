@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Terminus.Game.Messages;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -9,8 +10,8 @@ public class GameController : MonoSingleton<GameController>
 {
 	public bool IsGameActive { get; private set; }
 
-	public static event Action OnStart;
-	public static event Action<bool> OnStop;
+	//public static event Action OnStart;
+	//public static event Action<bool> OnStop;
 
 	public GameSettings gameSettings;
 	public SoundController sound;
@@ -27,20 +28,27 @@ public class GameController : MonoSingleton<GameController>
 
 	private void Awake()
 	{
-		LiveController.OnLivesOut += LiveController_OnLivesOut;
-		LevelController.OnLevelComplete += LevelController_OnLevelComplete;
+		//LiveController.OnLivesOut += LiveController_OnLivesOut;
+		//LevelController.OnLevelComplete += LevelController_OnLevelComplete;
+
+		MessageBus.OnPlayerLivesOut.Receive += LiveController_OnLivesOut;
+		MessageBus.OnLevelComplete.Receive += LevelController_OnLevelComplete;
 	}
 
 	private void LevelController_OnLevelComplete()
 	{
 		IsGameActive = false;
-		OnStop?.Invoke(true);
+
+		//OnStop?.Invoke(true);
+		MessageBus.OnGameStop.Send(true);
 	}
 
 	private void LiveController_OnLivesOut()
 	{
 		IsGameActive = false;
-		OnStop?.Invoke(false);
+
+		//OnStop?.Invoke(false);
+		MessageBus.OnGameStop.Send(true);
 	}
 
 	public void ResetScene()
@@ -53,7 +61,9 @@ public class GameController : MonoSingleton<GameController>
 	{
 
 		IsGameActive = true;
-		OnStart?.Invoke();
+
+		//OnStart?.Invoke();
+		MessageBus.OnGameStart.Send();
 	}
 
 	private void PlayBgMusic()

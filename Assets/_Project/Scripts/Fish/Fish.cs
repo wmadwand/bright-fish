@@ -8,12 +8,13 @@ using UnityEngine.EventSystems;
 using Zenject;
 
 using Terminus.Extensions;
+using Terminus.Game.Messages;
 
 public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-	public static event Action<int> OnBubbleColorMatch;
-	public static event Action<Fish, BubbleType, Vector3> OnDeath;
-	public static event Action<Fish, BubbleType, Vector3> OnHappy;
+	//public static event Action<int> OnBubbleColorMatch;
+	//public static event Action<Fish, BubbleType, Vector3> OnDeath;
+	//public static event Action<Fish, BubbleType, Vector3> OnHappy;
 
 	[SerializeField] private Sprite[] _sprites;
 	[SerializeField] private Sounds feedFishGood, feedFishBad, fishDead, fishHappy;
@@ -108,7 +109,9 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 			StartCoroutine(DelayBeforeHide(() =>
 			{
-				OnDeath?.Invoke(this, _type, transform.position);
+				//OnDeath?.Invoke(this, _type, transform.position);
+				MessageBus.OnFishDeath.Send(this, _type, transform.position);
+
 				Destroy();
 			}));
 		}
@@ -118,7 +121,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 			StartCoroutine(DelayBeforeHide(() =>
 			{
-				OnHappy?.Invoke(this, _type, transform.position);
+				//OnHappy?.Invoke(this, _type, transform.position);
+				MessageBus.OnFishHappy.Send(this, _type, transform.position);
 				Destroy();
 			}));
 		}
@@ -157,7 +161,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		{
 			if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type == _type)
 			{
-				OnBubbleColorMatch?.Invoke(other.GetComponent<Bubble>().ScoreCount);
+				//OnBubbleColorMatch?.Invoke(other.GetComponent<Bubble>().ScoreCount);
+				MessageBus.OnBubbleColorMatch.Send(other.GetComponent<Bubble>().ScoreCount);
 
 				_fishHealth.ChangeHealth(30);
 				UpdateHealthBar(_fishHealth.value);
@@ -170,7 +175,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			}
 			else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type != _type)
 			{
-				OnBubbleColorMatch?.Invoke(-other.GetComponent<Bubble>().ScoreCount);
+				//OnBubbleColorMatch?.Invoke(-other.GetComponent<Bubble>().ScoreCount);
+				MessageBus.OnBubbleColorMatch.Send(-other.GetComponent<Bubble>().ScoreCount);
 
 				SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount, true);
 
@@ -188,7 +194,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		{
 			if (other.GetComponent<Food>() && other.GetComponent<Food>().Type == _type)
 			{
-				OnBubbleColorMatch?.Invoke(other.GetComponent<Food>().ScoreCount);
+				//OnBubbleColorMatch?.Invoke(other.GetComponent<Food>().ScoreCount);
+				MessageBus.OnBubbleColorMatch.Send(other.GetComponent<Bubble>().ScoreCount);
 
 				_fishHealth.ChangeHealth(30);
 				UpdateHealthBar(_fishHealth.value);
@@ -201,7 +208,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			}
 			else if (other.GetComponent<Food>() && other.GetComponent<Food>().Type != _type)
 			{
-				OnBubbleColorMatch?.Invoke(-other.GetComponent<Food>().ScoreCount);
+				//OnBubbleColorMatch?.Invoke(-other.GetComponent<Food>().ScoreCount);
+				MessageBus.OnBubbleColorMatch.Send(-other.GetComponent<Bubble>().ScoreCount);
 
 				SpawnCoinScroreText(other.GetComponent<Food>().ScoreCount, true);
 

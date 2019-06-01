@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Terminus.Game.Messages;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 public class LevelController : MonoBehaviour
 {
-	public static event Action OnLevelComplete;
-	public static event Action OnLevelFail;
+	//public static event Action OnLevelComplete;
+	//public static event Action OnLevelFail;
 
 	[SerializeField] private Text _rescuedFishText;
 
@@ -36,9 +37,13 @@ public class LevelController : MonoBehaviour
 	{
 		ResetLevel();
 
-		Fish.OnHappy += Fish_OnHappy;
-		LiveController.OnLivesOut += LiveController_OnLivesOut;
-		GameController.OnStart += GameController_OnStart;
+		//Fish.OnHappy += Fish_OnHappy;
+		//LiveController.OnLivesOut += LiveController_OnLivesOut;
+		//GameController.OnStart += GameController_OnStart;
+
+		MessageBus.OnFishHappy.Receive += Fish_OnHappy;
+		MessageBus.OnPlayerLivesOut.Receive += LiveController_OnLivesOut;
+		MessageBus.OnGameStart.Receive += GameController_OnStart;
 	}
 
 	private void GameController_OnStart()
@@ -48,7 +53,8 @@ public class LevelController : MonoBehaviour
 
 	private void LiveController_OnLivesOut()
 	{
-		OnLevelFail?.Invoke();
+		//OnLevelFail?.Invoke();
+		MessageBus.OnLevelFailed.Send();
 	}
 
 	private void Fish_OnHappy(Fish fish,BubbleType arg1, Vector3 arg2)
@@ -58,13 +64,17 @@ public class LevelController : MonoBehaviour
 
 		if (_rescuedFishCurrentCount >= _rescuedFishTargetCount)
 		{
-			OnLevelComplete?.Invoke();
+			//OnLevelComplete?.Invoke();
+			MessageBus.OnLevelComplete.Send();
 		}
 	}
 
 	private void OnDestroy()
 	{
-		Fish.OnHappy -= Fish_OnHappy;
+		//Fish.OnHappy -= Fish_OnHappy;
+		MessageBus.OnFishHappy.Receive += Fish_OnHappy;
+		MessageBus.OnPlayerLivesOut.Receive -= LiveController_OnLivesOut;
+		MessageBus.OnGameStart.Receive -= GameController_OnStart;
 	}
 
 	void UpdateText()

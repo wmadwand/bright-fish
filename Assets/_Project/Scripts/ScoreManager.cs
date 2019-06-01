@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Terminus.Game.Messages;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreManager : MonoSingleton<ScoreManager>
@@ -11,8 +12,11 @@ public class ScoreManager : MonoSingleton<ScoreManager>
 
 	private void Awake()
 	{
-		Fish.OnBubbleColorMatch += TubeIn_OnCoinMatch;
-		GameController.OnStart += GameController_OnStart;
+		//Fish.OnBubbleColorMatch += TubeIn_OnCoinMatch;
+		//GameController.OnStart += GameController_OnStart;
+
+		MessageBus.OnBubbleColorMatch.Receive += TubeIn_OnCoinMatch;
+		MessageBus.OnGameStart.Receive += GameController_OnStart;
 	}
 
 	private void GameController_OnStart()
@@ -31,7 +35,7 @@ public class ScoreManager : MonoSingleton<ScoreManager>
 
 	private void OnDestroy()
 	{
-		Fish.OnBubbleColorMatch -= TubeIn_OnCoinMatch;
+		//Fish.OnBubbleColorMatch -= TubeIn_OnCoinMatch;
 	}
 
 	private void GameController_OnGameStart()
