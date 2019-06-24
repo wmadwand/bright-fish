@@ -32,7 +32,8 @@ public class ScoreManager : MonoSingleton<ScoreManager>
 
 	private void OnDestroy()
 	{
-		//Fish.OnBubbleColorMatch -= TubeIn_OnCoinMatch;
+		MessageBus.OnBubbleColorMatch.Receive -= TubeIn_OnCoinMatch;
+		MessageBus.OnGameStart.Receive -= GameController_OnStart;
 	}
 
 	private void GameController_OnGameStart()

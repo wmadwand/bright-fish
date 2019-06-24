@@ -37,11 +37,7 @@ public class LevelController : MonoBehaviour
 	{
 		ResetLevel();
 
-		//Fish.OnHappy += Fish_OnHappy;
-		//LiveController.OnLivesOut += LiveController_OnLivesOut;
-		//GameController.OnStart += GameController_OnStart;
-
-		MessageBus.OnFishRescued.Receive += Fish_OnHappy;
+		MessageBus.OnFishRescued.Receive += OnFishRescued;
 		MessageBus.OnPlayerLivesOut.Receive += LiveController_OnLivesOut;
 		MessageBus.OnGameStart.Receive += GameController_OnStart;
 	}
@@ -53,26 +49,23 @@ public class LevelController : MonoBehaviour
 
 	private void LiveController_OnLivesOut()
 	{
-		//OnLevelFail?.Invoke();
 		MessageBus.OnLevelFailed.Send();
 	}
 
-	private void Fish_OnHappy(Fish fish,BubbleType arg1, Vector3 arg2)
+	private void OnFishRescued(Fish fish,BubbleType arg1, Vector3 arg2)
 	{
 		_rescuedFishCurrentCount++;
 		UpdateText();
 
 		if (_rescuedFishCurrentCount >= _rescuedFishTargetCount)
 		{
-			//OnLevelComplete?.Invoke();
 			MessageBus.OnLevelComplete.Send();
 		}
 	}
 
 	private void OnDestroy()
 	{
-		//Fish.OnHappy -= Fish_OnHappy;
-		MessageBus.OnFishRescued.Receive += Fish_OnHappy;
+		MessageBus.OnFishRescued.Receive -= OnFishRescued;
 		MessageBus.OnPlayerLivesOut.Receive -= LiveController_OnLivesOut;
 		MessageBus.OnGameStart.Receive -= GameController_OnStart;
 	}

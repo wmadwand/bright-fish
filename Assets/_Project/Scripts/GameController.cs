@@ -51,7 +51,7 @@ public class GameController : MonoSingleton<GameController>
 	public void ResetScene()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		StartGame();
+		//StartGame();
 	}
 
 	public void StartGame()

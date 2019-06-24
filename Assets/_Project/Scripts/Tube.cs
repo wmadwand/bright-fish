@@ -60,6 +60,12 @@ public class Tube : MonoBehaviour
 		MakeShell();
 	}
 
+
+	private void OnDestroy()
+	{
+		MessageBus.OnBubbleDestroy.Receive -= Bubble_OnDestroy;
+		MessageBus.OnFoodaDestroy.Receive -= Bubble_OnDestroy;
+	}
 	//TODO: consider collision ignore during initialization and skip after trigger exit
 	private void OnTriggerEnter2D(Collider2D other)
 	{

@@ -8,8 +8,6 @@ using Zenject;
 
 public class LiveController : MonoBehaviour
 {
-	//public static event Action OnLivesOut;
-
 	[SerializeField] private Image[] _heartImages;
 
 	private int _livesCount;
@@ -32,9 +30,6 @@ public class LiveController : MonoBehaviour
 	{
 		_livesCount = _gameSettings.LivesCount;
 
-		//Fish.OnDeath += Fish_OnDeath;
-		//GameController.OnStart += GameController_OnStart;
-
 		MessageBus.OnFishDying.Receive += Fish_OnDeath;
 		MessageBus.OnGameStart.Receive += GameController_OnStart;
 
@@ -47,8 +42,8 @@ public class LiveController : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		//Fish.OnDeath -= Fish_OnDeath;
 		MessageBus.OnFishDying.Receive -= Fish_OnDeath;
+		MessageBus.OnGameStart.Receive -= GameController_OnStart;
 	}
 
 	private void Fish_OnDeath(/*Fish fish, BubbleType arg1, Vector3 arg2*/)
@@ -64,7 +59,6 @@ public class LiveController : MonoBehaviour
 
 		if (_livesCount <= 0)
 		{
-			//OnLivesOut?.Invoke();
 			MessageBus.OnPlayerLivesOut.Send();
 		}
 	}
