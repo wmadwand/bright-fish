@@ -18,8 +18,8 @@ MonoBehaviour:
   _rescuedFishTargetCount: 10
   _TubeBubbleThrowDelay: 1
   _bubbleInitialBounceRate: -6
-  _bubbleMoveSpeed: 9
-  _bounceRate: 8
+  _bubbleMoveSpeed: 8
+  _bounceRate: 7
   _dragRate: 4
   _enlargeSizeClickCount: 1
   _blinkRate: 0.15
