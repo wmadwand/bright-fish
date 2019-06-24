@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3043202816199412405}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Helpers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1547542902400576917}
   - component: {fileID: 1911355448707232448}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7041403533798403033}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ScoreSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 7641692589350160732}
   - component: {fileID: 6278174920718703305}
   - component: {fileID: 8659573865520767744}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2742760955510437075}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HealthbarPivotPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
