@@ -121,10 +121,12 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		{
 			_isDead = true;
 
+			MessageBus.OnFishRescued.Send(this, _type, transform.position);
+
 			StartCoroutine(DelayBeforeHide(() =>
 			{
 				//OnHappy?.Invoke(this, _type, transform.position);
-				MessageBus.OnFishHappy.Send(this, _type, transform.position);
+				MessageBus.OnFishFinishedSmiling.Send(this, _type, transform.position);
 				Destroy();
 			}));
 		}
@@ -163,7 +165,6 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		{
 			if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type == _type)
 			{
-				//OnBubbleColorMatch?.Invoke(other.GetComponent<Bubble>().ScoreCount);
 				MessageBus.OnBubbleColorMatch.Send(other.GetComponent<Bubble>().ScoreCount);
 
 				_fishHealth.ChangeHealth(30);
@@ -177,7 +178,6 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			}
 			else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type != _type)
 			{
-				//OnBubbleColorMatch?.Invoke(-other.GetComponent<Bubble>().ScoreCount);
 				MessageBus.OnBubbleColorMatch.Send(-other.GetComponent<Bubble>().ScoreCount);
 
 				SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount, true);
@@ -196,7 +196,6 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		{
 			if (other.GetComponent<Food>() && other.GetComponent<Food>().Type == _type)
 			{
-				//OnBubbleColorMatch?.Invoke(other.GetComponent<Food>().ScoreCount);
 				MessageBus.OnBubbleColorMatch.Send(other.GetComponent<Bubble>().ScoreCount);
 
 				_fishHealth.ChangeHealth(30);
@@ -210,7 +209,6 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			}
 			else if (other.GetComponent<Food>() && other.GetComponent<Food>().Type != _type)
 			{
-				//OnBubbleColorMatch?.Invoke(-other.GetComponent<Food>().ScoreCount);
 				MessageBus.OnBubbleColorMatch.Send(-other.GetComponent<Bubble>().ScoreCount);
 
 				SpawnCoinScroreText(other.GetComponent<Food>().ScoreCount, true);

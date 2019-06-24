@@ -12,9 +12,6 @@ public class ScoreManager : MonoSingleton<ScoreManager>
 
 	private void Awake()
 	{
-		//Fish.OnBubbleColorMatch += TubeIn_OnCoinMatch;
-		//GameController.OnStart += GameController_OnStart;
-
 		MessageBus.OnBubbleColorMatch.Receive += TubeIn_OnCoinMatch;
 		MessageBus.OnGameStart.Receive += GameController_OnStart;
 	}

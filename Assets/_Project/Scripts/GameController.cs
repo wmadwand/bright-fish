@@ -28,8 +28,7 @@ public class GameController : MonoSingleton<GameController>
 
 	private void Awake()
 	{
-		//LiveController.OnLivesOut += LiveController_OnLivesOut;
-		//LevelController.OnLevelComplete += LevelController_OnLevelComplete;
+
 
 		MessageBus.OnPlayerLivesOut.Receive += LiveController_OnLivesOut;
 		MessageBus.OnLevelComplete.Receive += LevelController_OnLevelComplete;
@@ -39,7 +38,6 @@ public class GameController : MonoSingleton<GameController>
 	{
 		IsGameActive = false;
 
-		//OnStop?.Invoke(true);
 		MessageBus.OnGameStop.Send(true);
 	}
 
@@ -47,22 +45,19 @@ public class GameController : MonoSingleton<GameController>
 	{
 		IsGameActive = false;
 
-		//OnStop?.Invoke(false);
 		MessageBus.OnGameStop.Send(true);
 	}
 
 	public void ResetScene()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
+		StartGame();
 	}
 
 	public void StartGame()
 	{
-
 		IsGameActive = true;
 
-		//OnStart?.Invoke();
 		MessageBus.OnGameStart.Send();
 	}
 
@@ -86,6 +81,12 @@ public class GameController : MonoSingleton<GameController>
 		//InitGameStuff();
 		PlayBgMusic();
 
-		StartGame();
+		//StartGame();
+	}
+
+	private void OnDestroy()
+	{
+		MessageBus.OnPlayerLivesOut.Receive -= LiveController_OnLivesOut;
+		MessageBus.OnLevelComplete.Receive -= LevelController_OnLevelComplete;
 	}
 }

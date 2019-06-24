@@ -24,12 +24,8 @@ public class TubeSpawner : MonoBehaviour
 
 	private void Awake()
 	{
-		//GameController.OnStart += GameController_OnStart;
-		//GameController.OnStop += GameController_OnStop;
-
 		MessageBus.OnGameStart.Receive += GameController_OnStart;
 		MessageBus.OnGameStop.Receive += GameController_OnStop;
-
 
 		_random = new System.Random();
 	}
@@ -50,7 +46,8 @@ public class TubeSpawner : MonoBehaviour
 	}
 	private void OnDestroy()
 	{
-		//GameController.OnStart -= GameController_OnStart;
+		MessageBus.OnGameStart.Receive -= GameController_OnStart;
+		MessageBus.OnGameStop.Receive -= GameController_OnStop;
 	}
 
 	public void SpawnTubes()

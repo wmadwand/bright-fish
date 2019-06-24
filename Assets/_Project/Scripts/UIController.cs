@@ -14,23 +14,20 @@ public class UIController : MonoBehaviour
 
 	private void Awake()
 	{
-		//GameController.OnStart += GameController_OnGameStart;
-		//GameController.OnStop += GameController_OnGameStop;
-
 		MessageBus.OnGameStart.Receive += GameController_OnGameStart;
 		MessageBus.OnGameStop.Receive += GameController_OnGameStop;
 	}
 
 	private void OnDestroy()
 	{
-		//GameController.OnStart -= GameController_OnGameStart;
-		//GameController.OnStop -= GameController_OnGameStop;
+		MessageBus.OnGameStart.Receive -= GameController_OnGameStart;
+		MessageBus.OnGameStop.Receive -= GameController_OnGameStop;
 	}
 
 	private void Start()
 	{
 		HideAllPanels();
-		//_gameStartPanel.SetActive(true);
+		_gameStartPanel.SetActive(true);
 	}
 
 	private void GameController_OnGameStart()

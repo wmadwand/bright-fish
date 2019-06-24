@@ -94,7 +94,9 @@ namespace Terminus.Game.Messages
 
         public static readonly Message<Fish, BubbleType, Vector3> OnFishDead = new Message<Fish, BubbleType, Vector3>();
 		public static readonly Message OnFishDying = new Message();
-		public static readonly Message<Fish, BubbleType, Vector3> OnFishHappy = new Message<Fish, BubbleType, Vector3>();
+
+		public static readonly Message<Fish, BubbleType, Vector3> OnFishRescued = new Message<Fish, BubbleType, Vector3>();
+		public static readonly Message<Fish, BubbleType, Vector3> OnFishFinishedSmiling = new Message<Fish, BubbleType, Vector3>();
 
         public static readonly Message<int> OnFoodaDestroy = new Message<int>();
 

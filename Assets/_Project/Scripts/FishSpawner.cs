@@ -27,15 +27,16 @@ public class FishSpawner : MonoBehaviour
 		_random = new System.Random();
 
 		MessageBus.OnFishDead.Receive += Fish_OnDeath;
-		MessageBus.OnFishHappy.Receive += Fish_OnHappy;
+		MessageBus.OnFishFinishedSmiling.Receive += Fish_OnHappy;
+		MessageBus.OnFishRescued.Receive += OnFishRescued_Receive;
 
 		MessageBus.OnGameStart.Receive += GameController_OnStart;
 		MessageBus.OnGameStop.Receive += GameController_OnStop;
+	}
 
-		//Fish.OnDeath += Fish_OnDeath;
-		//Fish.OnHappy += Fish_OnHappy;
-		//GameController.OnStart += GameController_OnStart;
-		//GameController.OnStop += GameController_OnStop;
+	private void OnFishRescued_Receive(Fish arg1, BubbleType arg2, Vector3 arg3)
+	{
+		
 	}
 
 	//IEnumerator ClearFishes()
@@ -61,11 +62,8 @@ public class FishSpawner : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		//Fish.OnDeath -= Fish_OnDeath;
-		//Fish.OnHappy -= Fish_OnHappy;
-
 		MessageBus.OnFishDead.Receive -= Fish_OnDeath;
-		MessageBus.OnFishHappy.Receive -= Fish_OnHappy;
+		MessageBus.OnFishFinishedSmiling.Receive -= Fish_OnHappy;
 	}
 
 	private void Fish_OnHappy(Fish fish, BubbleType arg1, Vector3 arg2)
