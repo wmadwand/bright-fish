@@ -28,7 +28,7 @@ public class FishHealth : MonoBehaviour
 		}
 	}
 
-	public bool IsFedup
+	public bool IsFedUp
 	{
 		get
 		{

@@ -6,6 +6,8 @@ using Zenject;
 
 public class FishSpawner : MonoBehaviour
 {
+	public GameObject[] SpawnPoint => _spawnPoints;
+
 	[SerializeField] private BubbleType[] _fishTypes;
 	[SerializeField] private GameObject[] _spawnPoints;
 
@@ -34,27 +36,6 @@ public class FishSpawner : MonoBehaviour
 		MessageBus.OnGameStop.Receive += GameController_OnStop;
 	}
 
-	private void OnFishRescued_Receive(Fish arg1, BubbleType arg2, Vector3 arg3)
-	{
-
-	}
-
-	//IEnumerator ClearFishes()
-	//{
-	//	yield 
-	//}
-
-	private void GameController_OnStop(bool success)
-	{
-		_fishes.ForEach(fish => fish.Destroy());
-		_fishes.Clear();
-	}
-
-	private void GameController_OnStart()
-	{
-		InitSpawn();
-	}
-
 	private void Start()
 	{
 		//InitSpawn();
@@ -70,18 +51,30 @@ public class FishSpawner : MonoBehaviour
 		MessageBus.OnGameStop.Receive -= GameController_OnStop;
 	}
 
-	private void Fish_OnHappy(Fish fish, BubbleType arg1, Vector3 arg2)
+	private void OnFishRescued_Receive(Fish arg1, BubbleType arg2, Vector3 arg3)
 	{
 
+	}
 
+	private void GameController_OnStop(bool success)
+	{
+		_fishes.ForEach(fish => fish.Destroy());
+		_fishes.Clear();
+	}
+
+	private void GameController_OnStart()
+	{
+		InitSpawn();
+	}
+
+	private void Fish_OnHappy(Fish fish, BubbleType arg1, Vector3 arg2)
+	{
 		_fishes.Remove(fish);
 
 		if (GameController.Instance.IsGameActive)
 		{
 			Spawn(arg1, arg2);
 		}
-
-
 	}
 
 	private void Fish_OnDeath(Fish fish, BubbleType arg1, Vector3 arg2)

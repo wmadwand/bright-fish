@@ -815,8 +815,8 @@ MonoBehaviour:
   _fishTypes: 000000000100000002000000
   _spawnPoints:
   - {fileID: 724471202}
-  - {fileID: 740539964}
   - {fileID: 1243208408}
+  - {fileID: 740539964}
 --- !u!4 &355633255
 Transform:
   m_ObjectHideFlags: 0
@@ -1597,7 +1597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 740539965}
   m_Layer: 0
-  m_Name: Point02
+  m_Name: Point03
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1615,7 +1615,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 895497287}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &766027260
 GameObject:
@@ -1751,8 +1751,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 724471203}
-  - {fileID: 740539965}
   - {fileID: 1243208409}
+  - {fileID: 740539965}
   m_Father: {fileID: 355633255}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1875,6 +1875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: e1dc0dcb75a7a2345889b99d59718d7c, type: 2}
   sound: {fileID: 676347748}
+  fishSpawner: {fileID: 355633253}
   canvas: {fileID: 1721885716}
   audioSource: {fileID: 1038882098}
   coinScoreTextPref: {fileID: 5481622671131321485, guid: 8a4d5f369e27d104089babfee31748d7,
@@ -2317,7 +2318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1243208409}
   m_Layer: 0
-  m_Name: Point03
+  m_Name: Point02
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2335,7 +2336,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 895497287}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1262394167
 GameObject:

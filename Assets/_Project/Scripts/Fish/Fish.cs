@@ -12,10 +12,6 @@ using Terminus.Game.Messages;
 
 public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-	//public static event Action<int> OnBubbleColorMatch;
-	//public static event Action<Fish, BubbleType, Vector3> OnDeath;
-	//public static event Action<Fish, BubbleType, Vector3> OnHappy;
-
 	[SerializeField] private Sprite[] _sprites;
 	[SerializeField] private Sounds feedFishGood, feedFishBad, fishDead, fishHappy;
 	[SerializeField] private GameObject _enemyHealthBarPref;
@@ -117,7 +113,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 				Destroy();
 			}));
 		}
-		else if (_fishHealth.IsFedup)
+		else if (_fishHealth.IsFedUp)
 		{
 			_isDead = true;
 
@@ -149,7 +145,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	private void UpdateSprite()
 	{
-		if (_fishHealth.IsFedup)
+		if (_fishHealth.IsFedUp)
 		{
 			_spriteRenderer.sprite = _sprites[1];
 		}
@@ -274,10 +270,13 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		Plane plane = new Plane(Vector3.forward, transform.position);
 		Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
 
-		if (plane.Raycast(ray, out float distamce))
+		if (plane.Raycast(ray, out float distance))
 		{
-			var vec = ray.origin + ray.direction * distamce;
-			transform.position = new Vector2(vec.x, transform.position.y);
+			var vec = ray.origin + ray.direction * distance;
+
+			var xMin = GameController.Instance.fishSpawner.SpawnPoint[0].transform.position.x;
+			var xMax = GameController.Instance.fishSpawner.SpawnPoint[2].transform.position.x;
+			transform.position = new Vector2(Mathf.Clamp(vec.x, xMin, xMax), transform.position.y);
 		}
 
 		// Solution #02
