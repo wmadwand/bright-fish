@@ -14,7 +14,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 {
 	[SerializeField] private Sprite[] _sprites;
 	[SerializeField] private Sounds feedFishGood, feedFishBad, fishDead, fishHappy;
-	[SerializeField] private GameObject _enemyHealthBarPref;
+	[SerializeField] private GameObject _fishHealthBarTemplate;
 	[SerializeField] private Transform _healthbarPoint;
 	[SerializeField] private Transform _scoreTextSpawnPoint;
 
@@ -85,7 +85,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	private void Start()
 	{
-		_healthBar = Instantiate(_enemyHealthBarPref, GameController.Instance.canvas.transform).GetComponent<FishHealthBar>();
+		_healthBar = Instantiate(_fishHealthBarTemplate, GameController.Instance.canvas.transform).GetComponent<FishHealthBar>();
 		_healthBar.Init(_healthbarPoint);
 
 		UpdateHealthBar(_fishHealth.value);
@@ -136,7 +136,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		yield return new WaitForSeconds(1);
 
 		_spriteRenderer.DOFade(0, 1);
-		_healthBar.GetComponent<CanvasGroup>().DOFade(0, 1);
+		_healthBar?.GetComponent<CanvasGroup>().DOFade(0, 1);
 
 		yield return new WaitForSeconds(1);
 

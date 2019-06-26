@@ -244,7 +244,7 @@ MonoBehaviour:
   feedFishBad: 3
   fishDead: 4
   fishHappy: 5
-  _enemyHealthBarPref: {fileID: 3602389873474134920, guid: 58549a057a2a8ef419e0dfae62e27d52,
+  _fishHealthBarTemplate: {fileID: 3602389873474134920, guid: 58549a057a2a8ef419e0dfae62e27d52,
     type: 3}
   _healthbarPoint: {fileID: 2742760955510437075}
   _scoreTextSpawnPoint: {fileID: 7041403533798403033}
