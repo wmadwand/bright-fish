@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public enum BubbleColorMode
 {
@@ -22,6 +23,7 @@ public class GameSettings : ScriptableObject
 	public float BounceRate => _bounceRate;
 	public float DragRate => _dragRate;
 	public int EnlargeSizeClickCount => _enlargeSizeClickCount;
+	public ClickEnlargeSizePair[] ClickEnlargeSizePairs => _clickEnlargeSizePairs;
 	public float BlinkRate => _blinkRate;
 	public bool DestroyBigBubbleClick => _destroyBigBubbleClick;
 	public bool BigBubbleSelfDestroy => _bigBubbleSelfDestroy;
@@ -51,6 +53,8 @@ public class GameSettings : ScriptableObject
 	[SerializeField] private float _bounceRate = 10;
 	[SerializeField] private float _dragRate = 4;
 	[SerializeField] private int _enlargeSizeClickCount = 2;
+
+	[SerializeField] ClickEnlargeSizePair[] _clickEnlargeSizePairs;
 	[SerializeField] private float _blinkRate = 0.15f;
 	[SerializeField] private bool _destroyBigBubbleClick = false;
 	[SerializeField] private bool _bigBubbleSelfDestroy = false;
@@ -61,4 +65,13 @@ public class GameSettings : ScriptableObject
 	[SerializeField] private Color _colorA = Color.magenta;
 	[SerializeField] private Color _colorB = Color.yellow;
 	[SerializeField] private Color _colorC = Color.green;
+
+	//----------------------------------------------------------------
+
+	[Serializable]
+	public struct ClickEnlargeSizePair
+	{
+		public int clickNUmber;
+		public float sizeRate;
+	}
 }

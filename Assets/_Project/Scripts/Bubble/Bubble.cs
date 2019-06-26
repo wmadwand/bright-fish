@@ -82,16 +82,12 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		if (isRequiredBadSound)
 		{
 			GameController.Instance.sound.PlaySound(explosionSound);
-
 		}
-
 
 		if (isReqiredExplosion)
 		{
 			SpawnExplosion();
 		}
-
-		//OnDestroy?.Invoke(_parentTubeID);
 
 		MessageBus.OnBubbleDestroy.Send(_parentTubeID);
 
@@ -261,7 +257,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 	{
 		if (_clickCount == _gameSettings.EnlargeSizeClickCount)
 		{
-			//_view.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+			var size = _gameSettings.ClickEnlargeSizePairs[0].sizeRate;
+			_view.transform.localScale = new Vector3(size, size, size);
 
 			_renderer.material.color = new Color(_renderer.material.color.a, _renderer.material.color.g, _renderer.material.color.b, .7f);
 
@@ -269,7 +266,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		}
 		else if (_clickCount == _gameSettings.EnlargeSizeClickCount * 2)
 		{
-			//_view.transform.localScale = new Vector3(.7f, .7f, .7f);
+			var size = _gameSettings.ClickEnlargeSizePairs[1].sizeRate;
+			_view.transform.localScale = new Vector3(size, size, size);
 
 			_renderer.material.color = new Color(_renderer.material.color.a, _renderer.material.color.g, _renderer.material.color.b, .0f);
 
