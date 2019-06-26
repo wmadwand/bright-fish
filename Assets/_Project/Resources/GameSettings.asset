@@ -22,6 +22,11 @@ MonoBehaviour:
   _bounceRate: 7
   _dragRate: 4
   _enlargeSizeClickCount: 1
+  _clickEnlargeSizePairs:
+  - clickNUmber: 0
+    sizeRate: 0.58
+  - clickNUmber: 1
+    sizeRate: 0.7
   _blinkRate: 0.15
   _destroyBigBubbleClick: 0
   _bigBubbleSelfDestroy: 0
