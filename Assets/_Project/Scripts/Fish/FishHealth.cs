@@ -11,20 +11,20 @@ public class FishHealth : MonoBehaviour
 	float timer;
 	public float countdownRate = 2;
 
-	private Fish _enemy;
+	private Fish _fish;
 
 	private void Awake()
 	{
-		_enemy = GetComponent<Fish>();
+		_fish = GetComponent<Fish>();
 	}
 
 	public void OnGetDamage()
 	{
-		_enemy.UpdateHealthBar(value);
+		_fish.UpdateHealthBar(value);
 
 		if (IsDead)
 		{
-			_enemy.Destroy();
+			_fish.Destroy();
 		}
 	}
 
@@ -57,7 +57,7 @@ public class FishHealth : MonoBehaviour
 			{
 				value--;
 				timer = Time.time + countdownRate;
-				_enemy.UpdateHealthBar(value);
+				_fish.UpdateHealthBar(value);
 			}
 			else
 			{

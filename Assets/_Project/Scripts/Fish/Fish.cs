@@ -52,7 +52,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	public void UpdateHealthBar(int value)
 	{
-		_healthBar?.UpdateState(value);
+		//_healthBar?.UpdateState(value);		
 	}
 
 	public void Destroy()
@@ -85,8 +85,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	private void Start()
 	{
-		_healthBar = Instantiate(_fishHealthBarTemplate, GameController.Instance.canvas.transform).GetComponent<FishHealthBar>();
-		_healthBar.Init(_healthbarPoint);
+		//_healthBar = Instantiate(_fishHealthBarTemplate, GameController.Instance.canvas.transform).GetComponent<FishHealthBar>();
+		//_healthBar.Init(_healthbarPoint);
 
 		UpdateHealthBar(_fishHealth.value);
 	}
