@@ -6,7 +6,7 @@ using Zenject;
 using Terminus.Extensions;
 using Terminus.Game.Messages;
 
-public class Tube : MonoBehaviour
+public sealed class Tube : MonoBehaviour
 {
 	//[SerializeField] private GameObject _bubblePrefab;
 	[SerializeField] private Transform _bubbleSpawnPoint;
@@ -44,28 +44,21 @@ public class Tube : MonoBehaviour
 
 	private void Awake()
 	{
-		//Bubble.OnDestroy += Bubble_OnDestroy;
-		//Food.OnDestroy += Bubble_OnDestroy;
-
 		MessageBus.OnBubbleDestroy.Receive += Bubble_OnDestroy;
-		MessageBus.OnFoodaDestroy.Receive += Bubble_OnDestroy;
+		MessageBus.OnFoodDestroy.Receive += Bubble_OnDestroy;
 	}
 
 	private void Start()
 	{
-		//RunAfterDelay(MakeBubble);
-
-		//RunAfterDelay(MakeFood);
-
 		MakeShell();
 	}
-
 
 	private void OnDestroy()
 	{
 		MessageBus.OnBubbleDestroy.Receive -= Bubble_OnDestroy;
-		MessageBus.OnFoodaDestroy.Receive -= Bubble_OnDestroy;
+		MessageBus.OnFoodDestroy.Receive -= Bubble_OnDestroy;
 	}
+
 	//TODO: consider collision ignore during initialization and skip after trigger exit
 	private void OnTriggerEnter2D(Collider2D other)
 	{
@@ -101,16 +94,11 @@ public class Tube : MonoBehaviour
 			return;
 		}
 
-		//RunAfterDelay(MakeBubble);
-
-		//RunAfterDelay(MakeFood);
-
 		MakeShell();
 	}
 
 	private void MakeShell()
 	{
-
 		MakeFood(true);
 
 		MakeBubble();
@@ -150,10 +138,6 @@ public class Tube : MonoBehaviour
 	private void RunAfterDelay(Action callback)
 	{
 		float delayRate = _gameSettings.TubeBubbleThrowDelay ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
-
-		//this.AfterSeconds(delayRate, MakeBubble);
-
-		//this.AfterSeconds(delayRate, MakeFood);
 
 		this.AfterSeconds(delayRate, MakeShell);
 	}

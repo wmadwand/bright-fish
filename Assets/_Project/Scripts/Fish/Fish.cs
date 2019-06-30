@@ -64,7 +64,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	{
 		try
 		{
-			Destroy(_healthBar.gameObject);
+			//Destroy(_healthBar.gameObject);
 			Destroy(gameObject);
 		}
 		catch (Exception)
@@ -111,10 +111,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			MessageBus.OnFishDying.Send();
 
 			StartCoroutine(DelayBeforeHide(() =>
-			{
-				//OnDeath?.Invoke(this, _type, transform.position);
+			{				
 				MessageBus.OnFishDead.Send(this, _type, transform.position);
-
 				Destroy();
 			}));
 		}
@@ -126,7 +124,6 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 			StartCoroutine(DelayBeforeHide(() =>
 			{
-				//OnHappy?.Invoke(this, _type, transform.position);
 				MessageBus.OnFishFinishedSmiling.Send(this, _type, transform.position);
 				Destroy();
 			}));

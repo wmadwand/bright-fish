@@ -4,9 +4,8 @@ using Terminus.Game.Messages;
 using UnityEngine;
 using Zenject;
 
-public class TubeSpawner : MonoBehaviour
+public sealed class TubeSpawner : MonoBehaviour
 {
-	//[SerializeField] private readonly GameObject _tubePrefab;
 	[SerializeField] private BubbleType[] _bubbleTypes;
 	[SerializeField] private GameObject[] _tubeSpawnPoints;
 
@@ -57,7 +56,7 @@ public class TubeSpawner : MonoBehaviour
 		//int[] coinTypeArray = { 0, 1, 2 };
 		BubbleType[] randomArray = _bubbleTypes.OrderBy(x => _random.Next()).ToArray();
 
-		for (int i = 0; i < /*2*/ randomArray.Length; i++)
+		for (int i = 0; i < /*1*/ randomArray.Length; i++)
 		{
 			Tube tube = _tubeDIFactory.Create();
 

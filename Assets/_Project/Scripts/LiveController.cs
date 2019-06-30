@@ -32,7 +32,6 @@ public class LiveController : MonoBehaviour
 
 		MessageBus.OnFishDying.Receive += Fish_OnDeath;
 		MessageBus.OnGameStart.Receive += GameController_OnStart;
-
 	}
 
 	private void GameController_OnStart()

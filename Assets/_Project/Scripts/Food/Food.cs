@@ -90,7 +90,7 @@ public class Food : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 		//OnDestroy?.Invoke(_parentTubeID);
 
-		MessageBus.OnFoodaDestroy.Send(_parentTubeID);
+		MessageBus.OnFoodDestroy.Send(_parentTubeID);
 
 		Destroy(gameObject);
 	}
