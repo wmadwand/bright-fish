@@ -13,8 +13,8 @@ using Terminus.Game.Messages;
 public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	[SerializeField] private Sprite[] _sprites;
-	[SerializeField] private Sprite _headImage;
-	[SerializeField] private Sprite _bodyImage;
+	[SerializeField] private SpriteRenderer _headSpriteRenderer;
+	[SerializeField] private SpriteRenderer _bodySpriteRenderer;
 	[SerializeField] private Sounds feedFishGood, feedFishBad, fishDead, fishHappy;
 	[SerializeField] private GameObject _fishHealthBarTemplate;
 	[SerializeField] private Transform _healthbarPoint;
@@ -44,7 +44,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			case BubbleType.C: _color = _gameSettings.ColorC; break;
 		}
 
-		_spriteRenderer.material.color = _color;
+		_headSpriteRenderer.material.color = _color;
+		_bodySpriteRenderer.material.color = _color;
 	}
 
 	public void ChangePosition(Vector3 value)
@@ -52,9 +53,11 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		gameObject.transform.position = value;
 	}
 
-	public void UpdateHealthBar(int value)
+	public void UpdateHealthBar(float value)
 	{
-		//_healthBar?.UpdateState(value);		
+		//_healthBar?.UpdateState(value);	
+
+		_bodySpriteRenderer.material.SetFloat("_Progress", value * .01f);
 	}
 
 	public void Destroy()

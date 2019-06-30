@@ -274,8 +274,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b713cdd06a5f67d4185df5b8b0a38c5e, type: 3}
   - {fileID: 21300000, guid: e0ae9de2b0ecf7b43b88083d1c1b98cb, type: 3}
   - {fileID: 21300000, guid: 4be926fdd39a63a4a930173b1dd8ec19, type: 3}
-  _headImage: {fileID: 0}
-  _bodyImage: {fileID: 0}
+  _headSpriteRenderer: {fileID: 4861931125810321071}
+  _bodySpriteRenderer: {fileID: 2105479253849562807}
   feedFishGood: 2
   feedFishBad: 3
   fishDead: 4

@@ -5,7 +5,7 @@ Shader "Custom/ProgressBar" {
 Properties {
 	_Color ("Color", Color) = (1,1,1,1)
 	_MainTex ("Main Tex (RGBA)", 2D) = "white" {}
-	_Progress ("Progress", Range(0.0,1.0)) = 1.0
+	_Progress ("Progress", Range(0.0,1.0)) = 0.0
 }
  
 SubShader {
@@ -40,7 +40,7 @@ v2f vert (appdata_base v)
 half4 frag( v2f i ) : COLOR
 {
 	half4 color = tex2D( _MainTex, i.uv);
-	color.a *= i.uv.x > _Progress;
+	color.a *= 1 - i.uv.x < _Progress;
 	return color*_Color;
 }
  
