@@ -13,6 +13,8 @@ using Terminus.Game.Messages;
 public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	[SerializeField] private Sprite[] _sprites;
+	[SerializeField] private Sprite _headImage;
+	[SerializeField] private Sprite _bodyImage;
 	[SerializeField] private Sounds feedFishGood, feedFishBad, fishDead, fishHappy;
 	[SerializeField] private GameObject _fishHealthBarTemplate;
 	[SerializeField] private Transform _healthbarPoint;
