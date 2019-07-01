@@ -232,6 +232,18 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			transform.position = other.GetComponent<Fish>().transform.position;
 			other.GetComponent<Fish>().transform.position = _originPosition;
 			_originPosition = transform.position;
+
+
+
+
+			if (!_isCollided)
+			{
+				transform.position = _originPosition;
+			}
+
+			_isDraggable = false;
+
+
 		}
 	}
 

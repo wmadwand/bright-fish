@@ -283,8 +283,6 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 				_selfDestroyStarted = true;
 			}
 
-			//_renderer.material.color = _color;
-
 			if (_selfDestroyStarted)
 			{
 				StartCoroutine(BlinkRoutine());
