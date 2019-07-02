@@ -44,3 +44,6 @@ TagManager:
   - name: Fish
     uniqueID: 496718255
     locked: 0
+  - name: Scene
+    uniqueID: 144175655
+    locked: 0
