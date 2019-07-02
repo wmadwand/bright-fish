@@ -25,7 +25,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	private bool _isDead;
 	private bool _isCollided;
 	private Color _color;
-	private SpriteRenderer _spriteRenderer;
+	private SpriteRenderer[] _spriteRenderers;
 	private Vector2 _originPosition;
 	private bool _isDraggable;
 	private FishHealth _fishHealth;
@@ -84,7 +84,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	private void Awake()
 	{
-		_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+		_spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
 		_fishHealth = GetComponent<FishHealth>();
 	}
 
@@ -137,8 +137,10 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	{
 		yield return new WaitForSeconds(1);
 
-		_spriteRenderer.DOFade(0, 1);
-		_healthBar?.GetComponent<CanvasGroup>().DOFade(0, 1);
+		Array.ForEach(_spriteRenderers, x => x.DOFade(0, 1));
+		_bodySpriteRenderer.material.DOFade(0, 1);
+		//_spriteRenderers.Shuffle /*DOFade(0, 1);*/
+		//_healthBar?.GetComponent<CanvasGroup>().DOFade(0, 1);
 
 		yield return new WaitForSeconds(1);
 
@@ -149,11 +151,11 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	{
 		if (_fishHealth.IsFedUp)
 		{
-			_spriteRenderer.sprite = _sprites[1];
+			_spriteRenderers[0].sprite = _sprites[1];
 		}
 		else if (_fishHealth.IsDead)
 		{
-			_spriteRenderer.sprite = _sprites[2];
+			_spriteRenderers[0].sprite = _sprites[2];
 		}
 	}
 
