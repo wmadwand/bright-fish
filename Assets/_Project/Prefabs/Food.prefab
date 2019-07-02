@@ -65,9 +65,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: 144175655
+  m_SortingLayer: 2
+  m_SortingOrder: 35
   m_Sprite: {fileID: 21300000, guid: 27dba4dff16542f498f85f26d05a8064, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -92,7 +92,6 @@ GameObject:
   - component: {fileID: 6680996825359011647}
   - component: {fileID: 1065658941709198952}
   - component: {fileID: 8818493228217231688}
-  - component: {fileID: 4215629878715720184}
   m_Layer: 0
   m_Name: Food
   m_TagString: Untagged
@@ -192,14 +191,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothing: 200
---- !u!210 &4215629878715720184
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6680996825359011617}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
