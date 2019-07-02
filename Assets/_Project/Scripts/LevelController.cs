@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Terminus.Game.Messages;
+﻿using Terminus.Game.Messages;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 public class LevelController : MonoBehaviour
 {
-	//public static event Action OnLevelComplete;
-	//public static event Action OnLevelFail;
-
 	[SerializeField] private Text _rescuedFishText;
 
 	private int _rescuedFishTargetCount;
 	private int _rescuedFishCurrentCount;
-
 	private GameSettings _gameSettings;
-
 
 	public void ResetLevel()
 	{
@@ -52,7 +44,7 @@ public class LevelController : MonoBehaviour
 		MessageBus.OnLevelFailed.Send();
 	}
 
-	private void OnFishRescued(Fish fish,BubbleType arg1, Vector3 arg2)
+	private void OnFishRescued(Fish fish, BubbleType arg1, Vector3 arg2)
 	{
 		_rescuedFishCurrentCount++;
 		UpdateText();
