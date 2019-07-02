@@ -260,7 +260,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 			var size = _gameSettings.ClickEnlargeSizePairs[0].sizeRate;
 			_view.transform.localScale = new Vector3(size, size, size);
 
-			_renderer.material.color = new Color(_renderer.material.color.a, _renderer.material.color.g, _renderer.material.color.b, .7f);
+			_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .7f);
 
 			_state = BubbleState.Medium;
 		}
@@ -269,7 +269,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 			var size = _gameSettings.ClickEnlargeSizePairs[1].sizeRate;
 			_view.transform.localScale = new Vector3(size, size, size);
 
-			_renderer.material.color = new Color(_renderer.material.color.a, _renderer.material.color.g, _renderer.material.color.b, .0f);
+			_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .0f);
 
 			_state = BubbleState.Big;
 
