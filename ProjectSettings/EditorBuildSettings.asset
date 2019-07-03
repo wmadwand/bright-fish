@@ -5,10 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/_Scenes/MainScene.unity
     guid: 1d7b85a810c476348bcb8183e1a7b60e
-  - enabled: 1
-    path: Assets/ThirdPartyAssets/SimpleLUT/DemoScene.unity
-    guid: 5e398478b7a659042a37fd9aa8d5ab95
   m_configObjects: {}
