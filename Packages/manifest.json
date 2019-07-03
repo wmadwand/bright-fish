@@ -1,11 +1,17 @@
 {
   "dependencies": {
+    "com.unity.2d.pixel-perfect": "1.0.1-preview",
     "com.unity.ads": "2.0.8",
     "com.unity.analytics": "3.3.2",
     "com.unity.collab-proxy": "1.2.16",
+    "com.unity.memoryprofiler": "0.1.0-preview.6",
+    "com.unity.mobile.adaptiveperformance": "0.1.1-preview.1",
+    "com.unity.mobile.android-logcat": "0.2.7-preview",
     "com.unity.package-manager-ui": "2.1.2",
+    "com.unity.postprocessing": "2.1.7",
     "com.unity.purchasing": "2.0.6",
     "com.unity.quicksearch": "1.2.8-preview",
+    "com.unity.shadergraph": "5.7.2",
     "com.unity.textmeshpro": "2.0.1",
     "com.unity.timeline": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
