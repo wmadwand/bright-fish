@@ -27,7 +27,7 @@
 
 				fixed4 output;
 				output.rgb = lerp(original.rgb, fixed3(lum,lum,lum), _Intensity);
-				output.a = original.a;
+				
 				return output;
 			}
 			ENDCG

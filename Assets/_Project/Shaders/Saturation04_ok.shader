@@ -22,7 +22,7 @@
 			
 			fixed4 frag (v2f_img i) : COLOR
 			{
-				half4 original = tex2D(_MainTex, i.uv);
+				fixed4 original = tex2D(_MainTex, i.uv);
 				fixed lum = saturate(Luminance(original.rgb) * _BrightnessFactor);
 
 				fixed4 output;

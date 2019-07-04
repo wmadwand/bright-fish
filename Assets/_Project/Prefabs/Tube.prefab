@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 2969211920604872270}
   - component: {fileID: 6042952580381005089}
   - component: {fileID: 5629279795271183945}
+  - component: {fileID: 5441069928786208468}
   m_Layer: 11
   m_Name: Tube
   m_TagString: Untagged
@@ -134,6 +135,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bubbleSpawnPoint: {fileID: 8591860830884403957}
+--- !u!114 &5441069928786208468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4368104105572240329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb21fca21177f647bf63bad68e41129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5740670948364533043
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +196,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 18e0a07fe5e935c488aedc8712412b21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -208,7 +221,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.76, y: 1.18}
+  m_Size: {x: 1.79, y: 1.26}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -262,7 +275,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 18e0a07fe5e935c488aedc8712412b21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
