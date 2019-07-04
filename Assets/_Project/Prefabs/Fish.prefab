@@ -108,6 +108,7 @@ Transform:
   m_Children:
   - {fileID: 7041403533798403033}
   - {fileID: 2742760955510437075}
+  - {fileID: 2924504142653259906}
   m_Father: {fileID: 4429634996203637731}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -189,7 +190,7 @@ GameObject:
   - component: {fileID: 6278174920718703305}
   - component: {fileID: 8659573865520767744}
   m_Layer: 10
-  m_Name: FishBestFillabe
+  m_Name: Fish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,8 +283,10 @@ MonoBehaviour:
   fishHappy: 5
   _fishHealthBarTemplate: {fileID: 3602389873474134920, guid: 58549a057a2a8ef419e0dfae62e27d52,
     type: 3}
+  _particleTemplate: {fileID: 100000, guid: e5bfe58176693554a912c5ffc517728c, type: 3}
   _healthbarPoint: {fileID: 2742760955510437075}
   _scoreTextSpawnPoint: {fileID: 7041403533798403033}
+  _particleSpawnPoint: {fileID: 2924504142653259906}
 --- !u!114 &8659573865520767744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,6 +380,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6683043788498332235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2924504142653259906}
+  m_Layer: 10
+  m_Name: ParticlePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2924504142653259906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683043788498332235}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3043202816199412405}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6801988258612791201
 GameObject:
   m_ObjectHideFlags: 0

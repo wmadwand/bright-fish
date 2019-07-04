@@ -17,8 +17,10 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	[SerializeField] private SpriteRenderer _bodySpriteRenderer;
 	[SerializeField] private Sounds feedFishGood, feedFishBad, fishDead, fishHappy;
 	[SerializeField] private GameObject _fishHealthBarTemplate;
+	[SerializeField] private GameObject _particleTemplate;
 	[SerializeField] private Transform _healthbarPoint;
 	[SerializeField] private Transform _scoreTextSpawnPoint;
+	[SerializeField] private Transform _particleSpawnPoint;
 
 	private FishHealthBar _healthBar;
 	private BubbleType _type;
@@ -55,8 +57,6 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	public void UpdateHealthBar(float value)
 	{
-		//_healthBar?.UpdateState(value);	
-
 		_bodySpriteRenderer.material.SetFloat("_Progress", value * .01f);
 	}
 
@@ -111,7 +111,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			MessageBus.OnFishDying.Send();
 
 			StartCoroutine(DelayBeforeHide(() =>
-			{				
+			{
 				MessageBus.OnFishDead.Send(this, _type, transform.position);
 				Destroy();
 			}));
@@ -122,6 +122,8 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 			MessageBus.OnFishRescued.Send(this, _type, transform.position);
 
+			ShowPaintSplash(_color);
+
 			StartCoroutine(DelayBeforeHide(() =>
 			{
 				MessageBus.OnFishFinishedSmiling.Send(this, _type, transform.position);
@@ -131,6 +133,14 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 		UpdateSprite();
 
+	}
+
+	private void ShowPaintSplash(Color color)
+	{
+		var obj = Instantiate(_particleTemplate, _particleSpawnPoint);
+		var script = obj.GetComponent<FishPaint>();
+
+		script.SetColor(color);
 	}
 
 	private IEnumerator DelayBeforeHide(Action callback)
