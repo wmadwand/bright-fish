@@ -137,7 +137,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	private void ShowPaintSplash(Color color)
 	{
-		var obj = Instantiate(_particleTemplate, _particleSpawnPoint);
+		var obj = Instantiate(_particleTemplate, _particleSpawnPoint.position, Quaternion.identity);
 		var script = obj.GetComponent<FishPaint>();
 
 		script.SetColor(color);
@@ -149,8 +149,6 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 		Array.ForEach(_spriteRenderers, x => x.DOFade(0, 1));
 		_bodySpriteRenderer.material.DOFade(0, 1);
-		//_spriteRenderers.Shuffle /*DOFade(0, 1);*/
-		//_healthBar?.GetComponent<CanvasGroup>().DOFade(0, 1);
 
 		yield return new WaitForSeconds(1);
 
