@@ -15,7 +15,7 @@ MonoBehaviour:
   _godMode: 0
   _colorMode: 1
   _livesCount: 3
-  _rescuedFishTargetCount: 5
+  _rescuedFishTargetCount: 10
   _TubeBubbleThrowDelay: 1
   _bubbleInitialBounceRate: -6
   _bubbleMoveSpeed: 8
