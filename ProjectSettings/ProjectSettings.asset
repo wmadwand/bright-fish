@@ -256,7 +256,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/GameDev/MyGames/FlipCoin/Workflow/_keystore/key01.keystore
+  AndroidKeystoreName: C:/GameDev/MyGames/FishColor/Workflow/_keystore/key01.keystore
   AndroidKeyaliasName: key01
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
