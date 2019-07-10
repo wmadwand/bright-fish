@@ -1,7 +1,7 @@
 ﻿
 public enum BubbleType
 {
-	A, B, C
+	A, B, C, D, E
 }
 
 public enum BubbleState

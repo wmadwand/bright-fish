@@ -33,6 +33,8 @@ public class GameSettings : ScriptableObject
 	public Color ColorA => _colorA;
 	public Color ColorB => _colorB;
 	public Color ColorC => _colorC;
+	public Color ColorD => _colorD;
+	public Color ColorE => _colorE;
 
 	//----------------------------------------------------------------
 
@@ -65,6 +67,8 @@ public class GameSettings : ScriptableObject
 	[SerializeField] private Color _colorA = Color.magenta;
 	[SerializeField] private Color _colorB = Color.yellow;
 	[SerializeField] private Color _colorC = Color.green;
+	[SerializeField] private Color _colorD = Color.blue;
+	[SerializeField] private Color _colorE = Color.cyan;
 
 	//----------------------------------------------------------------
 

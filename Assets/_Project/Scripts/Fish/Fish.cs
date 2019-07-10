@@ -44,6 +44,9 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 			case BubbleType.A: _color = _gameSettings.ColorA; break;
 			case BubbleType.B: _color = _gameSettings.ColorB; break;
 			case BubbleType.C: _color = _gameSettings.ColorC; break;
+			case BubbleType.D: _color = _gameSettings.ColorD; break;
+			case BubbleType.E: _color = _gameSettings.ColorE; break;
+			default: _color = _gameSettings.ColorA; break;
 		}
 
 		_headSpriteRenderer.material.color = _color;
