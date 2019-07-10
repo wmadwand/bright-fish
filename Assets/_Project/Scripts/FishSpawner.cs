@@ -6,7 +6,7 @@ using Zenject;
 
 public class FishSpawner : MonoBehaviour
 {
-	public GameObject[] SpawnPoint => _spawnPoints;
+	public GameObject[] SpawnPoints => _spawnPoints;
 
 	[SerializeField] private BubbleType[] _fishTypes;
 	[SerializeField] private GameObject[] _spawnPoints;

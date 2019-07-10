@@ -298,8 +298,10 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		{
 			var vec = ray.origin + ray.direction * distance;
 
-			var xMin = GameController.Instance.fishSpawner.SpawnPoint[0].transform.position.x;
-			var xMax = GameController.Instance.fishSpawner.SpawnPoint[2].transform.position.x;
+			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
+
+			var xMin = GameController.Instance.fishSpawner.SpawnPoints[0].transform.position.x;
+			var xMax = GameController.Instance.fishSpawner.SpawnPoints[spawnPointsLength - 1].transform.position.x;
 			transform.position = new Vector2(Mathf.Clamp(vec.x, xMin, xMax), transform.position.y);
 		}
 
