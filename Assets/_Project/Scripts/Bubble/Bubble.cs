@@ -197,7 +197,9 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 
 		_rigidbody2D.drag = _gameSettings.DragRate;
 
-		Type = (BubbleType)UnityEngine.Random.Range(0, 3);
+		var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
+
+		Type = (BubbleType)UnityEngine.Random.Range(0, spawnPointsLength);
 		_state = BubbleState.Small;
 
 		_renderer.material.color = _gameSettings.ColorDummy;
@@ -218,6 +220,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 			case BubbleType.A: _color = _gameSettings.ColorA; break;
 			case BubbleType.B: _color = _gameSettings.ColorB; break;
 			case BubbleType.C: _color = _gameSettings.ColorC; break;
+			case BubbleType.D: _color = _gameSettings.ColorD; break;
+			case BubbleType.E: _color = _gameSettings.ColorE; break;
 		}
 	}
 
