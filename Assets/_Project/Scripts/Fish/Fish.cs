@@ -172,7 +172,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.GetComponent<Bubble>())
+		if (other.GetComponent<Bubble>() && other is CircleCollider2D)
 		{
 			if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type == _type)
 			{
@@ -203,7 +203,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 
 		}
-		else if (other.GetComponent<Food>())
+		else if (other.GetComponent<Food>() && other is CircleCollider2D)
 		{
 			if (other.GetComponent<Food>() && other.GetComponent<Food>().Type == _type)
 			{
@@ -232,7 +232,7 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 				other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
 			}
 		}
-		else if (other.GetComponent<Fish>())
+		else if (other.GetComponent<Fish>() && other is CircleCollider2D)
 		{
 			if (!_isDraggable)
 			{

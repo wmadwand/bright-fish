@@ -141,6 +141,8 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		transform.Translate(-transform.up * (_gameSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
 	}
 
+
+	//TODO: move to separate class all the interaction
 	void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
 	{
 		if (_selfDestroyStarted)
