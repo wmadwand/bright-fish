@@ -62,7 +62,7 @@ public sealed class Tube : MonoBehaviour
 	//TODO: consider collision ignore during initialization and skip after trigger exit
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.GetComponent<Bubble>())
+		if (other.GetComponent<Bubble>() && other is CircleCollider2D)
 		{
 			if (other.GetComponent<Bubble>().IsReleased)
 			{
@@ -73,7 +73,7 @@ public sealed class Tube : MonoBehaviour
 				other.GetComponent<Bubble>().SetReleased();
 			}
 		}
-		else if (other.GetComponent<Food>())
+		else if (other.GetComponent<Food>() && other is CircleCollider2D)
 		{
 			if (other.GetComponent<Food>().IsReleased)
 			{
@@ -84,7 +84,6 @@ public sealed class Tube : MonoBehaviour
 				other.GetComponent<Food>().SetReleased();
 			}
 		}
-
 	}
 
 	private void Bubble_OnDestroy(int id)
