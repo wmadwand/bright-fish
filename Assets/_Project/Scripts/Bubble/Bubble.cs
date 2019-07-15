@@ -5,10 +5,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
-public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
+public class Bubble : MonoBehaviour
 {
-	//public static event Action<int> OnDestroy;
-
 	public BubbleType Type { get; private set; }
 	public bool IsReleased { get; private set; }
 
@@ -141,7 +139,7 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		transform.Translate(-transform.up * (_gameSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
 	}
 
-	void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+	public void OnClick()
 	{
 		if (_selfDestroyStarted)
 		{
@@ -163,32 +161,6 @@ public class Bubble : MonoBehaviour, IPointerClickHandler, IDragHandler
 		Diffuse();
 
 		Debug.Log("click");
-	}
-
-	void IDragHandler.OnDrag(PointerEventData eventData)
-	{
-		//return;
-
-		////Very nice approach for UI objects dragging
-		//transform.position = eventData.position;
-
-
-		// Solution #01 !!!! WORKING ONE
-		//Plane plane = new Plane(Vector3.forward, transform.position);
-		//Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
-
-		//if (plane.Raycast(ray, out float distance))
-		//{
-		//	transform.position = ray.origin + ray.direction * distance;
-		//}
-
-		// Solution #02
-		//Ray R = Camera.main.ScreenPointToRay(Input.mousePosition); // Get the ray from mouse position
-		//Vector3 PO = transform.position; // Take current position of this draggable object as Plane's Origin
-		//Vector3 PN = -Camera.main.transform.forward; // Take current negative camera's forward as Plane's Normal
-		//float t = Vector3.Dot(PO - R.origin, PN) / Vector3.Dot(R.direction, PN); // plane vs. line intersection in algebric form. It find t as distance from the camera of the new point in the ray's direction.
-		//Vector3 P = R.origin + R.direction * t; // Find the new point.
-		//transform.position = P;
 	}
 
 	private void Init()
