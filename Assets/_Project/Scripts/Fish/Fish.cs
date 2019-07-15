@@ -10,7 +10,7 @@ using Zenject;
 using Terminus.Extensions;
 using Terminus.Game.Messages;
 
-public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHandler*/
 {
 	[SerializeField] private Sprite[] _sprites;
 	[SerializeField] private SpriteRenderer _headSpriteRenderer;
@@ -25,11 +25,11 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 	private FishHealthBar _healthBar;
 	private BubbleType _type;
 	private bool _isDead;
-	private bool _isCollided;
+	//private bool _isCollided;
 	private Color _color;
 	private SpriteRenderer[] _spriteRenderers;
-	private Vector2 _originPosition;
-	private bool _isDraggable;
+	//private Vector2 _originPosition;
+	//private bool _isDraggable;
 	private FishHealth _fishHealth;
 	private GameSettings _gameSettings;
 
@@ -234,29 +234,26 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		}
 		else if (other.GetComponent<Fish>())
 		{
-			if (!_isDraggable)
+			var movement = GetComponent<FishMovement>();
+
+			if (!movement._isDraggable)
 			{
 				return;
 			}
 
-			_isCollided = true;
+			movement._isCollided = true;
 
-			//isDraggable = false;
 			transform.position = other.GetComponent<Fish>().transform.position;
-			other.GetComponent<Fish>().transform.position = _originPosition;
-			_originPosition = transform.position;
+			other.GetComponent<Fish>().transform.position = movement._originPosition;
+			movement._originPosition = transform.position;
 
 
-
-
-			if (!_isCollided)
+			if (!movement._isCollided)
 			{
-				transform.position = _originPosition;
+				transform.position = movement._originPosition;
 			}
 
-			_isDraggable = false;
-
-
+			movement._isDraggable = false;
 		}
 	}
 
@@ -268,64 +265,6 @@ public class Fish : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 		scoreGO.transform.position = pos;
 
 		scoreGO.GetComponent<CoinScoreText>().SetScore(scoreCount, wrongCoin);
-	}
-
-	void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
-	{
-		_isCollided = false;
-		_isDraggable = true;
-		_originPosition = transform.position;
-	}
-
-	void IDragHandler.OnDrag(PointerEventData eventData)
-	{
-		if (!_isDraggable)
-		{
-			return;
-		}
-
-		if (_isCollided)
-		{
-			_isCollided = false;
-		}
-
-		////Very nice approach for 2D objects dragging
-		//transform.position = eventData.position;
-
-
-		// Solution #01
-		Plane plane = new Plane(Vector3.forward, transform.position);
-		Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
-
-		if (plane.Raycast(ray, out float distance))
-		{
-			var vec = ray.origin + ray.direction * distance;
-
-			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
-
-			var xMin = GameController.Instance.fishSpawner.SpawnPoints[0].transform.position.x;
-			var xMax = GameController.Instance.fishSpawner.SpawnPoints[spawnPointsLength - 1].transform.position.x;
-			transform.position = new Vector2(Mathf.Clamp(vec.x, xMin, xMax), transform.position.y);
-		}
-
-		// Solution #02
-		//Ray R = Camera.main.ScreenPointToRay(Input.mousePosition); // Get the ray from mouse position
-		//Vector3 PO = transform.position; // Take current position of this draggable object as Plane's Origin
-		//Vector3 PN = -Camera.main.transform.forward; // Take current negative camera's forward as Plane's Normal
-		//float t = Vector3.Dot(PO - R.origin, PN) / Vector3.Dot(R.direction, PN); // plane vs. line intersection in algebric form. It find t as distance from the camera of the new point in the ray's direction.
-		//Vector3 P = R.origin + R.direction * t; // Find the new point.
-
-		//transform.position = P;
-	}
-
-	void IEndDragHandler.OnEndDrag(PointerEventData eventData)
-	{
-		if (!_isCollided)
-		{
-			transform.position = _originPosition;
-		}
-
-		_isDraggable = false;
 	}
 
 	//----------------------------------------------------------------
