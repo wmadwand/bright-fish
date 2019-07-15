@@ -1,14 +1,9 @@
 ﻿using DG.Tweening;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using Zenject;
-
-using Terminus.Extensions;
 using Terminus.Game.Messages;
+using UnityEngine;
+using Zenject;
 
 public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHandler*/
 {
@@ -172,7 +167,7 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.GetComponent<Bubble>())
+		if (other.GetComponent<Bubble>() && other is CircleCollider2D)
 		{
 			if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type == _type)
 			{
@@ -203,7 +198,7 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 
 
 		}
-		else if (other.GetComponent<Food>())
+		else if (other.GetComponent<Food>() && other is CircleCollider2D)
 		{
 			if (other.GetComponent<Food>() && other.GetComponent<Food>().Type == _type)
 			{
@@ -232,9 +227,9 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 				other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
 			}
 		}
-		else if (other.GetComponent<Fish>())
+		else if (other.GetComponent<Fish>() && other is BoxCollider2D)
 		{
-			var movement = GetComponent<FishMovement>();
+			var movement = GetComponentInChildren<FishMovement>();
 
 			if (!movement._isDraggable)
 			{
