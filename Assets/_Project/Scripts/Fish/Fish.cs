@@ -28,6 +28,8 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 	private FishHealth _fishHealth;
 	private GameSettings _gameSettings;
 
+	private int _bubbleLayer;
+
 	//----------------------------------------------------------------
 
 	public void Setup(BubbleType bubbleType)
@@ -84,6 +86,10 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 	{
 		_spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
 		_fishHealth = GetComponent<FishHealth>();
+
+		_bubbleLayer = 1 << LayerMask.NameToLayer("PhysicsObject")/* | 1 << LayerMask.NameToLayer("Player")*/;
+
+		//Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(),);
 	}
 
 	private void Start()
@@ -131,41 +137,32 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 
 		UpdateSprite();
 
+		CheckForCollide();
+
 	}
 
-	private void ShowPaintSplash(Color color)
+	private void OnDrawGizmos()
 	{
-		var obj = Instantiate(_particleTemplate, _particleSpawnPoint.position, Quaternion.identity);
-		var script = obj.GetComponent<FishPaint>();
+		Gizmos.color = Color.red;
 
-		script.SetColor(color);
+		Gizmos.DrawWireSphere(transform.position, 1);
 	}
 
-	private IEnumerator DelayBeforeHide(Action callback)
+	private void CheckForCollide()
 	{
-		yield return new WaitForSeconds(1);
+		var vec = new Vector2(3, 2);
+		//var result = Physics2D.OverlapCapsule(transform.position, vec, CapsuleDirection2D.Horizontal, 0, _bubbleLayer);
+		var result = Physics2D.OverlapCircle(transform.position, 1, _bubbleLayer);
 
-		Array.ForEach(_spriteRenderers, x => x.DOFade(0, 1));
-		_bodySpriteRenderer.material.DOFade(0, 1);
-
-		yield return new WaitForSeconds(1);
-
-		callback();
-	}
-
-	private void UpdateSprite()
-	{
-		if (_fishHealth.IsFedUp)
+		if (result && ((result is CircleCollider2D && result.GetComponent<Bubble>()) || (result is BoxCollider2D && result.GetComponent<Fish>())))
 		{
-			_spriteRenderers[0].sprite = _sprites[1];
-		}
-		else if (_fishHealth.IsDead)
-		{
-			_spriteRenderers[0].sprite = _sprites[2];
+			Debug.Log("Bubble has just collided with fish");
+
+			OnCollideCircleEnter(result);
 		}
 	}
 
-	private void OnTriggerEnter2D(Collider2D other)
+	private void OnCollideCircleEnter(Collider2D other)
 	{
 		if (other.GetComponent<Bubble>() && other is CircleCollider2D)
 		{
@@ -226,30 +223,149 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 
 				other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
 			}
+			else if (other.GetComponent<Fish>() && other is BoxCollider2D)
+			{
+				var movement = GetComponentInChildren<FishMovement>();
+
+				if (!movement._isDraggable)
+				{
+					return;
+				}
+
+				movement._isCollided = true;
+
+				transform.position = other.GetComponent<Fish>().transform.position;
+				other.GetComponent<Fish>().transform.position = movement._originPosition;
+				movement._originPosition = transform.position;
+
+
+				if (!movement._isCollided)
+				{
+					transform.position = movement._originPosition;
+				}
+
+				movement._isDraggable = false;
+			}
 		}
-		else if (other.GetComponent<Fish>() && other is BoxCollider2D)
+	}
+
+	private void ShowPaintSplash(Color color)
+	{
+		var obj = Instantiate(_particleTemplate, _particleSpawnPoint.position, Quaternion.identity);
+		var script = obj.GetComponent<FishPaint>();
+
+		script.SetColor(color);
+	}
+
+	private IEnumerator DelayBeforeHide(Action callback)
+	{
+		yield return new WaitForSeconds(1);
+
+		Array.ForEach(_spriteRenderers, x => x.DOFade(0, 1));
+		_bodySpriteRenderer.material.DOFade(0, 1);
+
+		yield return new WaitForSeconds(1);
+
+		callback();
+	}
+
+	private void UpdateSprite()
+	{
+		if (_fishHealth.IsFedUp)
 		{
-			var movement = GetComponentInChildren<FishMovement>();
-
-			if (!movement._isDraggable)
-			{
-				return;
-			}
-
-			movement._isCollided = true;
-
-			transform.position = other.GetComponent<Fish>().transform.position;
-			other.GetComponent<Fish>().transform.position = movement._originPosition;
-			movement._originPosition = transform.position;
-
-
-			if (!movement._isCollided)
-			{
-				transform.position = movement._originPosition;
-			}
-
-			movement._isDraggable = false;
+			_spriteRenderers[0].sprite = _sprites[1];
 		}
+		else if (_fishHealth.IsDead)
+		{
+			_spriteRenderers[0].sprite = _sprites[2];
+		}
+	}
+
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		//if (other.GetComponent<Bubble>() && other is CircleCollider2D)
+		//{
+		//	if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type == _type)
+		//	{
+		//		MessageBus.OnBubbleColorMatch.Send(other.GetComponent<Bubble>().ScoreCount);
+
+		//		_fishHealth.ChangeHealth(30);
+		//		UpdateHealthBar(_fishHealth.value);
+
+		//		SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount);
+
+		//		GameController.Instance.sound.PlaySound(feedFishGood);
+
+		//		other.GetComponent<Bubble>().SelfDestroy(isRequiredBadSound: false);
+		//	}
+		//	else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type != _type)
+		//	{
+		//		MessageBus.OnBubbleColorMatch.Send(-other.GetComponent<Bubble>().ScoreCount);
+
+		//		SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount, true);
+
+		//		_fishHealth.ChangeHealth(-30);
+		//		UpdateHealthBar(_fishHealth.value);
+
+		//		GameController.Instance.sound.PlaySound(feedFishBad);
+
+		//		other.GetComponent<Bubble>().SelfDestroy(isRequiredBadSound: false);
+		//	}
+
+
+		//}
+		//else if (other.GetComponent<Food>() && other is CircleCollider2D)
+		//{
+		//	if (other.GetComponent<Food>() && other.GetComponent<Food>().Type == _type)
+		//	{
+		//		MessageBus.OnBubbleColorMatch.Send(other.GetComponent<Bubble>().ScoreCount);
+
+		//		_fishHealth.ChangeHealth(30);
+		//		UpdateHealthBar(_fishHealth.value);
+
+		//		SpawnCoinScroreText(other.GetComponent<Food>().ScoreCount);
+
+		//		GameController.Instance.sound.PlaySound(feedFishGood);
+
+		//		other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
+		//	}
+		//	else if (other.GetComponent<Food>() && other.GetComponent<Food>().Type != _type)
+		//	{
+		//		MessageBus.OnBubbleColorMatch.Send(-other.GetComponent<Bubble>().ScoreCount);
+
+		//		SpawnCoinScroreText(other.GetComponent<Food>().ScoreCount, true);
+
+		//		_fishHealth.ChangeHealth(-30);
+		//		UpdateHealthBar(_fishHealth.value);
+
+		//		GameController.Instance.sound.PlaySound(feedFishBad);
+
+		//		other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
+		//	}
+		//}
+		///*else*/ if (other.GetComponent<Fish>() && other is BoxCollider2D)
+		//{
+		//	var movement = GetComponentInChildren<FishMovement>();
+
+		//	if (!movement._isDraggable)
+		//	{
+		//		return;
+		//	}
+
+		//	movement._isCollided = true;
+
+		//	transform.position = other.GetComponent<Fish>().transform.position;
+		//	other.GetComponent<Fish>().transform.position = movement._originPosition;
+		//	movement._originPosition = transform.position;
+
+
+		//	if (!movement._isCollided)
+		//	{
+		//		transform.position = movement._originPosition;
+		//	}
+
+		//	movement._isDraggable = false;
+		//}
 	}
 
 	private void SpawnCoinScroreText(int scoreCount, bool wrongCoin = false)
