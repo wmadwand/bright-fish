@@ -14,6 +14,8 @@ public class FishMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 	private void Awake()
 	{
 		_parent = transform.root;
+		var rb = GetComponent<Rigidbody2D>();
+		
 	}
 
 	void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
@@ -68,6 +70,7 @@ public class FishMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 	{
 		if (!_isCollided)
 		{
+			//TODO: replace with GetComponent<Rigidbody2D>().position
 			_parent.position = _originPosition;
 		}
 

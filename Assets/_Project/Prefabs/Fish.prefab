@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8363353415580118117}
   - component: {fileID: 4861931125810321071}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: HeadBaseImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,9 +122,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1547542902400576917}
   - component: {fileID: 2880436355639984209}
-  - component: {fileID: 2511678864762351803}
   - component: {fileID: 3211011915751509323}
-  m_Layer: 10
+  - component: {fileID: 2511678864762351803}
+  m_Layer: 2
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,21 +165,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.7
---- !u!114 &2511678864762351803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2841582717823717896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c49b677033fa9d4d81c2107d64e3257, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isCollided: 0
-  _originPosition: {x: 0, y: 0}
-  _isDraggable: 0
 --- !u!50 &3211011915751509323
 Rigidbody2D:
   serializedVersion: 4
@@ -201,6 +186,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2511678864762351803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2841582717823717896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c49b677033fa9d4d81c2107d64e3257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isCollided: 0
+  _originPosition: {x: 0, y: 0}
+  _isDraggable: 0
 --- !u!1 &3171157157886120359
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7431894563554012256}
   - component: {fileID: 2792384093004888931}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: BodyOutlineImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1681992969269902616}
   - component: {fileID: 6538359787588774956}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: HeadOutlineImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -571,7 +571,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2176940523647225131}
   - component: {fileID: 2105479253849562807}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: BodyBaseImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

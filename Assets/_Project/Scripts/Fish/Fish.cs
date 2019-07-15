@@ -170,6 +170,99 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 		}
 	}
 
+	//private void OnCollisionEnter2D(Collision2D collision)
+	//{
+	//	var other = collision.collider;
+
+	//	if (other.GetComponent<Bubble>() && other is CircleCollider2D)
+	//	{
+	//		if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type == _type)
+	//		{
+	//			MessageBus.OnBubbleColorMatch.Send(other.GetComponent<Bubble>().ScoreCount);
+
+	//			_fishHealth.ChangeHealth(30);
+	//			UpdateHealthBar(_fishHealth.value);
+
+	//			SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount);
+
+	//			GameController.Instance.sound.PlaySound(feedFishGood);
+
+	//			other.GetComponent<Bubble>().SelfDestroy(isRequiredBadSound: false);
+	//		}
+	//		else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type != _type)
+	//		{
+	//			MessageBus.OnBubbleColorMatch.Send(-other.GetComponent<Bubble>().ScoreCount);
+
+	//			SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount, true);
+
+	//			_fishHealth.ChangeHealth(-30);
+	//			UpdateHealthBar(_fishHealth.value);
+
+	//			GameController.Instance.sound.PlaySound(feedFishBad);
+
+	//			other.GetComponent<Bubble>().SelfDestroy(isRequiredBadSound: false);
+	//		}
+
+
+	//	}
+	//	else if (other.GetComponent<Food>() && other is CircleCollider2D)
+	//	{
+	//		if (other.GetComponent<Food>() && other.GetComponent<Food>().Type == _type)
+	//		{
+	//			MessageBus.OnBubbleColorMatch.Send(other.GetComponent<Bubble>().ScoreCount);
+
+	//			_fishHealth.ChangeHealth(30);
+	//			UpdateHealthBar(_fishHealth.value);
+
+	//			SpawnCoinScroreText(other.GetComponent<Food>().ScoreCount);
+
+	//			GameController.Instance.sound.PlaySound(feedFishGood);
+
+	//			other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
+	//		}
+	//		else if (other.GetComponent<Food>() && other.GetComponent<Food>().Type != _type)
+	//		{
+	//			MessageBus.OnBubbleColorMatch.Send(-other.GetComponent<Bubble>().ScoreCount);
+
+	//			SpawnCoinScroreText(other.GetComponent<Food>().ScoreCount, true);
+
+	//			_fishHealth.ChangeHealth(-30);
+	//			UpdateHealthBar(_fishHealth.value);
+
+	//			GameController.Instance.sound.PlaySound(feedFishBad);
+
+	//			other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
+	//		}
+	//	}
+	//	else if (other.GetComponent<Fish>() && other is CircleCollider2D)
+	//	{
+	//		var movement = other.GetComponentInChildren<FishMovement>();
+
+	//		if (!movement._isDraggable)
+	//		{
+	//			return;
+	//		}
+
+	//		movement._isCollided = true;
+
+	//		//isDraggable = false;
+	//		transform.position = other.GetComponent<Fish>().transform.position;
+	//		other.GetComponent<Fish>().transform.position = movement._originPosition;
+	//		movement._originPosition = transform.position;
+
+
+
+
+	//		if (!movement._isCollided)
+	//		{
+	//			transform.position = movement._originPosition;
+	//		}
+
+	//		movement._isDraggable = false;
+
+	//	}
+	//}
+
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.GetComponent<Bubble>() && other is CircleCollider2D)
@@ -232,7 +325,7 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 				other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
 			}
 		}
-		else if (other.GetComponent<Fish>() && other is CircleCollider2D)
+		else if (other.GetComponent<Fish>() && other is BoxCollider2D)
 		{
 			var movement = other.GetComponentInChildren<FishMovement>();
 
