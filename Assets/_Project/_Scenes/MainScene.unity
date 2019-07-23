@@ -470,7 +470,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: -1.3e-42, y: 8.06e-43, z: 1e-45, w: 2.82e-43}
+  m_BoundingSphereOverride: {x: -2.26e-43, y: 8.5e-43, z: 6e-45, w: 2.93e-43}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -7035,7 +7035,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1806046637
 Transform:
   m_ObjectHideFlags: 0
@@ -7146,7 +7146,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1847
+    m_Bits: 10039
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
