@@ -95,7 +95,7 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 		_spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
 		_fishHealth = GetComponent<FishHealth>();
 
-		_bubbleLayer = 1 << LayerMask.NameToLayer("PhysicsObject")/* | 1 << LayerMask.NameToLayer("Player")*/;
+		//_bubbleLayer = 1 << LayerMask.NameToLayer("PhysicsObject")/* | 1 << LayerMask.NameToLayer("Player")*/;
 
 
 
