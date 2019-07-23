@@ -5,9 +5,6 @@ public delegate void SwipeEventHandler(Vector2 dir);
 
 public class SwipeController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-	//public static event SwipeEventHandler OnSwipe;
-
-
 	[SerializeField]
 	float smoothing;
 
@@ -16,8 +13,6 @@ public class SwipeController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 	private Vector2 smoothDirection;
 	private bool touched;
 	private int pointerID;
-
-
 
 	private void Awake()
 	{
