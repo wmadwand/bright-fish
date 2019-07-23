@@ -89,7 +89,17 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 
 		_bubbleLayer = 1 << LayerMask.NameToLayer("PhysicsObject")/* | 1 << LayerMask.NameToLayer("Player")*/;
 
-		//Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(),);
+
+
+		Physics2D.alwaysShowColliders = true;
+		//Physics2D.showColliderAABB = true;
+
+		_contactLayer = 1 << LayerMask.NameToLayer("Contact");
+		_ignoreLayer = 1 << LayerMask.NameToLayer("Draggable");
+
+		contactFilter = new ContactFilter2D() { layerMask = _contactLayer, useLayerMask = true };
+
+		//Physics2D.IgnoreLayerCollision(_contactLayer, _ignoreLayer, true);
 	}
 
 	private void Start()
@@ -143,22 +153,47 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 
 	private void OnDrawGizmos()
 	{
-		Gizmos.color = Color.red;
+		//Gizmos.color = Color.red;
 
-		Gizmos.DrawWireSphere(transform.position, 1);
+		//Gizmos.DrawWireSphere(transform.position, 1);
 	}
+
+	public Collider2D myCollider;
+
+	ContactFilter2D contactFilter;
+
+	int _contactLayer;
+	int _ignoreLayer;
+
+	Collider2D[] _results = new Collider2D[2];
 
 	private void CheckForCollide()
 	{
-		var vec = new Vector2(3, 2);
-		//var result = Physics2D.OverlapCapsule(transform.position, vec, CapsuleDirection2D.Horizontal, 0, _bubbleLayer);
-		var result = Physics2D.OverlapCircle(transform.position, 1, _bubbleLayer);
+		//var vec = new Vector2(3, 2);
+		////var result = Physics2D.OverlapCapsule(transform.position, vec, CapsuleDirection2D.Horizontal, 0, _bubbleLayer);
+		//var result = Physics2D.OverlapCircle(transform.position, 1, _bubbleLayer);
 
-		if (result && ((result is CircleCollider2D && result.GetComponent<Bubble>()) || (result is BoxCollider2D && result.GetComponent<Fish>())))
+		//if (result && ((result is CircleCollider2D && result.GetComponent<Bubble>()) || (result is BoxCollider2D && result.GetComponent<Fish>())))
+		//{
+		//	Debug.Log("Bubble has just collided with fish");
+
+		//	OnCollideCircleEnter(result);
+		//}
+
+		Physics2D.OverlapCollider(myCollider, contactFilter, _results);
+
+		//if (_results.Length > 0)
+		//{
+		foreach (var item in _results)
 		{
-			Debug.Log("Bubble has just collided with fish");
+			if (item != null)
+			{
+				/*Array.ForEach(_results, x => x = null);*/
 
-			OnCollideCircleEnter(result);
+				OnCollideCircleEnter(_results[0]);
+
+				Array.Clear(_results, 0, _results.Length);				
+			}
 		}
 	}
 
@@ -223,30 +258,31 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 
 				other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
 			}
-			else if (other.GetComponent<Fish>() && other is BoxCollider2D)
-			{
-				var movement = GetComponentInChildren<FishMovement>();
-
-				if (!movement._isDraggable)
-				{
-					return;
-				}
-
-				movement._isCollided = true;
-
-				transform.position = other.GetComponent<Fish>().transform.position;
-				other.GetComponent<Fish>().transform.position = movement._originPosition;
-				movement._originPosition = transform.position;
-
-
-				if (!movement._isCollided)
-				{
-					transform.position = movement._originPosition;
-				}
-
-				movement._isDraggable = false;
-			}
 		}
+		else if (other.GetComponentInParent<Fish>() && other is BoxCollider2D)
+		{
+			var movement = GetComponentInChildren<FishMovement>();
+
+			if (!movement._isDraggable)
+			{
+				return;
+			}
+
+			movement._isCollided = true;
+
+			transform.position = other.GetComponentInParent<Fish>().transform.position;
+			other.GetComponentInParent<Fish>().transform.position = movement._originPosition;
+			movement._originPosition = transform.position;
+
+
+			if (!movement._isCollided)
+			{
+				transform.position = movement._originPosition;
+			}
+
+			movement._isDraggable = false;
+		}
+		
 	}
 
 	private void ShowPaintSplash(Color color)
