@@ -64,6 +64,11 @@ public class Food : MonoBehaviour, IPointerClickHandler, IDragHandler
 		_parentTubeID = value;
 	}
 
+	public void SetParentRigidBody(Rigidbody2D rigidbody2D)
+	{
+		//_rigidbody2D = rigidbody2D;
+	}
+
 	public void AddForce(float value)
 	{
 		_rigidbody2D.AddForce(Vector3.up * value, ForceMode2D.Impulse);
@@ -115,12 +120,12 @@ public class Food : MonoBehaviour, IPointerClickHandler, IDragHandler
 	private void Awake()
 	{
 		_renderer = GetComponentInChildren<Renderer>();
-		_rigidbody2D = GetComponentInChildren<Rigidbody2D>();
+		//_rigidbody2D = GetComponentInParent<Rigidbody2D>();
 		_view = _renderer.gameObject;
 
 		_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
 
-		Init();
+		//Init();
 	}
 
 	private void Update()
@@ -195,8 +200,10 @@ public class Food : MonoBehaviour, IPointerClickHandler, IDragHandler
 		//transform.position = P;
 	}
 
-	private void Init()
+	public void Init(Rigidbody2D rigidbody2D)
 	{
+		_rigidbody2D = rigidbody2D;
+
 		IsReleased = false;
 
 		_rigidbody2D.drag = _gameSettings.DragRate;

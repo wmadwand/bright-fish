@@ -16,6 +16,7 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 	[SerializeField] private Transform _healthbarPoint;
 	[SerializeField] private Transform _scoreTextSpawnPoint;
 	[SerializeField] private Transform _particleSpawnPoint;
+	[SerializeField] private Collider2D _myCollider;
 
 	private FishHealthBar _healthBar;
 	private BubbleType _type;
@@ -29,6 +30,13 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 	private GameSettings _gameSettings;
 
 	private int _bubbleLayer;
+
+	private ContactFilter2D _contactFilter;
+
+	private int _contactLayer;
+	private int _ignoreLayer;
+
+	private Collider2D[] _results = new Collider2D[2];
 
 	//----------------------------------------------------------------
 
@@ -97,7 +105,7 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 		_contactLayer = 1 << LayerMask.NameToLayer("Contact");
 		_ignoreLayer = 1 << LayerMask.NameToLayer("Draggable");
 
-		contactFilter = new ContactFilter2D() { layerMask = _contactLayer, useLayerMask = true };
+		_contactFilter = new ContactFilter2D() { layerMask = _contactLayer, useLayerMask = true };
 
 		//Physics2D.IgnoreLayerCollision(_contactLayer, _ignoreLayer, true);
 	}
@@ -156,16 +164,7 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 		//Gizmos.color = Color.red;
 
 		//Gizmos.DrawWireSphere(transform.position, 1);
-	}
-
-	public Collider2D myCollider;
-
-	ContactFilter2D contactFilter;
-
-	int _contactLayer;
-	int _ignoreLayer;
-
-	Collider2D[] _results = new Collider2D[2];
+	}	
 
 	private void CheckForCollide()
 	{
@@ -180,7 +179,7 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 		//	OnCollideCircleEnter(result);
 		//}
 
-		Physics2D.OverlapCollider(myCollider, contactFilter, _results);
+		Physics2D.OverlapCollider(_myCollider, _contactFilter, _results);
 
 		//if (_results.Length > 0)
 		//{

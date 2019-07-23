@@ -252,6 +252,7 @@ public class Bubble : MonoBehaviour
 
 			_childFood.RevealColor();
 			Type = _childFood.Type;
+			GetComponentInChildren<BoxCollider2D>().enabled = false;
 
 
 			if (_gameSettings.BigBubbleSelfDestroy)

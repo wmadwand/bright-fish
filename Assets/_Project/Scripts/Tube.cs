@@ -104,6 +104,7 @@ public sealed class Tube : MonoBehaviour
 		MakeBubble();
 
 		_food.transform.SetParent(_bubble.transform);
+		_food.Init(_bubble.GetComponent<Rigidbody2D>());
 	}
 
 	private void MakeBubble()
@@ -121,12 +122,12 @@ public sealed class Tube : MonoBehaviour
 	{
 		_food = _foodDIFactory.Create();
 
-		_food.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-		_food.GetComponent<Rigidbody2D>().Sleep();
-		_food.GetComponent<Rigidbody2D>().simulated = false;
+		//_food.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+		//_food.GetComponent<Rigidbody2D>().Sleep();
+		////_food.GetComponent<Rigidbody2D>().simulated = false;
 
 		_food.transform.SetPositionAndRotation(_bubbleSpawnPoint.position, Quaternion.identity);
-		_food.SetParentTubeID(_id);
+		_food.SetParentTubeID(_id);		
 
 		if (!asChild)
 		{
