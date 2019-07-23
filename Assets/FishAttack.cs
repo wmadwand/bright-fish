@@ -9,6 +9,15 @@ public class FishAttack : MonoBehaviour
 	private int _attackLayer;
 	private float _nextAttackTime;
 
+	//----------------------------------------------------------------
+
+	private void Awake()
+	{
+		Physics2D.queriesStartInColliders = false;
+
+		_attackLayer = 1 << LayerMask.NameToLayer("Fish");
+	}
+
 	private void Update()
 	{
 		if (Time.time > _nextAttackTime)
@@ -19,14 +28,9 @@ public class FishAttack : MonoBehaviour
 		}
 	}
 
-	private void Awake()
-	{
-		_attackLayer = 1 << LayerMask.NameToLayer("Fish");
-	}
-
 	private void MakeDamage()
 	{
-		var hit = Physics2D.Raycast(transform.position, Vector2.left, distance, _attackLayer);
+		var hit = Physics2D.Raycast(transform.position, transform.right, distance, _attackLayer);
 
 		if (hit && hit.collider.GetComponent<FishHealth>() == null)
 		{
@@ -42,7 +46,7 @@ public class FishAttack : MonoBehaviour
 	{
 		Gizmos.color = Color.red;
 
-		var offset = transform.position + new Vector3(-distance, transform.position.y);
+		var offset = transform.position + new Vector3(distance * transform.right.x, 0);
 		Gizmos.DrawLine(transform.position, offset);
 	}
 }
