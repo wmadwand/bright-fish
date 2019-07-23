@@ -120,6 +120,8 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 
 	private void Update()
 	{
+		CheckForContact();
+
 		if (_isDead)
 		{
 			return;
@@ -155,7 +157,6 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 
 		UpdateSprite();
 
-		CheckForCollide();
 
 	}
 
@@ -166,42 +167,32 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 		//Gizmos.DrawWireSphere(transform.position, 1);
 	}	
 
-	private void CheckForCollide()
+	private void CheckForContact()
 	{
-		//var vec = new Vector2(3, 2);
-		////var result = Physics2D.OverlapCapsule(transform.position, vec, CapsuleDirection2D.Horizontal, 0, _bubbleLayer);
-		//var result = Physics2D.OverlapCircle(transform.position, 1, _bubbleLayer);
-
-		//if (result && ((result is CircleCollider2D && result.GetComponent<Bubble>()) || (result is BoxCollider2D && result.GetComponent<Fish>())))
-		//{
-		//	Debug.Log("Bubble has just collided with fish");
-
-		//	OnCollideCircleEnter(result);
-		//}
-
 		Physics2D.OverlapCollider(_myCollider, _contactFilter, _results);
 
-		//if (_results.Length > 0)
-		//{
 		foreach (var item in _results)
 		{
 			if (item != null)
 			{
-				/*Array.ForEach(_results, x => x = null);*/
-
-				OnCollideCircleEnter(_results[0]);
+				OnContactHandler(_results[0]);
 
 				Array.Clear(_results, 0, _results.Length);
 			}
 		}
 	}
 
-	private void OnCollideCircleEnter(Collider2D other)
+	private void OnContactHandler(Collider2D other)
 	{
 		if (other.GetComponentInParent<Bubble>() && other is BoxCollider2D)
 		{
 			var bubble = other.GetComponentInParent<Bubble>();
 
+			if (_isDead)
+			{
+				bubble.SelfDestroy(isRequiredBadSound: false);
+				return;
+			}
 
 			if (bubble.Type == _type)
 			{
@@ -235,6 +226,12 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 		else if (other.GetComponentInParent<Food>() && other is BoxCollider2D)
 		{
 			var food = other.GetComponentInParent<Food>();
+
+			if (_isDead)
+			{
+				food.SelfDestroy(isRequiredBadSound: false);
+				return;
+			}
 
 			if (food.Type == _type)
 			{
@@ -286,7 +283,6 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 
 			movement._isDraggable = false;
 		}
-
 	}
 
 	private void ShowPaintSplash(Color color)
@@ -319,93 +315,6 @@ public class Fish : MonoBehaviour/*, IDragHandler, IBeginDragHandler, IEndDragHa
 		{
 			_spriteRenderers[0].sprite = _sprites[2];
 		}
-	}
-
-	private void OnTriggerEnter2D(Collider2D other)
-	{
-		//if (other.GetComponent<Bubble>() && other is CircleCollider2D)
-		//{
-		//	if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type == _type)
-		//	{
-		//		MessageBus.OnBubbleColorMatch.Send(other.GetComponent<Bubble>().ScoreCount);
-
-		//		_fishHealth.ChangeHealth(30);
-		//		UpdateHealthBar(_fishHealth.value);
-
-		//		SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount);
-
-		//		GameController.Instance.sound.PlaySound(feedFishGood);
-
-		//		other.GetComponent<Bubble>().SelfDestroy(isRequiredBadSound: false);
-		//	}
-		//	else if (other.GetComponent<Bubble>() && other.GetComponent<Bubble>().Type != _type)
-		//	{
-		//		MessageBus.OnBubbleColorMatch.Send(-other.GetComponent<Bubble>().ScoreCount);
-
-		//		SpawnCoinScroreText(other.GetComponent<Bubble>().ScoreCount, true);
-
-		//		_fishHealth.ChangeHealth(-30);
-		//		UpdateHealthBar(_fishHealth.value);
-
-		//		GameController.Instance.sound.PlaySound(feedFishBad);
-
-		//		other.GetComponent<Bubble>().SelfDestroy(isRequiredBadSound: false);
-		//	}
-
-
-		//}
-		//else if (other.GetComponent<Food>() && other is CircleCollider2D)
-		//{
-		//	if (other.GetComponent<Food>() && other.GetComponent<Food>().Type == _type)
-		//	{
-		//		MessageBus.OnBubbleColorMatch.Send(other.GetComponent<Bubble>().ScoreCount);
-
-		//		_fishHealth.ChangeHealth(30);
-		//		UpdateHealthBar(_fishHealth.value);
-
-		//		SpawnCoinScroreText(other.GetComponent<Food>().ScoreCount);
-
-		//		GameController.Instance.sound.PlaySound(feedFishGood);
-
-		//		other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
-		//	}
-		//	else if (other.GetComponent<Food>() && other.GetComponent<Food>().Type != _type)
-		//	{
-		//		MessageBus.OnBubbleColorMatch.Send(-other.GetComponent<Bubble>().ScoreCount);
-
-		//		SpawnCoinScroreText(other.GetComponent<Food>().ScoreCount, true);
-
-		//		_fishHealth.ChangeHealth(-30);
-		//		UpdateHealthBar(_fishHealth.value);
-
-		//		GameController.Instance.sound.PlaySound(feedFishBad);
-
-		//		other.GetComponent<Food>().SelfDestroy(isRequiredBadSound: false);
-		//	}
-		//}
-		///*else*/ if (other.GetComponent<Fish>() && other is BoxCollider2D)
-		//{
-		//	var movement = GetComponentInChildren<FishMovement>();
-
-		//	if (!movement._isDraggable)
-		//	{
-		//		return;
-		//	}
-
-		//	movement._isCollided = true;
-
-		//	transform.position = other.GetComponent<Fish>().transform.position;
-		//	other.GetComponent<Fish>().transform.position = movement._originPosition;
-		//	movement._originPosition = transform.position;
-
-
-		//	if (!movement._isCollided)
-		//	{
-		//		transform.position = movement._originPosition;
-		//	}
-
-		//	movement._isDraggable = false;
-		//}
 	}
 
 	private void SpawnCoinScroreText(int scoreCount, bool wrongCoin = false)

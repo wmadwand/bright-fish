@@ -62,29 +62,39 @@ public sealed class Tube : MonoBehaviour
 	//TODO: consider collision ignore during initialization and skip after trigger exit
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.GetComponent<Bubble>() && other is BoxCollider2D)
+		if (other is BoxCollider2D && other.GetComponentInParent<Bubble>())
 		{
-			if (other.GetComponent<Bubble>().IsReleased)
-			{
-				other.GetComponent<Bubble>().SelfDestroy(true, true);
-			}
-			else
-			{
-				other.GetComponent<Bubble>().SetReleased();
-			}
-		}
-		else if (other.GetComponent<Food>() && other is BoxCollider2D)
-		{
-			if (other.GetComponent<Food>().IsReleased)
-			{
-				other.GetComponent<Food>().SelfDestroy(true, true);
-			}
-			else
-			{
-				other.GetComponent<Food>().SetReleased();
-			}
-		}
+			var bubble = other.GetComponentInParent<Bubble>();
 
+			if (bubble.IsReleased)
+			{
+				bubble.SelfDestroy(true, true);
+			}
+		}
+		else if (other is BoxCollider2D && other.GetComponentInParent<Food>())
+		{
+			var food = other.GetComponentInParent<Food>();
+
+			if (food.IsReleased)
+			{
+				food.SelfDestroy(true, true);
+			}
+		}
+	}
+
+	private void OnTriggerExit2D(Collider2D other)
+	{
+		if (other is BoxCollider2D && other.GetComponentInParent<Bubble>())
+		{
+			var bubble = other.GetComponentInParent<Bubble>();
+			bubble.SetReleased();
+
+		}
+		else if (other is BoxCollider2D && other.GetComponentInParent<Food>())
+		{
+			var food = other.GetComponentInParent<Food>();
+			food.SetReleased();
+		}
 	}
 
 	private void Bubble_OnDestroy(int id)
@@ -127,7 +137,7 @@ public sealed class Tube : MonoBehaviour
 		////_food.GetComponent<Rigidbody2D>().simulated = false;
 
 		_food.transform.SetPositionAndRotation(_bubbleSpawnPoint.position, Quaternion.identity);
-		_food.SetParentTubeID(_id);		
+		_food.SetParentTubeID(_id);
 
 		if (!asChild)
 		{

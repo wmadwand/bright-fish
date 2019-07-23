@@ -1242,13 +1242,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b36222bdd370cb4f830c4119644e40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fishTypes: 0000000001000000020000000300000004000000
+  _fishTypes: 000000000100000002000000
   _spawnPoints:
-  - {fileID: 1248826207}
-  - {fileID: 432817093}
-  - {fileID: 687188353}
-  - {fileID: 1120683313}
-  - {fileID: 1662104338}
+  - {fileID: 724471202}
+  - {fileID: 1243208408}
+  - {fileID: 740539964}
 --- !u!4 &355633255
 Transform:
   m_ObjectHideFlags: 0
@@ -2829,7 +2827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &895497287
 Transform:
   m_ObjectHideFlags: 0
@@ -3673,7 +3671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1138614535
 Transform:
   m_ObjectHideFlags: 0
@@ -5247,7 +5245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1501417903
 Transform:
   m_ObjectHideFlags: 0
@@ -5366,7 +5364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1537278107
 Transform:
   m_ObjectHideFlags: 0
@@ -7065,13 +7063,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9618f9d8a5459cc4c952f241318c19db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bubbleTypes: 0000000001000000020000000300000004000000
+  _bubbleTypes: 000000000100000002000000
   _tubeSpawnPoints:
-  - {fileID: 736933963}
-  - {fileID: 1261742620}
-  - {fileID: 1216599689}
-  - {fileID: 46342834}
-  - {fileID: 1785497568}
+  - {fileID: 766027260}
+  - {fileID: 1599527683}
+  - {fileID: 1108728156}
 --- !u!1 &1832936572
 GameObject:
   m_ObjectHideFlags: 0
