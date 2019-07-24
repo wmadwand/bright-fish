@@ -4,72 +4,75 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class FishHealth : MonoBehaviour
+namespace BrightFish
 {
-	public int value = 50;
-
-	float timer;
-	public float countdownRate = 2;
-
-	private Fish _fish;
-
-	private void Awake()
+	public class FishHealth : MonoBehaviour
 	{
-		_fish = GetComponent<Fish>();
-	}
+		public int value = 50;
 
-	public void OnGetDamage()
-	{
-		_fish.UpdateHealthBar(value);
+		float timer;
+		public float countdownRate = 2;
 
-		if (IsDead)
+		private Fish _fish;
+
+		private void Awake()
 		{
-			_fish.Destroy();
-		}
-	}
-
-	public bool IsFedUp
-	{
-		get
-		{
-			return value >= 100;
-		}
-	}
-
-	public bool IsDead
-	{
-		get
-		{
-			return value <= 0;
-		}
-	}
-
-	private void Update()
-	{
-		if (value == 100)
-		{
-			return;
+			_fish = GetComponent<Fish>();
 		}
 
-		if (Time.time > timer)
+		public void OnGetDamage()
 		{
-			if (value > 0)
+			_fish.UpdateHealthBar(value);
+
+			if (IsDead)
 			{
-				value--;
-				timer = Time.time + countdownRate;
-				_fish.UpdateHealthBar(value);
-			}
-			else
-			{
-
+				_fish.Destroy();
 			}
 		}
 
+		public bool IsFedUp
+		{
+			get
+			{
+				return value >= 100;
+			}
+		}
 
-	}
+		public bool IsDead
+		{
+			get
+			{
+				return value <= 0;
+			}
+		}
 
-	public void ChangeHealth(int value)
-	{
-		this.value += value;
-	}
+		private void Update()
+		{
+			if (value == 100)
+			{
+				return;
+			}
+
+			if (Time.time > timer)
+			{
+				if (value > 0)
+				{
+					value--;
+					timer = Time.time + countdownRate;
+					_fish.UpdateHealthBar(value);
+				}
+				else
+				{
+
+				}
+			}
+
+
+		}
+
+		public void ChangeHealth(int value)
+		{
+			this.value += value;
+		}
+	} 
 }

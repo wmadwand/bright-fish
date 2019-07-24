@@ -1,22 +1,23 @@
 using UnityEngine;
 using Zenject;
 
-public class MainMonoInstaller : MonoInstaller
+namespace BrightFish
 {
-	//[SerializeField] private GameSettings _gameSettings;
-
-	public GameObject BubblePrefab;
-	public GameObject FoodPrefab;
-	public GameObject TubePrefab;
-	public GameObject FishPrefab;
-
-	public override void InstallBindings()
+	public class MainMonoInstaller : MonoInstaller
 	{
-		Container.Bind<GameSettings>().FromScriptableObjectResource("GameSettings").AsSingle();
+		[SerializeField] GameObject _bubblePrefab;
+		[SerializeField] GameObject _foodPrefab;
+		[SerializeField] GameObject _tubePrefab;
+		[SerializeField] GameObject _fishPrefab;
 
-		Container.BindFactory<Bubble, Bubble.BubbleDIFactory>().FromComponentInNewPrefab(BubblePrefab);
-		Container.BindFactory<Food, Food.FoodDIFactory>().FromComponentInNewPrefab(FoodPrefab);
-		Container.BindFactory<Tube, Tube.TubeDIFactory>().FromComponentInNewPrefab(TubePrefab);
-		Container.BindFactory<Fish, Fish.FishDIFactory>().FromComponentInNewPrefab(FishPrefab);
-	}
+		public override void InstallBindings()
+		{
+			Container.Bind<GameSettings>().FromScriptableObjectResource("GameSettings").AsSingle();
+
+			Container.BindFactory<Bubble, Bubble.BubbleDIFactory>().FromComponentInNewPrefab(_bubblePrefab);
+			Container.BindFactory<Food, Food.FoodDIFactory>().FromComponentInNewPrefab(_foodPrefab);
+			Container.BindFactory<Tube, Tube.TubeDIFactory>().FromComponentInNewPrefab(_tubePrefab);
+			Container.BindFactory<Fish, Fish.FishDIFactory>().FromComponentInNewPrefab(_fishPrefab);
+		}
+	} 
 }

@@ -3,35 +3,38 @@ using Terminus.Game.Messages;
 using UnityEngine;
 using Zenject;
 
-public class BgCameraListener : MonoBehaviour
+namespace BrightFish
 {
-	private SimpleLUT _simpleLUT;
-	private GameSettings _gameSettings;
-
-	[Inject]
-	private void Construct(GameSettings gameSettings)
+	public class BgCameraListener : MonoBehaviour
 	{
-		_gameSettings = gameSettings;
-	}
+		private SimpleLUT _simpleLUT;
+		private GameSettings _gameSettings;
 
-	private void Awake()
-	{
-		_simpleLUT = GetComponent<SimpleLUT>();
-		_simpleLUT.Saturation = -1;
-	}
+		[Inject]
+		private void Construct(GameSettings gameSettings)
+		{
+			_gameSettings = gameSettings;
+		}
 
-	private void Start()
-	{
-		MessageBus.OnFishRescued.Receive += OnFishRescued_Receive;
-	}
+		private void Awake()
+		{
+			_simpleLUT = GetComponent<SimpleLUT>();
+			_simpleLUT.Saturation = -1;
+		}
 
-	private void OnFishRescued_Receive(Fish arg1, BubbleType arg2, Vector3 arg3)
-	{
-		_simpleLUT.Saturation += _gameSettings.RescuedFishTargetCount * .01f;
-	}
+		private void Start()
+		{
+			MessageBus.OnFishRescued.Receive += OnFishRescued_Receive;
+		}
 
-	private void OnDestroy()
-	{
-		MessageBus.OnFishRescued.Receive -= OnFishRescued_Receive;
-	}
+		private void OnFishRescued_Receive(Fish arg1, ColorType arg2, Vector3 arg3)
+		{
+			_simpleLUT.Saturation += _gameSettings.RescuedFishTargetCount * .01f;
+		}
+
+		private void OnDestroy()
+		{
+			MessageBus.OnFishRescued.Receive -= OnFishRescued_Receive;
+		}
+	} 
 }

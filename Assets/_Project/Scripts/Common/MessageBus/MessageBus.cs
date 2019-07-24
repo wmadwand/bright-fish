@@ -4,6 +4,7 @@
 using Terminus.Core.Helper;
 using UnityEngine;
 //using Terminus.Game.SaveLoad;
+using BrightFish;
 
 namespace Terminus.Game.Messages
 {
@@ -92,11 +93,11 @@ namespace Terminus.Game.Messages
         public static readonly Message<int> OnBubbleDestroy = new Message<int>();
         public static readonly Message<int> OnBubbleColorMatch = new Message<int>();
 
-        public static readonly Message<Fish, BubbleType, Vector3> OnFishDead = new Message<Fish, BubbleType, Vector3>();
+        public static readonly Message<Fish, ColorType, Vector3> OnFishDead = new Message<Fish, ColorType, Vector3>();
 		public static readonly Message OnFishDying = new Message();
 
-		public static readonly Message<Fish, BubbleType, Vector3> OnFishRescued = new Message<Fish, BubbleType, Vector3>();
-		public static readonly Message<Fish, BubbleType, Vector3> OnFishFinishedSmiling = new Message<Fish, BubbleType, Vector3>();
+		public static readonly Message<Fish, ColorType, Vector3> OnFishRescued = new Message<Fish, ColorType, Vector3>();
+		public static readonly Message<Fish, ColorType, Vector3> OnFishFinishedSmiling = new Message<Fish, ColorType, Vector3>();
 
         public static readonly Message<int> OnFoodDestroy = new Message<int>();
 
