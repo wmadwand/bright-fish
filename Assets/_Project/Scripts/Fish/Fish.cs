@@ -332,5 +332,7 @@ namespace BrightFish
 		//----------------------------------------------------------------
 
 		public class FishDIFactory : PlaceholderFactory<Fish> { }
+
+		public class FishPredatorDIFactory : PlaceholderFactory<Fish> { }
 	}
 }

@@ -64,7 +64,7 @@ namespace BrightFish
 				direction = Vector2.zero;
 				touched = false;
 
-				transform.root.GetComponent<Bubble>().OnClick();
+				transform.GetComponentInParent<Bubble>().OnClick();
 			}
 		}
 

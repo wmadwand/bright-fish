@@ -15,7 +15,9 @@ namespace BrightFish
 
 		private List<Fish> _fishes = new List<Fish>();
 		private System.Random _random;
+
 		private Fish.FishDIFactory _fishDIFactory;
+		private Fish.FishPredatorDIFactory _fishPredatorDIFactory;
 
 		//----------------------------------------------------------------
 

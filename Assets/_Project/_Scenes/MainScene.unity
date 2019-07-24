@@ -4368,6 +4368,8 @@ MonoBehaviour:
     type: 3}
   _fishPrefab: {fileID: 4066991538648877187, guid: 2140b7a518bd70c41b37b0aa39d6441b,
     type: 3}
+  _fishPredatorPrefab: {fileID: 1616763465078034944, guid: a0057c1fe12bf6a4e99a64f469db8802,
+    type: 3}
 --- !u!4 &1269847594
 Transform:
   m_ObjectHideFlags: 0
