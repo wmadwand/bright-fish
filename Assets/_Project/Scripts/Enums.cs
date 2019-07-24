@@ -11,7 +11,7 @@ public enum BubbleState
 
 public enum FishCategory
 {
-	@default = 50,
+	peaceful = 50,
 	predator = 100,
 	reversed = 150,
 	rainbow = 200

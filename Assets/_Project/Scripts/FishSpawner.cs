@@ -16,15 +16,19 @@ namespace BrightFish
 		private List<Fish> _fishes = new List<Fish>();
 		private System.Random _random;
 
+		private FishSpawnProbability _fishSpawnProbability;
 		private Fish.FishDIFactory _fishDIFactory;
 		private Fish.FishPredatorDIFactory _fishPredatorDIFactory;
 
 		//----------------------------------------------------------------
 
 		[Inject]
-		private void Construct(Fish.FishDIFactory fishDIFactory)
+		private void Construct(FishSpawnProbability fishSpawnProbability, Fish.FishDIFactory fishDIFactory, Fish.FishPredatorDIFactory fishPredatorDIFactory)
 		{
+			_fishSpawnProbability = fishSpawnProbability;
+
 			_fishDIFactory = fishDIFactory;
+			_fishPredatorDIFactory = fishPredatorDIFactory;
 		}
 
 		private void Awake()
@@ -72,12 +76,12 @@ namespace BrightFish
 
 		private void Fish_OnHappy(Fish fish, ColorType arg1, Vector3 arg2)
 		{
-			CreateNewFish(fish, GetRandomBubbleType(), arg2);
+			CreateNewFish(fish, GetRandomColorType(), arg2);
 		}
 
 		private void Fish_OnDeath(Fish fish, ColorType arg1, Vector3 arg2)
 		{
-			CreateNewFish(fish, GetRandomBubbleType(), arg2);
+			CreateNewFish(fish, GetRandomColorType(), arg2);
 		}
 
 		private void CreateNewFish(Fish fish, ColorType arg1, Vector3 arg2)
@@ -103,8 +107,22 @@ namespace BrightFish
 
 		private void Spawn(ColorType bubbleType, Vector3 position)
 		{
-			Fish fish = _fishDIFactory.Create();
+			var fishCategoryResult = GetRandomWeightedFishCategory();
 
+			Fish fish = null;
+
+			switch (fishCategoryResult)
+			{
+				case FishCategory.peaceful:
+					fish = _fishDIFactory.Create();
+					break;
+				case FishCategory.predator:
+					fish = _fishPredatorDIFactory.Create();
+					break;
+
+				default:
+					break;
+			}
 
 			fish.transform.SetPositionAndRotation(position, Quaternion.identity);
 			fish.Setup(bubbleType);
@@ -112,9 +130,17 @@ namespace BrightFish
 			_fishes.Add(fish);
 		}
 
-		private ColorType GetRandomBubbleType()
+		private FishCategory GetRandomWeightedFishCategory()
+		{
+			var weightsArray = _fishSpawnProbability.GetWeightsArray();
+			int resItemIndex = SRandom.GetRandomWeightedItemIndex(weightsArray, _random);
+
+			return _fishSpawnProbability.list[resItemIndex].category;
+		}
+
+		private ColorType GetRandomColorType()
 		{
 			return (ColorType)Random.Range(0, _fishTypes.Length);
 		}
-	} 
+	}
 }
