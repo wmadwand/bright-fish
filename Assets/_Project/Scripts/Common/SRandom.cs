@@ -9,7 +9,7 @@ public static class SRandom
 		return random.Next(1, 101) <= value ? true : false;
 	}
 
-	public static int GetWeightedRandomItemIndex(int[] array, Random random)
+	public static int GetRandomWeightedItemIndex(int[] array, Random random)
 	{
 		int pick = random.Next(array.Sum());
 		int sum = 0;

@@ -11,10 +11,9 @@ public class FishSpawner : MonoBehaviour
 	[SerializeField] private BubbleType[] _fishTypes;
 	[SerializeField] private GameObject[] _spawnPoints;
 
+	private List<Fish> _fishes = new List<Fish>();
 	private System.Random _random;
 	private Fish.FishDIFactory _fishDIFactory;
-
-	private List<Fish> _fishes = new List<Fish>();
 
 	//----------------------------------------------------------------
 
@@ -69,17 +68,16 @@ public class FishSpawner : MonoBehaviour
 
 	private void Fish_OnHappy(Fish fish, BubbleType arg1, Vector3 arg2)
 	{
-		_fishes.Remove(fish);
-
-		if (GameController.Instance.IsGameActive)
-		{
-			Spawn(arg1, arg2);
-		}
+		CreateNewFish(fish, GetRandomBubbleType(), arg2);
 	}
 
 	private void Fish_OnDeath(Fish fish, BubbleType arg1, Vector3 arg2)
 	{
+		CreateNewFish(fish, GetRandomBubbleType(), arg2);
+	}
 
+	private void CreateNewFish(Fish fish, BubbleType arg1, Vector3 arg2)
+	{
 		_fishes.Remove(fish);
 
 		if (GameController.Instance.IsGameActive)
@@ -95,22 +93,21 @@ public class FishSpawner : MonoBehaviour
 
 		for (int i = 0; i < /*2*/ MyRandomArray.Length; i++)
 		{
-			Fish fish = _fishDIFactory.Create();
-			fish.transform.SetPositionAndRotation(_spawnPoints[i].transform.position, Quaternion.identity);
-
-			fish.Setup(MyRandomArray[i]);
-
-			_fishes.Add(fish);
+			Spawn(MyRandomArray[i], _spawnPoints[i].transform.position);
 		}
 	}
 
-	private void Spawn(BubbleType coinType, Vector3 position)
+	private void Spawn(BubbleType bubbleType, Vector3 position)
 	{
 		Fish fish = _fishDIFactory.Create();
 		fish.transform.SetPositionAndRotation(position, Quaternion.identity);
-
-		fish.Setup((BubbleType)Random.Range(0, _fishTypes.Length)/*coinType*/);
+		fish.Setup(bubbleType);
 
 		_fishes.Add(fish);
+	}
+
+	private BubbleType GetRandomBubbleType()
+	{
+		return (BubbleType)Random.Range(0, _fishTypes.Length);
 	}
 }
