@@ -34,7 +34,7 @@ namespace BrightFish
 		{
 			var hit = Physics2D.Raycast(transform.position, transform.right, distance, _attackLayer);
 
-			if (hit && hit.collider.GetComponent<FishHealth>() == null)
+			if (!hit || hit && hit.collider.GetComponent<FishHealth>() == null)
 			{
 				return;
 			}
@@ -51,5 +51,5 @@ namespace BrightFish
 			var offset = transform.position + new Vector3(distance * transform.right.x, 0);
 			Gizmos.DrawLine(transform.position, offset);
 		}
-	} 
+	}
 }

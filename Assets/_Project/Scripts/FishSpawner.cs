@@ -124,7 +124,7 @@ namespace BrightFish
 					break;
 			}
 
-			fish.transform.SetPositionAndRotation(position, Quaternion.identity);
+			fish.transform.SetPositionAndRotation(position, fish.transform.rotation /*Quaternion.identity*/);
 			fish.Setup(bubbleType);
 
 			_fishes.Add(fish);
