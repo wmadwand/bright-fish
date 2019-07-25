@@ -27,6 +27,19 @@ MonoBehaviour:
   damage: 10
   distance: 3
   _timeBetweenAttacks: 3
+--- !u!114 &8891676573812533753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616763465078034944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae35dc51a9dbde43b269462e624aa3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeBeforeRotate: 2
 --- !u!1 &4535752715314512348
 GameObject:
   m_ObjectHideFlags: 0
