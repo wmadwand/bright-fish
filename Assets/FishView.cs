@@ -16,10 +16,8 @@ namespace BrightFish
 
 		private void Awake()
 		{
-			_panicSign.transform.position = dropStartPos;
+			_panicSign.transform.localPosition = dropStartPos;
 			_panicSign.SetActive(false);
-
-
 		}
 
 		public void OnPredatorFound()
@@ -34,12 +32,12 @@ namespace BrightFish
 			//	   });
 
 			_panicSign.SetActive(true);
-			//_panicSign.transform.DOMoveY(dropFinishPos.y, 1f);
+			_panicSign.transform.DOLocalMoveY(dropFinishPos.y, 1f);
 		}
 
 		public void OnPredatorLost()
 		{
-			_panicSign.transform.position = dropStartPos;
+			_panicSign.transform.localPosition = dropStartPos;
 			_panicSign.SetActive(false);
 		}
 	}
