@@ -12,7 +12,7 @@ namespace BrightFish
 		private RaycastHit2D hit1;
 		private RaycastHit2D hit2;
 
-		private bool _isPredatorFound;
+		public bool _isPredatorFound;
 		private FishView _fishView;
 
 		private void Awake()
@@ -34,19 +34,34 @@ namespace BrightFish
 			hit1 = CastRay(transform.right);
 			hit2 = CastRay(-transform.right);
 
-			if (hit1 && hit1.collider.GetComponent<FishPredator>() || hit2 && hit2.collider.GetComponent<FishPredator>())
+			if (hit1 && hit1.collider.GetComponent<FishPredator>() && IsFaceToFaceWithObject(hit1.transform)
+				|| hit2 && hit2.collider.GetComponent<FishPredator>() && IsFaceToFaceWithObject(hit2.transform))
 			{
 				_isPredatorFound = true;
+				_fishView.OnPredatorFound();
+
+				Debug.Log("OnPredatorFound");
 			}
 			else
 			{
 				_isPredatorFound = false;
+				_fishView.OnPredatorLost();
+
+				Debug.Log("OnPredatorLost");
 			}
+		}
+
+		private bool IsFaceToFaceWithObject(Transform tr)
+		{
+			//var targerDir = target - transform.right;
+			var isObjectFaceForward = Vector3.Dot(transform.right.normalized, tr.right.normalized);
+
+			return isObjectFaceForward < 0f && transform.position.x < tr.position.x || isObjectFaceForward > 0f && transform.position.x > tr.position.x;
 		}
 
 		private RaycastHit2D CastRay(Vector3 direction)
 		{
 			return Physics2D.Raycast(transform.position, direction, distance, _fishLayer);
 		}
-	} 
+	}
 }
