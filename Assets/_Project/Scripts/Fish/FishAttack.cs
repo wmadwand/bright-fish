@@ -30,7 +30,7 @@ namespace BrightFish
 			hit = CastRay();
 			IsTargetDetected = hit && hit.collider.GetComponent<FishHealth>() ? true : false;
 
-			if (Time.time > _nextAttackTime)
+			if (IsTargetDetected && Time.time > _nextAttackTime)
 			{
 				MakeDamage();
 
