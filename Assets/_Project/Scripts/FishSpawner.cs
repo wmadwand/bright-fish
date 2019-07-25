@@ -20,11 +20,15 @@ namespace BrightFish
 		private Fish.FishDIFactory _fishDIFactory;
 		private Fish.FishPredatorDIFactory _fishPredatorDIFactory;
 
+		private GameSettings _gameSettings;
+		private int _predatorFishesCount;
+
 		//----------------------------------------------------------------
 
 		[Inject]
-		private void Construct(FishSpawnProbability fishSpawnProbability, Fish.FishDIFactory fishDIFactory, Fish.FishPredatorDIFactory fishPredatorDIFactory)
+		private void Construct(GameSettings gameSettings, FishSpawnProbability fishSpawnProbability, Fish.FishDIFactory fishDIFactory, Fish.FishPredatorDIFactory fishPredatorDIFactory)
 		{
+			_gameSettings = gameSettings;
 			_fishSpawnProbability = fishSpawnProbability;
 
 			_fishDIFactory = fishDIFactory;
@@ -86,6 +90,11 @@ namespace BrightFish
 
 		private void CreateNewFish(Fish fish, ColorType arg1, Vector3 arg2)
 		{
+			if (fish.GetComponent<FishPredator>())
+			{
+				_predatorFishesCount--;
+			}
+
 			_fishes.Remove(fish);
 
 			if (GameController.Instance.IsGameActive)
@@ -107,7 +116,7 @@ namespace BrightFish
 
 		private void Spawn(ColorType bubbleType, Vector3 position)
 		{
-			var fishCategoryResult = GetRandomWeightedFishCategory();
+			var fishCategoryResult = _predatorFishesCount < _gameSettings.PredatorFishesMaxCount ? GetRandomWeightedFishCategory() : FishCategory.peaceful;
 
 			Fish fish = null;
 
@@ -117,7 +126,10 @@ namespace BrightFish
 					fish = _fishDIFactory.Create();
 					break;
 				case FishCategory.predator:
-					fish = _fishPredatorDIFactory.Create();
+					{
+						fish = _fishPredatorDIFactory.Create();
+						_predatorFishesCount++;
+					}
 					break;
 
 				default:

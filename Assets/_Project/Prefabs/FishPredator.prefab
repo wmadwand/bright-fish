@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ae35dc51a9dbde43b269462e624aa3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeBeforeRotate: 2
+  _timeBeforeRotate: 4
 --- !u!1 &4535752715314512348
 GameObject:
   m_ObjectHideFlags: 0

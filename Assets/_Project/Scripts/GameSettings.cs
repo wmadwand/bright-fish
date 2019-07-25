@@ -36,6 +36,8 @@ public class GameSettings : ScriptableObject
 	public Color ColorD => _colorD;
 	public Color ColorE => _colorE;
 
+	public int PredatorFishesMaxCount => _predatorFishesMaxCount;
+
 	//----------------------------------------------------------------
 
 	[Header("Debug")]
@@ -69,6 +71,9 @@ public class GameSettings : ScriptableObject
 	[SerializeField] private Color _colorC = Color.green;
 	[SerializeField] private Color _colorD = Color.blue;
 	[SerializeField] private Color _colorE = Color.cyan;
+
+	[Header("Predator fish")]
+	[SerializeField] private int _predatorFishesMaxCount;
 
 	//----------------------------------------------------------------
 

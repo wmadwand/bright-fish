@@ -37,3 +37,4 @@ MonoBehaviour:
   _colorC: {r: 0, g: 1, b: 0, a: 1}
   _colorD: {r: 0.051397298, g: 0.32257304, b: 0.990566, a: 1}
   _colorE: {r: 0, g: 1, b: 1, a: 1}
+  _predatorFishesMaxCount: 1

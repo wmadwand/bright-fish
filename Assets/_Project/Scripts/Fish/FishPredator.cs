@@ -7,13 +7,10 @@ namespace BrightFish
 
 	public class FishPredator : MonoBehaviour
 	{
-		public float _timeBeforeRotate = 5f;
-
+		[SerializeField] private float _timeBeforeRotate = 5f;
 
 		private FishAttack _fishAttack;
-		private FishRotator _fishRotator;
-
-		private float _timeNextRotate;
+		private FishRotator _fishRotator;		
 		private float _time;
 
 		private void Awake()
@@ -26,6 +23,7 @@ namespace BrightFish
 		{
 			if (_fishAttack.IsTargetDetected)
 			{
+				_time = 0;
 				return;
 			}
 
