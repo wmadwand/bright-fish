@@ -67,7 +67,8 @@ namespace BrightFish
 
 		public void UpdateHealthBar(float value)
 		{
-			_bodySpriteRenderer.material.SetFloat("_Progress", value * .01f);
+			//_bodySpriteRenderer.material.SetFloat("_Progress", value * .01f);
+			_bodySpriteRenderer.material.SetFloat("_Fill", value * .01f);
 		}
 
 		public void Destroy()

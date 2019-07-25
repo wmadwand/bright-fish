@@ -4,6 +4,7 @@ Shader "Sprites/ClipArea"
 {
     Properties
     {
+		_Color ("Color", Color) = (1,1,1,1)
         _MainTex ("Base (RGB), Alpha (A)", 2D) = "white" {}
         _Fill ("Fill", Range(0.0, 1.0)) = 1.0
         _MinX ("MinX", Float) = 0
@@ -38,6 +39,7 @@ Shader "Sprites/ClipArea"
             #include "UnityCG.cginc"
 
             sampler2D _MainTex;
+			uniform float4 _Color;
             float4 _MainTex_ST;
             float _MinX;
             float _MaxX;
@@ -65,12 +67,14 @@ Shader "Sprites/ClipArea"
 
             half4 frag (v2f IN) : COLOR 
             {
-            if ((IN.texcoord.x<_MinX)|| (IN.texcoord.x>(_MinX+_Fill*(_MaxX-_MinX))))
+            if ((IN.texcoord.x>_MinX)|| (IN.texcoord.x<(_MinX+_Fill*(_MaxX-_MinX))))
                 {
                     half4 colorTransparent = half4(0,0,0,0) ;
                     return  colorTransparent ;
+
+
                 }
-                return tex2D(_MainTex, IN.texcoord);
+                return tex2D(_MainTex, IN.texcoord)*_Color;
             }
             ENDCG
         }

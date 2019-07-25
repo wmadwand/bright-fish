@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &3725228767480510519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616763465078034944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b4c4381ae847df42b084cd81e5a2d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7008176566036971929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +173,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7641692589350160732, guid: 2140b7a518bd70c41b37b0aa39d6441b,
+        type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1547542902400576917, guid: 2140b7a518bd70c41b37b0aa39d6441b,
         type: 3}
       propertyPath: m_LocalRotation.y
@@ -176,6 +193,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2105479253849562807, guid: 2140b7a518bd70c41b37b0aa39d6441b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: de24a2d40731bf248aac9b13c7f03b9a, type: 2}
     - target: {fileID: 6801988258612791201, guid: 2140b7a518bd70c41b37b0aa39d6441b,
         type: 3}
       propertyPath: m_IsActive
