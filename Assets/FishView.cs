@@ -12,13 +12,9 @@ namespace BrightFish
 		private Vector2 dropStartPos = new Vector2(0.76f, 0.5f);
 		private Vector2 dropFinishPos = new Vector2(0.76f, 0.3f);
 
-		Sequence _sequence;
+		private Tween _sweatDropTween;
 
-		private void Awake()
-		{
-			_panicSign.transform.localPosition = dropStartPos;
-			_panicSign.SetActive(false);
-		}
+		//----------------------------------------------------------------
 
 		public void OnPredatorFound()
 		{
@@ -32,13 +28,25 @@ namespace BrightFish
 			//	   });
 
 			_panicSign.SetActive(true);
-			_panicSign.transform.DOLocalMoveY(dropFinishPos.y, 1f);
+			_sweatDropTween.Play();			
 		}
 
 		public void OnPredatorLost()
 		{
+			_sweatDropTween.Rewind();
+
+			_panicSign.SetActive(false);
+			_panicSign.transform.localPosition = dropStartPos;
+		}
+
+		//----------------------------------------------------------------
+
+		private void Awake()
+		{
 			_panicSign.transform.localPosition = dropStartPos;
 			_panicSign.SetActive(false);
+
+			_sweatDropTween = _panicSign.transform.DOLocalMoveY(dropFinishPos.y, 1f).SetAutoKill(false);
 		}
 	}
 }
