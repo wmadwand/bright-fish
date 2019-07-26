@@ -69,8 +69,8 @@ namespace BrightFish
 			//Animate(health.ChangeHealth);
 
 			_attackSequence = DOTween.Sequence()
-			.Append(_fishView.View.transform.DOLocalMoveX(_attackMoveDistance, .2f))
-			.AppendCallback(() => { health.ChangeHealth(-damage); })
+			.Append(_fishView.View.transform.DOLocalMoveX(_attackMoveDistance, .2f).OnComplete(() => { Debug.Log("Punched!"); health.ChangeHealth(-damage); }))
+			//.InsertCallback(.1f,() => { Debug.Log("Punched!"); health.ChangeHealth(-damage); })
 			.Append(_fishView.View.transform.DOLocalMoveX(0, .2f))/*.SetAutoKill(false)*/;
 
 		}

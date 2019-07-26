@@ -8,7 +8,7 @@ namespace BrightFish
 {
 	public class FishHealth : MonoBehaviour
 	{
-		public int value = 50;
+		public int value { get; private set; } = 50;
 
 		float timer;
 		public float countdownRate = 2;
