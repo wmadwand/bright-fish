@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using System;
+using UnityEngine;
 
 namespace BrightFish
 {
@@ -6,6 +8,8 @@ namespace BrightFish
 	{
 		public bool IsTargetDetected { get; private set; }
 		public bool IsAttacking { get; private set; }
+
+		[SerializeField] private float _attackMoveDistance = 2;
 
 		public int damage = 10;
 		public float distance = 3;
@@ -16,11 +20,15 @@ namespace BrightFish
 
 		private RaycastHit2D hit;
 
+		private FishView _fishView;
+
 		//----------------------------------------------------------------
 
 		private void Awake()
 		{
 			Physics2D.queriesStartInColliders = false;
+
+			_fishView = GetComponent<FishView>();
 
 			_attackLayer = 1 << LayerMask.NameToLayer("Fish");
 		}
@@ -57,7 +65,24 @@ namespace BrightFish
 
 			var health = hit.collider.GetComponent<FishHealth>();
 
-			health.ChangeHealth(-damage);
+			//health.ChangeHealth(-damage);
+			//Animate(health.ChangeHealth);
+
+			_attackSequence = DOTween.Sequence()
+			.Append(_fishView.View.transform.DOLocalMoveX(_attackMoveDistance, .2f))
+			.AppendCallback(() => { health.ChangeHealth(-damage); })
+			.Append(_fishView.View.transform.DOLocalMoveX(0, .2f))/*.SetAutoKill(false)*/;
+
+		}
+
+		Sequence _attackSequence;
+
+		private void Animate(TweenCallback callback)
+		{
+			_attackSequence = DOTween.Sequence()
+			.Append(_fishView.transform.DOLocalMoveX(5, .2f))
+			.AppendCallback(() => callback())
+			.Append(_fishView.transform.DOLocalMoveX(0, .2f));
 		}
 
 		private void OnDrawGizmos()

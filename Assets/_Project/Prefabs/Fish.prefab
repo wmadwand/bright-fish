@@ -429,8 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcc7ceee8b20b84cae1b17768f6ac03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 3
-  _isPredatorFound: 0
+  _distance: 3
 --- !u!114 &7619577896339582845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _panicSign: {fileID: 2295375581066924154}
+  _view: {fileID: 2841582717823717896}
 --- !u!1 &5698371491656603268
 GameObject:
   m_ObjectHideFlags: 0

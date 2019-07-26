@@ -66,8 +66,6 @@ namespace BrightFish
 
 				}
 			}
-
-
 		}
 
 		public void ChangeHealth(int value)

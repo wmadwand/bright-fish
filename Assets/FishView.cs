@@ -7,7 +7,10 @@ namespace BrightFish
 {
 	public class FishView : MonoBehaviour
 	{
+		public GameObject View => _view;
+
 		[SerializeField] private GameObject _panicSign;
+		[SerializeField] private GameObject _view;
 
 		private Vector2 dropStartPos = new Vector2(0.76f, 0.5f);
 		private Vector2 dropFinishPos = new Vector2(0.76f, 0.3f);
