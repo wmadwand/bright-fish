@@ -6,13 +6,13 @@ namespace BrightFish
 {
 	public class FishObstacleDetector : MonoBehaviour
 	{
-		public float distance = 3;
+		[SerializeField] private float _distance = 3;
 		private int _fishLayer;
 
 		private RaycastHit2D hit1;
 		private RaycastHit2D hit2;
 
-		public bool _isPredatorFound;
+		private bool _isPredatorFound;
 		private FishView _fishView;
 
 		private void Awake()
@@ -53,7 +53,6 @@ namespace BrightFish
 
 		private bool IsFaceToFaceWithObject(Transform tr)
 		{
-			//var targerDir = target - transform.right;
 			var isObjectFaceForward = Vector3.Dot(transform.right.normalized, tr.right.normalized);
 
 			return isObjectFaceForward < 0f && transform.position.x < tr.position.x || isObjectFaceForward > 0f && transform.position.x > tr.position.x;
@@ -61,7 +60,7 @@ namespace BrightFish
 
 		private RaycastHit2D CastRay(Vector3 direction)
 		{
-			return Physics2D.Raycast(transform.position, direction, distance, _fishLayer);
+			return Physics2D.Raycast(transform.position, direction, _distance, _fishLayer);
 		}
 	}
 }
