@@ -118,7 +118,7 @@ namespace BrightFish
 			//_healthBar = Instantiate(_fishHealthBarTemplate, GameController.Instance.canvas.transform).GetComponent<FishHealthBar>();
 			//_healthBar.Init(_healthbarPoint);
 
-			UpdateHealthBar(_fishHealth.value);
+			UpdateHealthBar(_fishHealth.Value);
 		}
 
 		private void Update()
@@ -193,7 +193,7 @@ namespace BrightFish
 					MessageBus.OnBubbleColorMatch.Send(bubble.ScoreCount);
 
 					_fishHealth.ChangeHealth(30);
-					UpdateHealthBar(_fishHealth.value);
+					UpdateHealthBar(_fishHealth.Value);
 
 					SpawnCoinScroreText(bubble.ScoreCount);
 
@@ -208,7 +208,7 @@ namespace BrightFish
 					SpawnCoinScroreText(bubble.ScoreCount, true);
 
 					_fishHealth.ChangeHealth(-30);
-					UpdateHealthBar(_fishHealth.value);
+					UpdateHealthBar(_fishHealth.Value);
 
 					GameController.Instance.sound.PlaySound(feedFishBad);
 
@@ -232,7 +232,7 @@ namespace BrightFish
 					MessageBus.OnBubbleColorMatch.Send(food.ScoreCount);
 
 					_fishHealth.ChangeHealth(30);
-					UpdateHealthBar(_fishHealth.value);
+					UpdateHealthBar(_fishHealth.Value);
 
 					SpawnCoinScroreText(food.ScoreCount);
 
@@ -247,7 +247,7 @@ namespace BrightFish
 					SpawnCoinScroreText(food.ScoreCount, true);
 
 					_fishHealth.ChangeHealth(-30);
-					UpdateHealthBar(_fishHealth.value);
+					UpdateHealthBar(_fishHealth.Value);
 
 					GameController.Instance.sound.PlaySound(feedFishBad);
 

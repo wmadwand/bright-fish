@@ -15,6 +15,8 @@ namespace BrightFish
 		[SerializeField] private GameObject _particleTemplate;
 		[SerializeField] private Transform _particleSpawnPoint;
 
+		[SerializeField] private SpriteRenderer _bodySpriteRenderer;
+
 		private Vector2 dropStartPos = new Vector2(0.76f, 0.5f);
 		private Vector2 dropFinishPos = new Vector2(0.76f, 0.3f);
 
@@ -51,6 +53,12 @@ namespace BrightFish
 			var script = obj.GetComponent<FishPaint>();
 
 			script.SetColor(color);
+		}
+
+		public void UpdateHealthBar(float value)
+		{
+			//_bodySpriteRenderer.material.SetFloat("_Progress", value * .01f);
+			_bodySpriteRenderer.material.SetFloat("_Fill", value * .01f);
 		}
 
 		//----------------------------------------------------------------

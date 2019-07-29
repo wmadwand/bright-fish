@@ -21,6 +21,7 @@ namespace BrightFish
 		private RaycastHit2D hit;
 
 		private FishView _fishView;
+		private Fish _fish;
 
 		//----------------------------------------------------------------
 
@@ -64,23 +65,29 @@ namespace BrightFish
 			IsAttacking = true;
 
 			var health = hit.collider.GetComponent<FishHealth>();
+			var fish = hit.collider.GetComponent<Fish>();
 
 			//health.ChangeHealth(-damage);
 			//Animate(health.ChangeHealth);
 
 			_attackSequence = DOTween.Sequence()
-			.Append(_fishView.View.transform.DOLocalMoveX(_attackMoveDistance, .2f).OnComplete(() => { Debug.Log("Punched!"); health.ChangeHealth(-damage); }))
+			.Append(_fishView.View.transform.DOLocalMoveX(_attackMoveDistance, .2f).OnComplete(() => { Debug.Log("Punched!"); health.ChangeHealth(-damage); fish.UpdateHealthBar(health.Value); }))
 			//.InsertCallback(.1f,() => { Debug.Log("Punched!"); health.ChangeHealth(-damage); })
 			.Append(_fishView.View.transform.DOLocalMoveX(0, .2f))/*.SetAutoKill(false)*/;
 
 		}
+
+		//private TweenCallback twCallback()
+		//{
+		//return { Debug.Log("Punched!"); health.ChangeHealth(-damage); fish.UpdateHealthBar(health.Value); }
+		//}
 
 		Sequence _attackSequence;
 
 		private void Animate(TweenCallback callback)
 		{
 			_attackSequence = DOTween.Sequence()
-			.Append(_fishView.transform.DOLocalMoveX(5, .2f))
+			.Append(_fishView.transform.DOLocalMoveX(_attackMoveDistance, .2f))
 			.AppendCallback(() => callback())
 			.Append(_fishView.transform.DOLocalMoveX(0, .2f));
 		}

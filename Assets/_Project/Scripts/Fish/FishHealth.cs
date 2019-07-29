@@ -8,7 +8,7 @@ namespace BrightFish
 {
 	public class FishHealth : MonoBehaviour
 	{
-		public int value { get; private set; } = 50;
+		public int Value { get; private set; } = 50;
 
 		float timer;
 		public float countdownRate = 2;
@@ -22,7 +22,7 @@ namespace BrightFish
 
 		public void OnGetDamage()
 		{
-			_fish.UpdateHealthBar(value);
+			_fish.UpdateHealthBar(Value);
 
 			if (IsDead)
 			{
@@ -34,7 +34,7 @@ namespace BrightFish
 		{
 			get
 			{
-				return value >= 100;
+				return Value >= 100;
 			}
 		}
 
@@ -42,24 +42,24 @@ namespace BrightFish
 		{
 			get
 			{
-				return value <= 0;
+				return Value <= 0;
 			}
 		}
 
 		private void Update()
 		{
-			if (value == 100)
+			if (Value == 100)
 			{
 				return;
 			}
 
 			if (Time.time > timer)
 			{
-				if (value > 0)
+				if (Value > 0)
 				{
-					value--;
+					Value--;
 					timer = Time.time + countdownRate;
-					_fish.UpdateHealthBar(value);
+					_fish.UpdateHealthBar(Value);
 				}
 				else
 				{
@@ -70,7 +70,7 @@ namespace BrightFish
 
 		public void ChangeHealth(int value)
 		{
-			this.value += value;
+			this.Value += value;
 		}
 	} 
 }
