@@ -9,11 +9,13 @@ namespace BrightFish
 		[SerializeField] private float _distance = 3;
 		private int _fishLayer;
 
-		private RaycastHit2D hit1;
-		private RaycastHit2D hit2;
+		private RaycastHit2D _hit1;
+		private RaycastHit2D _hit2;
 
 		private bool _isPredatorFound;
 		private FishView _fishView;
+
+		//----------------------------------------------------------------
 
 		private void Awake()
 		{
@@ -31,11 +33,11 @@ namespace BrightFish
 
 		private void CheckArea()
 		{
-			hit1 = CastRay(transform.right);
-			hit2 = CastRay(-transform.right);
+			_hit1 = CastRay(transform.right);
+			_hit2 = CastRay(-transform.right);
 
-			if (hit1 && hit1.collider.GetComponent<FishPredator>() && IsFaceToFaceWithObject(hit1.transform)
-				|| hit2 && hit2.collider.GetComponent<FishPredator>() && IsFaceToFaceWithObject(hit2.transform))
+			if (_hit1 && _hit1.collider.GetComponent<FishPredator>() && IsInObstacleSight(_hit1.transform)
+				|| _hit2 && _hit2.collider.GetComponent<FishPredator>() && IsInObstacleSight(_hit2.transform))
 			{
 				_isPredatorFound = true;
 				_fishView.OnPredatorFound();
@@ -51,11 +53,11 @@ namespace BrightFish
 			}
 		}
 
-		private bool IsFaceToFaceWithObject(Transform tr)
+		private bool IsInObstacleSight(Transform obstacleTr)
 		{
-			var isObjectFaceForward = Vector3.Dot(transform.right.normalized, tr.right.normalized);
+			var dot = Vector3.Dot(this.transform.right.normalized, obstacleTr.right.normalized);
 
-			return isObjectFaceForward < 0f && transform.position.x < tr.position.x || isObjectFaceForward > 0f && transform.position.x > tr.position.x;
+			return dot < 0f && transform.position.x < obstacleTr.position.x || dot > 0f && transform.position.x > obstacleTr.position.x;
 		}
 
 		private RaycastHit2D CastRay(Vector3 direction)

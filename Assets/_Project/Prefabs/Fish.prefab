@@ -28,7 +28,7 @@ Transform:
   m_LocalPosition: {x: 1.079, y: 0.032, z: 0}
   m_LocalScale: {x: 1.0486445, y: 1.0486445, z: 1.0486445}
   m_Children: []
-  m_Father: {fileID: 1547542902400576917}
+  m_Father: {fileID: 6657876945884724103}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4861931125810321071
@@ -140,7 +140,7 @@ Transform:
   m_LocalPosition: {x: 0.76, y: 0.3, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
-  m_Father: {fileID: 1547542902400576917}
+  m_Father: {fileID: 6657876945884724103}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2507572574807777691
@@ -219,11 +219,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7431894563554012256}
-  - {fileID: 2176940523647225131}
-  - {fileID: 8363353415580118117}
-  - {fileID: 1681992969269902616}
-  - {fileID: 3538193622163824838}
+  - {fileID: 6657876945884724103}
   m_Father: {fileID: 4429634996203637731}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -251,7 +247,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.1, y: 1.4}
+  m_Size: {x: 3.6, y: 1.4}
   m_EdgeRadius: 0
 --- !u!1 &3171157157886120359
 GameObject:
@@ -383,10 +379,8 @@ MonoBehaviour:
   fishHappy: 5
   _fishHealthBarTemplate: {fileID: 3602389873474134920, guid: 58549a057a2a8ef419e0dfae62e27d52,
     type: 3}
-  _particleTemplate: {fileID: 100000, guid: e5bfe58176693554a912c5ffc517728c, type: 3}
   _healthbarPoint: {fileID: 2742760955510437075}
   _scoreTextSpawnPoint: {fileID: 7041403533798403033}
-  _particleSpawnPoint: {fileID: 2924504142653259906}
   _myCollider: {fileID: 3778083021059816565}
 --- !u!114 &8659573865520767744
 MonoBehaviour:
@@ -400,7 +394,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b97d4c4e4c7d44ebabd094aff4f3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 50
   countdownRate: 2
 --- !u!114 &7609477158863193344
 MonoBehaviour:
@@ -443,7 +436,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _panicSign: {fileID: 2295375581066924154}
-  _view: {fileID: 2841582717823717896}
+  _view: {fileID: 4473777770265437412}
+  _particleTemplate: {fileID: 100000, guid: e5bfe58176693554a912c5ffc517728c, type: 3}
+  _particleSpawnPoint: {fileID: 2924504142653259906}
+--- !u!1 &4473777770265437412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6657876945884724103}
+  m_Layer: 13
+  m_Name: ViewVisual
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6657876945884724103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4473777770265437412}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7431894563554012256}
+  - {fileID: 2176940523647225131}
+  - {fileID: 8363353415580118117}
+  - {fileID: 1681992969269902616}
+  - {fileID: 3538193622163824838}
+  m_Father: {fileID: 1547542902400576917}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5698371491656603268
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +502,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1547542902400576917}
+  m_Father: {fileID: 6657876945884724103}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2792384093004888931
@@ -581,7 +611,7 @@ Transform:
   m_LocalPosition: {x: 1.073, y: 0.036, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1547542902400576917}
+  m_Father: {fileID: 6657876945884724103}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6538359787588774956
@@ -660,7 +690,7 @@ Transform:
   m_LocalPosition: {x: 0.0119, y: 0.0639, z: 0}
   m_LocalScale: {x: 1.0207907, y: 1.0207907, z: 1.0207907}
   m_Children: []
-  m_Father: {fileID: 1547542902400576917}
+  m_Father: {fileID: 6657876945884724103}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2105479253849562807

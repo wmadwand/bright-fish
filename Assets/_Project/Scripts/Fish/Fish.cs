@@ -14,22 +14,21 @@ namespace BrightFish
 		[SerializeField] private SpriteRenderer _bodySpriteRenderer;
 		[SerializeField] private Sounds feedFishGood, feedFishBad, fishDead, fishHappy;
 		[SerializeField] private GameObject _fishHealthBarTemplate;
-		[SerializeField] private GameObject _particleTemplate;
+		//[SerializeField] private GameObject _particleTemplate;
 		[SerializeField] private Transform _healthbarPoint;
 		[SerializeField] private Transform _scoreTextSpawnPoint;
-		[SerializeField] private Transform _particleSpawnPoint;
+		//[SerializeField] private Transform _particleSpawnPoint;
 		[SerializeField] private Collider2D _myCollider;
 
 		private FishHealthBar _healthBar;
 		private ColorType _type;
-		private bool _isDead;
-		//private bool _isCollided;
+		private bool _isDead;		
 		private Color _color;
 		private SpriteRenderer[] _spriteRenderers;
-		//private Vector2 _originPosition;
-		//private bool _isDraggable;
+
 		private FishHealth _fishHealth;
 		private GameSettings _gameSettings;
+		private FishView _fishView;
 
 		private int _bubbleLayer;
 
@@ -97,6 +96,7 @@ namespace BrightFish
 		{
 			_spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
 			_fishHealth = GetComponent<FishHealth>();
+			_fishView = GetComponent<FishView>();
 
 			//_bubbleLayer = 1 << LayerMask.NameToLayer("PhysicsObject")/* | 1 << LayerMask.NameToLayer("Player")*/;
 
@@ -149,7 +149,7 @@ namespace BrightFish
 
 				MessageBus.OnFishRescued.Send(this, _type, transform.position);
 
-				ShowPaintSplash(_color);
+				_fishView.ShowPaintSplash(_color);
 
 				StartCoroutine(DelayBeforeHide(() =>
 				{
@@ -159,15 +159,6 @@ namespace BrightFish
 			}
 
 			UpdateSprite();
-
-
-		}
-
-		private void OnDrawGizmos()
-		{
-			//Gizmos.color = Color.red;
-
-			//Gizmos.DrawWireSphere(transform.position, 1);
 		}
 
 		private void CheckForContact()
@@ -178,14 +169,14 @@ namespace BrightFish
 			{
 				if (item != null)
 				{
-					OnContactHandler(_results[0]);
+					OnContact(_results[0]);
 
 					Array.Clear(_results, 0, _results.Length);
 				}
 			}
 		}
 
-		private void OnContactHandler(Collider2D other)
+		private void OnContact(Collider2D other)
 		{
 			if (other.GetComponentInParent<Bubble>() && other is BoxCollider2D)
 			{
@@ -286,14 +277,6 @@ namespace BrightFish
 
 				movement._isDraggable = false;
 			}
-		}
-
-		private void ShowPaintSplash(Color color)
-		{
-			var obj = Instantiate(_particleTemplate, _particleSpawnPoint.position, Quaternion.identity);
-			var script = obj.GetComponent<FishPaint>();
-
-			script.SetColor(color);
 		}
 
 		private IEnumerator DelayBeforeHide(Action callback)

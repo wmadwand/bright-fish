@@ -12,6 +12,9 @@ namespace BrightFish
 		[SerializeField] private GameObject _panicSign;
 		[SerializeField] private GameObject _view;
 
+		[SerializeField] private GameObject _particleTemplate;
+		[SerializeField] private Transform _particleSpawnPoint;
+
 		private Vector2 dropStartPos = new Vector2(0.76f, 0.5f);
 		private Vector2 dropFinishPos = new Vector2(0.76f, 0.3f);
 
@@ -42,6 +45,14 @@ namespace BrightFish
 			_panicSign.transform.localPosition = dropStartPos;
 		}
 
+		public void ShowPaintSplash(Color color)
+		{
+			var obj = Instantiate(_particleTemplate, _particleSpawnPoint.position, Quaternion.identity);
+			var script = obj.GetComponent<FishPaint>();
+
+			script.SetColor(color);
+		}
+
 		//----------------------------------------------------------------
 
 		private void Awake()
@@ -51,5 +62,7 @@ namespace BrightFish
 
 			_sweatDropTween = _panicSign.transform.DOLocalMoveY(dropFinishPos.y, 1f).SetAutoKill(false);
 		}
+
+		
 	}
 }

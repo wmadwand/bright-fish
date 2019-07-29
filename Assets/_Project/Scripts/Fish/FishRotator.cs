@@ -8,5 +8,5 @@ namespace BrightFish
 		{
 			transform.Rotate(0, 180, 0);
 		}
-	} 
+	}
 }
