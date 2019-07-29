@@ -28,6 +28,10 @@ namespace BrightFish
 
 		private Sequence _attackSequence;
 
+		private Fish _firstSightFish;
+		private Fish _currentFish;
+		private bool _isTargetFound;
+
 		//----------------------------------------------------------------
 
 		private void Awake()
@@ -43,12 +47,29 @@ namespace BrightFish
 		{
 			hit = CastRay();
 			IsTargetDetected = hit && hit.collider.GetComponent<FishHealth>() ? true : false;
+			_currentFish = IsTargetDetected ? hit.collider.GetComponent<Fish>() : null;
+
+			if (IsTargetDetected && !_isTargetFound)
+			{
+				_firstSightFish = _currentFish;
+				_isTargetFound = true;
+				_nextAttackTime = Time.time + _timeBetweenAttacks;
+			}
+
+			if (_currentFish != _firstSightFish || !IsTargetDetected)
+			{
+				_isTargetFound = false;
+				//_nextAttackTime = Time.time + _timeBetweenAttacks;
+			}
 
 			if (IsTargetDetected && Time.time > _nextAttackTime)
 			{
-				StartAttack();
-
-				_nextAttackTime = Time.time + _timeBetweenAttacks;
+				if (_firstSightFish == _currentFish)
+				{
+					StartAttack();
+					_isTargetFound = false;
+					//_nextAttackTime = Time.time + _timeBetweenAttacks;
+				}
 			}
 		}
 
