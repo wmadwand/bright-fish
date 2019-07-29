@@ -6,7 +6,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616763465078034944}
+  m_GameObject: {fileID: 3323443836480510705}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b4c4381ae847df42b084cd81e5a2d92, type: 3}
@@ -18,14 +18,14 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616763465078034944}
+  m_GameObject: {fileID: 3323443836480510705}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4570c2c954f4a094eb4044f1c6221b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _attackMoveDistance: 2
-  damage: 10
+  damage: 15
   distance: 3
   _timeBetweenAttacks: 3
 --- !u!114 &8891676573812533753
@@ -34,7 +34,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616763465078034944}
+  m_GameObject: {fileID: 3323443836480510705}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ae35dc51a9dbde43b269462e624aa3e, type: 3}
@@ -166,7 +166,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: af5fdfabdb757c647a89e223b86239bd,
+      objectReference: {fileID: 21300000, guid: 9c4f5f83fae1aa74a8636faab8727f7b,
         type: 3}
     - target: {fileID: 2105479253849562807, guid: 2140b7a518bd70c41b37b0aa39d6441b,
         type: 3}
@@ -176,12 +176,12 @@ PrefabInstance:
     - target: {fileID: 2176940523647225131, guid: 2140b7a518bd70c41b37b0aa39d6441b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.002
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 2176940523647225131, guid: 2140b7a518bd70c41b37b0aa39d6441b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.002
+      value: 0.012
       objectReference: {fileID: 0}
     - target: {fileID: 2176940523647225131, guid: 2140b7a518bd70c41b37b0aa39d6441b,
         type: 3}
@@ -222,7 +222,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 228428188179205537, guid: 2140b7a518bd70c41b37b0aa39d6441b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2140b7a518bd70c41b37b0aa39d6441b, type: 3}
---- !u!1 &1616763465078034944 stripped
+--- !u!1 &3323443836480510705 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4066991538648877187, guid: 2140b7a518bd70c41b37b0aa39d6441b,
     type: 3}

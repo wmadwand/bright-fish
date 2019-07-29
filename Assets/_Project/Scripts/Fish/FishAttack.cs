@@ -21,7 +21,7 @@ namespace BrightFish
 		private RaycastHit2D hit;
 
 		private FishView _fishView;
-		private Fish _fish;
+		private FishHealth _fishHealth;
 
 		private FishHealth _targetFishHealth;
 		private Fish _targetFish;
@@ -39,12 +39,18 @@ namespace BrightFish
 			Physics2D.queriesStartInColliders = false;
 
 			_fishView = GetComponent<FishView>();
+			_fishHealth = GetComponent<FishHealth>();
 
 			_attackLayer = 1 << LayerMask.NameToLayer("Fish");
 		}
 
 		private void Update()
 		{
+			if (_fishHealth.IsDead)
+			{
+				return;
+			}
+
 			hit = CastRay();
 			IsTargetDetected = hit && hit.collider.GetComponent<FishHealth>() ? true : false;
 			_currentFish = IsTargetDetected ? hit.collider.GetComponent<Fish>() : null;
