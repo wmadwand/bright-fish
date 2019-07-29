@@ -439,6 +439,7 @@ MonoBehaviour:
   _view: {fileID: 4473777770265437412}
   _particleTemplate: {fileID: 100000, guid: e5bfe58176693554a912c5ffc517728c, type: 3}
   _particleSpawnPoint: {fileID: 2924504142653259906}
+  _bodySpriteRenderer: {fileID: 0}
 --- !u!1 &4473777770265437412
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,6 +23,11 @@ namespace BrightFish
 		private FishView _fishView;
 		private Fish _fish;
 
+		private FishHealth _targetFishHealth;
+		private Fish _targetFish;
+
+		private Sequence _attackSequence;
+
 		//----------------------------------------------------------------
 
 		private void Awake()
@@ -41,7 +46,7 @@ namespace BrightFish
 
 			if (IsTargetDetected && Time.time > _nextAttackTime)
 			{
-				MakeDamage();
+				StartAttack();
 
 				_nextAttackTime = Time.time + _timeBetweenAttacks;
 			}
@@ -52,7 +57,7 @@ namespace BrightFish
 			return Physics2D.Raycast(transform.position, transform.right, distance, _attackLayer);
 		}
 
-		private void MakeDamage()
+		private void StartAttack()
 		{
 			hit = CastRay();
 
@@ -64,32 +69,30 @@ namespace BrightFish
 
 			IsAttacking = true;
 
-			var health = hit.collider.GetComponent<FishHealth>();
-			var fish = hit.collider.GetComponent<Fish>();
+			_targetFishHealth = hit.collider.GetComponent<FishHealth>();
+			_targetFish = hit.collider.GetComponent<Fish>();
 
-			//health.ChangeHealth(-damage);
-			//Animate(health.ChangeHealth);
-
-			_attackSequence = DOTween.Sequence()
-			.Append(_fishView.View.transform.DOLocalMoveX(_attackMoveDistance, .2f).OnComplete(() => { Debug.Log("Punched!"); health.ChangeHealth(-damage); fish.UpdateHealthBar(health.Value); }))
-			//.InsertCallback(.1f,() => { Debug.Log("Punched!"); health.ChangeHealth(-damage); })
-			.Append(_fishView.View.transform.DOLocalMoveX(0, .2f))/*.SetAutoKill(false)*/;
-
+			AnimateBite(MakeDamage);
 		}
 
-		//private TweenCallback twCallback()
-		//{
-		//return { Debug.Log("Punched!"); health.ChangeHealth(-damage); fish.UpdateHealthBar(health.Value); }
-		//}
+		private void MakeDamage()
+		{
+			Debug.Log("Punched!");
+			_targetFishHealth.ChangeHealth(-damage);
+			_targetFish.UpdateHealthBar(_targetFishHealth.Value);
+		}
 
-		Sequence _attackSequence;
-
-		private void Animate(TweenCallback callback)
+		private void AnimateBite(TweenCallback callback)
 		{
 			_attackSequence = DOTween.Sequence()
-			.Append(_fishView.transform.DOLocalMoveX(_attackMoveDistance, .2f))
+			.Append(_fishView.View.transform.DOLocalMoveX(_attackMoveDistance, .2f))
 			.AppendCallback(() => callback())
-			.Append(_fishView.transform.DOLocalMoveX(0, .2f));
+			.Append(_fishView.View.transform.DOLocalMoveX(0, .2f));
+
+			//_attackSequence = DOTween.Sequence()
+			//.Append(_fishView.View.transform.DOLocalMoveX(_attackMoveDistance, .2f).OnComplete(() => { TwCallback(); }))
+			////.InsertCallback(.1f,() => { Debug.Log("Punched!"); health.ChangeHealth(-damage); })
+			//.Append(_fishView.View.transform.DOLocalMoveX(0, .2f))/*.SetAutoKill(false)*/;
 		}
 
 		private void OnDrawGizmos()
