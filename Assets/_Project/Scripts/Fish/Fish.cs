@@ -9,6 +9,8 @@ namespace BrightFish
 {
 	public sealed class Fish : MonoBehaviour
 	{
+		public int RescuedFishValue => _rescuedFishValue;
+
 		[SerializeField] private Sprite[] _sprites;
 		[SerializeField] private SpriteRenderer _headSpriteRenderer;
 		[SerializeField] private SpriteRenderer _bodySpriteRenderer;
@@ -19,6 +21,7 @@ namespace BrightFish
 		[SerializeField] private Transform _scoreTextSpawnPoint;
 		//[SerializeField] private Transform _particleSpawnPoint;
 		[SerializeField] private Collider2D _myCollider;
+		[SerializeField] private int _rescuedFishValue = 1;
 
 		private FishHealthBar _healthBar;
 		private ColorType _type;

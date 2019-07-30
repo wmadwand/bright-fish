@@ -9,11 +9,19 @@ namespace BrightFish
 	{
 		private void OnTriggerExit2D(Collider2D collision)
 		{
+			if (collision.name == "View")
+			{
+				return;
+			}
+
 			if (collision.GetComponentInParent<Bubble>())
 			{
 				collision.GetComponentInParent<Bubble>().SelfDestroy();
 			}
-
+			else if (collision.GetComponentInParent<Fish>())
+			{
+				collision.GetComponentInParent<Fish>().Destroy();
+			}
 			else
 			{
 				Destroy(collision.gameObject);

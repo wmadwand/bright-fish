@@ -48,7 +48,7 @@ namespace BrightFish
 
 		private void OnFishRescued(Fish fish, ColorType arg1, Vector3 arg2)
 		{
-			_rescuedFishCurrentCount++;
+			_rescuedFishCurrentCount += fish.RescuedFishValue;
 			UpdateText();
 
 			if (_rescuedFishCurrentCount >= _rescuedFishTargetCount)

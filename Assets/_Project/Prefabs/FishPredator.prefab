@@ -26,7 +26,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackMoveDistance: 2
   damage: 15
-  distance: 3
+  sightDistance: 3
   _timeBetweenAttacks: 3
 --- !u!114 &8891676573812533753
 MonoBehaviour:
@@ -131,6 +131,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: a69617d5e2227ca489e9bc4dc03bd33e,
         type: 3}
+    - target: {fileID: 6278174920718703305, guid: 2140b7a518bd70c41b37b0aa39d6441b,
+        type: 3}
+      propertyPath: _rescuedFishValue
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 228428188179205537, guid: 2140b7a518bd70c41b37b0aa39d6441b,
         type: 3}
       propertyPath: m_Enabled
