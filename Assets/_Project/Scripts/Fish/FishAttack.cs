@@ -12,7 +12,7 @@ namespace BrightFish
 		[SerializeField] private float _attackMoveDistance = 2;
 
 		public int damage = 10;
-		public float distance = 3;
+		public float sightDistance = 3;
 		public float _timeBetweenAttacks = 3f;
 
 		private int _attackLayer;
@@ -52,7 +52,7 @@ namespace BrightFish
 			}
 
 			hit = CastRay();
-			IsTargetDetected = hit && hit.collider.GetComponent<FishHealth>() ? true : false;
+			IsTargetDetected = hit && hit.collider.GetComponent<FishHealth>() && !hit.collider.GetComponent<FishHealth>().IsDead ? true : false;
 			_currentFish = IsTargetDetected ? hit.collider.GetComponent<Fish>() : null;
 
 			if (IsTargetDetected && !_isTargetFound)
@@ -65,7 +65,6 @@ namespace BrightFish
 			if (_currentFish != _firstSightFish || !IsTargetDetected)
 			{
 				_isTargetFound = false;
-				//_nextAttackTime = Time.time + _timeBetweenAttacks;
 			}
 
 			if (IsTargetDetected && Time.time > _nextAttackTime)
@@ -74,14 +73,13 @@ namespace BrightFish
 				{
 					StartAttack();
 					_isTargetFound = false;
-					//_nextAttackTime = Time.time + _timeBetweenAttacks;
 				}
 			}
 		}
 
 		private RaycastHit2D CastRay()
 		{
-			return Physics2D.Raycast(transform.position, transform.right, distance, _attackLayer);
+			return Physics2D.Raycast(transform.position, transform.right, sightDistance, _attackLayer);
 		}
 
 		private void StartAttack()
@@ -126,7 +124,7 @@ namespace BrightFish
 		{
 			Gizmos.color = Color.red;
 
-			var offset = transform.position + new Vector3(distance * transform.right.x, 0);
+			var offset = transform.position + new Vector3(sightDistance * transform.right.x, 0);
 			Gizmos.DrawLine(transform.position, offset);
 		}
 	}
