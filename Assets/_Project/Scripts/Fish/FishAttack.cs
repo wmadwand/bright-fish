@@ -46,7 +46,7 @@ namespace BrightFish
 
 		private void Update()
 		{
-			if (_fishHealth.IsDead)
+			if (_fishHealth.IsDead || _fishHealth.IsFedUp)
 			{
 				return;
 			}
