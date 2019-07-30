@@ -12,6 +12,7 @@ namespace BrightFish
 		public ColorType Type { get; private set; }
 		public bool IsReleased { get; private set; }
 
+		//public int ParentTubeID => _parentTubeID;
 		//TODO: move to separate class
 		public int ScoreCount
 		{
@@ -88,6 +89,8 @@ namespace BrightFish
 			{
 				SpawnExplosion();
 			}
+
+			gameObject.SetActive(false);
 
 			MessageBus.OnBubbleDestroy.Send(_parentTubeID);
 

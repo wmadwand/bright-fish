@@ -1,11 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Terminus.Game.Messages;
 using UnityEngine;
 
-public class DestroyByBoundary : MonoBehaviour
+namespace BrightFish
 {
-	private void OnTriggerExit2D(Collider2D collision)
+	public class DestroyByBoundary : MonoBehaviour
 	{
-		Destroy(collision.gameObject);
+		private void OnTriggerExit2D(Collider2D collision)
+		{
+			if (collision.GetComponentInParent<Bubble>())
+			{
+				collision.GetComponentInParent<Bubble>().SelfDestroy();
+			}
+
+			else
+			{
+				Destroy(collision.gameObject);
+			}
+		}
 	}
 }
