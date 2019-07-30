@@ -41,6 +41,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeBeforeRotate: 3
+  _vampireVictimHealthOnAttack: 1
 --- !u!1001 &3323443836480510595
 PrefabInstance:
   m_ObjectHideFlags: 0

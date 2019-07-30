@@ -105,6 +105,12 @@ namespace BrightFish
 			Debug.Log("Punched!");
 			_targetFishHealth.ChangeHealth(-damage);
 			_targetFish.UpdateHealthBar(_targetFishHealth.Value);
+
+			if (GetComponent<FishPredator>().VampireVictimHealthOnAttack)
+			{
+				_fishHealth.ChangeHealth(damage);
+				GetComponent<Fish>().UpdateHealthBar(_fishHealth.Value);
+			}
 		}
 
 		private void AnimateBite(TweenCallback callback)

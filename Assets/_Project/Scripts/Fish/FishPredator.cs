@@ -7,7 +7,10 @@ namespace BrightFish
 
 	public class FishPredator : MonoBehaviour
 	{
+		public bool VampireVictimHealthOnAttack => _vampireVictimHealthOnAttack;
+
 		[SerializeField] private float _timeBeforeRotate = 5f;
+		[SerializeField] private bool _vampireVictimHealthOnAttack = false;
 
 		private FishAttack _fishAttack;
 		private FishRotator _fishRotator;		

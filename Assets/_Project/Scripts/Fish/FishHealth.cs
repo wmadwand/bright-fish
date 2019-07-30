@@ -15,10 +15,7 @@ namespace BrightFish
 
 		private Fish _fish;
 
-		private void Awake()
-		{
-			_fish = GetComponent<Fish>();
-		}
+		//----------------------------------------------------------------
 
 		public void OnGetDamage()
 		{
@@ -46,6 +43,18 @@ namespace BrightFish
 			}
 		}
 
+		public void ChangeHealth(int value)
+		{
+			this.Value += value;
+		}
+
+		//----------------------------------------------------------------
+
+		private void Awake()
+		{
+			_fish = GetComponent<Fish>();
+		}
+
 		private void Update()
 		{
 			if (Value == 100)
@@ -67,10 +76,5 @@ namespace BrightFish
 				}
 			}
 		}
-
-		public void ChangeHealth(int value)
-		{
-			this.Value += value;
-		}
-	} 
+	}
 }
