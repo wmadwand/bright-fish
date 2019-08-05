@@ -104,6 +104,7 @@ namespace Terminus.Game.Messages
 
 		public static readonly Message OnGameInit = new Message();
 		public static readonly Message OnGameStart = new Message();
+		public static readonly Message<bool> OnGamePause = new Message<bool>();
 		public static readonly Message<bool> OnGameStop = new Message<bool>();
 
 		public static readonly Message OnLevelComplete = new Message();

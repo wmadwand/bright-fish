@@ -1,3 +1,4 @@
+using Terminus.Game.Messages;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,6 +42,8 @@ namespace BrightFish
 
 			m_Paused = true;
 
+			MessageBus.OnGamePause.Send(m_Paused);
+
 			Debug.Log("Pause");
 		}
 
@@ -49,6 +52,8 @@ namespace BrightFish
 			Time.timeScale = m_TimeScaleRef;
 			AudioListener.volume = m_VolumeRef;
 			m_Paused = false;
+
+			MessageBus.OnGamePause.Send(m_Paused);
 
 			Debug.Log("Play");
 		}
