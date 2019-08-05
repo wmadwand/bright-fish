@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,17 +5,31 @@ namespace BrightFish
 {
 	public class PauseButton : MonoBehaviour
 	{
-		public Toggle m_MenuToggle;
+		private Toggle m_MenuToggle;
 		private float m_TimeScaleRef = 1f;
 		private float m_VolumeRef = 1f;
 		private bool m_Paused;
 
+		//----------------------------------------------------------------
 
-		void Awake()
+		public void OnMenuStatusChange()
 		{
-			//m_MenuToggle = GetComponent<Toggle>();
+			if (!m_MenuToggle.isOn && !m_Paused)
+			{
+				MenuOn();
+			}
+			else if (m_MenuToggle.isOn && m_Paused)
+			{
+				MenuOff();
+			}
 		}
 
+		//----------------------------------------------------------------
+
+		private void Awake()
+		{
+			m_MenuToggle = GetComponent<Toggle>();
+		}
 
 		private void MenuOn()
 		{
@@ -31,8 +44,7 @@ namespace BrightFish
 			Debug.Log("Pause");
 		}
 
-
-		public void MenuOff()
+		private void MenuOff()
 		{
 			Time.timeScale = m_TimeScaleRef;
 			AudioListener.volume = m_VolumeRef;
@@ -40,20 +52,6 @@ namespace BrightFish
 
 			Debug.Log("Play");
 		}
-
-
-		public void OnMenuStatusChange()
-		{
-			if (!m_MenuToggle.isOn && !m_Paused)
-			{
-				MenuOn();				
-			}
-			else if (m_MenuToggle.isOn && m_Paused)
-			{
-				MenuOff();
-			}
-		}
-
 
 #if !MOBILE_INPUT
 	void Update()
