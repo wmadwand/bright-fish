@@ -23,9 +23,9 @@ namespace BrightFish
 	public struct TubeItem
 	{
 		public TubeType tubeType;
-		public float speedMin;
-		public float speedMax;
-		public float speedRate;
+		public float bounceRateMin;
+		public float bounceRateMax;
+		public float bounceRateGrowthStep;
 		public Difficulty _difficulty; //TODO: figure out the purpose
 	}
 }
