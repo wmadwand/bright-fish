@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BrightFish
 {
-	[CreateAssetMenu(menuName = "FishSpawnProbability")]
+	[CreateAssetMenu(fileName = "FishSpawnProbability", menuName = "BrightFish/FishSpawnProbability")]	
 	public class FishSpawnProbability : ScriptableObject
 	{
 		public List<FishSpawnWeightedItem> list = new List<FishSpawnWeightedItem>();

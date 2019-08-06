@@ -1,10 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Level", menuName = "BrightFish/Level")]
-public class Level : MonoBehaviour
+namespace BrightFish
 {
-	[SerializeField] private int _id;
-	[SerializeField] private int _ids;
+	[CreateAssetMenu(fileName = "Level", menuName = "BrightFish/Level")]
+	public class Level : ScriptableObject
+	{
+		[SerializeField] private string _id;
+		[SerializeField] private Difficulty _difficulty; //TODO: incapsulate to separate class (fishesHealthStart, fishHealthReducingStepRate)
+		[SerializeField] private float _timer;
+		[SerializeField] private TubeItem[] _tubes;
+		[SerializeField] private FishCategory[] _fishes;
+		[SerializeField] private int _rescuedFishesTargetCount;
+		[SerializeField] private FishSpawnProbability _fishSpawnProbability;
+		[SerializeField] private int _predatorFishesMaxCount;
+		[SerializeField] private bool _enablePredatorFishMovementAI;
+		[SerializeField] private bool _enableFishMovementAI;
+		[SerializeField] private float _fishHealthFadeRate;
+	}
+
+	[Serializable]
+	public struct TubeItem
+	{
+		public TubeType tubeType;
+		public float speedMin;
+		public float speedMax;
+		public float speedRate;
+		public Difficulty _difficulty; //TODO: figure out the purpose
+	}
 }

@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Location", menuName = "BrightFish/Location")]
-public class Location : ScriptableObject
+namespace BrightFish
 {
-	public int ID => _id;
-	public Level[] Levels => _levels;
+	[CreateAssetMenu(fileName = "Location", menuName = "BrightFish/Location")]
+	public class Location : ScriptableObject
+	{
+		public int ID => _id;
+		public Level[] Levels => _levels;
 
-	[SerializeField] private int _id;
-	[SerializeField] private Level[] _levels;
+		[SerializeField] private int _id;
+		[SerializeField] private Level[] _levels;
 
+	} 
 }
