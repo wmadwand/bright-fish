@@ -11,8 +11,17 @@ public enum BubbleState
 
 public enum FishCategory
 {
-	peaceful = 50,
-	predator = 100,
-	reversed = 150,
-	rainbow = 200
+	Peaceful = 50,
+	Predator = 100,
+	Reversed = 150,
+	Rainbow = 200
+}
+
+public enum TubeType
+{
+	Straight = 50,
+	Zigzag = 100,
+	Intersect = 150,
+	Spiral = 200,
+	Broken = 250,
 }

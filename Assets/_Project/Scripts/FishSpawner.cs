@@ -116,16 +116,16 @@ namespace BrightFish
 
 		private void Spawn(ColorType bubbleType, Vector3 position)
 		{
-			var fishCategoryResult = _predatorFishesCount < _gameSettings.PredatorFishesMaxCount ? GetRandomWeightedFishCategory() : FishCategory.peaceful;
+			var fishCategoryResult = _predatorFishesCount < _gameSettings.PredatorFishesMaxCount ? GetRandomWeightedFishCategory() : FishCategory.Peaceful;
 
 			Fish fish = null;
 
 			switch (fishCategoryResult)
 			{
-				case FishCategory.peaceful:
+				case FishCategory.Peaceful:
 					fish = _fishDIFactory.Create();
 					break;
-				case FishCategory.predator:
+				case FishCategory.Predator:
 					{
 						fish = _fishPredatorDIFactory.Create();
 						_predatorFishesCount++;

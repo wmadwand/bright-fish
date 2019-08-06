@@ -31,7 +31,7 @@ namespace BrightFish
 
 		public FishSpawnWeightedItem(FishCategory category, int weight, GameObject template)
 		{
-			this.category = FishCategory.peaceful;
+			this.category = FishCategory.Peaceful;
 			this.weight = 100;
 			this.template = null;
 		}

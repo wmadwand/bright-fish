@@ -7,7 +7,7 @@ public enum BubbleColorMode
 	Implicit
 }
 
-[CreateAssetMenu(fileName = "GameSettings")]
+[CreateAssetMenu(fileName = "GameSettings", menuName = "BrightFish/GameSettings")]
 public class GameSettings : ScriptableObject
 {
 	public bool GodMode => _godMode;
