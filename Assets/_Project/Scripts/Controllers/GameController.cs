@@ -29,11 +29,18 @@ namespace BrightFish
 
 		//----------------------------------------------------------------
 
+		//public void StartGame()
+		//{
+		//	IsGameActive = true;
+
+		//	MessageBus.OnGameStart.Send();
+		//}
+
 		public void StartGame()
 		{
-			IsGameActive = true;
+			var levelId = "0101";
 
-			MessageBus.OnGameStart.Send();
+			MessageBus.OnLevelSelected.Send(levelId);
 		}
 
 		public void ResetScene()
@@ -55,6 +62,14 @@ namespace BrightFish
 		{
 			MessageBus.OnPlayerLivesOut.Receive += LiveController_OnLivesOut;
 			MessageBus.OnLevelComplete.Receive += LevelController_OnLevelComplete;
+			MessageBus.OnLevelBuilt.Receive += OnLevelBuilt_Receive;
+		}
+
+		private void OnLevelBuilt_Receive(string obj)
+		{
+			IsGameActive = true;
+
+			MessageBus.OnGameStart.Send();
 		}
 
 		private void Start()
@@ -69,6 +84,7 @@ namespace BrightFish
 		{
 			MessageBus.OnPlayerLivesOut.Receive -= LiveController_OnLivesOut;
 			MessageBus.OnLevelComplete.Receive -= LevelController_OnLevelComplete;
+			MessageBus.OnLevelBuilt.Receive -= OnLevelBuilt_Receive;
 		}
 
 		private void LevelController_OnLevelComplete()

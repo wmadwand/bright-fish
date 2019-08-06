@@ -6,6 +6,10 @@ namespace BrightFish
 	[CreateAssetMenu(fileName = "Level", menuName = "BrightFish/Level")]
 	public class Level : ScriptableObject
 	{
+		public string ID => _id;
+
+		public TubeItem[] Tubes => _tubes;
+
 		[SerializeField] private string _id;
 		[SerializeField] private Difficulty _difficulty; //TODO: incapsulate to separate class (fishesHealthStart, fishHealthReducingStepRate)
 		[SerializeField] private float _timer;

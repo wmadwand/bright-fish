@@ -26,6 +26,7 @@ namespace BrightFish
 		Intersect = 150,
 		Spiral = 200,
 		Broken = 250,
+		Sine = 300
 	}
 
 	public enum Difficulty

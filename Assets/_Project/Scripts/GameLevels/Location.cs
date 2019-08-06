@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace BrightFish
 {
@@ -12,6 +13,11 @@ namespace BrightFish
 
 		[SerializeField] private int _id;
 		[SerializeField] private Level[] _levels;
+
+		public Level GetLevel(string id)
+		{
+			return _levels.FirstOrDefault(lvl => lvl.ID == id);
+		}
 
 	} 
 }
