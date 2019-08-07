@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6c5339c6b84a74f99f55bedea34764, type: 3}
   m_Name: Level0101
   m_EditorClassIdentifier: 
-  _id: 0
-  _difficulty: 0
-  _timer: 0
-  _tubes: []
+  _id: 0101
+  _difficulty: 50
+  _timer: 120
+  _tubes:
+  - tubeType: 50
+    bounceRateMin: 0
+    bounceRateMax: 0
+    bounceRateGrowthStep: 0
+    _difficulty: 50
   _fishes: 
   _rescuedFishesTargetCount: 0
   _fishSpawnProbability: {fileID: 0}

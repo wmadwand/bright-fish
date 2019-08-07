@@ -20,6 +20,8 @@ namespace BrightFish
 		private void OnLevelSelected_Receive(string obj)
 		{
 			Create(obj);
+
+			Debug.Log("OnLevelSelected_Receive");
 		}
 
 		public void StartLevel(string id)
@@ -38,18 +40,22 @@ namespace BrightFish
 
 			// SpawnTubes
 			var tubes = lvlSettings.Tubes;
+			SpawnTubes(tubes);
 
 			// SpawnFishes
 
 			// Get level built and callback =>
 			//
 
+
+
+			// Leves is ready to be launched
 			MessageBus.OnLevelBuilt.Send(id);
 		}
 
-		void SpawnTubes()
+		void SpawnTubes(TubeItem[] tubeItems)
 		{
-
+			GameController.Instance.tubeSpawner.SpawnTubes(tubeItems);
 		}
 
 		void SpawnFishes()

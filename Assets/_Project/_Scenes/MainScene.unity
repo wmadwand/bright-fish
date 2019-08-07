@@ -1505,6 +1505,50 @@ Transform:
   m_Father: {fileID: 390585739}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &357532810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 357532811}
+  - component: {fileID: 357532812}
+  m_Layer: 0
+  m_Name: LevelFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &357532811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357532810}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 390585739}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &357532812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357532810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b333c103c2ab0b34aa5885cebc47b1f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _location: {fileID: 11400000, guid: 7d289c49ccaf8fd45b207a6a886d7aa5, type: 2}
 --- !u!1 &382595363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1588,6 +1632,7 @@ Transform:
   - {fileID: 693152596}
   - {fileID: 1891581546}
   - {fileID: 382595364}
+  - {fileID: 357532811}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1856,7 +1901,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -3283,7 +3328,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &895497287
 Transform:
   m_ObjectHideFlags: 0
@@ -3608,6 +3653,7 @@ MonoBehaviour:
   gameSettings: {fileID: 11400000, guid: e1dc0dcb75a7a2345889b99d59718d7c, type: 2}
   sound: {fileID: 676347748}
   fishSpawner: {fileID: 355633253}
+  tubeSpawner: {fileID: 1806046638}
   canvas: {fileID: 1721885716}
   audioSource: {fileID: 1038882098}
   coinScoreTextPref: {fileID: 5481622671131321485, guid: 8a4d5f369e27d104089babfee31748d7,
@@ -4276,7 +4322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1138614535
 Transform:
   m_ObjectHideFlags: 0

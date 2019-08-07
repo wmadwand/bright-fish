@@ -155,6 +155,8 @@ namespace BrightFish
 			this.AfterSeconds(delayRate, MakeShell);
 		}
 
+		//----------------------------------------------------------------
+
 		public class TubeDIFactory : PlaceholderFactory<Tube> { }
 	} 
 }

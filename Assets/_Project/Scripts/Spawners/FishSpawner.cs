@@ -43,7 +43,7 @@ namespace BrightFish
 			MessageBus.OnFishFinishedSmiling.Receive += Fish_OnHappy;
 			MessageBus.OnFishRescued.Receive += OnFishRescued_Receive;
 
-			MessageBus.OnGameStart.Receive += GameController_OnStart;
+			//MessageBus.OnGameStart.Receive += GameController_OnStart;
 			MessageBus.OnGameStop.Receive += GameController_OnStop;
 		}
 

@@ -17,40 +17,6 @@ namespace BrightFish
 
 		//----------------------------------------------------------------
 
-		[Inject]
-		private void Construct(Tube.TubeDIFactory tubeDIFactory)
-		{
-			_tubeDIFactory = tubeDIFactory;
-		}
-
-		private void Awake()
-		{
-			MessageBus.OnGameStart.Receive += GameController_OnStart;
-			MessageBus.OnGameStop.Receive += GameController_OnStop;
-
-			_random = new System.Random();
-		}
-
-		private void GameController_OnStop(bool success)
-		{
-			DestroyTubes();
-		}
-
-		private void GameController_OnStart()
-		{
-			SpawnTubes();
-		}
-
-		private void Start()
-		{
-			//SpawnTubes();
-		}
-		private void OnDestroy()
-		{
-			MessageBus.OnGameStart.Receive -= GameController_OnStart;
-			MessageBus.OnGameStop.Receive -= GameController_OnStop;
-		}
-
 		public void SpawnTubes()
 		{
 			_currentTubeCollection = new Tube[_bubbleTypes.Length];
@@ -69,9 +35,67 @@ namespace BrightFish
 			}
 		}
 
+		public void SpawnTubes(TubeItem[] tubeItems)
+		{
+			_currentTubeCollection = new Tube[tubeItems.Length];
+
+			//int[] coinTypeArray = { 0, 1, 2 };
+			//ColorType[] randomArray = _bubbleTypes.OrderBy(x => _random.Next()).ToArray();
+
+			var spawnPoints = ScreenSpaceDesigner.GetSpawnPoints(tubeItems.Length);
+
+			for (int i = 0; i < /*1*/ tubeItems.Length; i++)
+			{
+				Tube tube = _tubeDIFactory.Create();
+
+				tube.transform.SetPositionAndRotation(spawnPoints[i], Quaternion.identity);
+				tube.SetTubeID(i);
+
+				_currentTubeCollection[i] = tube;
+			}
+		}
+
+
 		public void DestroyTubes()
 		{
 			Array.ForEach(_currentTubeCollection, item => item.SelfDestroy());
 		}
-	} 
+
+		//----------------------------------------------------------------
+
+		[Inject]
+		private void Construct(Tube.TubeDIFactory tubeDIFactory)
+		{
+			_tubeDIFactory = tubeDIFactory;
+		}
+
+		private void Awake()
+		{
+			//MessageBus.OnGameStart.Receive += GameController_OnStart;
+			MessageBus.OnGameStop.Receive += GameController_OnStop;
+
+			_random = new System.Random();
+		}
+
+		private void Start()
+		{
+			//SpawnTubes();
+		}
+
+		private void OnDestroy()
+		{
+			MessageBus.OnGameStart.Receive -= GameController_OnStart;
+			MessageBus.OnGameStop.Receive -= GameController_OnStop;
+		}
+
+		private void GameController_OnStop(bool success)
+		{
+			DestroyTubes();
+		}
+
+		private void GameController_OnStart()
+		{
+			SpawnTubes();
+		}
+	}
 }
