@@ -14,7 +14,7 @@ namespace BrightFish
 		public override void InstallBindings()
 		{
 			Container.Bind<GameSettings>().FromScriptableObjectResource("GameSettings").AsSingle();
-			Container.Bind<FishSpawnProbability>().FromScriptableObjectResource("FishSpawnProbability").AsSingle();
+			Container.Bind<FishSpawnProbability>().FromScriptableObjectResource("FishSpawnProbability01").AsSingle();
 
 			Container.BindFactory<Bubble, Bubble.BubbleDIFactory>().FromComponentInNewPrefab(_bubblePrefab).UnderTransformGroup("Bubbles");
 			Container.BindFactory<Food, Food.FoodDIFactory>().FromComponentInNewPrefab(_foodPrefab).UnderTransformGroup("Foods");

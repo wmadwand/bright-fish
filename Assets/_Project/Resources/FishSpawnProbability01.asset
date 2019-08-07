@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9563f9e85423bd948b6d14358e95f052, type: 3}
-  m_Name: FishSpawnProbability
+  m_Name: FishSpawnProbability01
   m_EditorClassIdentifier: 
   list:
   - category: 50
