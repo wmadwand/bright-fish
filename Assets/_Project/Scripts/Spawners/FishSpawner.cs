@@ -8,10 +8,10 @@ namespace BrightFish
 {
 	public class FishSpawner : MonoBehaviour
 	{
-		public GameObject[] SpawnPoints => _spawnPoints;
+		public Vector2[] SpawnPoints => _spawnPoints;
 
 		[SerializeField] private ColorType[] _fishTypes;
-		[SerializeField] private GameObject[] _spawnPoints;
+		//[SerializeField] private GameObject[] _spawnPoints;
 
 		private List<Fish> _fishes = new List<Fish>();
 		private System.Random _random;
@@ -22,6 +22,8 @@ namespace BrightFish
 
 		private GameSettings _gameSettings;
 		private int _predatorFishesCount;
+
+		private Vector2[] _spawnPoints;
 
 		//----------------------------------------------------------------
 
@@ -105,16 +107,28 @@ namespace BrightFish
 
 		private void InitSpawn()
 		{
-			//int[] coinTypeArray = { 0, 1, 2 };
+			////int[] coinTypeArray = { 0, 1, 2 };
+			//ColorType[] MyRandomArray = _fishTypes.OrderBy(x => _random.Next()).ToArray();
+
+			//for (int i = 0; i < /*2*/ MyRandomArray.Length; i++)
+			//{
+			//	Spawn(MyRandomArray[i], _spawnPoints[i].transform.position);
+			//}
+		}
+
+		public void SpawnFishes(int count)
+		{
+			_spawnPoints = GameAreaDesigner.GetSpawnPoints(count, SpawnPointPosition.Bottom);
+
 			ColorType[] MyRandomArray = _fishTypes.OrderBy(x => _random.Next()).ToArray();
 
-			for (int i = 0; i < /*2*/ MyRandomArray.Length; i++)
+			for (int i = 0; i < _spawnPoints.Length; i++)
 			{
-				Spawn(MyRandomArray[i], _spawnPoints[i].transform.position);
+				Spawn(MyRandomArray[i], _spawnPoints[i]);
 			}
 		}
 
-		private void Spawn(ColorType bubbleType, Vector3 position)
+		private void Spawn(ColorType bubbleType, Vector2 position)
 		{
 			var fishCategoryResult = _predatorFishesCount < _gameSettings.PredatorFishesMaxCount ? GetRandomWeightedFishCategory() : FishCategory.Peaceful;
 
@@ -145,7 +159,7 @@ namespace BrightFish
 		private FishCategory GetRandomWeightedFishCategory()
 		{
 			var weightsArray = _fishSpawnProbability.GetWeightsArray();
-			int resItemIndex = SRandom.GetRandomWeightedItemIndex(weightsArray, _random);
+			var resItemIndex = SRandom.GetRandomWeightedItemIndex(weightsArray, _random);
 
 			return _fishSpawnProbability.list[resItemIndex].category;
 		}

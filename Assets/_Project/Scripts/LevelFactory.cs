@@ -43,6 +43,7 @@ namespace BrightFish
 			SpawnTubes(tubes);
 
 			// SpawnFishes
+			SpawnFishes(tubes.Length);
 
 			// Get level built and callback =>
 			//
@@ -58,9 +59,9 @@ namespace BrightFish
 			GameController.Instance.tubeSpawner.SpawnTubes(tubeItems);
 		}
 
-		void SpawnFishes()
+		void SpawnFishes(int count)
 		{
-
+			GameController.Instance.fishSpawner.SpawnFishes(count);
 		}
 
 	}

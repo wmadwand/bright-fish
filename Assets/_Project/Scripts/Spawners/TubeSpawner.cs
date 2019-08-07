@@ -42,7 +42,7 @@ namespace BrightFish
 			//int[] coinTypeArray = { 0, 1, 2 };
 			//ColorType[] randomArray = _bubbleTypes.OrderBy(x => _random.Next()).ToArray();
 
-			var spawnPoints = GameSpaceDesigner.GetSpawnPoints(tubeItems.Length);
+			var spawnPoints = GameAreaDesigner.GetSpawnPoints(tubeItems.Length, SpawnPointPosition.Top);
 
 			for (int i = 0; i < /*1*/ tubeItems.Length; i++)
 			{

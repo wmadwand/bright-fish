@@ -48,8 +48,8 @@ namespace BrightFish
 
 				var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
 
-				var xMin = GameController.Instance.fishSpawner.SpawnPoints[0].transform.position.x;
-				var xMax = GameController.Instance.fishSpawner.SpawnPoints[spawnPointsLength - 1].transform.position.x;
+				var xMin = GameController.Instance.fishSpawner.SpawnPoints[0].x;
+				var xMax = GameController.Instance.fishSpawner.SpawnPoints[spawnPointsLength - 1].x;
 				_parent.position = new Vector2(Mathf.Clamp(vec.x, xMin, xMax), _parent.position.y);
 			}
 
@@ -72,5 +72,5 @@ namespace BrightFish
 
 			_isDraggable = false;
 		}
-	} 
+	}
 }

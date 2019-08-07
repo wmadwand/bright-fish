@@ -36,4 +36,9 @@ namespace BrightFish
 		Hard = 150,
 		Nightmare = 200
 	}
+
+	public enum SpawnPointPosition
+	{
+		Top, Bottom
+	}
 }
