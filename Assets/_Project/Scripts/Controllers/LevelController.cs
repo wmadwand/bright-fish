@@ -32,6 +32,11 @@ namespace BrightFish
 			_rescuedFishTargetCount = level.RescueFishTargetCount;
 		}
 
+		public void ResetGameProgress()
+		{
+			GameProgress.Reset();
+		}
+
 		//----------------------------------------------------------------
 
 		[Inject]

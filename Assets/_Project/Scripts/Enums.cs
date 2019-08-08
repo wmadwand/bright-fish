@@ -6,6 +6,12 @@ namespace BrightFish
 		A, B, C, D, E
 	}
 
+	public enum BubbleColorMode
+	{
+		Explicit,
+		Implicit
+	}
+
 	public enum BubbleState
 	{
 		Small, Medium, Big

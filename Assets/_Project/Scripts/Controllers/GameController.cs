@@ -17,6 +17,7 @@ namespace BrightFish
 		public FishSpawner fishSpawner;
 		public TubeSpawner tubeSpawner;
 		public LevelController levelController;
+		public LevelFactory levelFactory;
 		public Canvas canvas;
 
 		public AudioSource audioSource;
@@ -39,7 +40,7 @@ namespace BrightFish
 
 		public void StartGame()
 		{
-			var levelId = "0101";
+			var levelId = GameProgress.GetCurrentLevelId();
 
 			MessageBus.OnLevelSelected.Send(levelId);
 		}

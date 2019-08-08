@@ -7,6 +7,8 @@ namespace BrightFish
 	{
 		//public Level Level { get; private set; }
 
+		public Location CurrentLocation => _location;
+
 		[SerializeField] private Location _location;
 
 		private void Awake()
@@ -25,7 +27,6 @@ namespace BrightFish
 
 			Debug.Log("OnLevelSelected_Receive");
 		}
-
 
 		private Level GetLevelSettings(string id)
 		{
