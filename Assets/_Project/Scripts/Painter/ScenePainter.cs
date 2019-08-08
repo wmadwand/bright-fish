@@ -32,7 +32,7 @@ namespace BrightFish
 
 		private void OnFishRescued_Receive(Fish arg1, ColorType arg2, Vector3 arg3)
 		{
-			_saturationIntence -= _gameSettings.RescuedFishTargetCount * .01f;
+			//_saturationIntence -= _gameSettings.RescuedFishTargetCount * .01f;
 
 			foreach (var item in _spriteRenderers)
 			{

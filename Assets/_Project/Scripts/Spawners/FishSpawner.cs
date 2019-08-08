@@ -22,16 +22,23 @@ namespace BrightFish
 
 		private GameSettings _gameSettings;
 		private int _predatorFishesCount;
+		private Level _levelSettings;
 
 		private Vector2[] _spawnPoints;
 
 		//----------------------------------------------------------------
 
+		public void Init(Level level)
+		{
+			_levelSettings = level;
+			_fishSpawnProbability = level.FishSpawnProbability;
+		}
+
 		[Inject]
-		private void Construct(GameSettings gameSettings, FishSpawnProbability fishSpawnProbability, Fish.FishDIFactory fishDIFactory, Fish.FishPredatorDIFactory fishPredatorDIFactory)
+		private void Construct(GameSettings gameSettings, /*FishSpawnProbability fishSpawnProbability,*/ Fish.FishDIFactory fishDIFactory, Fish.FishPredatorDIFactory fishPredatorDIFactory)
 		{
 			_gameSettings = gameSettings;
-			_fishSpawnProbability = fishSpawnProbability;
+			//_fishSpawnProbability = fishSpawnProbability;
 
 			_fishDIFactory = fishDIFactory;
 			_fishPredatorDIFactory = fishPredatorDIFactory;
@@ -130,7 +137,7 @@ namespace BrightFish
 
 		private void Spawn(ColorType bubbleType, Vector2 position)
 		{
-			var fishCategoryResult = _predatorFishesCount < _gameSettings.PredatorFishesMaxCount ? GetRandomWeightedFishCategory() : FishCategory.Peaceful;
+			var fishCategoryResult = _predatorFishesCount <= _levelSettings.PredatorFishesMaxCount ? GetRandomWeightedFishCategory() : FishCategory.Peaceful;
 
 			Fish fish = null;
 

@@ -7,20 +7,29 @@ namespace BrightFish
 {
 	public class LevelController : MonoBehaviour
 	{
+		public Level CurrentLevel { get; private set; }
+
 		[SerializeField] private Text _rescuedFishText;
 
 		private int _rescuedFishTargetCount;
 		private int _rescuedFishCurrentCount;
 		private GameSettings _gameSettings;
 
+
 		//----------------------------------------------------------------
 
 		public void ResetLevel()
 		{
-			_rescuedFishTargetCount = _gameSettings.RescuedFishTargetCount;
+			//_rescuedFishTargetCount = _gameSettings.RescuedFishTargetCount;
 			_rescuedFishCurrentCount = 0;
 
 			UpdateText();
+		}
+
+		public void InitLevel(Level level)
+		{
+			CurrentLevel = level;
+			_rescuedFishTargetCount = level.RescueFishTargetCount;
 		}
 
 		//----------------------------------------------------------------

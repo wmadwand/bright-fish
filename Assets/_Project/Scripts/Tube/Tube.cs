@@ -59,7 +59,8 @@ namespace BrightFish
 
 		private void Start()
 		{
-			MakeShell();
+			//MakeShell();
+			RunAfterDelay(MakeShell);
 		}
 
 		private void OnDestroy()
@@ -113,7 +114,9 @@ namespace BrightFish
 				return;
 			}
 
-			MakeShell();
+			//MakeShell();
+
+			RunAfterDelay(MakeShell);
 		}
 
 		private void MakeShell()
@@ -134,7 +137,7 @@ namespace BrightFish
 			_bubble.SetParentTubeID(_id, _food);
 
 			_randomBounceRate = UnityEngine.Random.Range(_settings.bounceRateMin, _settings.bounceRateMax/* _gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f*/);
-			_bubble.AddForce(_randomBounceRate + _currentBounceRateStep);
+			_bubble.AddForce((_randomBounceRate + _currentBounceRateStep) * -1);
 		}
 
 		private void IncreaseBounceRate()
@@ -156,7 +159,7 @@ namespace BrightFish
 			if (!asChild)
 			{
 				_randomBounceRate = UnityEngine.Random.Range(_settings.bounceRateMin, _settings.bounceRateMax/* _gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f*/);
-				_food.AddForce(_randomBounceRate + _currentBounceRateStep);
+				_food.AddForce((_randomBounceRate + _currentBounceRateStep) * -1);
 			}
 		}
 

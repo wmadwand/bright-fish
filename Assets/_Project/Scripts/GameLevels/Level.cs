@@ -7,8 +7,11 @@ namespace BrightFish
 	public class Level : ScriptableObject
 	{
 		public string ID => _id;
-
 		public TubeSettings[] Tubes => _tubes;
+		public FishCategory[] Fishes => _fishes;
+		public int RescueFishTargetCount => _rescuedFishesTargetCount;
+		public FishSpawnProbability FishSpawnProbability => _fishSpawnProbability;
+		public int PredatorFishesMaxCount => _predatorFishesMaxCount;
 
 		[SerializeField] private string _id;
 		[SerializeField] private Difficulty _difficulty; //TODO: incapsulate to separate class (fishesHealthStart, fishHealthReducingStepRate)

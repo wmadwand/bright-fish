@@ -3257,6 +3257,7 @@ MonoBehaviour:
   sound: {fileID: 676347748}
   fishSpawner: {fileID: 355633253}
   tubeSpawner: {fileID: 1806046638}
+  levelController: {fileID: 1891581547}
   canvas: {fileID: 1721885716}
   audioSource: {fileID: 1038882098}
   coinScoreTextPref: {fileID: 5481622671131321485, guid: 8a4d5f369e27d104089babfee31748d7,

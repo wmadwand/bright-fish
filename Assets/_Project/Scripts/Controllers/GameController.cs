@@ -16,6 +16,7 @@ namespace BrightFish
 		public SoundController sound;
 		public FishSpawner fishSpawner;
 		public TubeSpawner tubeSpawner;
+		public LevelController levelController;
 		public Canvas canvas;
 
 		public AudioSource audioSource;
