@@ -111,6 +111,12 @@ namespace BrightFish
 			//go.transform.SetPositionAndRotation(vec, Quaternion.identity);
 		}
 
+		public void AddForceDirection(Vector2 _dir/*, float _speed*/)
+		{
+			_dir.Normalize();
+			_rigidbody2D.AddForce(_dir * _spoeedReflection, ForceMode2D.Impulse);
+		}
+
 		//----------------------------------------------------------------
 
 		[Inject]
@@ -122,12 +128,18 @@ namespace BrightFish
 		private void Awake()
 		{
 			_renderer = GetComponentInChildren<Renderer>();
-			//_rigidbody2D = GetComponentInParent<Rigidbody2D>();
 			_view = _renderer.gameObject;
-
 			_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
 
-			//Init();
+			SetCollidersActive(false);
+		}
+
+		public void SetCollidersActive(bool value)
+		{
+			foreach (var item in GetComponentsInChildren<Collider2D>())
+			{
+				item.enabled = value;
+			}
 		}
 
 		private void Update()
@@ -218,8 +230,6 @@ namespace BrightFish
 			_renderer.material.color = _gameSettings.ColorDummy;
 			SetColor(Type);
 
-			//_renderer.material.color = _color;
-
 			if (_gameSettings.ColorMode == BubbleColorMode.Explicit)
 			{
 				_renderer.material.color = _color;
@@ -243,14 +253,8 @@ namespace BrightFish
 			}
 		}
 
-		public void AddForceDirection(Vector2 _dir/*, float _speed*/)
-		{
-			_dir.Normalize();
-			_rigidbody2D.AddForce(_dir * _spoeedReflection, ForceMode2D.Impulse);
-		}
-
 		//----------------------------------------------------------------
 
 		public class FoodDIFactory : PlaceholderFactory<Food> { }
-	} 
+	}
 }

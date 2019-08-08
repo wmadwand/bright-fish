@@ -24,21 +24,16 @@ namespace BrightFish
 
 		//----------------------------------------------------------------
 
-		//public void SetTubeID(int value)
-		//{
-		//	_id = value;
-		//}
+		public void Init(int id, TubeSettings tubeItem)
+		{
+			_id = id;
+			_settings = tubeItem;
+		}
 
 		public void SelfDestroy()
 		{
 			Destroy(_bubble.gameObject);
 			Destroy(gameObject);
-		}
-
-		public void Init(int id, TubeSettings tubeItem)
-		{
-			_id = id;
-			_settings = tubeItem;
 		}
 
 		//----------------------------------------------------------------
@@ -98,6 +93,8 @@ namespace BrightFish
 			{
 				var bubble = other.GetComponentInParent<Bubble>();
 				bubble.SetReleased();
+
+				bubble.GetComponentInChildren<Food>().SetCollidersActive(true);
 
 			}
 			else if (other is BoxCollider2D && other.GetComponentInParent<Food>())

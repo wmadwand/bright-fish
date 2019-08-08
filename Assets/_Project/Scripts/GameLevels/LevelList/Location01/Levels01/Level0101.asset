@@ -17,15 +17,9 @@ MonoBehaviour:
   _timer: 120
   _tubes:
   - type: 50
-    bubbleThrowDelay: 0.3
-    bounceRateMin: 6
-    bounceRateMax: 6
-    bounceRateGrowthStep: 1
-    _difficulty: 50
-  - type: 50
-    bubbleThrowDelay: 0.6
-    bounceRateMin: 6
-    bounceRateMax: 6
+    bubbleThrowDelay: 0
+    bounceRateMin: 20
+    bounceRateMax: 20
     bounceRateGrowthStep: 1
     _difficulty: 50
   _fishes: 3200000064000000

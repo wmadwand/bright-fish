@@ -80,7 +80,7 @@ public class GameSettings : ScriptableObject
 	[Serializable]
 	public struct ClickEnlargeSizePair
 	{
-		public int clickNUmber;
+		public int clickNumber;
 		public float sizeRate;
 	}
 }
