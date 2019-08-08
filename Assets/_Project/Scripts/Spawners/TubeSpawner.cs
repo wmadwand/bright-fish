@@ -9,7 +9,7 @@ namespace BrightFish
 	public sealed class TubeSpawner : MonoBehaviour
 	{
 		[SerializeField] private ColorType[] _bubbleTypes;
-		[SerializeField] private GameObject[] _tubeSpawnPoints;
+		private GameObject[] _tubeSpawnPoints;
 
 		private System.Random _random;
 		private Tube.TubeDIFactory _tubeDIFactory;
