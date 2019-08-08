@@ -54,7 +54,7 @@ namespace BrightFish
 			MessageBus.OnLevelBuilt.Send(id);
 		}
 
-		void SpawnTubes(TubeItem[] tubeItems)
+		void SpawnTubes(TubeSettings[] tubeItems)
 		{
 			GameController.Instance.tubeSpawner.SpawnTubes(tubeItems);
 		}

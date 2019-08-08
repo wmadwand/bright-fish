@@ -17,6 +17,7 @@ namespace BrightFish
 
 		//----------------------------------------------------------------
 
+		[Obsolete("See SpawnTubes(TubeItem[] tubeItems)")]
 		public void SpawnTubes()
 		{
 			_currentTubeCollection = new Tube[_bubbleTypes.Length];
@@ -29,13 +30,13 @@ namespace BrightFish
 				Tube tube = _tubeDIFactory.Create();
 
 				tube.transform.SetPositionAndRotation(_tubeSpawnPoints[i].transform.position, Quaternion.identity);
-				tube.SetTubeID(i);
+				//tube.SetTubeID(i);
 
 				_currentTubeCollection[i] = tube;
 			}
 		}
 
-		public void SpawnTubes(TubeItem[] tubeItems)
+		public void SpawnTubes(TubeSettings[] tubeItems)
 		{
 			_currentTubeCollection = new Tube[tubeItems.Length];
 
@@ -49,7 +50,8 @@ namespace BrightFish
 				Tube tube = _tubeDIFactory.Create();
 
 				tube.transform.SetPositionAndRotation(spawnPoints[i], Quaternion.identity);
-				tube.SetTubeID(i);
+				//tube.SetTubeID(i);
+				tube.Init(i, tubeItems[i]);
 
 				_currentTubeCollection[i] = tube;
 			}

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
-using UnityEngine;
-using Zenject;
-
 using Terminus.Extensions;
 using Terminus.Game.Messages;
+using UnityEngine;
+using Zenject;
 
 namespace BrightFish
 {
@@ -21,17 +19,26 @@ namespace BrightFish
 		private Bubble _bubble;
 		private Food _food;
 
+		private float _currentBounceRateStep = 0;
+		private TubeSettings _settings;
+
 		//----------------------------------------------------------------
 
-		public void SetTubeID(int value)
-		{
-			_id = value;
-		}
+		//public void SetTubeID(int value)
+		//{
+		//	_id = value;
+		//}
 
 		public void SelfDestroy()
 		{
 			Destroy(_bubble.gameObject);
 			Destroy(gameObject);
+		}
+
+		public void Init(int id, TubeSettings tubeItem)
+		{
+			_id = id;
+			_settings = tubeItem;
 		}
 
 		//----------------------------------------------------------------
@@ -126,8 +133,13 @@ namespace BrightFish
 			_bubble.transform.SetPositionAndRotation(_bubbleSpawnPoint.position, Quaternion.identity);
 			_bubble.SetParentTubeID(_id, _food);
 
-			_randomBounceRate = UnityEngine.Random.Range(_gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f);
-			_bubble.AddForce(_randomBounceRate);
+			_randomBounceRate = UnityEngine.Random.Range(_settings.bounceRateMin, _settings.bounceRateMax/* _gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f*/);
+			_bubble.AddForce(_randomBounceRate + _currentBounceRateStep);
+		}
+
+		private void IncreaseBounceRate()
+		{
+			_currentBounceRateStep += _settings.bounceRateGrowthStep;
 		}
 
 		private void MakeFood(bool asChild)
@@ -143,20 +155,22 @@ namespace BrightFish
 
 			if (!asChild)
 			{
-				_randomBounceRate = UnityEngine.Random.Range(_gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f);
-				_food.AddForce(_randomBounceRate);
+				_randomBounceRate = UnityEngine.Random.Range(_settings.bounceRateMin, _settings.bounceRateMax/* _gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f*/);
+				_food.AddForce(_randomBounceRate + _currentBounceRateStep);
 			}
 		}
 
 		private void RunAfterDelay(Action callback)
 		{
-			float delayRate = _gameSettings.TubeBubbleThrowDelay ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
+			//float delayRate = _gameSettings.TubeBubbleThrowDelay ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
 
-			this.AfterSeconds(delayRate, MakeShell);
+			float delay = _settings.bubbleThrowDelay > 0 ? UnityEngine.Random.Range(.5f, _settings.bubbleThrowDelay) : 0;
+
+			this.AfterSeconds(delay, MakeShell);
 		}
 
 		//----------------------------------------------------------------
 
 		public class TubeDIFactory : PlaceholderFactory<Tube> { }
-	} 
+	}
 }

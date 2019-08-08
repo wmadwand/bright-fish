@@ -16,8 +16,8 @@ public class GameSettings : ScriptableObject
 	public int LivesCount => _livesCount;
 	public int RescuedFishTargetCount => _rescuedFishTargetCount;
 
-	public bool TubeBubbleThrowDelay => _TubeBubbleThrowDelay;
-	public float BubbleInitialBounceRate => _bubbleInitialBounceRate;
+	//public bool TubeBubbleThrowDelay => _TubeBubbleThrowDelay;
+	//public float BubbleInitialBounceRate => _bubbleInitialBounceRate;
 
 	public float BubbleMoveSpeed => _bubbleMoveSpeed;
 	public float BounceRate => _bounceRate;
@@ -48,9 +48,9 @@ public class GameSettings : ScriptableObject
 	[SerializeField] private int _livesCount = 3;
 	[SerializeField] private int _rescuedFishTargetCount = 6;
 
-	[Header("Tube behaviour")]
-	[SerializeField] private bool _TubeBubbleThrowDelay = false;
-	[SerializeField] private float _bubbleInitialBounceRate = -4;
+	//[Header("Tube behaviour")]
+	//[SerializeField] private bool _TubeBubbleThrowDelay = false;
+	//[SerializeField] private float _bubbleInitialBounceRate = -4;
 
 	[Header("Bubble behaviour")]
 	[SerializeField] private float _bubbleMoveSpeed = 8;

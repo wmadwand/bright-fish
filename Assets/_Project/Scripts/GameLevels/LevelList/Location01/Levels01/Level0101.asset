@@ -31,6 +31,11 @@ MonoBehaviour:
     bounceRateMax: 0
     bounceRateGrowthStep: 0
     _difficulty: 50
+  - tubeType: 50
+    bounceRateMin: 0
+    bounceRateMax: 0
+    bounceRateGrowthStep: 0
+    _difficulty: 50
   _fishes: 3200000064000000000000000000000000000000
   _rescuedFishesTargetCount: 5
   _fishSpawnProbability: {fileID: 11400000, guid: 1b3fdf57ca298694fab152b5493c81d5,

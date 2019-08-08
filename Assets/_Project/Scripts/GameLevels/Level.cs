@@ -8,12 +8,12 @@ namespace BrightFish
 	{
 		public string ID => _id;
 
-		public TubeItem[] Tubes => _tubes;
+		public TubeSettings[] Tubes => _tubes;
 
 		[SerializeField] private string _id;
 		[SerializeField] private Difficulty _difficulty; //TODO: incapsulate to separate class (fishesHealthStart, fishHealthReducingStepRate)
 		[SerializeField] private float _timer;
-		[SerializeField] private TubeItem[] _tubes;
+		[SerializeField] private TubeSettings[] _tubes;
 		[SerializeField] private FishCategory[] _fishes;
 		[SerializeField] private int _rescuedFishesTargetCount;
 		[SerializeField] private FishSpawnProbability _fishSpawnProbability;
@@ -24,9 +24,10 @@ namespace BrightFish
 	}
 
 	[Serializable]
-	public struct TubeItem
+	public struct TubeSettings
 	{
-		public TubeType tubeType;
+		public TubeType type;
+		public float bubbleThrowDelay;
 		public float bounceRateMin;
 		public float bounceRateMax;
 		public float bounceRateGrowthStep;
