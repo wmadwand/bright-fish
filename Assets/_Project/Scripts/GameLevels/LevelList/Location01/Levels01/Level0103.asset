@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd6c5339c6b84a74f99f55bedea34764, type: 3}
-  m_Name: Level0102
+  m_Name: Level0103
   m_EditorClassIdentifier: 
-  _id: 0101
+  _id: 0103
   _difficulty: 50
   _timer: 120
   _tubes:
@@ -23,6 +23,7 @@ MonoBehaviour:
     bounceRateGrowthStep: 1
     _difficulty: 50
   _fishes: 32000000
+  _colorTypes: 
   _rescuedFishesTargetCount: 3
   _fishSpawnProbability: {fileID: 11400000, guid: 1b3fdf57ca298694fab152b5493c81d5,
     type: 2}

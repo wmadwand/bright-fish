@@ -4,6 +4,7 @@ using Terminus.Game.Messages;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
+using Terminus.Extensions;
 
 namespace BrightFish
 {
@@ -224,7 +225,10 @@ namespace BrightFish
 
 			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
 
-			Type = (ColorType)UnityEngine.Random.Range(0, spawnPointsLength);
+			//Type = (ColorType)UnityEngine.Random.Range(0, spawnPointsLength);
+			//Type = (ColorType)UnityEngine.Random.Range(0, GameController.Instance.levelController.CurrentLevel.ColorTypes.Length);
+			Type = GameController.Instance.levelController.CurrentLevel.ColorTypes.GetRandom();
+
 			_state = BubbleState.Small;
 
 			_renderer.material.color = _gameSettings.ColorDummy;

@@ -12,12 +12,14 @@ namespace BrightFish
 		public int RescueFishTargetCount => _rescuedFishesTargetCount;
 		public FishSpawnProbability FishSpawnProbability => _fishSpawnProbability;
 		public int PredatorFishesMaxCount => _predatorFishesMaxCount;
+		public ColorType[] ColorTypes => _colorTypes;
 
 		[SerializeField] private string _id;
 		[SerializeField] private Difficulty _difficulty; //TODO: incapsulate to separate class (fishesHealthStart, fishHealthReducingStepRate)
 		[SerializeField] private float _timer;
 		[SerializeField] private TubeSettings[] _tubes;
 		[SerializeField] private FishCategory[] _fishes;
+		[SerializeField] private ColorType[] _colorTypes;
 		[SerializeField] private int _rescuedFishesTargetCount;
 		[SerializeField] private FishSpawnProbability _fishSpawnProbability;
 		[SerializeField] private int _predatorFishesMaxCount;

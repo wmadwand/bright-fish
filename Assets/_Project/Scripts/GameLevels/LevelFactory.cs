@@ -26,10 +26,6 @@ namespace BrightFish
 			Debug.Log("OnLevelSelected_Receive");
 		}
 
-		public void StartLevel(string id)
-		{
-
-		}
 
 		private Level GetLevelSettings(string id)
 		{
