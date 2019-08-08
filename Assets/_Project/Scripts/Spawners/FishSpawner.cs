@@ -10,9 +10,6 @@ namespace BrightFish
 	{
 		public Vector2[] SpawnPoints => _spawnPoints;
 
-		[SerializeField] private ColorType[] _fishTypes;
-		//[SerializeField] private GameObject[] _spawnPoints;
-
 		private List<Fish> _fishes = new List<Fish>();
 		private System.Random _random;
 
@@ -34,11 +31,24 @@ namespace BrightFish
 			_fishSpawnProbability = level.FishSpawnProbability;
 		}
 
+		public void SpawnFishes(int count)
+		{
+			_spawnPoints = GameAreaDesigner.GetSpawnPoints(count, SpawnPointPosition.Bottom);
+
+			ColorType[] MyRandomArray = _levelSettings.ColorTypes.OrderBy(x => _random.Next()).ToArray();
+
+			for (int i = 0; i < _spawnPoints.Length; i++)
+			{
+				Spawn(MyRandomArray[i], _spawnPoints[i]);
+			}
+		}
+
+		//----------------------------------------------------------------
+
 		[Inject]
-		private void Construct(GameSettings gameSettings, /*FishSpawnProbability fishSpawnProbability,*/ Fish.FishDIFactory fishDIFactory, Fish.FishPredatorDIFactory fishPredatorDIFactory)
+		private void Construct(GameSettings gameSettings, Fish.FishDIFactory fishDIFactory, Fish.FishPredatorDIFactory fishPredatorDIFactory)
 		{
 			_gameSettings = gameSettings;
-			//_fishSpawnProbability = fishSpawnProbability;
 
 			_fishDIFactory = fishDIFactory;
 			_fishPredatorDIFactory = fishPredatorDIFactory;
@@ -52,13 +62,7 @@ namespace BrightFish
 			MessageBus.OnFishFinishedSmiling.Receive += Fish_OnHappy;
 			MessageBus.OnFishRescued.Receive += OnFishRescued_Receive;
 
-			//MessageBus.OnGameStart.Receive += GameController_OnStart;
 			MessageBus.OnGameStop.Receive += GameController_OnStop;
-		}
-
-		private void Start()
-		{
-			//InitSpawn();
 		}
 
 		private void OnDestroy()
@@ -66,8 +70,6 @@ namespace BrightFish
 			MessageBus.OnFishDead.Receive -= Fish_OnDeath;
 			MessageBus.OnFishFinishedSmiling.Receive -= Fish_OnHappy;
 			MessageBus.OnFishRescued.Receive -= OnFishRescued_Receive;
-
-			MessageBus.OnGameStart.Receive -= GameController_OnStart;
 			MessageBus.OnGameStop.Receive -= GameController_OnStop;
 		}
 
@@ -80,11 +82,6 @@ namespace BrightFish
 		{
 			_fishes.ForEach(fish => fish.Destroy());
 			_fishes.Clear();
-		}
-
-		private void GameController_OnStart()
-		{
-			InitSpawn();
 		}
 
 		private void Fish_OnHappy(Fish fish, ColorType arg1, Vector3 arg2)
@@ -109,29 +106,6 @@ namespace BrightFish
 			if (GameController.Instance.IsGameActive)
 			{
 				Spawn(arg1, arg2);
-			}
-		}
-
-		private void InitSpawn()
-		{
-			////int[] coinTypeArray = { 0, 1, 2 };
-			//ColorType[] MyRandomArray = _fishTypes.OrderBy(x => _random.Next()).ToArray();
-
-			//for (int i = 0; i < /*2*/ MyRandomArray.Length; i++)
-			//{
-			//	Spawn(MyRandomArray[i], _spawnPoints[i].transform.position);
-			//}
-		}
-
-		public void SpawnFishes(int count)
-		{
-			_spawnPoints = GameAreaDesigner.GetSpawnPoints(count, SpawnPointPosition.Bottom);
-
-			ColorType[] MyRandomArray = _fishTypes.OrderBy(x => _random.Next()).ToArray();
-
-			for (int i = 0; i < _spawnPoints.Length; i++)
-			{
-				Spawn(MyRandomArray[i], _spawnPoints[i]);
 			}
 		}
 
@@ -173,7 +147,7 @@ namespace BrightFish
 
 		private ColorType GetRandomColorType()
 		{
-			return (ColorType)Random.Range(0, _fishTypes.Length);
+			return (ColorType)Random.Range(0, _levelSettings.ColorTypes.Length);
 		}
 	}
 }

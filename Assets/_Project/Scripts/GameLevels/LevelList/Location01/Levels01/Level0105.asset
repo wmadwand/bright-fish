@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd6c5339c6b84a74f99f55bedea34764, type: 3}
-  m_Name: Level0103
+  m_Name: Level0105
   m_EditorClassIdentifier: 
-  _id: 0103
+  _id: 0105
   _difficulty: 50
   _timer: 120
   _tubes:
@@ -28,10 +28,16 @@ MonoBehaviour:
     bounceRateMax: 20
     bounceRateGrowthStep: 1
     _difficulty: 50
-  _fishes: 32000000
-  _colorTypes: 000000000100000002000000
-  _rescuedFishesTargetCount: 5
-  _fishSpawnProbability: {fileID: 11400000, guid: 1b3fdf57ca298694fab152b5493c81d5,
+  - type: 50
+    bubbleThrowDelay: 1
+    bounceRateMin: 15
+    bounceRateMax: 20
+    bounceRateGrowthStep: 1
+    _difficulty: 50
+  _fishes: 3200000064000000
+  _colorTypes: 00000000010000000200000003000000
+  _rescuedFishesTargetCount: 15
+  _fishSpawnProbability: {fileID: 11400000, guid: afa002e972ae8e749b56e16a2791b48e,
     type: 2}
   _predatorFishesMaxCount: 1
   _enablePredatorFishMovementAI: 0
