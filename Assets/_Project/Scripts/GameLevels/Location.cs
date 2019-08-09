@@ -26,5 +26,10 @@ namespace BrightFish
 
 			return _levels[prevIndex + 1].ID;
 		}
+
+		public int GetLevelIndex(string id)
+		{
+			return Array.IndexOf(_levels, GetLevel(id));
+		}
 	}
 }
