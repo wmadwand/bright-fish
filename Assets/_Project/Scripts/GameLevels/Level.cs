@@ -20,21 +20,26 @@ namespace BrightFish
 		public float DragRate => _dragRate;
 		public int EnlargeSizeClickCount => _enlargeSizeClickCount;
 
+		[Header("Main")]
 		[SerializeField] private string _id;
 		[SerializeField] private string _name;
 		[SerializeField] private Difficulty _difficulty; //TODO: incapsulate to separate class (fishesHealthStart, fishHealthReducingStepRate)
 		[SerializeField] private float _timer;
-		[SerializeField] private TubeSettings[] _tubes;
-		[SerializeField] private FishCategory[] _fishes;
-		[SerializeField] private ColorType[] _colorTypes;
 		[SerializeField] private int _rescuedFishesTargetCount;
+		[SerializeField] private ColorType[] _colorTypes;
+
+		[Header("Tubes")]
+		[SerializeField] private TubeSettings[] _tubes;
+
+		[Header("Fishes")]
+		[SerializeField] private FishCategory[] _fishes;
 		[SerializeField] private FishSpawnProbability _fishSpawnProbability;
 		[SerializeField] private int _predatorFishesMaxCount;
 		[SerializeField] private bool _enablePredatorFishMovementAI;
 		[SerializeField] private bool _enableFishMovementAI;
 		[SerializeField] private float _fishHealthFadeRate;
 
-		[Header("Bubble behaviour")]
+		[Header("Bubble")]
 		[SerializeField] private float _bubbleMoveSpeed = 8;
 		[SerializeField] private float _bounceRate = 7;
 		[SerializeField] private float _dragRate = 4;
