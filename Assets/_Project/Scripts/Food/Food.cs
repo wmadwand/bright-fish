@@ -60,6 +60,8 @@ namespace BrightFish
 		private GameObject _view;
 		private float _selfDestroyTimeRate;
 
+		private Level _currentLevelSettings;
+
 		//----------------------------------------------------------------
 
 		public void SetParentTubeID(int value)
@@ -132,6 +134,8 @@ namespace BrightFish
 			_view = _renderer.gameObject;
 			_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
 
+			_currentLevelSettings = GameController.Instance.levelFactory.CurrentLocation.GetCurrentLevel();
+
 			SetCollidersActive(false);
 		}
 
@@ -174,7 +178,7 @@ namespace BrightFish
 				return;
 			}
 
-			if (_clickCount >= _gameSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
+			if (_clickCount >= _currentLevelSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
 			{
 				return;
 			}
@@ -183,7 +187,7 @@ namespace BrightFish
 
 			_clickCount++;
 
-			AddForce(_gameSettings.BounceRate);
+			AddForce(_currentLevelSettings.BounceRate);
 			//Enlarge();
 
 			Debug.Log("click");
@@ -221,12 +225,10 @@ namespace BrightFish
 
 			IsReleased = false;
 
-			_rigidbody2D.drag = _gameSettings.DragRate;
+			_rigidbody2D.drag = _currentLevelSettings.DragRate;
 
 			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
 
-			//Type = (ColorType)UnityEngine.Random.Range(0, spawnPointsLength);
-			//Type = (ColorType)UnityEngine.Random.Range(0, GameController.Instance.levelController.CurrentLevel.ColorTypes.Length);
 			Type = GameController.Instance.levelController.CurrentLevel.ColorTypes.GetRandom();
 
 			_state = BubbleState.Small;

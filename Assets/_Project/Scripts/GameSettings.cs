@@ -15,10 +15,10 @@ namespace BrightFish
 		//public bool TubeBubbleThrowDelay => _TubeBubbleThrowDelay;
 		//public float BubbleInitialBounceRate => _bubbleInitialBounceRate;
 
-		public float BubbleMoveSpeed => _bubbleMoveSpeed;
-		public float BounceRate => _bounceRate;
-		public float DragRate => _dragRate;
-		public int EnlargeSizeClickCount => _enlargeSizeClickCount;
+		//public float BubbleMoveSpeed => _bubbleMoveSpeed;
+		//public float BounceRate => _bounceRate;
+		//public float DragRate => _dragRate;
+		//public int EnlargeSizeClickCount => _enlargeSizeClickCount;
 		public ClickEnlargeSizePair[] ClickEnlargeSizePairs => _clickEnlargeSizePairs;
 		public float BlinkRate => _blinkRate;
 		public bool DestroyBigBubbleClick => _destroyBigBubbleClick;
