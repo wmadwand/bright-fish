@@ -14,8 +14,14 @@ namespace BrightFish
 
 		private static void OnLevelComplete()
 		{
-			var nextLevelId = GameController.Instance.levelFactory.CurrentLocation.GetNextLevelId(GetCurrentLevelId());
-			Save(nextLevelId);
+			var justFinishedLevel = GameController.Instance.levelController.CurrentLevel;
+			var location = GameController.Instance.levelFactory.CurrentLocation;
+			var nextLevelId = GameController.Instance.levelFactory.CurrentLocation.GetNextLevelId(justFinishedLevel.ID);
+
+			if (location.GetLevelIndex(GetMaxAvailableLevelId()) < location.GetLevelIndex(nextLevelId))
+			{
+				Save(nextLevelId);
+			}
 		}
 
 		public static void Save(string levelId)
@@ -35,7 +41,7 @@ namespace BrightFish
 			MessageBus.OnGameProgressReset.Send();
 		}
 
-		public static string GetCurrentLevelId()
+		public static string GetMaxAvailableLevelId()
 		{
 			return PlayerPrefs.GetString("Level");
 		}

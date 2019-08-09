@@ -34,7 +34,7 @@ namespace BrightFish
 
 		public Level GetCurrentLevel()
 		{
-			var currentLvlId = GameProgress.GetCurrentLevelId();
+			var currentLvlId = GameProgress.GetMaxAvailableLevelId();
 			return _levels.FirstOrDefault(lvl => lvl.ID == currentLvlId);
 		}
 	}

@@ -40,7 +40,7 @@ namespace BrightFish
 
 		public void StartGame()
 		{
-			var levelId = GameProgress.GetCurrentLevelId();
+			var levelId = GameProgress.GetMaxAvailableLevelId();
 
 			MessageBus.OnLevelSelected.Send(levelId);
 		}

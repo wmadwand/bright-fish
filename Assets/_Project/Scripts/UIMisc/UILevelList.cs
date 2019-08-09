@@ -59,7 +59,7 @@ namespace BrightFish
 			{
 				var location = GameController.Instance.levelFactory.CurrentLocation;
 
-				if (location.GetLevelIndex(item.id) <= location.GetLevelIndex(GameProgress.GetCurrentLevelId()) && location.GetLevelIndex(item.id) >= 0)
+				if (location.GetLevelIndex(item.id) <= location.GetLevelIndex(GameProgress.GetMaxAvailableLevelId()) && location.GetLevelIndex(item.id) >= 0)
 				{
 					item.button.interactable = true;
 				}
