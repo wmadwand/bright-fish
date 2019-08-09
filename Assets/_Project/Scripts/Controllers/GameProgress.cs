@@ -31,6 +31,8 @@ namespace BrightFish
 		public static void Reset()
 		{
 			PlayerPrefs.SetString("Level", "0101");
+
+			MessageBus.OnGameProgressReset.Send();
 		}
 
 		public static string GetCurrentLevelId()

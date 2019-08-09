@@ -28,7 +28,16 @@ namespace BrightFish
 
 		private void Awake()
 		{
+			MessageBus.OnGameProgressReset.Receive += OnResetGameProgress_Receive;
+		}
+		private void OnDestroy()
+		{
+			MessageBus.OnGameProgressReset.Receive -= OnResetGameProgress_Receive;
+		}
 
+		private void OnResetGameProgress_Receive()
+		{
+			UpdateList();
 		}
 
 		private void Start()
@@ -69,6 +78,8 @@ namespace BrightFish
 
 				obj.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickHandler(item.ID));
 				obj.GetComponentInChildren<TextMeshProUGUI>().text = item.Name;
+
+				obj.GetComponentInChildren<Button>().interactable = false;
 
 				_levelsList.Add(new LevelListItem(item.ID, obj));
 			}
