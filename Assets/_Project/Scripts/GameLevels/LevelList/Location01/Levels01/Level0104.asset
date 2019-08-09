@@ -19,20 +19,20 @@ MonoBehaviour:
   _tubes:
   - type: 50
     bubbleThrowDelay: 0.2
-    bounceRateMin: 15
-    bounceRateMax: 20
+    bounceRateMin: 6
+    bounceRateMax: 8
     bounceRateGrowthStep: 1
     _difficulty: 50
   - type: 50
-    bubbleThrowDelay: 1
-    bounceRateMin: 15
-    bounceRateMax: 20
+    bubbleThrowDelay: 0.2
+    bounceRateMin: 6
+    bounceRateMax: 8
     bounceRateGrowthStep: 1
     _difficulty: 50
   - type: 50
-    bubbleThrowDelay: 1
-    bounceRateMin: 15
-    bounceRateMax: 20
+    bubbleThrowDelay: 0.2
+    bounceRateMin: 6
+    bounceRateMax: 8
     bounceRateGrowthStep: 1
     _difficulty: 50
   _fishes: 32000000
