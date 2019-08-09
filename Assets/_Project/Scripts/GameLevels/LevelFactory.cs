@@ -52,18 +52,18 @@ namespace BrightFish
 			MessageBus.OnLevelBuilt.Send(id);
 		}
 
-		void SpawnTubes(TubeSettings[] tubeItems)
+		private void SpawnTubes(TubeSettings[] tubeItems)
 		{
 			GameController.Instance.tubeSpawner.SpawnTubes(tubeItems);
 		}
 
-		void SpawnFishes(Level levelSettings, int count)
+		private void SpawnFishes(Level levelSettings, int count)
 		{
 			GameController.Instance.fishSpawner.Init(levelSettings);
 			GameController.Instance.fishSpawner.SpawnFishes(count);
 		}
 
-		void InitLevelRules(Level level)
+		private void InitLevelRules(Level level)
 		{
 			GameController.Instance.levelController.InitLevel(level);
 		}

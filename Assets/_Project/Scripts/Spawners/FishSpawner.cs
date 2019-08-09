@@ -111,7 +111,7 @@ namespace BrightFish
 
 		private void Spawn(ColorType bubbleType, Vector2 position)
 		{
-			var fishCategoryResult = _predatorFishesCount <= _levelSettings.PredatorFishesMaxCount ? GetRandomWeightedFishCategory() : FishCategory.Peaceful;
+			var fishCategoryResult = _predatorFishesCount < _levelSettings.PredatorFishesMaxCount ? GetRandomWeightedFishCategory() : FishCategory.Peaceful;
 
 			Fish fish = null;
 

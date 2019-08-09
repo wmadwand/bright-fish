@@ -76,10 +76,12 @@ namespace BrightFish
 
 		private void Start()
 		{
-			//InitGameStuff();
 			PlayBgMusic();
 
-			//StartGame();
+			if (GameProgress.InitialGameLaunch())
+			{
+				GameProgress.Reset();
+			}
 		}
 
 		private void OnDestroy()

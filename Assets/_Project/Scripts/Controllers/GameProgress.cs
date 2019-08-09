@@ -45,5 +45,15 @@ namespace BrightFish
 		{
 			return PlayerPrefs.GetString("Level");
 		}
+
+		public static bool InitialGameLaunch()
+		{
+			return !PlayerPrefs.HasKey("Level");
+		}
+
+		public static void DeleteKEyLEvel()
+		{
+			PlayerPrefs.DeleteKey("Level");
+		}
 	}
 }

@@ -36,5 +36,11 @@ namespace BrightFish
 		{
 			GameController.Instance.levelController.ResetGameProgress();
 		}
+
+		public void DeleteKeyLevel()
+		{
+			GameProgress.DeleteKEyLEvel();
+			GameController.Instance.levelController.ResetGameProgress();
+		}
 	}
 }
