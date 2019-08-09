@@ -59,7 +59,7 @@ namespace BrightFish
 			{
 				var location = GameController.Instance.levelFactory.CurrentLocation;
 
-				if (location.GetLevelIndex(item.id) <= location.GetLevelIndex(GameProgress.GetCurrentLevelId()))
+				if (location.GetLevelIndex(item.id) <= location.GetLevelIndex(GameProgress.GetCurrentLevelId()) && location.GetLevelIndex(item.id) >= 0)
 				{
 					item.button.interactable = true;
 				}
@@ -88,6 +88,25 @@ namespace BrightFish
 				obj.SetActive(false);
 
 				_levelsList.Add(new LevelListItem(item.ID, obj.GetComponentInChildren<Button>(), obj));
+			}
+
+			AddDummyLevels();
+		}
+
+		void AddDummyLevels()
+		{
+			for (int i = 6; i < 16; i++)
+			{
+				var obj = Instantiate(_levelItemTemplate, _parent);
+
+				obj.GetComponentInChildren<TextMeshProUGUI>().text = i.ToString();
+
+				obj.GetComponentInChildren<Button>().interactable = false;
+
+				obj.SetActive(false);
+
+				_levelsList.Add(new LevelListItem(i.ToString(), obj.GetComponentInChildren<Button>(), obj));
+
 			}
 		}
 
