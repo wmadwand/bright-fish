@@ -10,11 +10,13 @@ namespace BrightFish
 	public struct LevelListItem
 	{
 		public string id;
+		public Button button;
 		public GameObject gameObject;
 
-		public LevelListItem(string id, GameObject gameObject)
+		public LevelListItem(string id, Button button, GameObject gameObject)
 		{
 			this.id = id;
+			this.button = button;
 			this.gameObject = gameObject;
 		}
 	}
@@ -59,12 +61,14 @@ namespace BrightFish
 
 				if (location.GetLevelIndex(item.id) <= location.GetLevelIndex(GameProgress.GetCurrentLevelId()))
 				{
-					item.gameObject.GetComponentInChildren<Button>().interactable = true;
+					item.button.interactable = true;
 				}
 				else
 				{
-					item.gameObject.GetComponentInChildren<Button>().interactable = false;
+					item.button.interactable = false;
 				}
+
+				item.gameObject.SetActive(true);
 			}
 		}
 
@@ -81,7 +85,9 @@ namespace BrightFish
 
 				obj.GetComponentInChildren<Button>().interactable = false;
 
-				_levelsList.Add(new LevelListItem(item.ID, obj));
+				obj.SetActive(false);
+
+				_levelsList.Add(new LevelListItem(item.ID, obj.GetComponentInChildren<Button>(), obj));
 			}
 		}
 
