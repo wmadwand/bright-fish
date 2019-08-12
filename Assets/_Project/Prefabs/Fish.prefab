@@ -247,7 +247,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.6, y: 1.4}
+  m_Size: {x: 3, y: 1.4}
   m_EdgeRadius: 0
 --- !u!1 &3171157157886120359
 GameObject:
@@ -382,6 +382,7 @@ MonoBehaviour:
   _healthbarPoint: {fileID: 2742760955510437075}
   _scoreTextSpawnPoint: {fileID: 7041403533798403033}
   _myCollider: {fileID: 3778083021059816565}
+  _rescuedFishValue: 1
 --- !u!114 &8659573865520767744
 MonoBehaviour:
   m_ObjectHideFlags: 0

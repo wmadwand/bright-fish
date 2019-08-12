@@ -29,7 +29,7 @@ namespace BrightFish
 
 		private void OnFishRescued_Receive(Fish arg1, ColorType arg2, Vector3 arg3)
 		{
-			_simpleLUT.Saturation += _gameSettings.RescuedFishTargetCount * .01f;
+			//_simpleLUT.Saturation += _gameSettings.RescuedFishTargetCount * .01f;
 		}
 
 		private void OnDestroy()

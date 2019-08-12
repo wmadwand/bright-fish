@@ -60,6 +60,8 @@ namespace BrightFish
 
 		private Food _childFood;
 
+		private Level _currentLevelSettings;
+
 		//----------------------------------------------------------------
 
 		public void SetParentTubeID(int value, Food childFood)
@@ -122,6 +124,8 @@ namespace BrightFish
 
 			_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
 
+			_currentLevelSettings = GameController.Instance.levelFactory.CurrentLocation.GetCurrentLevel();
+
 			Init();
 		}
 
@@ -141,7 +145,9 @@ namespace BrightFish
 		private void FixedUpdate()
 		{
 			//GetComponent<Rigidbody2D>().velocity = transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * Time.deltaTime;
-			transform.Translate(-transform.up * (_gameSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
+			//transform.Translate(-transform.up * (_gameSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
+
+			transform.Translate(-transform.up * (_currentLevelSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
 		}
 
 		public void OnClick()
@@ -151,7 +157,7 @@ namespace BrightFish
 				return;
 			}
 
-			if (_clickCount >= _gameSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
+			if (_clickCount >= _currentLevelSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
 			{
 				return;
 			}
@@ -160,7 +166,7 @@ namespace BrightFish
 
 			_clickCount++;
 
-			AddForce(_gameSettings.BounceRate);
+			AddForce(_currentLevelSettings.BounceRate);
 
 			//Enlarge();
 			Diffuse();
@@ -172,7 +178,7 @@ namespace BrightFish
 		{
 			IsReleased = false;
 
-			_rigidbody2D.drag = _gameSettings.DragRate;
+			_rigidbody2D.drag = _currentLevelSettings.DragRate;
 
 			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
 
@@ -204,13 +210,13 @@ namespace BrightFish
 
 		private void Enlarge()
 		{
-			if (_clickCount == _gameSettings.EnlargeSizeClickCount)
+			if (_clickCount == _currentLevelSettings.EnlargeSizeClickCount)
 			{
 				_view.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
 				_state = BubbleState.Medium;
 			}
-			else if (_clickCount == _gameSettings.EnlargeSizeClickCount * 2)
+			else if (_clickCount == _currentLevelSettings.EnlargeSizeClickCount * 2)
 			{
 				_view.transform.localScale = new Vector3(.7f, .7f, .7f);
 
@@ -228,7 +234,7 @@ namespace BrightFish
 					StartCoroutine(BlinkRoutine());
 				}
 			}
-			else if (_gameSettings.DestroyBigBubbleClick && _clickCount > _gameSettings.EnlargeSizeClickCount * 2)
+			else if (_gameSettings.DestroyBigBubbleClick && _clickCount > _currentLevelSettings.EnlargeSizeClickCount * 2)
 			{
 				SelfDestroy();
 			}
@@ -236,7 +242,7 @@ namespace BrightFish
 
 		private void Diffuse()
 		{
-			if (_clickCount == _gameSettings.EnlargeSizeClickCount)
+			if (_clickCount == _currentLevelSettings.EnlargeSizeClickCount)
 			{
 				var size = _gameSettings.ClickEnlargeSizePairs[0].sizeRate;
 				_view.transform.localScale = new Vector3(size, size, size);
@@ -245,7 +251,7 @@ namespace BrightFish
 
 				_state = BubbleState.Medium;
 			}
-			else if (_clickCount == _gameSettings.EnlargeSizeClickCount * 2)
+			else if (_clickCount == _currentLevelSettings.EnlargeSizeClickCount * 2)
 			{
 				var size = _gameSettings.ClickEnlargeSizePairs[1].sizeRate;
 				_view.transform.localScale = new Vector3(size, size, size);
@@ -270,7 +276,7 @@ namespace BrightFish
 					StartCoroutine(BlinkRoutine());
 				}
 			}
-			else if (_gameSettings.DestroyBigBubbleClick && _clickCount > _gameSettings.EnlargeSizeClickCount * 2)
+			else if (_gameSettings.DestroyBigBubbleClick && _clickCount > _currentLevelSettings.EnlargeSizeClickCount * 2)
 			{
 				SelfDestroy();
 			}

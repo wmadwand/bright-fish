@@ -7,19 +7,37 @@ namespace BrightFish
 {
 	public class LevelController : MonoBehaviour
 	{
+		public Level CurrentLevel { get; private set; }
+
 		[SerializeField] private Text _rescuedFishText;
 
 		private int _rescuedFishTargetCount;
 		private int _rescuedFishCurrentCount;
 		private GameSettings _gameSettings;
 
+
+		//----------------------------------------------------------------
+
 		public void ResetLevel()
 		{
-			_rescuedFishTargetCount = _gameSettings.RescuedFishTargetCount;
+			//_rescuedFishTargetCount = _gameSettings.RescuedFishTargetCount;
 			_rescuedFishCurrentCount = 0;
 
 			UpdateText();
 		}
+
+		public void InitLevel(Level level)
+		{
+			CurrentLevel = level;
+			_rescuedFishTargetCount = level.RescueFishTargetCount;
+		}
+
+		public void ResetGameProgress()
+		{
+			GameProgress.Reset();
+		}
+
+		//----------------------------------------------------------------
 
 		[Inject]
 		private void Construct(GameSettings gameSettings)
@@ -34,6 +52,13 @@ namespace BrightFish
 			MessageBus.OnFishRescued.Receive += OnFishRescued;
 			MessageBus.OnPlayerLivesOut.Receive += LiveController_OnLivesOut;
 			MessageBus.OnGameStart.Receive += GameController_OnStart;
+		}
+
+		private void OnDestroy()
+		{
+			MessageBus.OnFishRescued.Receive -= OnFishRescued;
+			MessageBus.OnPlayerLivesOut.Receive -= LiveController_OnLivesOut;
+			MessageBus.OnGameStart.Receive -= GameController_OnStart;
 		}
 
 		private void GameController_OnStart()
@@ -57,16 +82,9 @@ namespace BrightFish
 			}
 		}
 
-		private void OnDestroy()
-		{
-			MessageBus.OnFishRescued.Receive -= OnFishRescued;
-			MessageBus.OnPlayerLivesOut.Receive -= LiveController_OnLivesOut;
-			MessageBus.OnGameStart.Receive -= GameController_OnStart;
-		}
-
-		void UpdateText()
+		private void UpdateText()
 		{
 			_rescuedFishText.text = $"{_rescuedFishCurrentCount}/{_rescuedFishTargetCount}";
 		}
-	} 
+	}
 }

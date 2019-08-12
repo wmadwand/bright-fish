@@ -4,6 +4,7 @@ using Terminus.Game.Messages;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
+using Terminus.Extensions;
 
 namespace BrightFish
 {
@@ -59,6 +60,8 @@ namespace BrightFish
 		private GameObject _view;
 		private float _selfDestroyTimeRate;
 
+		private Level _currentLevelSettings;
+
 		//----------------------------------------------------------------
 
 		public void SetParentTubeID(int value)
@@ -111,6 +114,12 @@ namespace BrightFish
 			//go.transform.SetPositionAndRotation(vec, Quaternion.identity);
 		}
 
+		public void AddForceDirection(Vector2 _dir/*, float _speed*/)
+		{
+			_dir.Normalize();
+			_rigidbody2D.AddForce(_dir * _spoeedReflection, ForceMode2D.Impulse);
+		}
+
 		//----------------------------------------------------------------
 
 		[Inject]
@@ -122,12 +131,20 @@ namespace BrightFish
 		private void Awake()
 		{
 			_renderer = GetComponentInChildren<Renderer>();
-			//_rigidbody2D = GetComponentInParent<Rigidbody2D>();
 			_view = _renderer.gameObject;
-
 			_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
 
-			//Init();
+			_currentLevelSettings = GameController.Instance.levelFactory.CurrentLocation.GetCurrentLevel();
+
+			SetCollidersActive(false);
+		}
+
+		public void SetCollidersActive(bool value)
+		{
+			foreach (var item in GetComponentsInChildren<Collider2D>())
+			{
+				item.enabled = value;
+			}
 		}
 
 		private void Update()
@@ -161,7 +178,7 @@ namespace BrightFish
 				return;
 			}
 
-			if (_clickCount >= _gameSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
+			if (_clickCount >= _currentLevelSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
 			{
 				return;
 			}
@@ -170,7 +187,7 @@ namespace BrightFish
 
 			_clickCount++;
 
-			AddForce(_gameSettings.BounceRate);
+			AddForce(_currentLevelSettings.BounceRate);
 			//Enlarge();
 
 			Debug.Log("click");
@@ -208,17 +225,16 @@ namespace BrightFish
 
 			IsReleased = false;
 
-			_rigidbody2D.drag = _gameSettings.DragRate;
+			_rigidbody2D.drag = _currentLevelSettings.DragRate;
 
 			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
 
-			Type = (ColorType)UnityEngine.Random.Range(0, spawnPointsLength);
+			Type = GameController.Instance.levelController.CurrentLevel.ColorTypes.GetRandom();
+
 			_state = BubbleState.Small;
 
 			_renderer.material.color = _gameSettings.ColorDummy;
 			SetColor(Type);
-
-			//_renderer.material.color = _color;
 
 			if (_gameSettings.ColorMode == BubbleColorMode.Explicit)
 			{
@@ -243,14 +259,8 @@ namespace BrightFish
 			}
 		}
 
-		public void AddForceDirection(Vector2 _dir/*, float _speed*/)
-		{
-			_dir.Normalize();
-			_rigidbody2D.AddForce(_dir * _spoeedReflection, ForceMode2D.Impulse);
-		}
-
 		//----------------------------------------------------------------
 
 		public class FoodDIFactory : PlaceholderFactory<Food> { }
-	} 
+	}
 }

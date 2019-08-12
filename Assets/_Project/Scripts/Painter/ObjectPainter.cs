@@ -35,7 +35,8 @@ namespace BrightFish
 
 		private void OnFishFinishedSmiling(Fish arg1, ColorType arg2, Vector3 arg3)
 		{
-			_saturationIntence -= _gameSettings.RescuedFishTargetCount * .01f;
+			//_saturationIntence -= _gameSettings.RescuedFishTargetCount * .01f;
+			_saturationIntence -= GameController.Instance.levelController.CurrentLevel.RescueFishTargetCount * .01f;
 
 			ChangeSaturation(_saturationIntence);
 		}
@@ -47,5 +48,5 @@ namespace BrightFish
 				item.material.SetFloat("_EffectAmount", value);
 			}
 		}
-	} 
+	}
 }

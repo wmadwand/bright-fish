@@ -15,6 +15,9 @@ namespace BrightFish
 		public GameSettings gameSettings;
 		public SoundController sound;
 		public FishSpawner fishSpawner;
+		public TubeSpawner tubeSpawner;
+		public LevelController levelController;
+		public LevelFactory levelFactory;
 		public Canvas canvas;
 
 		public AudioSource audioSource;
@@ -28,11 +31,18 @@ namespace BrightFish
 
 		//----------------------------------------------------------------
 
+		//public void StartGame()
+		//{
+		//	IsGameActive = true;
+
+		//	MessageBus.OnGameStart.Send();
+		//}
+
 		public void StartGame()
 		{
-			IsGameActive = true;
+			var levelId = GameProgress.GetMaxAvailableLevelId();
 
-			MessageBus.OnGameStart.Send();
+			MessageBus.OnLevelSelected.Send(levelId);
 		}
 
 		public void ResetScene()
@@ -54,20 +64,31 @@ namespace BrightFish
 		{
 			MessageBus.OnPlayerLivesOut.Receive += LiveController_OnLivesOut;
 			MessageBus.OnLevelComplete.Receive += LevelController_OnLevelComplete;
+			MessageBus.OnLevelBuilt.Receive += OnLevelBuilt_Receive;
+		}
+
+		private void OnLevelBuilt_Receive(string obj)
+		{
+			IsGameActive = true;
+
+			MessageBus.OnGameStart.Send();
 		}
 
 		private void Start()
 		{
-			//InitGameStuff();
 			PlayBgMusic();
 
-			//StartGame();
+			if (GameProgress.InitialGameLaunch())
+			{
+				GameProgress.Reset();
+			}
 		}
 
 		private void OnDestroy()
 		{
 			MessageBus.OnPlayerLivesOut.Receive -= LiveController_OnLivesOut;
 			MessageBus.OnLevelComplete.Receive -= LevelController_OnLevelComplete;
+			MessageBus.OnLevelBuilt.Receive -= OnLevelBuilt_Receive;
 		}
 
 		private void LevelController_OnLevelComplete()

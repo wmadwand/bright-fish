@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9563f9e85423bd948b6d14358e95f052, type: 3}
+  m_Name: FishSpawnProbability01
+  m_EditorClassIdentifier: 
+  list:
+  - category: 50
+    weight: 80
+    template: {fileID: 4066991538648877187, guid: 2140b7a518bd70c41b37b0aa39d6441b,
+      type: 3}
+  - category: 100
+    weight: 0
+    template: {fileID: 1616763465078034944, guid: a0057c1fe12bf6a4e99a64f469db8802,
+      type: 3}

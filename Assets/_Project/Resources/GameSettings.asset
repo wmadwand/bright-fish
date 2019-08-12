@@ -15,17 +15,14 @@ MonoBehaviour:
   _godMode: 1
   _colorMode: 1
   _livesCount: 3
-  _rescuedFishTargetCount: 10
-  _TubeBubbleThrowDelay: 1
-  _bubbleInitialBounceRate: -6
   _bubbleMoveSpeed: 8
   _bounceRate: 7
   _dragRate: 4
   _enlargeSizeClickCount: 1
   _clickEnlargeSizePairs:
-  - clickNUmber: 0
+  - clickNumber: 0
     sizeRate: 0.55
-  - clickNUmber: 1
+  - clickNumber: 1
     sizeRate: 0.67
   _blinkRate: 0.15
   _destroyBigBubbleClick: 0
@@ -37,4 +34,3 @@ MonoBehaviour:
   _colorC: {r: 0, g: 1, b: 0, a: 1}
   _colorD: {r: 0.051397298, g: 0.32257304, b: 0.990566, a: 1}
   _colorE: {r: 0, g: 1, b: 1, a: 1}
-  _predatorFishesMaxCount: 1
