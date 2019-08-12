@@ -134,7 +134,7 @@ namespace BrightFish
 			_bubble.SetParentTubeID(_id, _food);
 
 			_randomBounceRate = UnityEngine.Random.Range(_settings.bounceRateMin, _settings.bounceRateMax/* _gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f*/);
-			_bubble.AddForce((_randomBounceRate + _currentBounceRateStep) * -1);
+			_bubble.AddBounceForce((_randomBounceRate + _currentBounceRateStep) * -1);
 		}
 
 		private void IncreaseBounceRate()

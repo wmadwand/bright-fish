@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using Terminus.Game.Messages;
 using UnityEngine;
@@ -70,7 +71,7 @@ namespace BrightFish
 			_childFood = childFood;
 		}
 
-		public void AddForce(float value)
+		public void AddBounceForce(float value)
 		{
 			_rigidbody2D.AddForce(Vector3.up * value, ForceMode2D.Impulse);
 		}
@@ -166,7 +167,9 @@ namespace BrightFish
 
 			_clickCount++;
 
-			AddForce(_currentLevelSettings.BounceRate);
+			AddBounceForce(_currentLevelSettings.BounceRate);
+
+			_view.transform.DOShakeScale(.4f, .2f, 10, 45);
 
 			//Enlarge();
 			Diffuse();
