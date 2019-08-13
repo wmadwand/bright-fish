@@ -1,8 +1,4 @@
-﻿using PathCreation.Examples;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 
 namespace BrightFish
 {
@@ -15,7 +11,7 @@ namespace BrightFish
 		public float fadeRate = 5;
 		public float targetSpeed;
 
-		public float baseSpeed = 4;
+		public float baseSpeed;
 
 		public float bounceRateUp, bounceRateDown;
 
@@ -93,7 +89,7 @@ namespace BrightFish
 			OnClick(value, isPlayerClick);
 		}
 
-		private void OnClick(float value = 5, bool isPlayerClick = true)
+		private void OnClick(float value, bool isPlayerClick = true)
 		{
 			this.isPlayerClick = isPlayerClick;
 
