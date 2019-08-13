@@ -21,6 +21,7 @@ namespace BrightFish
 
 		private float _currentBounceRateStep = 0;
 		private TubeSettings _settings;
+		GameObject path;
 
 		//----------------------------------------------------------------
 
@@ -28,6 +29,8 @@ namespace BrightFish
 		{
 			_id = id;
 			_settings = tubeItem;
+
+			path = Instantiate(_settings.pathCreator);
 		}
 
 		public void SelfDestroy()
@@ -133,14 +136,12 @@ namespace BrightFish
 			_bubble.transform.SetPositionAndRotation(_bubbleSpawnPoint.position, Quaternion.identity);
 			_bubble.SetParentTubeID(_id, _food);
 
-			var path = Instantiate(_settings.pathCreator);
 
 			_bubble.GetComponent<BubbleAlongPath>().follower.pathCreator = path.GetComponent<PathCreator>();
-
+			
 
 			_randomBounceRate = UnityEngine.Random.Range(_settings.bounceRateMin, _settings.bounceRateMax/* _gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f*/);
-			_bubble.AddBounceForce((_randomBounceRate + _currentBounceRateStep) * -1);
-
+			_bubble.AddBounceForce((-_randomBounceRate + _currentBounceRateStep));
 
 		}
 
@@ -152,10 +153,6 @@ namespace BrightFish
 		private void MakeFood(bool asChild)
 		{
 			_food = _foodDIFactory.Create();
-
-			//_food.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-			//_food.GetComponent<Rigidbody2D>().Sleep();
-			////_food.GetComponent<Rigidbody2D>().simulated = false;
 
 			_food.transform.SetPositionAndRotation(_bubbleSpawnPoint.position, Quaternion.identity);
 			_food.SetParentTubeID(_id);
@@ -169,8 +166,6 @@ namespace BrightFish
 
 		private void RunAfterDelay(Action callback)
 		{
-			//float delayRate = _gameSettings.TubeBubbleThrowDelay ? UnityEngine.Random.Range(.5f, 1.5f) : 0;
-
 			float delay = _settings.bubbleThrowDelay > 0 ? UnityEngine.Random.Range(.5f, _settings.bubbleThrowDelay) : 0;
 
 			this.AfterSeconds(delay, MakeShell);

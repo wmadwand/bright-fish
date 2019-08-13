@@ -10,17 +10,19 @@ namespace BrightFish
 	{
 		public BubblePathFollower follower;
 
-		public bool isBounced;
+		public bool isBouncedUp;
 		//float timer;
 		//public float timerTarget;
 		public float followerspeedBounced = -10;
 		public float fadeRate = 5;
+		public float targetSpeed;
 
-		public float baseSpeed;
+		public float baseSpeed = 4;
 
 		float t;
 
 		bool finishedBounce;
+		bool isBouncedDown;
 
 		private void Awake()
 		{
@@ -30,18 +32,33 @@ namespace BrightFish
 
 		private void Update()
 		{
-			if (isBounced)
+			if (isBouncedUp)
 			{
-				follower.speed = followerspeedBounced;
-				follower.speed = Mathf.Lerp(follower.speed, 0, t);
+				//follower.speed = followerspeedBounced;
+				follower.speed = Mathf.Lerp(targetSpeed, 0, t);
 
 				t += 0.5f * Time.deltaTime;
 
-				if (follower.speed >= 0)
+				if (follower.speed <= 0)
 				{
 					finishedBounce = true;
 
-					isBounced = false;
+					isBouncedUp = false;
+					fadeRate = 5;
+					t = 0;
+				}
+			}
+			else if (isBouncedDown)
+			{
+				follower.speed = Mathf.Lerp(targetSpeed, baseSpeed, t);
+
+				t += 0.5f * Time.deltaTime;
+
+				if (follower.speed >= baseSpeed)
+				{
+					finishedBounce = true;
+
+					isBouncedDown = false;
 					fadeRate = 5;
 					t = 0;
 				}
@@ -49,7 +66,7 @@ namespace BrightFish
 
 			if (finishedBounce)
 			{
-				follower.speed = Mathf.Lerp(0, baseSpeed, t);
+				follower.speed = Mathf.Lerp(follower.speed, baseSpeed, t);
 				t += 0.5f * Time.deltaTime;
 
 				if (t > 1)
@@ -66,22 +83,28 @@ namespace BrightFish
 
 		public void AddBounceForce(float value)
 		{
-			OnClick();
+			OnClick(value);
 		}
 
 		void OnClick(float value = 5)
 		{
-			isBounced = true;
+			if (value < 0)
+			{
+				isBouncedDown = true;
+				isBouncedUp = false;
+			}
+			else
+			{
+				isBouncedDown = false;
+				isBouncedUp = true;
+			}
+
 			finishedBounce = false;
+			targetSpeed = value;
 
-			baseSpeed = value;
-			follower.speed = baseSpeed;
-
-			//timer = timerTarget;
 			t = 0;
-			//follower.speed *= -1;
 
 			Debug.Log("click");
 		}
-	} 
+	}
 }

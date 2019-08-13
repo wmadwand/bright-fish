@@ -134,7 +134,7 @@ namespace BrightFish
 			_view = _renderer.gameObject;
 			_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
 
-			_currentLevelSettings = GameController.Instance.levelFactory.CurrentLocation.GetCurrentLevel();
+			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
 
 			SetCollidersActive(false);
 		}

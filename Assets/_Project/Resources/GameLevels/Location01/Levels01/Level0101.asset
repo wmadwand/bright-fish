@@ -22,10 +22,10 @@ MonoBehaviour:
   - type: 50
     bubbleThrowDelay: 0.5
     bounceRateMin: 5
-    bounceRateMax: 6
+    bounceRateMax: 7
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 656281563562346274, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
       type: 3}
   _fishes: 32000000
   _fishSpawnProbability: {fileID: 11400000, guid: 1b3fdf57ca298694fab152b5493c81d5,
@@ -34,7 +34,7 @@ MonoBehaviour:
   _enablePredatorFishMovementAI: 0
   _enableFishMovementAI: 0
   _fishHealthFadeRate: 0
-  _bubbleMoveSpeed: 8
+  _bubbleMoveSpeed: -2
   _bounceRate: 7
   _dragRate: 4
   _enlargeSizeClickCount: 1

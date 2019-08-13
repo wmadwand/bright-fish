@@ -223,10 +223,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   follower: {fileID: 6501885625385540465}
-  isBounced: 0
+  isBouncedUp: 0
   followerspeedBounced: -10
   fadeRate: 5
-  baseSpeed: 0
+  targetSpeed: 0
+  baseSpeed: -4
 --- !u!114 &6501885625385540465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,5 +241,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathCreator: {fileID: 0}
-  endOfPathInstruction: 2
+  endOfPathInstruction: 0
   speed: 5

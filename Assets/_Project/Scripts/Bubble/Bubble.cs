@@ -127,7 +127,7 @@ namespace BrightFish
 
 			_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
 
-			_currentLevelSettings = GameController.Instance.levelFactory.CurrentLocation.GetCurrentLevel();
+			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
 
 			Init();
 		}
@@ -184,6 +184,8 @@ namespace BrightFish
 			IsReleased = false;
 
 			_rigidbody2D.drag = _currentLevelSettings.DragRate;
+
+			GetComponent<BubbleAlongPath>().follower.speed = _currentLevelSettings.BubbleMoveSpeed;
 
 			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
 
