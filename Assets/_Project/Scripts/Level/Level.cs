@@ -18,6 +18,8 @@ namespace BrightFish
 
 		public float BubbleMoveSpeed => _bubbleMoveSpeed;
 		public float BounceRate => _bounceRate;
+		public float BounceRateUp => _bounceRateUp;
+		public float BounceRateDown => _bounceRateDown;
 		public float DragRate => _dragRate;
 		public float SpeedReflection => _speedReflection;
 		public int EnlargeSizeClickCount => _enlargeSizeClickCount;
@@ -44,6 +46,8 @@ namespace BrightFish
 		[Header("Bubble")]
 		[SerializeField] private float _bubbleMoveSpeed = 8;
 		[SerializeField] private float _bounceRate = 7;
+		[SerializeField] private float _bounceRateUp = 7;
+		[SerializeField] private float _bounceRateDown = 7;
 		[SerializeField] private float _dragRate = 4;
 		[SerializeField] private float _speedReflection = 5;
 		[SerializeField] private int _enlargeSizeClickCount = 1;

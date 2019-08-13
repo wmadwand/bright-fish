@@ -69,11 +69,11 @@ namespace BrightFish
 			_childFood = childFood;
 		}
 
-		public void AddBounceForce(float value)
+		public void AddBounceForce(float value, bool isPlayerClick = true)
 		{
 			//_rigidbody2D.AddForce(Vector3.up * value, ForceMode2D.Impulse);
 
-			GetComponent<BubbleAlongPath>().AddBounceForce(value);
+			GetComponent<BubbleAlongPath>().AddBounceForce(value, isPlayerClick);
 		}
 
 		public void SetReleased()
@@ -143,7 +143,7 @@ namespace BrightFish
 			}
 		}
 
-		public void OnClickThis()
+		public void OnClick()
 		{
 			if (_selfDestroyStarted)
 			{
@@ -176,8 +176,8 @@ namespace BrightFish
 			_rigidbody2D.drag = _currentLevelSettings.DragRate;
 
 			GetComponent<BubbleAlongPath>().follower.speed = _currentLevelSettings.BubbleMoveSpeed;
-			GetComponent<BubbleAlongPath>().bounceRateDown = _currentLevelSettings.BounceRate;
-			GetComponent<BubbleAlongPath>().bounceRateUp = _currentLevelSettings.BounceRate;
+			GetComponent<BubbleAlongPath>().bounceRateDown = _currentLevelSettings.BounceRateDown;
+			GetComponent<BubbleAlongPath>().bounceRateUp = _currentLevelSettings.BounceRateUp;
 
 			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
 
@@ -301,6 +301,12 @@ namespace BrightFish
 
 			//_dir.Normalize();
 			//_rigidbody2D.AddForce(_dir * _currentLevelSettings.SpeedReflection, ForceMode2D.Impulse);
+		}
+
+		public void AddForceDirectionRB(Vector2 _dir/*, float _speed*/)
+		{
+			_dir.Normalize();
+			_rigidbody2D.AddForce(_dir * _currentLevelSettings.SpeedReflection, ForceMode2D.Impulse);
 		}
 
 		//----------------------------------------------------------------

@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace BrightFish
 {
-	public class BubbleMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IDragHandler
+	public class BubbleMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 	{
 		[SerializeField]
 		float smoothing;
@@ -58,13 +58,12 @@ namespace BrightFish
 				GetComponent<Food>().AddForceDirection(GetDirection());
 			}
 
-
 			if (data.pointerId == pointerID)
 			{
 				direction = Vector2.zero;
 				touched = false;
 
-				transform.GetComponentInParent<Bubble>().OnClickThis();
+				transform.GetComponentInParent<Bubble>().OnClick();
 			}
 		}
 
@@ -73,10 +72,5 @@ namespace BrightFish
 			smoothDirection = Vector2.MoveTowards(smoothDirection, direction, smoothing * Time.deltaTime);
 			return smoothDirection;
 		}
-
-		void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
-		{
-			//transform.root.GetComponent<Bubble>().OnClick();
-		}
-	} 
+	}
 }

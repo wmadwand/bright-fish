@@ -24,6 +24,8 @@ namespace BrightFish
 		bool finishedBounce;
 		bool isBouncedDown;
 
+		bool isPlayerClick = false;
+
 		private void Awake()
 		{
 			follower = GetComponent<BubblePathFollower>();
@@ -34,7 +36,6 @@ namespace BrightFish
 		{
 			if (isBouncedUp)
 			{
-				//follower.speed = followerspeedBounced;
 				follower.speed = Mathf.Lerp(targetSpeed, 0, t);
 
 				t += bounceRateUp * Time.deltaTime;
@@ -64,10 +65,21 @@ namespace BrightFish
 				}
 			}
 
-			if (finishedBounce)
+			if (isPlayerClick && finishedBounce && follower.speed <= 0)
+			{
+				follower.speed = Mathf.Lerp(0, baseSpeed, t);
+				t += bounceRateUp * Time.deltaTime;
+
+				if (t > 1)
+				{
+					finishedBounce = false;
+					isPlayerClick = false;
+				}
+			}
+			else if (finishedBounce && follower.speed > 0)
 			{
 				follower.speed = Mathf.Lerp(follower.speed, baseSpeed, t);
-				t += 0.5f * Time.deltaTime;
+				t += bounceRateUp * Time.deltaTime;
 
 				if (t > 1)
 				{
@@ -76,13 +88,15 @@ namespace BrightFish
 			}
 		}
 
-		public void AddBounceForce(float value)
+		public void AddBounceForce(float value, bool isPlayerClick = true)
 		{
-			OnClickThis(value);
+			OnClick(value, isPlayerClick);
 		}
 
-		private void OnClickThis(float value = 5)
+		private void OnClick(float value = 5, bool isPlayerClick = true)
 		{
+			this.isPlayerClick = isPlayerClick;
+
 			if (value < 0)
 			{
 				isBouncedDown = true;
