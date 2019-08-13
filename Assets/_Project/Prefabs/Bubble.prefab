@@ -119,6 +119,8 @@ GameObject:
   - component: {fileID: 6680996825359011647}
   - component: {fileID: 6085826198474181642}
   - component: {fileID: 7684910572098689692}
+  - component: {fileID: 6457983069116111308}
+  - component: {fileID: 6501885625385540465}
   m_Layer: 15
   m_Name: Bubble
   m_TagString: Untagged
@@ -208,3 +210,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothing: 200
+--- !u!114 &6457983069116111308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6680996825359011617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e797bfcde5e8a3489b7ab63edcc6b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  follower: {fileID: 6501885625385540465}
+  isBounced: 0
+  followerspeedBounced: -10
+  fadeRate: 5
+  baseSpeed: 0
+--- !u!114 &6501885625385540465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6680996825359011617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 896590eda42535b4cada26c78b71da36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathCreator: {fileID: 0}
+  endOfPathInstruction: 2
+  speed: 5

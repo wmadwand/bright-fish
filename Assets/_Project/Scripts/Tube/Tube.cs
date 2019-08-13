@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PathCreation;
+using System;
 using Terminus.Extensions;
 using Terminus.Game.Messages;
 using UnityEngine;
@@ -8,7 +9,6 @@ namespace BrightFish
 {
 	public sealed class Tube : MonoBehaviour
 	{
-		//[SerializeField] private GameObject _bubblePrefab;
 		[SerializeField] private Transform _bubbleSpawnPoint;
 
 		private int _id;
@@ -133,8 +133,15 @@ namespace BrightFish
 			_bubble.transform.SetPositionAndRotation(_bubbleSpawnPoint.position, Quaternion.identity);
 			_bubble.SetParentTubeID(_id, _food);
 
+			var path = Instantiate(_settings.pathCreator);
+
+			_bubble.GetComponent<BubbleAlongPath>().follower.pathCreator = path.GetComponent<PathCreator>();
+
+
 			_randomBounceRate = UnityEngine.Random.Range(_settings.bounceRateMin, _settings.bounceRateMax/* _gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f*/);
 			_bubble.AddBounceForce((_randomBounceRate + _currentBounceRateStep) * -1);
+
+
 		}
 
 		private void IncreaseBounceRate()

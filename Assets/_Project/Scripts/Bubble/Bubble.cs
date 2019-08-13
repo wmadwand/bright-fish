@@ -8,7 +8,7 @@ using Zenject;
 
 namespace BrightFish
 {
-	public class Bubble : MonoBehaviour
+	public sealed class Bubble : MonoBehaviour
 	{
 		public ColorType Type { get; private set; }
 		public bool IsReleased { get; private set; }
@@ -73,7 +73,9 @@ namespace BrightFish
 
 		public void AddBounceForce(float value)
 		{
-			_rigidbody2D.AddForce(Vector3.up * value, ForceMode2D.Impulse);
+			//_rigidbody2D.AddForce(Vector3.up * value, ForceMode2D.Impulse);
+
+			GetComponent<BubbleAlongPath>().AddBounceForce(value);
 		}
 
 		public void SetReleased()
@@ -148,7 +150,7 @@ namespace BrightFish
 			//GetComponent<Rigidbody2D>().velocity = transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * Time.deltaTime;
 			//transform.Translate(-transform.up * (_gameSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
 
-			transform.Translate(-transform.up * (_currentLevelSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
+			//transform.Translate(-transform.up * (_currentLevelSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
 		}
 
 		public void OnClick()
@@ -302,11 +304,13 @@ namespace BrightFish
 		public void AddForceDirection(Vector2 _dir/*, float _speed*/)
 		{
 			_dir.Normalize();
-			_rigidbody2D.AddForce(_dir * _spoeedReflection, ForceMode2D.Impulse);
+			//_rigidbody2D.AddForce(_dir * _spoeedReflection, ForceMode2D.Impulse);
+
+			GetComponent<BubbleAlongPath>().AddBounceForce(_dir.y * _spoeedReflection);
 		}
 
 		//----------------------------------------------------------------
 
 		public class BubbleDIFactory : PlaceholderFactory<Bubble> { }
-	} 
+	}
 }

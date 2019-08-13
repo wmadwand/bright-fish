@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PathCreation;
+using System;
 using UnityEngine;
 
 namespace BrightFish
@@ -55,5 +56,7 @@ namespace BrightFish
 		public float bounceRateMax;
 		public float bounceRateGrowthStep;
 		public Difficulty _difficulty; //TODO: figure out the purpose
+
+		public GameObject pathCreator;
 	}
 }
