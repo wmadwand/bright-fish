@@ -153,7 +153,7 @@ namespace BrightFish
 			//transform.Translate(-transform.up * (_currentLevelSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
 		}
 
-		public void OnClick()
+		public void OnClickThis()
 		{
 			if (_selfDestroyStarted)
 			{
@@ -186,6 +186,8 @@ namespace BrightFish
 			_rigidbody2D.drag = _currentLevelSettings.DragRate;
 
 			GetComponent<BubbleAlongPath>().follower.speed = _currentLevelSettings.BubbleMoveSpeed;
+			GetComponent<BubbleAlongPath>().bounceRateDown = _currentLevelSettings.BounceRate;
+			GetComponent<BubbleAlongPath>().bounceRateUp = _currentLevelSettings.BounceRate;
 
 			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
 

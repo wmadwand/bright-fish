@@ -6,18 +6,18 @@ using UnityEngine.EventSystems;
 
 namespace BrightFish
 {
-	public class BubbleAlongPath : MonoBehaviour, IPointerClickHandler
+	public class BubbleAlongPath : MonoBehaviour
 	{
 		public BubblePathFollower follower;
 
 		public bool isBouncedUp;
-		//float timer;
-		//public float timerTarget;
 		public float followerspeedBounced = -10;
 		public float fadeRate = 5;
 		public float targetSpeed;
 
 		public float baseSpeed = 4;
+
+		public float bounceRateUp, bounceRateDown;
 
 		float t;
 
@@ -37,7 +37,7 @@ namespace BrightFish
 				//follower.speed = followerspeedBounced;
 				follower.speed = Mathf.Lerp(targetSpeed, 0, t);
 
-				t += 0.5f * Time.deltaTime;
+				t += bounceRateUp * Time.deltaTime;
 
 				if (follower.speed <= 0)
 				{
@@ -52,7 +52,7 @@ namespace BrightFish
 			{
 				follower.speed = Mathf.Lerp(targetSpeed, baseSpeed, t);
 
-				t += 0.5f * Time.deltaTime;
+				t += bounceRateDown * Time.deltaTime;
 
 				if (follower.speed >= baseSpeed)
 				{
@@ -76,17 +76,12 @@ namespace BrightFish
 			}
 		}
 
-		public void OnPointerClick(PointerEventData eventData)
-		{
-			OnClick();
-		}
-
 		public void AddBounceForce(float value)
 		{
-			OnClick(value);
+			OnClickThis(value);
 		}
 
-		void OnClick(float value = 5)
+		private void OnClickThis(float value = 5)
 		{
 			if (value < 0)
 			{
