@@ -31,6 +31,7 @@ namespace BrightFish
 			_settings = tubeItem;
 
 			path = Instantiate(_settings.pathCreator);
+			path.transform.SetPositionAndRotation(new Vector2 (this.transform.position.x, 0), Quaternion.identity);
 		}
 
 		public void SelfDestroy()

@@ -95,7 +95,7 @@ namespace BrightFish
 
 		void AddDummyLevels()
 		{
-			for (int i = 6; i < 16; i++)
+			for (int i = _levelsList.Count+1; i < 16; i++)
 			{
 				var obj = Instantiate(_levelItemTemplate, _parent);
 
