@@ -43,8 +43,6 @@ namespace BrightFish
 		//TODO: move to separate class
 		[SerializeField] private Sounds soundName01, explosionSound;
 
-		[SerializeField] private float _spoeedReflection;
-
 		[SerializeField] private GameObject _explosion;
 
 		private int _parentTubeID;
@@ -145,14 +143,6 @@ namespace BrightFish
 			}
 		}
 
-		private void FixedUpdate()
-		{
-			//GetComponent<Rigidbody2D>().velocity = transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * Time.deltaTime;
-			//transform.Translate(-transform.up * (_gameSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
-
-			//transform.Translate(-transform.up * (_currentLevelSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
-		}
-
 		public void OnClickThis()
 		{
 			if (_selfDestroyStarted)
@@ -169,7 +159,7 @@ namespace BrightFish
 
 			_clickCount++;
 
-			AddBounceForce(_currentLevelSettings.BounceRate);
+			//AddBounceForce(_currentLevelSettings.BounceRate);
 
 			_view.transform.DOShakeScale(.4f, .2f, 10, 45);
 
@@ -307,10 +297,10 @@ namespace BrightFish
 
 		public void AddForceDirection(Vector2 _dir/*, float _speed*/)
 		{
-			_dir.Normalize();
-			//_rigidbody2D.AddForce(_dir * _spoeedReflection, ForceMode2D.Impulse);
+			GetComponent<BubbleAlongPath>().AddBounceForce(/*_dir.y * */_currentLevelSettings.SpeedReflection);
 
-			GetComponent<BubbleAlongPath>().AddBounceForce(_dir.y * _spoeedReflection);
+			//_dir.Normalize();
+			//_rigidbody2D.AddForce(_dir * _currentLevelSettings.SpeedReflection, ForceMode2D.Impulse);
 		}
 
 		//----------------------------------------------------------------

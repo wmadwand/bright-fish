@@ -34,7 +34,8 @@ MonoBehaviour:
   _enablePredatorFishMovementAI: 0
   _enableFishMovementAI: 0
   _fishHealthFadeRate: 0
-  _bubbleMoveSpeed: -2
-  _bounceRate: 7
+  _bubbleMoveSpeed: -3
+  _bounceRate: 0.5
   _dragRate: 4
+  _speedReflection: 4
   _enlargeSizeClickCount: 1
