@@ -161,12 +161,25 @@ namespace BrightFish
 
 			//AddBounceForce(_currentLevelSettings.BounceRate);
 
-			_view.transform.DOShakeScale(.4f, .2f, 10, 45);
+			ShakeBubble();
 
 			//Enlarge();
 			Diffuse();
 
 			Debug.Log("click");
+		}
+
+		public void ShakeBubble(bool isClick = true)
+		{
+			if (isClick)
+			{
+				_view.transform.DOShakeScale(.4f, .2f, 10, 45);
+
+			}
+			else
+			{
+				_view.transform.DOShakeScale(.2f, .1f, 1, 5);
+			}
 		}
 
 		private void Init()

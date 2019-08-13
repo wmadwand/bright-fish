@@ -142,6 +142,8 @@ namespace BrightFish
 
 			_randomBounceRate = UnityEngine.Random.Range(_settings.bounceRateMin, _settings.bounceRateMax/* _gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f*/);
 			_bubble.AddBounceForce((-_randomBounceRate + _currentBounceRateStep), false);
+
+			_bubble.ShakeBubble(false);
 		}
 
 		private void IncreaseBounceRate()
