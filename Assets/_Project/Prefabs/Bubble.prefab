@@ -194,7 +194,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundName01: 0
   explosionSound: 1
-  _spoeedReflection: 30
   _explosion: {fileID: 7285943838032073807, guid: bcd107c4c0f5e0a499823f5e220db916,
     type: 3}
 --- !u!114 &7684910572098689692
@@ -228,6 +227,9 @@ MonoBehaviour:
   fadeRate: 5
   targetSpeed: 0
   baseSpeed: -4
+  bounceRateUp: 0
+  bounceRateDown: 0
+  velocity: 0.027
 --- !u!114 &6501885625385540465
 MonoBehaviour:
   m_ObjectHideFlags: 0

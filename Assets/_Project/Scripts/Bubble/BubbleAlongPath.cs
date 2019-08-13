@@ -22,6 +22,8 @@ namespace BrightFish
 
 		bool isPlayerClick = false;
 
+		public float velocity = 0.2f;
+
 		private void Awake()
 		{
 			follower = GetComponent<BubblePathFollower>();
@@ -49,11 +51,13 @@ namespace BrightFish
 			{
 				follower.speed = Mathf.Lerp(targetSpeed, baseSpeed, t);
 
-				t += bounceRateDown * Time.deltaTime;
+				t += velocity + (bounceRateDown * Time.fixedDeltaTime);
 
 				if (follower.speed >= baseSpeed)
 				{
 					finishedBounce = true;
+
+					follower.speed = baseSpeed;
 
 					isBouncedDown = false;
 					fadeRate = 5;
