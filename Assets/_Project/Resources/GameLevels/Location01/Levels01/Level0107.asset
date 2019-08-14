@@ -51,6 +51,14 @@ MonoBehaviour:
     _difficulty: 50
     pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
       type: 3}
+  - type: 50
+    bubbleThrowDelay: 0
+    bounceRateMin: 7
+    bounceRateMax: 9
+    bounceRateGrowthStep: 1
+    _difficulty: 50
+    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+      type: 3}
   _fishes: 3200000032000000
   _fishSpawnProbability: {fileID: 11400000, guid: afa002e972ae8e749b56e16a2791b48e,
     type: 2}

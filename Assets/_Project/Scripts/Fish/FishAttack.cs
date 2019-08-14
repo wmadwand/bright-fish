@@ -52,7 +52,7 @@ namespace BrightFish
 			}
 
 			hit = CastRay();
-			IsTargetDetected = hit && hit.collider.GetComponent<FishHealth>() && !hit.collider.GetComponent<FishHealth>().IsDead ? true : false;
+			IsTargetDetected = hit && hit.collider.GetComponent<FishHealth>() && !hit.collider.GetComponent<FishHealth>().IsDead && !hit.collider.GetComponent<FishPredator>() ? true : false;
 			_currentFish = IsTargetDetected ? hit.collider.GetComponent<Fish>() : null;
 
 			if (IsTargetDetected && !_isTargetFound)

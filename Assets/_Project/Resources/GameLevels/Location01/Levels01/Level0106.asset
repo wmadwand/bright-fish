@@ -21,8 +21,8 @@ MonoBehaviour:
   _tubes:
   - type: 50
     bubbleThrowDelay: 0
-    bounceRateMin: 7
-    bounceRateMax: 9
+    bounceRateMin: 3
+    bounceRateMax: 5
     bounceRateGrowthStep: 1
     _difficulty: 50
     pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
@@ -33,23 +33,15 @@ MonoBehaviour:
     bounceRateMax: 9
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 615679809069068576, guid: 7bedfa702d20651458fb321fc6906577,
       type: 3}
   - type: 50
     bubbleThrowDelay: 0
-    bounceRateMin: 7
-    bounceRateMax: 9
+    bounceRateMin: 3
+    bounceRateMax: 5
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
-      type: 3}
-  - type: 50
-    bubbleThrowDelay: 0
-    bounceRateMin: 7
-    bounceRateMax: 9
-    bounceRateGrowthStep: 1
-    _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 615679809069068576, guid: 7bedfa702d20651458fb321fc6906577,
       type: 3}
   - type: 50
     bubbleThrowDelay: 0
