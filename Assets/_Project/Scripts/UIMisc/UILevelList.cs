@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terminus.Game.Messages;
 using TMPro;
 using UnityEngine;
@@ -7,20 +6,6 @@ using UnityEngine.UI;
 
 namespace BrightFish
 {
-	public struct LevelListItem
-	{
-		public string id;
-		public Button button;
-		public GameObject gameObject;
-
-		public LevelListItem(string id, Button button, GameObject gameObject)
-		{
-			this.id = id;
-			this.button = button;
-			this.gameObject = gameObject;
-		}
-	}
-
 	public class UILevelList : MonoBehaviour
 	{
 		[SerializeField] private GameObject _levelItemTemplate;
@@ -28,16 +13,14 @@ namespace BrightFish
 
 		private List<LevelListItem> _levelsList = new List<LevelListItem>();
 
+		//----------------------------------------------------------------
+
 		private void Awake()
 		{
 			MessageBus.OnGameProgressReset.Receive += OnResetGameProgress_Receive;
 		}
-		private void OnDestroy()
-		{
-			MessageBus.OnGameProgressReset.Receive -= OnResetGameProgress_Receive;
-		}
 
-		private void OnResetGameProgress_Receive()
+		private void OnEnable()
 		{
 			UpdateList();
 		}
@@ -48,31 +31,38 @@ namespace BrightFish
 			UpdateList();
 		}
 
-		private void OnEnable()
+		private void OnDestroy()
+		{
+			MessageBus.OnGameProgressReset.Receive -= OnResetGameProgress_Receive;
+		}
+
+		private void OnResetGameProgress_Receive()
 		{
 			UpdateList();
 		}
 
-		void UpdateList()
+		private void UpdateList()
 		{
 			foreach (var item in _levelsList)
 			{
 				var location = GameController.Instance.levelFactory.CurrentLocation;
 
-				if (location.GetLevelIndex(item.id) <= location.GetLevelIndex(GameProgress.GetMaxAvailableLevelId()) && location.GetLevelIndex(item.id) >= 0)
-				{
-					item.button.interactable = true;
-				}
-				else
-				{
-					item.button.interactable = false;
-				}
+				//if (location.GetLevelIndex(item.id) <= location.GetLevelIndex(GameProgress.GetMaxAvailableLevelId()) && location.GetLevelIndex(item.id) >= 0)
+				//{
+				//	item.button.interactable = true;
+				//}
+				//else
+				//{
+				//	item.button.interactable = false;
+				//}
+
+				item.button.interactable = true;
 
 				item.gameObject.SetActive(true);
 			}
 		}
 
-		void CreateList()
+		private void CreateList()
 		{
 			var levels = GameController.Instance.levelFactory.CurrentLocation.Levels;
 
@@ -93,9 +83,9 @@ namespace BrightFish
 			AddDummyLevels();
 		}
 
-		void AddDummyLevels()
+		private void AddDummyLevels()
 		{
-			for (int i = _levelsList.Count+1; i < 16; i++)
+			for (int i = _levelsList.Count + 1; i < 16; i++)
 			{
 				var obj = Instantiate(_levelItemTemplate, _parent);
 
@@ -110,13 +100,29 @@ namespace BrightFish
 			}
 		}
 
-		void OnClickHandler(string levelId)
+		private void OnClickHandler(string levelId)
 		{
 			//var levelId = GameProgress.GetCurrentLevelId();
 
 			MessageBus.OnLevelSelected.Send(levelId);
 
 			Debug.Log($"Start LEVEL = {levelId}");
+		}
+
+		//----------------------------------------------------------------
+
+		public struct LevelListItem
+		{
+			public string id;
+			public Button button;
+			public GameObject gameObject;
+
+			public LevelListItem(string id, Button button, GameObject gameObject)
+			{
+				this.id = id;
+				this.button = button;
+				this.gameObject = gameObject;
+			}
 		}
 	}
 }

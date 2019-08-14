@@ -15,6 +15,8 @@ namespace BrightFish
 		[SerializeField] private int _id;
 		[SerializeField] private Level[] _levels;
 
+		//----------------------------------------------------------------
+
 		public Level GetLevel(string id)
 		{
 			return _levels.FirstOrDefault(lvl => lvl.ID == id);
@@ -32,7 +34,7 @@ namespace BrightFish
 			return Array.IndexOf(_levels, GetLevel(id));
 		}
 
-		public Level GetCurrentLevel()
+		public Level GetMaxAvailableLevel()
 		{
 			var currentLvlId = GameProgress.GetMaxAvailableLevelId();
 			return _levels.FirstOrDefault(lvl => lvl.ID == currentLvlId);

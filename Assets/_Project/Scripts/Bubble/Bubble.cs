@@ -319,7 +319,7 @@ namespace BrightFish
 		public void AddForceDirectionRB(Vector2 _dir/*, float _speed*/)
 		{
 			_dir.Normalize();
-			_rigidbody2D.AddForce(_dir * _currentLevelSettings.SpeedReflection, ForceMode2D.Impulse);
+			_rigidbody2D.AddForce(Vector2.up * _currentLevelSettings.SpeedReflection, ForceMode2D.Impulse);
 		}
 
 		//----------------------------------------------------------------

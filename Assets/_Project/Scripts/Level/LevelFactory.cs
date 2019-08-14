@@ -5,11 +5,11 @@ namespace BrightFish
 {
 	public class LevelFactory : MonoBehaviour
 	{
-		//public Level Level { get; private set; }
-
 		public Location CurrentLocation => _location;
 
 		[SerializeField] private Location _location;
+
+		//----------------------------------------------------------------
 
 		private void Awake()
 		{
@@ -37,7 +37,7 @@ namespace BrightFish
 		{
 			var lvlSettings = GetLevelSettings(id);
 
-			InitLevelRules(lvlSettings);
+			InitLevelSettings(lvlSettings);
 
 			// SpawnTubes
 			var tubes = lvlSettings.Tubes;
@@ -63,10 +63,9 @@ namespace BrightFish
 			GameController.Instance.fishSpawner.SpawnFishes(count);
 		}
 
-		private void InitLevelRules(Level level)
+		private void InitLevelSettings(Level level)
 		{
 			GameController.Instance.levelController.InitLevel(level);
 		}
-
 	}
 }
