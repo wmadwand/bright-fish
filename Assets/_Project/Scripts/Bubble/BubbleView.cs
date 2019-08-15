@@ -13,8 +13,31 @@ namespace BrightFish
 		private Renderer _renderer;
 		public BubbleState _state { get; private set; }
 		private GameSettings _gameSettings;
+		private Color _color;
 
 		private Level _currentLevelSettings;
+
+		public void Init(ColorType type)
+		{
+			SetColor(type);
+
+			if (_gameSettings.ColorMode == BubbleColorMode.Explicit)
+			{
+				_renderer.material.color = _color;
+			}
+		}
+
+		private void SetColor(ColorType bubbleType)
+		{
+			switch (bubbleType)
+			{
+				case ColorType.A: _color = _gameSettings.ColorA; break;
+				case ColorType.B: _color = _gameSettings.ColorB; break;
+				case ColorType.C: _color = _gameSettings.ColorC; break;
+				case ColorType.D: _color = _gameSettings.ColorD; break;
+				case ColorType.E: _color = _gameSettings.ColorE; break;
+			}
+		}
 
 		[Inject]
 		private void Construct(GameSettings gameSettings)
@@ -93,6 +116,20 @@ namespace BrightFish
 			else if (_gameSettings.DestroyBigBubbleClick && _bubble._clickCount > _currentLevelSettings.EnlargeSizeClickCount * 2)
 			{
 				_bubble.SelfDestroy();
+			}
+		}
+
+		private IEnumerator BlinkRoutine()
+		{
+			while (true)
+			{
+				yield return new WaitForSeconds(_gameSettings.BlinkRate);
+
+				_renderer.material.color = new Color(_color.r, _color.g, _color.b, 0);
+
+				yield return new WaitForSeconds(_gameSettings.BlinkRate);
+
+				_renderer.material.color = new Color(_color.r, _color.g, _color.b, 100);
 			}
 		}
 

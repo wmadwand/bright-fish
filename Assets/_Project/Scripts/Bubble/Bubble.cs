@@ -51,7 +51,7 @@ namespace BrightFish
 		public int _clickCount { get; private set; }
 		private bool _selfDestroyStarted;
 
-		private Color _color;
+		//private Color _color;
 		private Renderer _renderer;
 		private Rigidbody2D _rigidbody2D;
 		private GameSettings _gameSettings;
@@ -204,45 +204,26 @@ namespace BrightFish
 			_renderer.material.color = _gameSettings.ColorDummy;
 			_renderer.material.color = new Color(_renderer.material.color.a, _renderer.material.color.g, _renderer.material.color.b, .85f);
 
-			SetColor(Type);
-
-			if (_gameSettings.ColorMode == BubbleColorMode.Explicit)
-			{
-				_renderer.material.color = _color;
-			}
+			GetComponent<BubbleView>().Init(Type);
 		}
 
-		private void SetColor(ColorType bubbleType)
-		{
-			switch (bubbleType)
-			{
-				case ColorType.A: _color = _gameSettings.ColorA; break;
-				case ColorType.B: _color = _gameSettings.ColorB; break;
-				case ColorType.C: _color = _gameSettings.ColorC; break;
-				case ColorType.D: _color = _gameSettings.ColorD; break;
-				case ColorType.E: _color = _gameSettings.ColorE; break;
-			}
-		}
+		//private void SetColor(ColorType bubbleType)
+		//{
+		//	switch (bubbleType)
+		//	{
+		//		case ColorType.A: _color = _gameSettings.ColorA; break;
+		//		case ColorType.B: _color = _gameSettings.ColorB; break;
+		//		case ColorType.C: _color = _gameSettings.ColorC; break;
+		//		case ColorType.D: _color = _gameSettings.ColorD; break;
+		//		case ColorType.E: _color = _gameSettings.ColorE; break;
+		//	}
+		//}
 
 		public void RevealFoodColor()
 		{
 			_childFood.RevealColor();
 			Type = _childFood.Type;
 			GetComponentInChildren<BoxCollider2D>().enabled = false;
-		}
-
-		private IEnumerator BlinkRoutine()
-		{
-			while (true)
-			{
-				yield return new WaitForSeconds(_gameSettings.BlinkRate);
-
-				_renderer.material.color = new Color(_color.r, _color.g, _color.b, 0);
-
-				yield return new WaitForSeconds(_gameSettings.BlinkRate);
-
-				_renderer.material.color = new Color(_color.r, _color.g, _color.b, 100);
-			}
 		}
 
 		public void AddForceDirection(Vector2 _dir, float velocity = 1/*, float _speed*/)
