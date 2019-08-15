@@ -47,8 +47,8 @@ namespace BrightFish
 		[SerializeField] private GameObject _explosion;
 
 		private int _parentTubeID;
-		private BubbleState _state;
-		private int _clickCount;
+		public BubbleState _state;
+		public int _clickCount { get; private set; }
 		private bool _selfDestroyStarted;
 
 		private Color _color;
@@ -63,6 +63,7 @@ namespace BrightFish
 		private Level _currentLevelSettings;
 
 		public event Action<bool> OnBounce;
+		public event Action OnClickBubble;
 
 		//----------------------------------------------------------------
 
@@ -110,7 +111,7 @@ namespace BrightFish
 			MessageBus.OnBubbleDestroy.Send(_parentTubeID);
 
 			Destroy(gameObject);
-		}		
+		}
 
 		//----------------------------------------------------------------
 
@@ -171,9 +172,7 @@ namespace BrightFish
 			//AddForceDirection(GetDirection());
 
 			OnBounce(true);
-
-			//Enlarge();
-			Diffuse();
+			OnClickBubble();
 
 			Debug.Log("click");
 		}
@@ -225,78 +224,11 @@ namespace BrightFish
 			}
 		}
 
-		private void Enlarge()
+		public void RevealFoodColor()
 		{
-			if (_clickCount == _currentLevelSettings.EnlargeSizeClickCount)
-			{
-				_view.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-
-				_state = BubbleState.Medium;
-			}
-			else if (_clickCount == _currentLevelSettings.EnlargeSizeClickCount * 2)
-			{
-				_view.transform.localScale = new Vector3(.7f, .7f, .7f);
-
-				_state = BubbleState.Big;
-
-				if (_gameSettings.BigBubbleSelfDestroy)
-				{
-					_selfDestroyStarted = true;
-				}
-
-				_renderer.material.color = _color;
-
-				if (_selfDestroyStarted)
-				{
-					StartCoroutine(BlinkRoutine());
-				}
-			}
-			else if (_gameSettings.DestroyBigBubbleClick && _clickCount > _currentLevelSettings.EnlargeSizeClickCount * 2)
-			{
-				SelfDestroy();
-			}
-		}
-
-		private void Diffuse()
-		{
-			if (_clickCount == _currentLevelSettings.EnlargeSizeClickCount)
-			{
-				var size = _gameSettings.ClickEnlargeSizePairs[0].sizeRate;
-				_view.transform.localScale = new Vector3(size, size, size);
-
-				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .7f);
-
-				_state = BubbleState.Medium;
-			}
-			else if (_clickCount == _currentLevelSettings.EnlargeSizeClickCount * 2)
-			{
-				var size = _gameSettings.ClickEnlargeSizePairs[1].sizeRate;
-				_view.transform.localScale = new Vector3(size, size, size);
-
-				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .0f);
-
-				_state = BubbleState.Big;
-
-
-				_childFood.RevealColor();
-				Type = _childFood.Type;
-				GetComponentInChildren<BoxCollider2D>().enabled = false;
-
-
-				if (_gameSettings.BigBubbleSelfDestroy)
-				{
-					_selfDestroyStarted = true;
-				}
-
-				if (_selfDestroyStarted)
-				{
-					StartCoroutine(BlinkRoutine());
-				}
-			}
-			else if (_gameSettings.DestroyBigBubbleClick && _clickCount > _currentLevelSettings.EnlargeSizeClickCount * 2)
-			{
-				SelfDestroy();
-			}
+			_childFood.RevealColor();
+			Type = _childFood.Type;
+			GetComponentInChildren<BoxCollider2D>().enabled = false;
 		}
 
 		private IEnumerator BlinkRoutine()
