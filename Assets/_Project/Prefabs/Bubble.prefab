@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 7684910572098689692}
   - component: {fileID: 6457983069116111308}
   - component: {fileID: 6501885625385540465}
+  - component: {fileID: 4389050715657147649}
   m_Layer: 15
   m_Name: Bubble
   m_TagString: Untagged
@@ -245,3 +246,16 @@ MonoBehaviour:
   pathCreator: {fileID: 0}
   endOfPathInstruction: 0
   speed: 5
+--- !u!114 &4389050715657147649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6680996825359011617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f1def5a6c15944aa052374cb84c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 5017184447256087520}

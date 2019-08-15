@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using PathCreation;
 using System;
 using System.Collections;
 using Terminus.Game.Messages;
@@ -61,7 +62,17 @@ namespace BrightFish
 
 		private Level _currentLevelSettings;
 
+		public event Action<bool> OnBounce;
+
 		//----------------------------------------------------------------
+
+		public void Init(Vector3 position, int id, Food food, PathCreator path)
+		{
+			transform.SetPositionAndRotation(position, Quaternion.identity);
+			SetParentTubeID(id, food);
+
+			GetComponent<BubbleAlongPath>().follower.pathCreator = path;
+		}
 
 		public void SetParentTubeID(int value, Food childFood)
 		{
@@ -74,6 +85,7 @@ namespace BrightFish
 			//_rigidbody2D.AddForce(Vector3.up * value, ForceMode2D.Impulse);
 
 			GetComponent<BubbleAlongPath>().AddBounceForce(value, isPlayerClick);
+			OnBounce(isPlayerClick);
 		}
 
 		public void SetReleased()
@@ -100,13 +112,9 @@ namespace BrightFish
 			Destroy(gameObject);
 		}
 
-		private void SpawnExplosion()
+		public void ShakeBubble(bool isClick = true)
 		{
-			var go = Instantiate(_explosion, transform.position, Quaternion.identity);
-
-			//Vector3 vec = new Vector3(transform.position.x, transform.position.y, -1);		
-
-			//go.transform.SetPositionAndRotation(vec, Quaternion.identity);
+			GetComponent<BubbleView>().ShakeBubble(isClick);
 		}
 
 		//----------------------------------------------------------------
@@ -127,7 +135,14 @@ namespace BrightFish
 
 			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
 
-			Init();
+			PrivateInit();
+
+			OnBounce += ShakeBubble;
+		}
+
+		private void OnDestroy()
+		{
+			OnBounce -= ShakeBubble;
 		}
 
 		private void Update()
@@ -169,20 +184,16 @@ namespace BrightFish
 			Debug.Log("click");
 		}
 
-		public void ShakeBubble(bool isClick = true)
+		private void SpawnExplosion()
 		{
-			if (isClick)
-			{
-				_view.transform.DOShakeScale(.4f, .2f, 10, 45);
+			var go = Instantiate(_explosion, transform.position, Quaternion.identity);
 
-			}
-			else
-			{
-				_view.transform.DOShakeScale(.2f, .1f, 1, 5);
-			}
+			//Vector3 vec = new Vector3(transform.position.x, transform.position.y, -1);		
+
+			//go.transform.SetPositionAndRotation(vec, Quaternion.identity);
 		}
 
-		private void Init()
+		private void PrivateInit()
 		{
 			IsReleased = false;
 

@@ -21,7 +21,7 @@ namespace BrightFish
 
 		private float _currentBounceRateStep = 0;
 		private TubeSettings _settings;
-		GameObject path;
+		private GameObject _path;
 
 		//----------------------------------------------------------------
 
@@ -30,8 +30,8 @@ namespace BrightFish
 			_id = id;
 			_settings = tubeItem;
 
-			path = Instantiate(_settings.pathCreator);
-			path.transform.SetPositionAndRotation(new Vector2 (this.transform.position.x, 0), Quaternion.identity);
+			_path = Instantiate(_settings.pathCreator);
+			_path.transform.SetPositionAndRotation(new Vector2(this.transform.position.x, 0), Quaternion.identity);
 		}
 
 		public void SelfDestroy()
@@ -115,8 +115,6 @@ namespace BrightFish
 				return;
 			}
 
-			//MakeShell();
-
 			RunAfterDelay(MakeShell);
 		}
 
@@ -133,18 +131,10 @@ namespace BrightFish
 		private void MakeBubble()
 		{
 			_bubble = _bubbleDIFactory.Create();
+			_bubble.Init(_bubbleSpawnPoint.position, _id, _food, _path.GetComponent<PathCreator>());
 
-			_bubble.transform.SetPositionAndRotation(_bubbleSpawnPoint.position, Quaternion.identity);
-			_bubble.SetParentTubeID(_id, _food);
-
-
-			_bubble.GetComponent<BubbleAlongPath>().follower.pathCreator = path.GetComponent<PathCreator>();
-
-
-			_randomBounceRate = UnityEngine.Random.Range(_settings.bounceRateMin, _settings.bounceRateMax/* _gameSettings.BubbleInitialBounceRate, _gameSettings.BubbleInitialBounceRate * 1.7f*/);
+			_randomBounceRate = UnityEngine.Random.Range(_settings.bounceRateMin, _settings.bounceRateMax);
 			_bubble.AddBounceForce((-_randomBounceRate + _currentBounceRateStep), false);
-
-			_bubble.ShakeBubble(false);
 		}
 
 		private void IncreaseBounceRate()
