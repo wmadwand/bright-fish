@@ -14,7 +14,6 @@ namespace BrightFish
 		public ColorType Type { get; private set; }
 		public bool IsReleased { get; private set; }
 
-		//public int ParentTubeID => _parentTubeID;
 		//TODO: move to separate class
 		public int ScoreCount
 		{
@@ -22,7 +21,7 @@ namespace BrightFish
 			{
 				int count = 0;
 
-				switch (_state)
+				switch (GetComponent<BubbleView>().State)
 				{
 					case BubbleState.Small:
 						count = 50;
@@ -47,12 +46,9 @@ namespace BrightFish
 		[SerializeField] private GameObject _explosion;
 
 		private int _parentTubeID;
-		public BubbleState _state;
 		public int _clickCount { get; private set; }
 		private bool _selfDestroyStarted;
 
-		//private Color _color;
-		private Renderer _renderer;
 		private Rigidbody2D _rigidbody2D;
 		private GameSettings _gameSettings;
 		private GameObject _view;
@@ -85,7 +81,8 @@ namespace BrightFish
 		{
 			//_rigidbody2D.AddForce(Vector3.up * value, ForceMode2D.Impulse);
 
-			GetComponent<BubbleAlongPath>().AddBounceForce(value, isPlayerClick);
+			//GetComponent<BubbleAlongPath>().AddBounceForce(value, isPlayerClick);
+			GetComponent<BubbleMovement>().AddForceDirection(value, isPlayerClick);
 			OnBounce(isPlayerClick);
 		}
 
@@ -103,7 +100,8 @@ namespace BrightFish
 
 			if (isReqiredExplosion)
 			{
-				SpawnExplosion();
+				//SpawnExplosion();
+				GetComponent<BubbleView>().SpawnExplosion(_explosion, transform.position);
 			}
 
 			gameObject.SetActive(false);
@@ -123,20 +121,13 @@ namespace BrightFish
 
 		private void Awake()
 		{
-			_renderer = GetComponentInChildren<Renderer>();
 			_rigidbody2D = GetComponentInChildren<Rigidbody2D>();
-			_view = _renderer.gameObject;
 
 			_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
 
 			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
 
 			PrivateInit();
-		}
-
-		private void OnDestroy()
-		{
-
 		}
 
 		private void Update()
@@ -168,22 +159,10 @@ namespace BrightFish
 
 			_clickCount++;
 
-			//AddBounceForce(_currentLevelSettings.BounceRate);
-			//AddForceDirection(GetDirection());
-
 			OnBounce(true);
 			OnClickBubble();
 
 			Debug.Log("click");
-		}
-
-		private void SpawnExplosion()
-		{
-			var go = Instantiate(_explosion, transform.position, Quaternion.identity);
-
-			//Vector3 vec = new Vector3(transform.position.x, transform.position.y, -1);		
-
-			//go.transform.SetPositionAndRotation(vec, Quaternion.identity);
 		}
 
 		private void PrivateInit()
@@ -199,45 +178,15 @@ namespace BrightFish
 			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
 
 			Type = (ColorType)UnityEngine.Random.Range(0, spawnPointsLength);
-			_state = BubbleState.Small;
-
-			_renderer.material.color = _gameSettings.ColorDummy;
-			_renderer.material.color = new Color(_renderer.material.color.a, _renderer.material.color.g, _renderer.material.color.b, .85f);
 
 			GetComponent<BubbleView>().Init(Type);
 		}
-
-		//private void SetColor(ColorType bubbleType)
-		//{
-		//	switch (bubbleType)
-		//	{
-		//		case ColorType.A: _color = _gameSettings.ColorA; break;
-		//		case ColorType.B: _color = _gameSettings.ColorB; break;
-		//		case ColorType.C: _color = _gameSettings.ColorC; break;
-		//		case ColorType.D: _color = _gameSettings.ColorD; break;
-		//		case ColorType.E: _color = _gameSettings.ColorE; break;
-		//	}
-		//}
 
 		public void RevealFoodColor()
 		{
 			_childFood.RevealColor();
 			Type = _childFood.Type;
 			GetComponentInChildren<BoxCollider2D>().enabled = false;
-		}
-
-		public void AddForceDirection(Vector2 _dir, float velocity = 1/*, float _speed*/)
-		{
-			GetComponent<BubbleAlongPath>().AddBounceForce(/*_dir.y * */_currentLevelSettings.SpeedReflection * velocity);
-
-			//_dir.Normalize();
-			//_rigidbody2D.AddForce(_dir * _currentLevelSettings.SpeedReflection, ForceMode2D.Impulse);
-		}
-
-		public void AddForceDirectionRB(Vector2 _dir/*, float _speed*/)
-		{
-			_dir.Normalize();
-			_rigidbody2D.AddForce(Vector2.up * _currentLevelSettings.SpeedReflection, ForceMode2D.Impulse);
 		}
 
 		//----------------------------------------------------------------

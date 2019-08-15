@@ -13,12 +13,18 @@ namespace BrightFish
 		private bool _touched;
 		private int _pointerID;
 
+		private Level _currentLevelSettings;
+
 		//----------------------------------------------------------------		
 
 		private void Awake()
 		{
 			_touched = false;
 			_direction = Vector2.zero;
+
+			_currentLevelSettings = _currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
+
+			//GetComponent<Bubble>().OnBounce+=
 		}
 
 		void IPointerDownHandler.OnPointerDown(PointerEventData data)
@@ -55,7 +61,7 @@ namespace BrightFish
 					_touched = false;
 
 					transform.GetComponentInParent<Bubble>().OnClick();
-					GetComponent<Bubble>().AddForceDirection(GetDirection());
+					AddForceDirection(/*GetDirection()*/);
 				}
 			}
 
@@ -64,7 +70,7 @@ namespace BrightFish
 			{
 				if (GetComponent<Bubble>())
 				{
-					GetComponent<Bubble>().AddForceDirection(GetDirection(), 10 * data.delta.normalized.y);
+					AddForceDirection(/*GetDirection(),*/ 10 * data.delta.normalized.y);
 				}
 				else
 				{
@@ -77,6 +83,14 @@ namespace BrightFish
 		{
 			_smoothDirection = Vector2.MoveTowards(_smoothDirection, _direction, _smoothing * Time.deltaTime);
 			return _smoothDirection;
+		}
+
+		public void AddForceDirection(float direction = 1, bool isPlayerClick = true)
+		{
+			GetComponent<BubbleAlongPath>().AddBounceForce(_currentLevelSettings.SpeedReflection * direction, isPlayerClick);
+
+			//_dir.Normalize();
+			//_rigidbody2D.AddForce(_dir * _currentLevelSettings.SpeedReflection, ForceMode2D.Impulse);
 		}
 	}
 }

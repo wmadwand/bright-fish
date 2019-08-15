@@ -11,7 +11,7 @@ namespace BrightFish
 		private GameObject _view;
 		private Bubble _bubble;
 		private Renderer _renderer;
-		public BubbleState _state { get; private set; }
+		public BubbleState State { get; private set; }
 		private GameSettings _gameSettings;
 		private Color _color;
 
@@ -19,6 +19,13 @@ namespace BrightFish
 
 		public void Init(ColorType type)
 		{
+			State = BubbleState.Small;
+
+			_renderer = GetComponentInChildren<Renderer>();
+
+			_renderer.material.color = _gameSettings.ColorDummy;
+			_renderer.material.color = new Color(_renderer.material.color.a, _renderer.material.color.g, _renderer.material.color.b, .85f);
+
 			SetColor(type);
 
 			if (_gameSettings.ColorMode == BubbleColorMode.Explicit)
@@ -84,7 +91,7 @@ namespace BrightFish
 
 				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .7f);
 
-				_state = BubbleState.Medium;
+				State = BubbleState.Medium;
 			}
 			else if (_bubble._clickCount == _currentLevelSettings.EnlargeSizeClickCount * 2)
 			{
@@ -93,7 +100,7 @@ namespace BrightFish
 
 				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .0f);
 
-				_state = BubbleState.Big;
+				State = BubbleState.Big;
 
 
 				//_childFood.RevealColor();
@@ -133,5 +140,9 @@ namespace BrightFish
 			}
 		}
 
+		public void SpawnExplosion(GameObject template, Vector2 postion)
+		{
+			var go = Instantiate(template, postion, Quaternion.identity);
+		}
 	}
 }
