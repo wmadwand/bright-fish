@@ -110,12 +110,7 @@ namespace BrightFish
 			MessageBus.OnBubbleDestroy.Send(_parentTubeID);
 
 			Destroy(gameObject);
-		}
-
-		public void ShakeBubble(bool isClick = true)
-		{
-			GetComponent<BubbleView>().ShakeBubble(isClick);
-		}
+		}		
 
 		//----------------------------------------------------------------
 
@@ -136,13 +131,11 @@ namespace BrightFish
 			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
 
 			PrivateInit();
-
-			OnBounce += ShakeBubble;
 		}
 
 		private void OnDestroy()
 		{
-			OnBounce -= ShakeBubble;
+
 		}
 
 		private void Update()
@@ -175,8 +168,9 @@ namespace BrightFish
 			_clickCount++;
 
 			//AddBounceForce(_currentLevelSettings.BounceRate);
+			//AddForceDirection(GetDirection());
 
-			ShakeBubble();
+			OnBounce(true);
 
 			//Enlarge();
 			Diffuse();
@@ -319,9 +313,9 @@ namespace BrightFish
 			}
 		}
 
-		public void AddForceDirection(Vector2 _dir/*, float _speed*/)
+		public void AddForceDirection(Vector2 _dir, float velocity = 1/*, float _speed*/)
 		{
-			GetComponent<BubbleAlongPath>().AddBounceForce(/*_dir.y * */_currentLevelSettings.SpeedReflection);
+			GetComponent<BubbleAlongPath>().AddBounceForce(/*_dir.y * */_currentLevelSettings.SpeedReflection * velocity);
 
 			//_dir.Normalize();
 			//_rigidbody2D.AddForce(_dir * _currentLevelSettings.SpeedReflection, ForceMode2D.Impulse);

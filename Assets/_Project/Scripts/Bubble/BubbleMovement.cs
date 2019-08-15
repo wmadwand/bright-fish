@@ -1,76 +1,82 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace BrightFish
 {
 	public class BubbleMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 	{
-		[SerializeField]
-		float smoothing;
+		[SerializeField] float _smoothing;
 
-		private Vector2 origin;
-		private Vector2 direction;
-		private Vector2 smoothDirection;
-		private bool touched;
-		private int pointerID;
+		private Vector2 _origin;
+		private Vector2 _direction;
+		private Vector2 _smoothDirection;
+		private bool _touched;
+		private int _pointerID;
+
+		//----------------------------------------------------------------		
 
 		private void Awake()
 		{
-			touched = false;
-			direction = Vector2.zero;
+			_touched = false;
+			_direction = Vector2.zero;
 		}
 
-		public void OnPointerDown(PointerEventData data)
+		void IPointerDownHandler.OnPointerDown(PointerEventData data)
 		{
-			if (!touched)
+			if (!_touched)
 			{
-				touched = true;
-				pointerID = data.pointerId;
-				origin = data.position;
+				_touched = true;
+				_pointerID = data.pointerId;
+				_origin = data.position;
 			}
 		}
 
-		public void OnDrag(PointerEventData data)
+		void IDragHandler.OnDrag(PointerEventData data)
 		{
-			if (data.pointerId == pointerID)
+			if (data.pointerId == _pointerID)
 			{
 				Vector2 currentPosition = data.position;
-				Vector2 directionRaw = currentPosition - origin;
-				direction = directionRaw.normalized;
+				Vector2 directionRaw = currentPosition - _origin;
+				_direction = directionRaw.normalized;
 			}
 		}
 
-		public void OnPointerUp(PointerEventData data)
+		void IPointerUpHandler.OnPointerUp(PointerEventData data)
 		{
 			Debug.LogFormat("Swipe {0}, {1}", GetDirection().x, GetDirection().y);
-			//OnSwipe(GetDirection());
-
 			Debug.Log("released");
 
-			if (GetComponent<Bubble>())
+			// single click
+			if (data.delta.normalized.y == 0)
 			{
-				GetComponent<Bubble>().AddForceDirection(GetDirection());
+				if (data.pointerId == _pointerID)
+				{
+					_direction = Vector2.zero;
+					_touched = false;
+
+					transform.GetComponentInParent<Bubble>().OnClick();
+					GetComponent<Bubble>().AddForceDirection(GetDirection());
+				}
 			}
+
+			// or swipe
 			else
 			{
-				GetComponent<Food>().AddForceDirection(GetDirection());
-			}
-
-			if (data.pointerId == pointerID)
-			{
-				direction = Vector2.zero;
-				touched = false;
-
-				transform.GetComponentInParent<Bubble>().OnClick();
+				if (GetComponent<Bubble>())
+				{
+					GetComponent<Bubble>().AddForceDirection(GetDirection(), 10 * data.delta.normalized.y);
+				}
+				else
+				{
+					GetComponent<Food>().AddForceDirection(GetDirection());
+				}
 			}
 		}
 
-		public Vector2 GetDirection()
+		private Vector2 GetDirection()
 		{
-			smoothDirection = Vector2.MoveTowards(smoothDirection, direction, smoothing * Time.deltaTime);
-			return smoothDirection;
+			_smoothDirection = Vector2.MoveTowards(_smoothDirection, _direction, _smoothing * Time.deltaTime);
+			return _smoothDirection;
 		}
 	}
 }

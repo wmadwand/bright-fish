@@ -8,13 +8,22 @@ namespace BrightFish
 	public class BubbleView : MonoBehaviour
 	{
 		private GameObject _view;
+		private Bubble _bubble;
 
 		private void Awake()
 		{
 			_view = GetComponentInChildren<Renderer>().gameObject;
+			_bubble = GetComponent<Bubble>();
+
+			_bubble.OnBounce += ShakeBubble;
 		}
 
-		public void ShakeBubble(bool isClick = true)
+		private void OnDestroy()
+		{
+			_bubble.OnBounce -= ShakeBubble;
+		}
+
+		private void ShakeBubble(bool isClick = true)
 		{
 			if (isClick)
 			{
