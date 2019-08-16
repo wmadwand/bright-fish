@@ -79,7 +79,7 @@ namespace BrightFish
 
 				_isSwipeInProgress = true;
 
-				AddForceDirection(5 * data.delta.normalized.y);
+				AddForceDirection(5 * data.delta.normalized.y, true, true);
 			}
 		}
 
@@ -89,9 +89,9 @@ namespace BrightFish
 			return _smoothDirection;
 		}
 
-		public void AddForceDirection(float direction = 1, bool isPlayerClick = true)
+		public void AddForceDirection(float direction = 1, bool isPlayerClick = true, bool isSwipe = false)
 		{
-			GetComponent<BubbleMovement>().AddBounceForce(_currentLevelSettings.SpeedReflection * direction, isPlayerClick);
+			GetComponent<BubbleMovement>().AddBounceForce(_currentLevelSettings.SpeedReflection * direction, isPlayerClick, isSwipe);
 
 			//_dir.Normalize();
 			//_rigidbody2D.AddForce(_dir * _currentLevelSettings.SpeedReflection, ForceMode2D.Impulse);

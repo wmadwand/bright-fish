@@ -14,14 +14,16 @@ namespace BrightFish
 
 		public float bounceRateUp, bounceRateDown;
 
-		float t;
+		private float t;
 
-		bool finishedBounce;
-		bool isBouncedDown;
+		private bool finishedBounce;
+		private bool isBouncedDown;
 
-		bool isPlayerClick = false;
+		private bool isPlayerClick = false;
 
 		public float velocity = 0.2f;
+
+		private bool _isSwipe;
 
 		private void Awake()
 		{
@@ -31,6 +33,12 @@ namespace BrightFish
 
 		private void Update()
 		{
+			if (_isSwipe)
+			{
+				follower.speed = targetSpeed;
+				return;
+			}
+
 			if (isBouncedUp)
 			{
 				follower.speed = Mathf.Lerp(targetSpeed, 0, t);
@@ -75,7 +83,7 @@ namespace BrightFish
 					isPlayerClick = false;
 				}
 			}
-			else if (finishedBounce && follower.speed > 0)
+			else if (!_isSwipe && finishedBounce && follower.speed > 0)
 			{
 				follower.speed = Mathf.Lerp(follower.speed, baseSpeed, t);
 				t += bounceRateUp * Time.deltaTime;
@@ -87,14 +95,10 @@ namespace BrightFish
 			}
 		}
 
-		public void AddBounceForce(float value, bool isPlayerClick = true)
+		public void AddBounceForce(float value, bool isPlayerClick = true, bool isSwipe = false)
 		{
-			OnClick(value, isPlayerClick);
-		}
-
-		private void OnClick(float value, bool isPlayerClick = true)
-		{
-			this.isPlayerClick = isPlayerClick;
+			this.isPlayerClick = isPlayerClick;			
+			_isSwipe = isSwipe;
 
 			if (value < 0)
 			{
@@ -113,6 +117,6 @@ namespace BrightFish
 			t = 0;
 
 			Debug.Log("click");
-		}
+		}		
 	}
 }
