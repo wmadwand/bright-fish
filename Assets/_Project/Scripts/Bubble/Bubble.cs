@@ -65,7 +65,7 @@ namespace BrightFish
 			transform.SetPositionAndRotation(position, Quaternion.identity);
 			SetParentTubeID(id, food);
 
-			GetComponent<BubbleAlongPath>().follower.pathCreator = path;
+			GetComponent<BubbleMovement>().follower.pathCreator = path;
 		}
 
 		public void SetParentTubeID(int value, Food childFood)
@@ -79,7 +79,7 @@ namespace BrightFish
 			//_rigidbody2D.AddForce(Vector3.up * value, ForceMode2D.Impulse);
 
 			//GetComponent<BubbleAlongPath>().AddBounceForce(value, isPlayerClick);
-			GetComponent<BubbleMovement>().AddForceDirection(value, isPlayerClick);
+			GetComponent<BubbleInteraction>().AddForceDirection(value, isPlayerClick);
 			OnBounce(isPlayerClick);
 		}
 
@@ -165,9 +165,9 @@ namespace BrightFish
 
 			_rigidbody2D.drag = _currentLevelSettings.DragRate;
 
-			GetComponent<BubbleAlongPath>().follower.speed = _currentLevelSettings.BubbleMoveSpeed;
-			GetComponent<BubbleAlongPath>().bounceRateDown = _currentLevelSettings.BounceRateDown;
-			GetComponent<BubbleAlongPath>().bounceRateUp = _currentLevelSettings.BounceRateUp;
+			GetComponent<BubbleMovement>().follower.speed = _currentLevelSettings.BubbleMoveSpeed;
+			GetComponent<BubbleMovement>().bounceRateDown = _currentLevelSettings.BounceRateDown;
+			GetComponent<BubbleMovement>().bounceRateUp = _currentLevelSettings.BounceRateUp;
 		}
 
 		//----------------------------------------------------------------

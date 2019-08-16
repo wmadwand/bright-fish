@@ -1,102 +1,118 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace BrightFish
 {
-	public class BubbleMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+	public class BubbleMovement : MonoBehaviour
 	{
-		[SerializeField] float _smoothing;
+		public BubblePathFollower follower;
 
-		private Vector2 _origin;
-		private Vector2 _direction;
-		private Vector2 _smoothDirection;
-		private bool _touched;
-		private int _pointerID;
+		public bool isBouncedUp;		
+		public float fadeRate = 5;
+		public float targetSpeed;
 
-		private Level _currentLevelSettings;
-		private bool _isSwipeInProgress;
+		public float baseSpeed;
 
-		//----------------------------------------------------------------		
+		public float bounceRateUp, bounceRateDown;
+
+		float t;
+
+		bool finishedBounce;
+		bool isBouncedDown;
+
+		bool isPlayerClick = false;
+
+		public float velocity = 0.2f;
 
 		private void Awake()
 		{
-			_touched = false;
-			_direction = Vector2.zero;
-
-			_currentLevelSettings = _currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
-
-			//GetComponent<Bubble>().OnBounce+=
+			follower = GetComponent<BubblePathFollower>();
+			baseSpeed = follower.speed;
 		}
 
-		void IPointerDownHandler.OnPointerDown(PointerEventData data)
+		private void Update()
 		{
-			if (!_touched)
+			if (isBouncedUp)
 			{
-				_touched = true;
-				_pointerID = data.pointerId;
-				_origin = data.position;
-			}
-		}
+				follower.speed = Mathf.Lerp(targetSpeed, 0, t);
 
-		void IDragHandler.OnDrag(PointerEventData data)
-		{
-			if (data.pointerId == _pointerID)
-			{
-				Vector2 currentPosition = data.position;
-				Vector2 directionRaw = currentPosition - _origin;
-				_direction = directionRaw.normalized;
-			}
-		}
+				t += bounceRateUp * Time.deltaTime;
 
-		void IPointerUpHandler.OnPointerUp(PointerEventData data)
-		{
-			Debug.LogFormat("Swipe {0}, {1}", GetDirection().x, GetDirection().y);
-			Debug.Log("released");
-
-			// single click
-			if (data.delta.normalized.y == 0)
-			{
-				if (GetComponent<BubbleView>().IsBubbleBurst || _isSwipeInProgress)
+				if (follower.speed <= 0)
 				{
-					return;
+					finishedBounce = true;
+
+					isBouncedUp = false;
+					fadeRate = 5;
+					t = 0;
 				}
+			}
+			else if (isBouncedDown)
+			{
+				follower.speed = Mathf.Lerp(targetSpeed, baseSpeed, t);
 
-				if (data.pointerId == _pointerID)
+				t += velocity + (bounceRateDown * Time.fixedDeltaTime);
+
+				if (follower.speed >= baseSpeed)
 				{
-					_direction = Vector2.zero;
-					_touched = false;
+					finishedBounce = true;
 
-					transform.GetComponentInParent<Bubble>().OnClick();
-					AddForceDirection();
+					follower.speed = baseSpeed;
+
+					isBouncedDown = false;
+					fadeRate = 5;
+					t = 0;
 				}
 			}
 
-			// or swipe
+			if (isPlayerClick && finishedBounce && follower.speed <= 0)
+			{
+				follower.speed = Mathf.Lerp(0, baseSpeed, t);
+				t += bounceRateUp * Time.deltaTime;
+
+				if (t > 1)
+				{
+					finishedBounce = false;
+					isPlayerClick = false;
+				}
+			}
+			else if (finishedBounce && follower.speed > 0)
+			{
+				follower.speed = Mathf.Lerp(follower.speed, baseSpeed, t);
+				t += bounceRateUp * Time.deltaTime;
+
+				if (t > 1)
+				{
+					finishedBounce = false;
+				}
+			}
+		}
+
+		public void AddBounceForce(float value, bool isPlayerClick = true)
+		{
+			OnClick(value, isPlayerClick);
+		}
+
+		private void OnClick(float value, bool isPlayerClick = true)
+		{
+			this.isPlayerClick = isPlayerClick;
+
+			if (value < 0)
+			{
+				isBouncedDown = true;
+				isBouncedUp = false;
+			}
 			else
 			{
-				if (_isSwipeInProgress)
-				{
-					return;
-				}
-
-				_isSwipeInProgress = true;
-
-				AddForceDirection(5 * data.delta.normalized.y);
+				isBouncedDown = false;
+				isBouncedUp = true;
 			}
-		}
 
-		private Vector2 GetDirection()
-		{
-			_smoothDirection = Vector2.MoveTowards(_smoothDirection, _direction, _smoothing * Time.deltaTime);
-			return _smoothDirection;
-		}
+			finishedBounce = false;
+			targetSpeed = value;
 
-		public void AddForceDirection(float direction = 1, bool isPlayerClick = true)
-		{
-			GetComponent<BubbleAlongPath>().AddBounceForce(_currentLevelSettings.SpeedReflection * direction, isPlayerClick);
+			t = 0;
 
-			//_dir.Normalize();
-			//_rigidbody2D.AddForce(_dir * _currentLevelSettings.SpeedReflection, ForceMode2D.Impulse);
+			Debug.Log("click");
 		}
 	}
 }
