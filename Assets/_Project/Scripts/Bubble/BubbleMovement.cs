@@ -55,6 +55,11 @@ namespace BrightFish
 			// single click
 			if (data.delta.normalized.y == 0)
 			{
+				if (GetComponent<BubbleView>().IsBubbleBurst)
+				{
+					return;
+				}
+
 				if (data.pointerId == _pointerID)
 				{
 					_direction = Vector2.zero;

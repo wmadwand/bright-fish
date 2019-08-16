@@ -163,7 +163,7 @@ namespace BrightFish
 			OnClickBubble();
 
 			Debug.Log("click");
-		}
+		}		
 
 		private void PrivateInit()
 		{

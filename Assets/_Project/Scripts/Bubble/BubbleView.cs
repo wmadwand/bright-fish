@@ -17,6 +17,8 @@ namespace BrightFish
 
 		private Level _currentLevelSettings;
 
+		public bool IsBubbleBurst => State == BubbleState.Big;
+
 		public void Init(ColorType type)
 		{
 			State = BubbleState.Small;
@@ -102,13 +104,7 @@ namespace BrightFish
 
 				State = BubbleState.Big;
 
-
-				//_childFood.RevealColor();
-				//Type = _childFood.Type;
-				//GetComponentInChildren<BoxCollider2D>().enabled = false;
-
 				_bubble.RevealFoodColor();
-
 
 				//if (_gameSettings.BigBubbleSelfDestroy)
 				//{
