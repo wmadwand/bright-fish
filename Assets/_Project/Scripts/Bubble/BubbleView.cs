@@ -8,27 +8,67 @@ namespace BrightFish
 {
 	public class BubbleView : MonoBehaviour
 	{
+		public ColorType Type { get; private set; }
+		public bool IsBubbleBurst => State == BubbleState.Big;
+
 		private GameObject _view;
 		private Bubble _bubble;
 		private Renderer _renderer;
 		public BubbleState State { get; private set; }
 		private GameSettings _gameSettings;
 		private Color _color;
-
 		private Level _currentLevelSettings;
+		public Food _childFood;
 
-		public bool IsBubbleBurst => State == BubbleState.Big;
+		//----------------------------------------------------------------
 
-		public void Init(ColorType type)
+		public bool IsProperColorType(ColorType type)
+		{
+			return Type == type;
+		}
+
+		public void SpawnExplosion(GameObject template, Vector2 postion)
+		{
+			Instantiate(template, postion, Quaternion.identity);
+		}
+
+		//----------------------------------------------------------------
+
+		[Inject]
+		private void Construct(GameSettings gameSettings)
+		{
+			_gameSettings = gameSettings;
+		}
+
+		private void Awake()
+		{
+			_renderer = GetComponentInChildren<Renderer>();
+			_view = _renderer.gameObject;
+			_bubble = GetComponent<Bubble>();
+			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
+
+			_bubble.OnBounce += Shake;
+			_bubble.OnClickBubble += Diffuse;
+
+			Init();
+		}
+
+		private void OnDestroy()
+		{
+			_bubble.OnBounce -= Shake;
+			_bubble.OnClickBubble -= Diffuse;
+		}
+
+		private void Init()
 		{
 			State = BubbleState.Small;
-
-			_renderer = GetComponentInChildren<Renderer>();
 
 			_renderer.material.color = _gameSettings.ColorDummy;
 			_renderer.material.color = new Color(_renderer.material.color.a, _renderer.material.color.g, _renderer.material.color.b, .85f);
 
-			SetColor(type);
+			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
+			Type = (ColorType)UnityEngine.Random.Range(0, spawnPointsLength);
+			SetColor(Type);
 
 			if (_gameSettings.ColorMode == BubbleColorMode.Explicit)
 			{
@@ -46,29 +86,6 @@ namespace BrightFish
 				case ColorType.D: _color = _gameSettings.ColorD; break;
 				case ColorType.E: _color = _gameSettings.ColorE; break;
 			}
-		}
-
-		[Inject]
-		private void Construct(GameSettings gameSettings)
-		{
-			_gameSettings = gameSettings;
-		}
-
-		private void Awake()
-		{
-			_renderer = GetComponentInChildren<Renderer>();
-			_view = _renderer.gameObject;
-			_bubble = GetComponent<Bubble>();
-			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
-
-			_bubble.OnBounce += Shake;
-			_bubble.OnClickBubble += Diffuse;
-		}
-
-		private void OnDestroy()
-		{
-			_bubble.OnBounce -= Shake;
-			_bubble.OnClickBubble -= Diffuse;
 		}
 
 		private void Shake(bool isClick = true)
@@ -104,7 +121,7 @@ namespace BrightFish
 
 				State = BubbleState.Big;
 
-				_bubble.RevealFoodColor();
+				RevealFoodColor();
 
 				//if (_gameSettings.BigBubbleSelfDestroy)
 				//{
@@ -136,9 +153,11 @@ namespace BrightFish
 			}
 		}
 
-		public void SpawnExplosion(GameObject template, Vector2 postion)
+		private void RevealFoodColor()
 		{
-			var go = Instantiate(template, postion, Quaternion.identity);
+			_childFood.RevealColor();
+			Type = _childFood.Type;
+			_childFood.GetComponentInChildren<BoxCollider2D>().enabled = false;
 		}
 	}
 }

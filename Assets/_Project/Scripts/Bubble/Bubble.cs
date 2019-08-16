@@ -11,7 +11,7 @@ namespace BrightFish
 {
 	public sealed class Bubble : MonoBehaviour
 	{
-		public ColorType Type { get; private set; }
+		//public ColorType Type { get; private set; }
 		public bool IsReleased { get; private set; }
 
 		//TODO: move to separate class
@@ -51,10 +51,7 @@ namespace BrightFish
 
 		private Rigidbody2D _rigidbody2D;
 		private GameSettings _gameSettings;
-		private GameObject _view;
 		private float _selfDestroyTimeRate;
-
-		private Food _childFood;
 
 		private Level _currentLevelSettings;
 
@@ -74,7 +71,7 @@ namespace BrightFish
 		public void SetParentTubeID(int value, Food childFood)
 		{
 			_parentTubeID = value;
-			_childFood = childFood;
+			GetComponent<BubbleView>()._childFood = childFood;
 		}
 
 		public void AddBounceForce(float value, bool isPlayerClick = true)
@@ -100,7 +97,6 @@ namespace BrightFish
 
 			if (isReqiredExplosion)
 			{
-				//SpawnExplosion();
 				GetComponent<BubbleView>().SpawnExplosion(_explosion, transform.position);
 			}
 
@@ -122,9 +118,7 @@ namespace BrightFish
 		private void Awake()
 		{
 			_rigidbody2D = GetComponentInChildren<Rigidbody2D>();
-
 			_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
-
 			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
 
 			PrivateInit();
@@ -163,7 +157,7 @@ namespace BrightFish
 			OnClickBubble();
 
 			Debug.Log("click");
-		}		
+		}
 
 		private void PrivateInit()
 		{
@@ -174,19 +168,6 @@ namespace BrightFish
 			GetComponent<BubbleAlongPath>().follower.speed = _currentLevelSettings.BubbleMoveSpeed;
 			GetComponent<BubbleAlongPath>().bounceRateDown = _currentLevelSettings.BounceRateDown;
 			GetComponent<BubbleAlongPath>().bounceRateUp = _currentLevelSettings.BounceRateUp;
-
-			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
-
-			Type = (ColorType)UnityEngine.Random.Range(0, spawnPointsLength);
-
-			GetComponent<BubbleView>().Init(Type);
-		}
-
-		public void RevealFoodColor()
-		{
-			_childFood.RevealColor();
-			Type = _childFood.Type;
-			GetComponentInChildren<BoxCollider2D>().enabled = false;
 		}
 
 		//----------------------------------------------------------------
