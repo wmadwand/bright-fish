@@ -21,19 +21,25 @@ namespace BrightFish
 		private bool _isSwipeGesture;
 
 		private Level _currentLevelSettings;
+		public TubeSettings _tubeSettings;
 
 		//----------------------------------------------------------------		
+
+		public void Init(TubeSettings tubeSettings)
+		{
+			_tubeSettings = tubeSettings;
+			follower.speed = _tubeSettings.bubbleBaseSpeed * -1;
+			_baseSpeed = follower.speed;
+		}
 
 		private void Awake()
 		{
 			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
 
-			follower.speed = _currentLevelSettings.BubbleBaseSpeed * -1;
-			_bounceRateDown = _currentLevelSettings.BubbleBounceDownRate;
+			_bounceRateDown = _currentLevelSettings.BubbleBounceDownRate * -1;
 			_bounceRateUp = _currentLevelSettings.BubbleBounceUpRate;
 
 			follower = GetComponent<BubblePathFollower>();
-			_baseSpeed = follower.speed;
 
 			GetComponent<BubbleInteraction>().OnInteract += AddBounceForce;
 		}

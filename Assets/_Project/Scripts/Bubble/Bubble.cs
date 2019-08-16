@@ -60,10 +60,12 @@ namespace BrightFish
 
 		//----------------------------------------------------------------
 
-		public void Init(Vector3 position, int id, Food food, PathCreator path)
+		public void Init(Vector3 position, int id, Food food, PathCreator path, TubeSettings tubeSettings)
 		{
 			transform.SetPositionAndRotation(position, Quaternion.identity);
 			SetParentTubeID(id, food);
+
+			GetComponent<BubbleMovement>().Init(tubeSettings);
 
 			GetComponent<BubbleMovement>().follower.pathCreator = path;
 		}

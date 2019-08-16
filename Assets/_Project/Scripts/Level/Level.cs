@@ -15,8 +15,7 @@ namespace BrightFish
 		public FishSpawnProbability FishSpawnProbability => _fishSpawnProbability;
 		public int PredatorFishesMaxCount => _predatorFishesMaxCount;
 		public ColorType[] ColorTypes => _colorTypes;
-
-		public float BubbleBaseSpeed => _bubbleBaseSpeed;		
+		
 		public float BubbleBounceUpRate => _bubbleBounceUpRate;
 		public float BubbleBounceDownRate => _bubbleBounceDownRate;
 		public float DragRate => _dragRate;
@@ -43,12 +42,11 @@ namespace BrightFish
 		[SerializeField] private bool _enableFishMovementAI;
 		[SerializeField] private float _fishHealthFadeRate;
 
-		[Header("Bubble")]
-		[SerializeField] private float _bubbleBaseSpeed = 2;
+		[Header("Bubble")]		
 		[SerializeField] private float _bubbleBounceUpSpeed = 2;
 		[SerializeField] private float _bubbleBounceUpRate = .6f;
 		[SerializeField] private float _bubbleBounceDownRate = .95f;
-		[HideInInspector][SerializeField] private float _dragRate = 4;
+		[HideInInspector] [SerializeField] private float _dragRate = 4;
 
 		[SerializeField] private int _bubbleSwipeSpeed = 5;
 		[SerializeField] private int _bubbleEnlargeSizeClickCount = 1;
@@ -59,6 +57,7 @@ namespace BrightFish
 	{
 		public TubeType type;
 		public float bubbleThrowDelay;
+		public float bubbleBaseSpeed;
 		public float bounceRateMin;
 		public float bounceRateMax;
 		public float bounceRateGrowthStep;
