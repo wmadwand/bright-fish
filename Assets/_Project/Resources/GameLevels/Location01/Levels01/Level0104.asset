@@ -25,7 +25,7 @@ MonoBehaviour:
     bounceRateMax: 8
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 4627170322014694883, guid: 4050412f1a519fe4f9f0d97616c98787,
       type: 3}
   - type: 50
     bubbleThrowDelay: 0.2
@@ -33,7 +33,7 @@ MonoBehaviour:
     bounceRateMax: 8
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 4627170322014694883, guid: 4050412f1a519fe4f9f0d97616c98787,
       type: 3}
   - type: 50
     bubbleThrowDelay: 0.2
@@ -41,7 +41,7 @@ MonoBehaviour:
     bounceRateMax: 8
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 4627170322014694883, guid: 4050412f1a519fe4f9f0d97616c98787,
       type: 3}
   _fishes: 32000000
   _fishSpawnProbability: {fileID: 11400000, guid: 1b3fdf57ca298694fab152b5493c81d5,
