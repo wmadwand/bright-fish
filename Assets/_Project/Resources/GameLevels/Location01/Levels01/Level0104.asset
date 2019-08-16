@@ -21,6 +21,7 @@ MonoBehaviour:
   _tubes:
   - type: 50
     bubbleThrowDelay: 0.2
+    bubbleBaseSpeed: 2
     bounceRateMin: 6
     bounceRateMax: 8
     bounceRateGrowthStep: 1
@@ -29,6 +30,7 @@ MonoBehaviour:
       type: 3}
   - type: 50
     bubbleThrowDelay: 0.2
+    bubbleBaseSpeed: 2
     bounceRateMin: 6
     bounceRateMax: 8
     bounceRateGrowthStep: 1
@@ -37,6 +39,7 @@ MonoBehaviour:
       type: 3}
   - type: 50
     bubbleThrowDelay: 0.2
+    bubbleBaseSpeed: 0
     bounceRateMin: 6
     bounceRateMax: 8
     bounceRateGrowthStep: 1
@@ -50,10 +53,9 @@ MonoBehaviour:
   _enablePredatorFishMovementAI: 0
   _enableFishMovementAI: 0
   _fishHealthFadeRate: 0
-  _bubbleMoveSpeed: 3
-  _bounceRate: 0.5
-  _bounceRateUp: 0.5
-  _bounceRateDown: 0.95
+  _bubbleBounceUpSpeed: 2
+  _bubbleBounceUpRate: 0.6
+  _bubbleBounceDownRate: 0.95
   _dragRate: 4
-  _speedReflection: 4
-  _enlargeSizeClickCount: 1
+  _bubbleSwipeSpeed: 15
+  _bubbleEnlargeSizeClickCount: 1

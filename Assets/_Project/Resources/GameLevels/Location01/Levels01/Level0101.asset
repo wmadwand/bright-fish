@@ -39,5 +39,5 @@ MonoBehaviour:
   _bubbleBounceUpRate: 0.6
   _bubbleBounceDownRate: 8
   _dragRate: 4
-  _bubbleSwipeSpeed: 10
+  _bubbleSwipeSpeed: 20
   _bubbleEnlargeSizeClickCount: 1
