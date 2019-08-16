@@ -6,117 +6,127 @@ namespace BrightFish
 	{
 		public BubblePathFollower follower;
 
-		public bool isBouncedUp;		
-		public float fadeRate = 5;
-		public float targetSpeed;
+		private bool _isBouncedUp;
+		private bool _isBouncedDown;
+		private bool _isBounceFinished;
 
-		public float baseSpeed;
+		private float _targetSpeed;
+		private float _baseSpeed;
+		private float _velocity = 0.2f;
 
-		public float bounceRateUp, bounceRateDown;
+		private float _bounceRateUp, _bounceRateDown;
+		private float _t;
 
-		private float t;
+		private bool _isClickGesture = false;
+		private bool _isSwipeGesture;
 
-		private bool finishedBounce;
-		private bool isBouncedDown;
+		private Level _currentLevelSettings;
 
-		private bool isPlayerClick = false;
-
-		public float velocity = 0.2f;
-
-		private bool _isSwipe;
+		//----------------------------------------------------------------		
 
 		private void Awake()
 		{
+			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
+
+			follower.speed = _currentLevelSettings.BubbleBaseSpeed * -1;
+			_bounceRateDown = _currentLevelSettings.BubbleBounceDownRate;
+			_bounceRateUp = _currentLevelSettings.BubbleBounceUpRate;
+
 			follower = GetComponent<BubblePathFollower>();
-			baseSpeed = follower.speed;
+			_baseSpeed = follower.speed;
+
+			GetComponent<BubbleInteraction>().OnInteract += AddBounceForce;
+		}
+
+		private void OnDestroy()
+		{
+			GetComponent<BubbleInteraction>().OnInteract -= AddBounceForce;
 		}
 
 		private void Update()
 		{
-			if (_isSwipe)
+			if (_isSwipeGesture)
 			{
-				follower.speed = targetSpeed;
+				follower.speed = _targetSpeed;
 				return;
 			}
 
-			if (isBouncedUp)
+			if (_isBouncedUp)
 			{
-				follower.speed = Mathf.Lerp(targetSpeed, 0, t);
+				follower.speed = Mathf.Lerp(_targetSpeed, 0, _t);
 
-				t += bounceRateUp * Time.deltaTime;
+				_t += _bounceRateUp * Time.fixedDeltaTime;
 
 				if (follower.speed <= 0)
 				{
-					finishedBounce = true;
+					_isBounceFinished = true;
 
-					isBouncedUp = false;
-					fadeRate = 5;
-					t = 0;
+					_isBouncedUp = false;
+					_t = 0;
 				}
 			}
-			else if (isBouncedDown)
+			else if (_isBouncedDown)
 			{
-				follower.speed = Mathf.Lerp(targetSpeed, baseSpeed, t);
+				follower.speed = Mathf.Lerp(_targetSpeed, _baseSpeed, _t);
 
-				t += velocity + (bounceRateDown * Time.fixedDeltaTime);
+				_t += _velocity + (_bounceRateDown * Time.fixedDeltaTime);
 
-				if (follower.speed >= baseSpeed)
+				if (follower.speed >= _baseSpeed)
 				{
-					finishedBounce = true;
+					_isBounceFinished = true;
 
-					follower.speed = baseSpeed;
+					follower.speed = _baseSpeed;
 
-					isBouncedDown = false;
-					fadeRate = 5;
-					t = 0;
+					_isBouncedDown = false;
+					_t = 0;
 				}
 			}
 
-			if (isPlayerClick && finishedBounce && follower.speed <= 0)
+			if (_isClickGesture && _isBounceFinished && follower.speed <= 0)
 			{
-				follower.speed = Mathf.Lerp(0, baseSpeed, t);
-				t += bounceRateUp * Time.deltaTime;
+				follower.speed = Mathf.Lerp(0, _baseSpeed, _t);
+				_t += _bounceRateUp * Time.fixedDeltaTime;
 
-				if (t > 1)
+				if (_t > 1)
 				{
-					finishedBounce = false;
-					isPlayerClick = false;
+					_isBounceFinished = false;
+					_isClickGesture = false;
 				}
 			}
-			else if (!_isSwipe && finishedBounce && follower.speed > 0)
+			else if (!_isSwipeGesture && _isBounceFinished && follower.speed > 0)
 			{
-				follower.speed = Mathf.Lerp(follower.speed, baseSpeed, t);
-				t += bounceRateUp * Time.deltaTime;
+				follower.speed = Mathf.Lerp(follower.speed, _baseSpeed, _t);
+				_t += _bounceRateUp * Time.fixedDeltaTime;
 
-				if (t > 1)
+				if (_t > 1)
 				{
-					finishedBounce = false;
+					_isBounceFinished = false;
 				}
 			}
 		}
 
-		public void AddBounceForce(float value, bool isPlayerClick = true, bool isSwipe = false)
+		public void AddBounceForce(float value = 1, bool isPlayerClick = true, bool isSwipe = false)
 		{
-			this.isPlayerClick = isPlayerClick;			
-			_isSwipe = isSwipe;
+			this._isClickGesture = isPlayerClick;
+			_isSwipeGesture = isSwipe;
 
 			if (value < 0)
 			{
-				isBouncedDown = true;
-				isBouncedUp = false;
+				_isBouncedDown = true;
+				_isBouncedUp = false;
 			}
 			else
 			{
-				isBouncedDown = false;
-				isBouncedUp = true;
+				_isBouncedDown = false;
+				_isBouncedUp = true;
 			}
 
-			finishedBounce = false;
-			targetSpeed = value;
+			_isBounceFinished = false;
+			_targetSpeed = value;
 
-			t = 0;
+			_t = 0;
 
 			Debug.Log("click");
-		}		
+		}
 	}
 }

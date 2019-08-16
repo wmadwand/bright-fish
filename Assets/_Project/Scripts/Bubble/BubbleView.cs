@@ -103,7 +103,7 @@ namespace BrightFish
 
 		private void Diffuse()
 		{
-			if (_bubble._clickCount == _currentLevelSettings.EnlargeSizeClickCount)
+			if (_bubble._clickCount == _currentLevelSettings.BubbleEnlargeSizeClickCount)
 			{
 				var size = _gameSettings.ClickEnlargeSizePairs[0].sizeRate;
 				_view.transform.localScale = new Vector3(size, size, size);
@@ -112,7 +112,7 @@ namespace BrightFish
 
 				State = BubbleState.Medium;
 			}
-			else if (_bubble._clickCount == _currentLevelSettings.EnlargeSizeClickCount * 2)
+			else if (_bubble._clickCount == _currentLevelSettings.BubbleEnlargeSizeClickCount * 2)
 			{
 				var size = _gameSettings.ClickEnlargeSizePairs[1].sizeRate;
 				_view.transform.localScale = new Vector3(size, size, size);
@@ -133,7 +133,7 @@ namespace BrightFish
 				//	StartCoroutine(BlinkRoutine());
 				//}
 			}
-			else if (_gameSettings.DestroyBigBubbleClick && _bubble._clickCount > _currentLevelSettings.EnlargeSizeClickCount * 2)
+			else if (_gameSettings.DestroyBigBubbleClick && _bubble._clickCount > _currentLevelSettings.BubbleEnlargeSizeClickCount * 2)
 			{
 				_bubble.SelfDestroy();
 			}

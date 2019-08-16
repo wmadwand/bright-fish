@@ -178,7 +178,7 @@ namespace BrightFish
 				return;
 			}
 
-			if (_clickCount >= _currentLevelSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
+			if (_clickCount >= _currentLevelSettings.BubbleEnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
 			{
 				return;
 			}
@@ -187,7 +187,7 @@ namespace BrightFish
 
 			_clickCount++;
 
-			AddForce(_currentLevelSettings.BounceRate);
+			
 			//Enlarge();
 
 			Debug.Log("click");

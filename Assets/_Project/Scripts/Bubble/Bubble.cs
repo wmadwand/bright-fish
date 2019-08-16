@@ -76,10 +76,7 @@ namespace BrightFish
 
 		public void AddBounceForce(float value, bool isPlayerClick = true)
 		{
-			//_rigidbody2D.AddForce(Vector3.up * value, ForceMode2D.Impulse);
-
-			//GetComponent<BubbleAlongPath>().AddBounceForce(value, isPlayerClick);
-			GetComponent<BubbleInteraction>().AddForceDirection(value, isPlayerClick);
+			GetComponent<BubbleMovement>().AddBounceForce(value, isPlayerClick);
 			OnBounce(isPlayerClick);
 		}
 
@@ -120,8 +117,6 @@ namespace BrightFish
 			_rigidbody2D = GetComponentInChildren<Rigidbody2D>();
 			_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
 			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
-
-			PrivateInit();
 		}
 
 		private void Update()
@@ -144,7 +139,7 @@ namespace BrightFish
 				return;
 			}
 
-			if (_clickCount >= _currentLevelSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
+			if (_clickCount >= _currentLevelSettings.BubbleEnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
 			{
 				return;
 			}
@@ -157,17 +152,6 @@ namespace BrightFish
 			OnClickBubble();
 
 			Debug.Log("click");
-		}
-
-		private void PrivateInit()
-		{
-			IsReleased = false;
-
-			_rigidbody2D.drag = _currentLevelSettings.DragRate;
-
-			GetComponent<BubbleMovement>().follower.speed = _currentLevelSettings.BubbleMoveSpeed;
-			GetComponent<BubbleMovement>().bounceRateDown = _currentLevelSettings.BounceRateDown;
-			GetComponent<BubbleMovement>().bounceRateUp = _currentLevelSettings.BounceRateUp;
 		}
 
 		//----------------------------------------------------------------

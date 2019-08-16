@@ -16,13 +16,13 @@ namespace BrightFish
 		public int PredatorFishesMaxCount => _predatorFishesMaxCount;
 		public ColorType[] ColorTypes => _colorTypes;
 
-		public float BubbleMoveSpeed => _bubbleMoveSpeed;
-		public float BounceRate => _bounceRate;
-		public float BounceRateUp => _bounceRateUp;
-		public float BounceRateDown => _bounceRateDown;
+		public float BubbleBaseSpeed => _bubbleBaseSpeed;		
+		public float BubbleBounceUpRate => _bubbleBounceUpRate;
+		public float BubbleBounceDownRate => _bubbleBounceDownRate;
 		public float DragRate => _dragRate;
-		public float SpeedReflection => _speedReflection;
-		public int EnlargeSizeClickCount => _enlargeSizeClickCount;
+		public float BubbleBounceUpSpeed => _bubbleBounceUpSpeed;
+		public int BubbleSwipeSpeed => _bubbleSwipeSpeed;
+		public int BubbleEnlargeSizeClickCount => _bubbleEnlargeSizeClickCount;
 
 		[Header("Main")]
 		[SerializeField] private string _id;
@@ -44,13 +44,14 @@ namespace BrightFish
 		[SerializeField] private float _fishHealthFadeRate;
 
 		[Header("Bubble")]
-		[SerializeField] private float _bubbleMoveSpeed = 8;
-		[SerializeField] private float _bounceRate = 7;
-		[SerializeField] private float _bounceRateUp = 7;
-		[SerializeField] private float _bounceRateDown = 7;
-		[SerializeField] private float _dragRate = 4;
-		[SerializeField] private float _speedReflection = 5;
-		[SerializeField] private int _enlargeSizeClickCount = 1;
+		[SerializeField] private float _bubbleBaseSpeed = 2;
+		[SerializeField] private float _bubbleBounceUpSpeed = 2;
+		[SerializeField] private float _bubbleBounceUpRate = .6f;
+		[SerializeField] private float _bubbleBounceDownRate = .95f;
+		[HideInInspector][SerializeField] private float _dragRate = 4;
+
+		[SerializeField] private int _bubbleSwipeSpeed = 5;
+		[SerializeField] private int _bubbleEnlargeSizeClickCount = 1;
 	}
 
 	[Serializable]

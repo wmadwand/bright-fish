@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace BrightFish
 {
 	public class BubbleInteraction : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 	{
+		public event Action<float, bool, bool> OnInteract;
+
 		[SerializeField] float _smoothing;
 
 		private Vector2 _origin;
@@ -48,7 +51,7 @@ namespace BrightFish
 
 		void IPointerUpHandler.OnPointerUp(PointerEventData data)
 		{
-			Debug.LogFormat("Swipe {0}, {1}", GetDirection().x, GetDirection().y);
+			//Debug.LogFormat("Swipe {0}, {1}", GetDirection().x, GetDirection().y);
 			Debug.Log("released");
 
 			// single click
@@ -65,7 +68,7 @@ namespace BrightFish
 					_touched = false;
 
 					transform.GetComponentInParent<Bubble>().OnClick();
-					AddForceDirection();
+					OnInteract(_currentLevelSettings.BubbleBounceUpSpeed, true, false);
 				}
 			}
 
@@ -79,22 +82,14 @@ namespace BrightFish
 
 				_isSwipeInProgress = true;
 
-				AddForceDirection(5 * data.delta.normalized.y, true, true);
+				OnInteract(_currentLevelSettings.BubbleSwipeSpeed * data.delta.normalized.y, true, true);
 			}
 		}
 
-		private Vector2 GetDirection()
-		{
-			_smoothDirection = Vector2.MoveTowards(_smoothDirection, _direction, _smoothing * Time.deltaTime);
-			return _smoothDirection;
-		}
-
-		public void AddForceDirection(float direction = 1, bool isPlayerClick = true, bool isSwipe = false)
-		{
-			GetComponent<BubbleMovement>().AddBounceForce(_currentLevelSettings.SpeedReflection * direction, isPlayerClick, isSwipe);
-
-			//_dir.Normalize();
-			//_rigidbody2D.AddForce(_dir * _currentLevelSettings.SpeedReflection, ForceMode2D.Impulse);
-		}
+		//private Vector2 GetDirection()
+		//{
+		//	_smoothDirection = Vector2.MoveTowards(_smoothDirection, _direction, _smoothing * Time.deltaTime);
+		//	return _smoothDirection;
+		//}
 	}
 }
