@@ -16,21 +16,23 @@ MonoBehaviour:
   _name: 2
   _difficulty: 50
   _timer: 120
-  _rescuedFishesTargetCount: 3
+  _rescuedFishesTargetCount: 30
   _colorTypes: 0000000001000000
   _tubes:
   - type: 50
     bubbleThrowDelay: 0.5
-    bounceRateMin: 5
-    bounceRateMax: 7
+    bubbleBaseSpeed: 1.5
+    bounceRateMin: 4
+    bounceRateMax: 5
     bounceRateGrowthStep: 1
     _difficulty: 50
     pathCreator: {fileID: 615679809069068576, guid: 7bedfa702d20651458fb321fc6906577,
       type: 3}
   - type: 50
     bubbleThrowDelay: 0.5
-    bounceRateMin: 5
-    bounceRateMax: 7
+    bubbleBaseSpeed: 2
+    bounceRateMin: 4
+    bounceRateMax: 5
     bounceRateGrowthStep: 1
     _difficulty: 50
     pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
@@ -42,10 +44,9 @@ MonoBehaviour:
   _enablePredatorFishMovementAI: 0
   _enableFishMovementAI: 0
   _fishHealthFadeRate: 0
-  _bubbleMoveSpeed: 3
-  _bounceRate: 0.5
-  _bounceRateUp: 0.5
-  _bounceRateDown: 0.95
+  _bubbleBounceUpSpeed: 2
+  _bubbleBounceUpRate: 0.8
+  _bubbleBounceDownRate: 8
   _dragRate: 4
-  _speedReflection: 4
-  _enlargeSizeClickCount: 1
+  _bubbleSwipeSpeed: 15
+  _bubbleEnlargeSizeClickCount: 1
