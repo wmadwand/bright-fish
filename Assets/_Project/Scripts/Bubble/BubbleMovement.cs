@@ -14,6 +14,7 @@ namespace BrightFish
 		private int _pointerID;
 
 		private Level _currentLevelSettings;
+		private bool _isSwipeInProgress;
 
 		//----------------------------------------------------------------		
 
@@ -55,7 +56,7 @@ namespace BrightFish
 			// single click
 			if (data.delta.normalized.y == 0)
 			{
-				if (GetComponent<BubbleView>().IsBubbleBurst)
+				if (GetComponent<BubbleView>().IsBubbleBurst || _isSwipeInProgress)
 				{
 					return;
 				}
@@ -66,21 +67,21 @@ namespace BrightFish
 					_touched = false;
 
 					transform.GetComponentInParent<Bubble>().OnClick();
-					AddForceDirection(/*GetDirection()*/);
+					AddForceDirection();
 				}
 			}
 
 			// or swipe
 			else
 			{
-				if (GetComponent<Bubble>())
+				if (_isSwipeInProgress)
 				{
-					AddForceDirection(/*GetDirection(),*/ 10 * data.delta.normalized.y);
+					return;
 				}
-				else
-				{
-					GetComponent<Food>().AddForceDirection(GetDirection());
-				}
+
+				_isSwipeInProgress = true;
+
+				AddForceDirection(5 * data.delta.normalized.y);
 			}
 		}
 
