@@ -55,7 +55,7 @@ namespace BrightFish
 
 		private Level _currentLevelSettings;
 
-		public event Action<bool> OnBounce;
+		public event Action<bool, TweenCallback> OnBounce;
 		public event Action OnClickBubble;
 
 		//----------------------------------------------------------------
@@ -79,7 +79,7 @@ namespace BrightFish
 		public void AddBounceForce(float value, bool isPlayerClick = true)
 		{
 			GetComponent<BubbleMovement>().AddBounceForce(value, isPlayerClick);
-			OnBounce(isPlayerClick);
+			OnBounce(isPlayerClick, null);
 		}
 
 		public void SetReleased()
@@ -150,7 +150,7 @@ namespace BrightFish
 
 			_clickCount++;
 
-			OnBounce(true);
+			//OnBounce(true, null);
 			OnClickBubble();
 
 			Debug.Log("click");

@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -88,11 +89,11 @@ namespace BrightFish
 			}
 		}
 
-		private void Shake(bool isClick = true)
+		private void Shake(bool isClick = true, TweenCallback callback = null)
 		{
 			if (isClick)
 			{
-				_view.transform.DOShakeScale(.4f, .2f, 10, 45);
+				_view.transform.DOShakeScale(.4f, .2f, 10, 45).OnComplete(callback);
 
 			}
 			else
@@ -110,18 +111,33 @@ namespace BrightFish
 
 				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .7f);
 
-				State = BubbleState.Medium;
+				Shake(true, () =>
+				{
+					State = BubbleState.Medium;
+				});
+
+				//_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .7f);
+				//State = BubbleState.Medium;
 			}
 			else if (_bubble._clickCount == _currentLevelSettings.BubbleEnlargeSizeClickCount * 2)
 			{
 				var size = _gameSettings.ClickEnlargeSizePairs[1].sizeRate;
 				_view.transform.localScale = new Vector3(size, size, size);
 
-				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .0f);
+				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .4f);
 
-				State = BubbleState.Big;
+				Shake(true, () =>
+				{
+					_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .0f);
+					State = BubbleState.Big;
+					RevealFoodColor();
+				});
 
-				RevealFoodColor();
+				//_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .0f);
+				//State = BubbleState.Big;
+				//RevealFoodColor();
+
+
 
 				//if (_gameSettings.BigBubbleSelfDestroy)
 				//{

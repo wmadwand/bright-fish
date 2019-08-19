@@ -252,6 +252,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fish
       objectReference: {fileID: 0}
+    - target: {fileID: 4066991538648877187, guid: 2140b7a518bd70c41b37b0aa39d6441b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4429634996203637731, guid: 2140b7a518bd70c41b37b0aa39d6441b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -886,6 +891,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tube
       objectReference: {fileID: 0}
+    - target: {fileID: 4368104105572240329, guid: f59506842051ecd4995485be73807bd2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2969211920604872270, guid: f59506842051ecd4995485be73807bd2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1218,6 +1228,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SpiralPath
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627170322014694883, guid: 4050412f1a519fe4f9f0d97616c98787,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4629427116210514381, guid: 4050412f1a519fe4f9f0d97616c98787,
         type: 3}
