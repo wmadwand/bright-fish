@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 // © 2017 TheFlyingKeyboard and released under MIT License
 // theflyingkeyboard.net
+
 public class ParallaxEffect : MonoBehaviour
 {
 	[SerializeField] [Tooltip("From closest to furthest")] private List<Transform> backGround;
@@ -11,11 +13,13 @@ public class ParallaxEffect : MonoBehaviour
 	[SerializeField] private Transform cameraToUse;
 	private Vector3 previousCameraPosition;
 	private Vector3 offset;
-	void Start()
+
+	private void Start()
 	{
 		previousCameraPosition = cameraToUse.position;
 	}
-	void FixedUpdate()
+
+	private void FixedUpdate()
 	{
 		for (int i = 0; i < backGround.Count; i++)
 		{
