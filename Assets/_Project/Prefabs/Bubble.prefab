@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5017184447256087520}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.47, y: 0.47, z: 0.47}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6680996825359011644}
   m_RootOrder: 0
@@ -223,14 +223,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   follower: {fileID: 6501885625385540465}
-  isBouncedUp: 0
-  followerspeedBounced: -10
-  fadeRate: 5
-  targetSpeed: 0
-  baseSpeed: -4
-  bounceRateUp: 0
-  bounceRateDown: 0
-  velocity: 0.027
+  _tubeSettings:
+    type: 0
+    bubbleThrowDelay: 0
+    bubbleBaseSpeed: 0
+    bounceRateMin: 0
+    bounceRateMax: 0
+    bounceRateGrowthStep: 0
+    _difficulty: 0
+    pathCreator: {fileID: 0}
 --- !u!114 &6501885625385540465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,3 +259,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f1def5a6c15944aa052374cb84c592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _childFood: {fileID: 0}

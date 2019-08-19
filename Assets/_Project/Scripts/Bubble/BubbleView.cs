@@ -75,6 +75,14 @@ namespace BrightFish
 			{
 				_renderer.material.color = _color;
 			}
+
+			SetSize(0);
+		}
+
+		private void SetSize(int clickCount)
+		{
+			var size = _gameSettings.ClickEnlargeSizePairs[clickCount].sizeRate;
+			_view.transform.localScale = new Vector3(size, size, size);
 		}
 
 		private void SetColor(ColorType bubbleType)
@@ -89,54 +97,42 @@ namespace BrightFish
 			}
 		}
 
-		private void Shake(bool isClick = true, TweenCallback callback = null)
+		private void Shake(float duration, bool isClick = true, TweenCallback callback = null)
 		{
 			if (isClick)
 			{
-				_view.transform.DOShakeScale(.4f, .2f, 10, 45).OnComplete(callback);
-
+				_view.transform.DOShakeScale(duration/*.4f*/, .2f, 10, 45).OnComplete(callback);
 			}
 			else
 			{
-				_view.transform.DOShakeScale(.2f, .1f, 1, 5);
+				_view.transform.DOShakeScale(duration/*.2f*/, .1f, 1, 5);
 			}
 		}
 
 		private void Diffuse()
 		{
+			SetSize(_bubble._clickCount);
+
 			if (_bubble._clickCount == _currentLevelSettings.BubbleEnlargeSizeClickCount)
 			{
-				var size = _gameSettings.ClickEnlargeSizePairs[0].sizeRate;
-				_view.transform.localScale = new Vector3(size, size, size);
+				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .75f);
 
-				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .7f);
-
-				Shake(true, () =>
+				Shake(.4f, true, () =>
 				{
 					State = BubbleState.Medium;
 				});
 
-				//_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .7f);
-				//State = BubbleState.Medium;
 			}
 			else if (_bubble._clickCount == _currentLevelSettings.BubbleEnlargeSizeClickCount * 2)
 			{
-				var size = _gameSettings.ClickEnlargeSizePairs[1].sizeRate;
-				_view.transform.localScale = new Vector3(size, size, size);
+				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .6f);
 
-				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .4f);
-
-				Shake(true, () =>
+				Shake(.3f, true, () =>
 				{
 					_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .0f);
 					State = BubbleState.Big;
 					RevealFoodColor();
 				});
-
-				//_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .0f);
-				//State = BubbleState.Big;
-				//RevealFoodColor();
-
 
 
 				//if (_gameSettings.BigBubbleSelfDestroy)
