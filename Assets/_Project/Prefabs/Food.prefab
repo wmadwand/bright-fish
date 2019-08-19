@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6524411200163057806}
   - component: {fileID: 8311460826212628309}
   - component: {fileID: 3889703440976013845}
-  m_Layer: 13
+  m_Layer: 18
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 6001327884759095448}
   - component: {fileID: 1065658941709198952}
   - component: {fileID: 8818493228217231688}
-  m_Layer: 9
+  m_Layer: 18
   m_Name: Food
   m_TagString: Untagged
   m_Icon: {fileID: 0}

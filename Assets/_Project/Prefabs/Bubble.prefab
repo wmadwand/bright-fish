@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6524411200163057806}
   - component: {fileID: 8311460826212628309}
   - component: {fileID: 3333920443228938628}
-  m_Layer: 13
+  m_Layer: 18
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 6457983069116111308}
   - component: {fileID: 6501885625385540465}
   - component: {fileID: 4389050715657147649}
-  m_Layer: 15
+  m_Layer: 18
   m_Name: Bubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
