@@ -36,7 +36,7 @@ namespace BrightFish
 			//	   });
 
 			_panicSign.SetActive(true);
-			_sweatDropTween.Play();			
+			_sweatDropTween.Play();
 		}
 
 		public void OnPredatorLost()
@@ -69,8 +69,13 @@ namespace BrightFish
 			_panicSign.SetActive(false);
 
 			_sweatDropTween = _panicSign.transform.DOLocalMoveY(dropFinishPos.y, 1f).SetAutoKill(false);
+
+			//_view.transform.DOShakePosition(1, .3f, 5, 20, false, false);
 		}
 
-		
+		private void Update()
+		{
+			
+		}
 	}
 }

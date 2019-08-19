@@ -25,7 +25,7 @@ namespace BrightFish
 
 		private FishHealthBar _healthBar;
 		private ColorType _type;
-		private bool _isDead;		
+		private bool _isDead;
 		private Color _color;
 		private SpriteRenderer[] _spriteRenderers;
 
@@ -193,7 +193,7 @@ namespace BrightFish
 					return;
 				}
 
-				if (bubble.Type == _type)
+				if (bubble.GetComponent<BubbleView>().IsProperColorType(_type))
 				{
 					MessageBus.OnBubbleColorMatch.Send(bubble.ScoreCount);
 
@@ -206,7 +206,7 @@ namespace BrightFish
 
 					bubble.SelfDestroy(isRequiredBadSound: false);
 				}
-				else if (bubble.Type != _type)
+				else if (!bubble.GetComponent<BubbleView>().IsProperColorType(_type))
 				{
 					MessageBus.OnBubbleColorMatch.Send(-bubble.ScoreCount);
 

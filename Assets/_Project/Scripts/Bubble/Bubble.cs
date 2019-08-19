@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DG.Tweening;
+using PathCreation;
+using System;
 using System.Collections;
 using Terminus.Game.Messages;
 using UnityEngine;
@@ -7,12 +9,11 @@ using Zenject;
 
 namespace BrightFish
 {
-	public class Bubble : MonoBehaviour
+	public sealed class Bubble : MonoBehaviour
 	{
-		public ColorType Type { get; private set; }
+		//public ColorType Type { get; private set; }
 		public bool IsReleased { get; private set; }
 
-		//public int ParentTubeID => _parentTubeID;
 		//TODO: move to separate class
 		public int ScoreCount
 		{
@@ -20,7 +21,7 @@ namespace BrightFish
 			{
 				int count = 0;
 
-				switch (_state)
+				switch (GetComponent<BubbleView>().State)
 				{
 					case BubbleState.Small:
 						count = 50;
@@ -42,37 +43,43 @@ namespace BrightFish
 		//TODO: move to separate class
 		[SerializeField] private Sounds soundName01, explosionSound;
 
-		[SerializeField] private float _spoeedReflection;
-
 		[SerializeField] private GameObject _explosion;
 
 		private int _parentTubeID;
-		private BubbleState _state;
-		private int _clickCount;
+		public int _clickCount { get; private set; }
 		private bool _selfDestroyStarted;
 
-		private Color _color;
-		private Renderer _renderer;
 		private Rigidbody2D _rigidbody2D;
 		private GameSettings _gameSettings;
-		private GameObject _view;
 		private float _selfDestroyTimeRate;
-
-		private Food _childFood;
 
 		private Level _currentLevelSettings;
 
+		public event Action<bool> OnBounce;
+		public event Action OnClickBubble;
+
 		//----------------------------------------------------------------
+
+		public void Init(Vector3 position, int id, Food food, PathCreator path, TubeSettings tubeSettings)
+		{
+			transform.SetPositionAndRotation(position, Quaternion.identity);
+			SetParentTubeID(id, food);
+
+			GetComponent<BubbleMovement>().Init(tubeSettings);
+
+			GetComponent<BubbleMovement>().follower.pathCreator = path;
+		}
 
 		public void SetParentTubeID(int value, Food childFood)
 		{
 			_parentTubeID = value;
-			_childFood = childFood;
+			GetComponent<BubbleView>()._childFood = childFood;
 		}
 
-		public void AddForce(float value)
+		public void AddBounceForce(float value, bool isPlayerClick = true)
 		{
-			_rigidbody2D.AddForce(Vector3.up * value, ForceMode2D.Impulse);
+			GetComponent<BubbleMovement>().AddBounceForce(value, isPlayerClick);
+			OnBounce(isPlayerClick);
 		}
 
 		public void SetReleased()
@@ -89,7 +96,7 @@ namespace BrightFish
 
 			if (isReqiredExplosion)
 			{
-				SpawnExplosion();
+				GetComponent<BubbleView>().SpawnExplosion(_explosion, transform.position);
 			}
 
 			gameObject.SetActive(false);
@@ -97,15 +104,6 @@ namespace BrightFish
 			MessageBus.OnBubbleDestroy.Send(_parentTubeID);
 
 			Destroy(gameObject);
-		}
-
-		private void SpawnExplosion()
-		{
-			var go = Instantiate(_explosion, transform.position, Quaternion.identity);
-
-			//Vector3 vec = new Vector3(transform.position.x, transform.position.y, -1);		
-
-			//go.transform.SetPositionAndRotation(vec, Quaternion.identity);
 		}
 
 		//----------------------------------------------------------------
@@ -118,15 +116,9 @@ namespace BrightFish
 
 		private void Awake()
 		{
-			_renderer = GetComponentInChildren<Renderer>();
 			_rigidbody2D = GetComponentInChildren<Rigidbody2D>();
-			_view = _renderer.gameObject;
-
 			_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
-
-			_currentLevelSettings = GameController.Instance.levelFactory.CurrentLocation.GetCurrentLevel();
-
-			Init();
+			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
 		}
 
 		private void Update()
@@ -142,14 +134,6 @@ namespace BrightFish
 			}
 		}
 
-		private void FixedUpdate()
-		{
-			//GetComponent<Rigidbody2D>().velocity = transform.up * (GameController.Instance.gameSettings.moveUpSpeed /** _baseSpeedTimer*/) * Time.deltaTime;
-			//transform.Translate(-transform.up * (_gameSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
-
-			transform.Translate(-transform.up * (_currentLevelSettings.BubbleMoveSpeed /** _baseSpeedTimer*/) * 0.1f * Time.deltaTime);
-		}
-
 		public void OnClick()
 		{
 			if (_selfDestroyStarted)
@@ -157,7 +141,7 @@ namespace BrightFish
 				return;
 			}
 
-			if (_clickCount >= _currentLevelSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
+			if (_clickCount >= _currentLevelSettings.BubbleEnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
 			{
 				return;
 			}
@@ -166,144 +150,14 @@ namespace BrightFish
 
 			_clickCount++;
 
-			AddForce(_currentLevelSettings.BounceRate);
-
-			//Enlarge();
-			Diffuse();
+			OnBounce(true);
+			OnClickBubble();
 
 			Debug.Log("click");
-		}
-
-		private void Init()
-		{
-			IsReleased = false;
-
-			_rigidbody2D.drag = _currentLevelSettings.DragRate;
-
-			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
-
-			Type = (ColorType)UnityEngine.Random.Range(0, spawnPointsLength);
-			_state = BubbleState.Small;
-
-			_renderer.material.color = _gameSettings.ColorDummy;
-			_renderer.material.color = new Color(_renderer.material.color.a, _renderer.material.color.g, _renderer.material.color.b, .85f);
-
-			SetColor(Type);
-
-			if (_gameSettings.ColorMode == BubbleColorMode.Explicit)
-			{
-				_renderer.material.color = _color;
-			}
-		}
-
-		private void SetColor(ColorType bubbleType)
-		{
-			switch (bubbleType)
-			{
-				case ColorType.A: _color = _gameSettings.ColorA; break;
-				case ColorType.B: _color = _gameSettings.ColorB; break;
-				case ColorType.C: _color = _gameSettings.ColorC; break;
-				case ColorType.D: _color = _gameSettings.ColorD; break;
-				case ColorType.E: _color = _gameSettings.ColorE; break;
-			}
-		}
-
-		private void Enlarge()
-		{
-			if (_clickCount == _currentLevelSettings.EnlargeSizeClickCount)
-			{
-				_view.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-
-				_state = BubbleState.Medium;
-			}
-			else if (_clickCount == _currentLevelSettings.EnlargeSizeClickCount * 2)
-			{
-				_view.transform.localScale = new Vector3(.7f, .7f, .7f);
-
-				_state = BubbleState.Big;
-
-				if (_gameSettings.BigBubbleSelfDestroy)
-				{
-					_selfDestroyStarted = true;
-				}
-
-				_renderer.material.color = _color;
-
-				if (_selfDestroyStarted)
-				{
-					StartCoroutine(BlinkRoutine());
-				}
-			}
-			else if (_gameSettings.DestroyBigBubbleClick && _clickCount > _currentLevelSettings.EnlargeSizeClickCount * 2)
-			{
-				SelfDestroy();
-			}
-		}
-
-		private void Diffuse()
-		{
-			if (_clickCount == _currentLevelSettings.EnlargeSizeClickCount)
-			{
-				var size = _gameSettings.ClickEnlargeSizePairs[0].sizeRate;
-				_view.transform.localScale = new Vector3(size, size, size);
-
-				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .7f);
-
-				_state = BubbleState.Medium;
-			}
-			else if (_clickCount == _currentLevelSettings.EnlargeSizeClickCount * 2)
-			{
-				var size = _gameSettings.ClickEnlargeSizePairs[1].sizeRate;
-				_view.transform.localScale = new Vector3(size, size, size);
-
-				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .0f);
-
-				_state = BubbleState.Big;
-
-
-				_childFood.RevealColor();
-				Type = _childFood.Type;
-				GetComponentInChildren<BoxCollider2D>().enabled = false;
-
-
-				if (_gameSettings.BigBubbleSelfDestroy)
-				{
-					_selfDestroyStarted = true;
-				}
-
-				if (_selfDestroyStarted)
-				{
-					StartCoroutine(BlinkRoutine());
-				}
-			}
-			else if (_gameSettings.DestroyBigBubbleClick && _clickCount > _currentLevelSettings.EnlargeSizeClickCount * 2)
-			{
-				SelfDestroy();
-			}
-		}
-
-		private IEnumerator BlinkRoutine()
-		{
-			while (true)
-			{
-				yield return new WaitForSeconds(_gameSettings.BlinkRate);
-
-				_renderer.material.color = new Color(_color.r, _color.g, _color.b, 0);
-
-				yield return new WaitForSeconds(_gameSettings.BlinkRate);
-
-				_renderer.material.color = new Color(_color.r, _color.g, _color.b, 100);
-			}
-		}
-
-		public void AddForceDirection(Vector2 _dir/*, float _speed*/)
-		{
-			_dir.Normalize();
-			_rigidbody2D.AddForce(_dir * _spoeedReflection, ForceMode2D.Impulse);
 		}
 
 		//----------------------------------------------------------------
 
 		public class BubbleDIFactory : PlaceholderFactory<Bubble> { }
-	} 
+	}
 }

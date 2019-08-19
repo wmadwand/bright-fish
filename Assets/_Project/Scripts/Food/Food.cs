@@ -134,7 +134,7 @@ namespace BrightFish
 			_view = _renderer.gameObject;
 			_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
 
-			_currentLevelSettings = GameController.Instance.levelFactory.CurrentLocation.GetCurrentLevel();
+			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
 
 			SetCollidersActive(false);
 		}
@@ -178,7 +178,7 @@ namespace BrightFish
 				return;
 			}
 
-			if (_clickCount >= _currentLevelSettings.EnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
+			if (_clickCount >= _currentLevelSettings.BubbleEnlargeSizeClickCount * 2 && !_gameSettings.DestroyBigBubbleClick)
 			{
 				return;
 			}
@@ -187,7 +187,7 @@ namespace BrightFish
 
 			_clickCount++;
 
-			AddForce(_currentLevelSettings.BounceRate);
+			
 			//Enlarge();
 
 			Debug.Log("click");

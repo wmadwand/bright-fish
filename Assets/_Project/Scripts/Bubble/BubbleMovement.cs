@@ -1,82 +1,138 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 
 namespace BrightFish
 {
-	public class BubbleMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IDragHandler
+	public class BubbleMovement : MonoBehaviour
 	{
-		[SerializeField]
-		float smoothing;
+		public BubblePathFollower follower;
 
-		private Vector2 origin;
-		private Vector2 direction;
-		private Vector2 smoothDirection;
-		private bool touched;
-		private int pointerID;
+		private bool _isBouncedUp;
+		private bool _isBouncedDown;
+		private bool _isBounceFinished;
+
+		private float _targetSpeed;
+		private float _baseSpeed;
+		private float _velocity = 0.2f;
+
+		private float _bounceRateUp, _bounceRateDown;
+		private float _t;
+
+		private bool _isClickGesture = false;
+		private bool _isSwipeGesture;
+
+		private Level _currentLevelSettings;
+		public TubeSettings _tubeSettings;
+
+		//----------------------------------------------------------------		
+
+		public void Init(TubeSettings tubeSettings)
+		{
+			_tubeSettings = tubeSettings;
+			follower.speed = _tubeSettings.bubbleBaseSpeed * -1;
+			_baseSpeed = follower.speed;
+		}
 
 		private void Awake()
 		{
-			touched = false;
-			direction = Vector2.zero;
+			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
+
+			_bounceRateDown = _currentLevelSettings.BubbleBounceDownRate * -1;
+			_bounceRateUp = _currentLevelSettings.BubbleBounceUpRate;
+
+			follower = GetComponent<BubblePathFollower>();
+
+			GetComponent<BubbleInteraction>().OnInteract += AddBounceForce;
 		}
 
-		public void OnPointerDown(PointerEventData data)
+		private void OnDestroy()
 		{
-			if (!touched)
+			GetComponent<BubbleInteraction>().OnInteract -= AddBounceForce;
+		}
+
+		private void Update()
+		{
+			if (_isSwipeGesture)
 			{
-				touched = true;
-				pointerID = data.pointerId;
-				origin = data.position;
+				follower.speed = _targetSpeed;
+				return;
+			}
+
+			if (_isBouncedUp)
+			{
+				follower.speed = Mathf.Lerp(_targetSpeed, 0, _t);
+
+				_t += _bounceRateUp * Time.fixedDeltaTime;
+
+				if (follower.speed <= 0)
+				{
+					_isBounceFinished = true;
+
+					_isBouncedUp = false;
+					_t = 0;
+				}
+			}
+			else if (_isBouncedDown)
+			{
+				follower.speed = Mathf.Lerp(_targetSpeed, _baseSpeed, _t);
+
+				_t += _velocity + (_bounceRateDown * Time.fixedDeltaTime);
+
+				if (follower.speed >= _baseSpeed)
+				{
+					_isBounceFinished = true;
+
+					follower.speed = _baseSpeed;
+
+					_isBouncedDown = false;
+					_t = 0;
+				}
+			}
+
+			if (_isClickGesture && _isBounceFinished && follower.speed <= 0)
+			{
+				follower.speed = Mathf.Lerp(0, _baseSpeed, _t);
+				_t += _bounceRateUp * Time.fixedDeltaTime;
+
+				if (_t > 1)
+				{
+					_isBounceFinished = false;
+					_isClickGesture = false;
+				}
+			}
+			else if (!_isSwipeGesture && _isBounceFinished && follower.speed > 0)
+			{
+				follower.speed = Mathf.Lerp(follower.speed, _baseSpeed, _t);
+				_t += _bounceRateUp * Time.fixedDeltaTime;
+
+				if (_t > 1)
+				{
+					_isBounceFinished = false;
+				}
 			}
 		}
 
-		public void OnDrag(PointerEventData data)
+		public void AddBounceForce(float value = 1, bool isPlayerClick = true, bool isSwipe = false)
 		{
-			if (data.pointerId == pointerID)
+			this._isClickGesture = isPlayerClick;
+			_isSwipeGesture = isSwipe;
+
+			if (value < 0)
 			{
-				Vector2 currentPosition = data.position;
-				Vector2 directionRaw = currentPosition - origin;
-				direction = directionRaw.normalized;
-			}
-		}
-
-		public void OnPointerUp(PointerEventData data)
-		{
-			Debug.LogFormat("Swipe {0}, {1}", GetDirection().x, GetDirection().y);
-			//OnSwipe(GetDirection());
-
-			Debug.Log("released");
-
-			if (GetComponent<Bubble>())
-			{
-				GetComponent<Bubble>().AddForceDirection(GetDirection());
+				_isBouncedDown = true;
+				_isBouncedUp = false;
 			}
 			else
 			{
-				GetComponent<Food>().AddForceDirection(GetDirection());
+				_isBouncedDown = false;
+				_isBouncedUp = true;
 			}
 
+			_isBounceFinished = false;
+			_targetSpeed = value;
 
-			if (data.pointerId == pointerID)
-			{
-				direction = Vector2.zero;
-				touched = false;
+			_t = 0;
 
-				transform.GetComponentInParent<Bubble>().OnClick();
-			}
+			Debug.Log("click");
 		}
-
-		public Vector2 GetDirection()
-		{
-			smoothDirection = Vector2.MoveTowards(smoothDirection, direction, smoothing * Time.deltaTime);
-			return smoothDirection;
-		}
-
-		void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
-		{
-			//transform.root.GetComponent<Bubble>().OnClick();
-		}
-	} 
+	}
 }

@@ -53,7 +53,7 @@ namespace BrightFish
 
 			if (GetComponent<Bubble>())
 			{
-				GetComponent<Bubble>().AddForceDirection(GetDirection());
+				//GetComponent<Bubble>().AddForceDirection(GetDirection());
 			}
 			else
 			{
