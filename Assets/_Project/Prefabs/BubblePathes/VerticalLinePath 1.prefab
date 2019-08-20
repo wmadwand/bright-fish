@@ -48,8 +48,8 @@ MonoBehaviour:
       points:
       - {x: 0.023168206, y: 3.5077274, z: 0}
       - {x: 0.023168206, y: 3.5077274, z: 0}
-      - {x: 0.039446577, y: -3.0088606, z: 0}
-      - {x: 0.039446592, y: -3.0088606, z: 0}
+      - {x: 0.0060531497, y: -3.0545833, z: 0}
+      - {x: 0.0060531497, y: -3.0545833, z: 0}
       isClosed: 0
       space: 1
       controlMode: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
     showPerSegmentBounds: 0
     displayAnchorPoints: 1
     displayControlPoints: 1
-    bezierHandleScale: 6
+    bezierHandleScale: 5
     globalDisplaySettingsFoldout: 0
     keepConstantHandleSize: 0
     showNormalsInVertexMode: 0
