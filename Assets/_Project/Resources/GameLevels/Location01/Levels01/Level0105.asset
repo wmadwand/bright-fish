@@ -20,7 +20,7 @@ MonoBehaviour:
   _colorTypes: 00000000010000000200000003000000
   _tubes:
   - type: 50
-    bubbleThrowDelay: 0
+    bubbleThrowDelay: 0.1
     bubbleBaseSpeed: 2
     bounceRateMin: 7
     bounceRateMax: 9
@@ -29,7 +29,7 @@ MonoBehaviour:
     pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
       type: 3}
   - type: 50
-    bubbleThrowDelay: 0
+    bubbleThrowDelay: 0.1
     bubbleBaseSpeed: 2
     bounceRateMin: 7
     bounceRateMax: 9
@@ -38,7 +38,7 @@ MonoBehaviour:
     pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
       type: 3}
   - type: 50
-    bubbleThrowDelay: 0
+    bubbleThrowDelay: 0.1
     bubbleBaseSpeed: 2
     bounceRateMin: 7
     bounceRateMax: 9
