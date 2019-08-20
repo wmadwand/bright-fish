@@ -28,7 +28,7 @@ namespace BrightFish
 		public void Init(TubeSettings tubeSettings)
 		{
 			_tubeSettings = tubeSettings;
-			follower.speed = _tubeSettings.bubbleBaseSpeed * -1;
+			follower.speed = _tubeSettings.bubbleBaseSpeed /** -1*/;
 			_baseSpeed = follower.speed;
 		}
 
@@ -59,36 +59,33 @@ namespace BrightFish
 
 			if (_isBouncedUp)
 			{
-				follower.speed = Mathf.Lerp(_targetSpeed, 0, _t);
+				follower.speed = Mathf.Lerp(_targetSpeed * -1, 0, _t);
 
 				_t += _bounceRateUp * Time.fixedDeltaTime;
 
-				if (follower.speed <= 0)
+				if (follower.speed >= 0)
 				{
 					_isBounceFinished = true;
-
 					_isBouncedUp = false;
 					_t = 0;
 				}
 			}
 			else if (_isBouncedDown)
 			{
-				follower.speed = Mathf.Lerp(_targetSpeed, _baseSpeed, _t);
+				follower.speed = Mathf.Lerp(_targetSpeed * -1, _baseSpeed, _t);
 
 				_t += _velocity + (_bounceRateDown * Time.fixedDeltaTime);
 
-				if (follower.speed >= _baseSpeed)
+				if (follower.speed <= _baseSpeed)
 				{
 					_isBounceFinished = true;
-
 					follower.speed = _baseSpeed;
-
 					_isBouncedDown = false;
 					_t = 0;
 				}
 			}
 
-			if (_isClickGesture && _isBounceFinished && follower.speed <= 0)
+			if (_isClickGesture && _isBounceFinished && follower.speed >= 0)
 			{
 				follower.speed = Mathf.Lerp(0, _baseSpeed, _t);
 				_t += _bounceRateUp * Time.fixedDeltaTime;

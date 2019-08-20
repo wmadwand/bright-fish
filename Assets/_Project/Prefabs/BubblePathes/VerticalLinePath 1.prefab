@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 613421992415245582}
   - component: {fileID: 656281563562346274}
   m_Layer: 0
-  m_Name: VerticalLinePath
+  m_Name: VerticalLinePath 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,10 +46,10 @@ MonoBehaviour:
   editorData:
     _bezierPath:
       points:
-      - {x: -0.0046022534, y: -2.835681, z: 0}
-      - {x: -0.0046022534, y: -2.835681, z: 0}
-      - {x: -0.014177918, y: 3.4462047, z: 0}
-      - {x: -0.014177918, y: 3.4462047, z: 0}
+      - {x: 0.023168206, y: 3.5077274, z: 0}
+      - {x: 0.023168206, y: 3.5077274, z: 0}
+      - {x: 0.039446577, y: -3.0088606, z: 0}
+      - {x: 0.039446592, y: -3.0088606, z: 0}
       isClosed: 0
       space: 1
       controlMode: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
       - 0
       globalNormalsAngle: 0
       flipNormals: 0
-    vertexPathUpToDate: 0
+    vertexPathUpToDate: 1
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0
     showTransformTool: 1
@@ -78,7 +78,7 @@ MonoBehaviour:
     showBezierPathInVertexMode: 0
     showDisplayOptions: 1
     showPathOptions: 1
-    showVertexPathDisplayOptions: 0
+    showVertexPathDisplayOptions: 1
     showVertexPathOptions: 1
     showNormals: 1
     showNormalsHelpInfo: 0

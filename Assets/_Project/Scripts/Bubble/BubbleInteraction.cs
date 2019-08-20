@@ -82,7 +82,7 @@ namespace BrightFish
 
 				_isSwipeInProgress = true;
 
-				OnInteract(_currentLevelSettings.BubbleSwipeSpeed * data.delta.normalized.y, true, true);
+				OnInteract(_currentLevelSettings.BubbleSwipeSpeed * data.delta.normalized.y * -1, true, true);
 			}
 		}
 

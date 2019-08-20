@@ -58,7 +58,6 @@ namespace BrightFish
 
 		private void Start()
 		{
-			//MakeShell();
 			RunAfterDelay(MakeShell);
 		}
 

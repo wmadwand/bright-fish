@@ -223,15 +223,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   follower: {fileID: 6501885625385540465}
-  _tubeSettings:
-    type: 0
-    bubbleThrowDelay: 0
-    bubbleBaseSpeed: 0
-    bounceRateMin: 0
-    bounceRateMax: 0
-    bounceRateGrowthStep: 0
-    _difficulty: 0
-    pathCreator: {fileID: 0}
 --- !u!114 &6501885625385540465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathCreator: {fileID: 0}
-  endOfPathInstruction: 0
+  endOfPathInstruction: 2
   speed: 5
 --- !u!114 &4389050715657147649
 MonoBehaviour:
