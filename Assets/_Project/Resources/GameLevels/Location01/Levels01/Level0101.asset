@@ -26,7 +26,7 @@ MonoBehaviour:
     bounceRateMax: 5.5
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 4627170322014694883, guid: 86c0bbf0bbfe3ed4cabea7288d5dfdcd,
+    pathCreator: {fileID: 190739923473074970, guid: 4533d1591ba9eed4d81d68c9bfc01988,
       type: 3}
   _fishes: 32000000
   _fishSpawnProbability: {fileID: 11400000, guid: 1b3fdf57ca298694fab152b5493c81d5,
