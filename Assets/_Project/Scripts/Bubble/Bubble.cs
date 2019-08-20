@@ -150,7 +150,6 @@ namespace BrightFish
 
 			_clickCount++;
 
-			//OnBounce(true, null);
 			OnClickBubble();
 
 			Debug.Log("click");

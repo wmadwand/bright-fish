@@ -21,7 +21,7 @@ namespace BrightFish
 		private bool _isSwipeGesture;
 
 		private Level _currentLevelSettings;
-		public TubeSettings _tubeSettings;
+		private TubeSettings _tubeSettings;
 
 		//----------------------------------------------------------------		
 

@@ -170,6 +170,7 @@ namespace BrightFish
 			_childFood.RevealColor();
 			Type = _childFood.Type;
 			_childFood.GetComponentInChildren<BoxCollider2D>().enabled = false;
+			transform.Find("View").GetComponent<BoxCollider2D>().size = new Vector2(2.2f, 2.2f); /*_childFood.GetComponentInChildren<BoxCollider2D>().size*/;
 		}
 	}
 }
