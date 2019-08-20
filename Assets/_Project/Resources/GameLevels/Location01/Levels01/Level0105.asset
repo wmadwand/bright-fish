@@ -20,31 +20,31 @@ MonoBehaviour:
   _colorTypes: 00000000010000000200000003000000
   _tubes:
   - type: 50
-    bubbleThrowDelay: 0
+    bubbleThrowDelay: 0.1
     bubbleBaseSpeed: 2
     bounceRateMin: 7
     bounceRateMax: 9
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 615679809069068576, guid: a3cc24ad4707d094eb1e203da606a838,
       type: 3}
   - type: 50
-    bubbleThrowDelay: 0
+    bubbleThrowDelay: 0.1
     bubbleBaseSpeed: 2
     bounceRateMin: 7
     bounceRateMax: 9
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 615679809069068576, guid: a3cc24ad4707d094eb1e203da606a838,
       type: 3}
   - type: 50
-    bubbleThrowDelay: 0
+    bubbleThrowDelay: 0.1
     bubbleBaseSpeed: 2
     bounceRateMin: 7
     bounceRateMax: 9
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 615679809069068576, guid: a3cc24ad4707d094eb1e203da606a838,
       type: 3}
   _fishes: 3200000064000000
   _fishSpawnProbability: {fileID: 11400000, guid: afa002e972ae8e749b56e16a2791b48e,

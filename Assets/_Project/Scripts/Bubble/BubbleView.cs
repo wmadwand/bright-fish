@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -74,6 +75,14 @@ namespace BrightFish
 			{
 				_renderer.material.color = _color;
 			}
+
+			SetSize(0);
+		}
+
+		private void SetSize(int clickCount)
+		{
+			var size = _gameSettings.ClickEnlargeSizePairs[clickCount].sizeRate;
+			_view.transform.localScale = new Vector3(size, size, size);
 		}
 
 		private void SetColor(ColorType bubbleType)
@@ -88,40 +97,43 @@ namespace BrightFish
 			}
 		}
 
-		private void Shake(bool isClick = true)
+		private void Shake(float duration, bool isClick = true, TweenCallback callback = null)
 		{
 			if (isClick)
 			{
-				_view.transform.DOShakeScale(.4f, .2f, 10, 45);
-
+				_view.transform.DOShakeScale(duration/*.4f*/, .2f, 10, 45).OnComplete(callback);
 			}
 			else
 			{
-				_view.transform.DOShakeScale(.2f, .1f, 1, 5);
+				_view.transform.DOShakeScale(duration/*.2f*/, .1f, 1, 5);
 			}
 		}
 
 		private void Diffuse()
 		{
+			SetSize(_bubble._clickCount);
+
 			if (_bubble._clickCount == _currentLevelSettings.BubbleEnlargeSizeClickCount)
 			{
-				var size = _gameSettings.ClickEnlargeSizePairs[0].sizeRate;
-				_view.transform.localScale = new Vector3(size, size, size);
+				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .75f);
 
-				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .7f);
+				Shake(.4f, true, () =>
+				{
+					State = BubbleState.Medium;
+				});
 
-				State = BubbleState.Medium;
 			}
 			else if (_bubble._clickCount == _currentLevelSettings.BubbleEnlargeSizeClickCount * 2)
 			{
-				var size = _gameSettings.ClickEnlargeSizePairs[1].sizeRate;
-				_view.transform.localScale = new Vector3(size, size, size);
+				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .6f);
 
-				_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .0f);
+				Shake(.3f, true, () =>
+				{
+					_renderer.material.color = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, .0f);
+					State = BubbleState.Big;
+					RevealFoodColor();
+				});
 
-				State = BubbleState.Big;
-
-				RevealFoodColor();
 
 				//if (_gameSettings.BigBubbleSelfDestroy)
 				//{
@@ -158,6 +170,7 @@ namespace BrightFish
 			_childFood.RevealColor();
 			Type = _childFood.Type;
 			_childFood.GetComponentInChildren<BoxCollider2D>().enabled = false;
+			transform.Find("View").GetComponent<BoxCollider2D>().size = new Vector2(2.2f, 2.2f); /*_childFood.GetComponentInChildren<BoxCollider2D>().size*/;
 		}
 	}
 }

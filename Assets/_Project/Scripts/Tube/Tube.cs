@@ -58,7 +58,6 @@ namespace BrightFish
 
 		private void Start()
 		{
-			//MakeShell();
 			RunAfterDelay(MakeShell);
 		}
 
@@ -134,7 +133,7 @@ namespace BrightFish
 			_bubble.Init(_bubbleSpawnPoint.position, _id, _food, _path.GetComponentInChildren<PathCreator>(), _settings);
 
 			_randomBounceRate = UnityEngine.Random.Range(_settings.bounceRateMin, _settings.bounceRateMax);
-			_bubble.AddBounceForce((-_randomBounceRate + _currentBounceRateStep), false);
+			_bubble.AddBounceForce(.2f, (-_randomBounceRate + _currentBounceRateStep), false);
 		}
 
 		private void IncreaseBounceRate()

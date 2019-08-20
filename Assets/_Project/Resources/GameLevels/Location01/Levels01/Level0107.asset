@@ -26,16 +26,7 @@ MonoBehaviour:
     bounceRateMax: 9
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
-      type: 3}
-  - type: 50
-    bubbleThrowDelay: 0
-    bubbleBaseSpeed: 0
-    bounceRateMin: 7
-    bounceRateMax: 9
-    bounceRateGrowthStep: 1
-    _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 4627170322014694883, guid: 86c0bbf0bbfe3ed4cabea7288d5dfdcd,
       type: 3}
   - type: 50
     bubbleThrowDelay: 0
@@ -44,7 +35,7 @@ MonoBehaviour:
     bounceRateMax: 9
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 615679809069068576, guid: 79940623393189b45adb4c9a2dad0f60,
       type: 3}
   - type: 50
     bubbleThrowDelay: 0
@@ -53,7 +44,7 @@ MonoBehaviour:
     bounceRateMax: 9
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 190739923473074970, guid: 4533d1591ba9eed4d81d68c9bfc01988,
       type: 3}
   - type: 50
     bubbleThrowDelay: 0
@@ -62,7 +53,16 @@ MonoBehaviour:
     bounceRateMax: 9
     bounceRateGrowthStep: 1
     _difficulty: 50
-    pathCreator: {fileID: 615679809069068576, guid: 5ea1fb223d273684889d276654ab37bc,
+    pathCreator: {fileID: 615679809069068576, guid: 79940623393189b45adb4c9a2dad0f60,
+      type: 3}
+  - type: 50
+    bubbleThrowDelay: 0
+    bubbleBaseSpeed: 2
+    bounceRateMin: 7
+    bounceRateMax: 9
+    bounceRateGrowthStep: 1
+    _difficulty: 50
+    pathCreator: {fileID: 4627170322014694883, guid: 86c0bbf0bbfe3ed4cabea7288d5dfdcd,
       type: 3}
   _fishes: 3200000032000000
   _fishSpawnProbability: {fileID: 11400000, guid: afa002e972ae8e749b56e16a2791b48e,

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 613421992415245582}
   - component: {fileID: 656281563562346274}
   m_Layer: 0
-  m_Name: ZigZagPath
+  m_Name: ZigZagPath 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,25 +46,25 @@ MonoBehaviour:
   editorData:
     _bezierPath:
       points:
-      - {x: 0.25964203, y: -2.777041, z: 0}
-      - {x: 0.25964203, y: -2.777041, z: 0}
-      - {x: -0.9502891, y: -1.792288, z: 0}
-      - {x: -0.9143919, y: -1.8062054, z: 0}
-      - {x: -0.879503, y: -1.819732, z: 0}
-      - {x: 1.0893586, y: -0.66020125, z: 0}
-      - {x: 1.1123228, y: -0.6602036, z: 0}
-      - {x: 1.175273, y: -0.66020995, z: 0}
-      - {x: -0.993642, y: 0.35881174, z: 0}
-      - {x: -0.993642, y: 0.35881174, z: 0}
-      - {x: -0.993642, y: 0.35881174, z: 0}
-      - {x: 1.0253811, y: 1.7851257, z: 0}
-      - {x: 1.0217438, y: 1.7854327, z: 0}
-      - {x: 0.9753914, y: 1.7893445, z: 0}
-      - {x: -0.9781678, y: 2.4408014, z: 0}
-      - {x: -0.9711753, y: 2.446732, z: 0}
-      - {x: -0.94796884, y: 2.466415, z: 0}
-      - {x: 0.056995153, y: 3.558835, z: 0}
-      - {x: 0.056995153, y: 3.558835, z: 0}
+      - {x: 0.046111822, y: 3.4991443, z: 0}
+      - {x: 0.017311335, y: 3.5050998, z: 0}
+      - {x: -0.98851013, y: 2.422159, z: 0}
+      - {x: -0.9743415, y: 2.4068394, z: 0}
+      - {x: -0.9693756, y: 2.4014702, z: 0}
+      - {x: 1.0002815, y: 1.7223989, z: 0}
+      - {x: 1.0072491, y: 1.7180512, z: 0}
+      - {x: 1.0155288, y: 1.7128848, z: 0}
+      - {x: -0.9536023, y: 0.29226986, z: 0}
+      - {x: -0.9743415, y: 0.2980876, z: 0}
+      - {x: -0.9958217, y: 0.3041132, z: 0}
+      - {x: 1.083114, y: -0.6825501, z: 0}
+      - {x: 1.0920236, y: -0.676813, z: 0}
+      - {x: 1.0971408, y: -0.67351794, z: 0}
+      - {x: -0.9492844, y: -1.8473948, z: 0}
+      - {x: -0.94255084, y: -1.8424547, z: 0}
+      - {x: -0.9271861, y: -1.831182, z: 0}
+      - {x: 0.3392504, y: -2.8523922, z: 0}
+      - {x: 0.3499652, y: -2.8738225, z: 0}
       isClosed: 0
       space: 1
       controlMode: 0
@@ -82,7 +82,7 @@ MonoBehaviour:
       - 0
       - 0
       globalNormalsAngle: 0
-      flipNormals: 1
+      flipNormals: 0
     vertexPathUpToDate: 0
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0
@@ -91,7 +91,7 @@ MonoBehaviour:
     showPerSegmentBounds: 0
     displayAnchorPoints: 1
     displayControlPoints: 1
-    bezierHandleScale: 6
+    bezierHandleScale: 2
     globalDisplaySettingsFoldout: 0
     keepConstantHandleSize: 0
     showNormalsInVertexMode: 0

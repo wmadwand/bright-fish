@@ -38,7 +38,7 @@ namespace BrightFish
 		private ContactFilter2D _contactFilter;
 
 		private int _contactLayer;
-		private int _ignoreLayer;
+		//private int _ignoreLayer;
 
 		private Collider2D[] _results = new Collider2D[2];
 
@@ -111,9 +111,9 @@ namespace BrightFish
 			//Physics2D.showColliderAABB = true;
 
 			_contactLayer = 1 << LayerMask.NameToLayer("Contact");
-			_ignoreLayer = 1 << LayerMask.NameToLayer("Draggable");
+			//_ignoreLayer = 1 << LayerMask.NameToLayer("Draggable");
 
-			_contactFilter = new ContactFilter2D() { layerMask = _contactLayer, useLayerMask = true };
+			_contactFilter = new ContactFilter2D(); /*{ layerMask = _contactLayer, useLayerMask = true }*/;
 
 			//Physics2D.IgnoreLayerCollision(_contactLayer, _ignoreLayer, true);
 		}

@@ -51,9 +51,6 @@ namespace BrightFish
 
 		void IPointerUpHandler.OnPointerUp(PointerEventData data)
 		{
-			//Debug.LogFormat("Swipe {0}, {1}", GetDirection().x, GetDirection().y);
-			Debug.Log("released");
-
 			// single click
 			if (data.delta.normalized.y == 0)
 			{
@@ -82,7 +79,7 @@ namespace BrightFish
 
 				_isSwipeInProgress = true;
 
-				OnInteract(_currentLevelSettings.BubbleSwipeSpeed * data.delta.normalized.y, true, true);
+				OnInteract(_currentLevelSettings.BubbleSwipeSpeed * data.delta.normalized.y * -1, true, true);
 			}
 		}
 

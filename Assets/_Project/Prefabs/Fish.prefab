@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8363353415580118117}
   - component: {fileID: 4861931125810321071}
-  m_Layer: 10
+  m_Layer: 18
   m_Name: HeadBaseImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3043202816199412405}
-  m_Layer: 10
+  m_Layer: 18
   m_Name: Helpers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3538193622163824838}
   - component: {fileID: 2507572574807777691}
-  m_Layer: 10
+  m_Layer: 18
   m_Name: PanicSign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1547542902400576917}
   - component: {fileID: 3778083021059816565}
-  m_Layer: 13
+  m_Layer: 18
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7041403533798403033}
-  m_Layer: 10
+  m_Layer: 18
   m_Name: ScoreSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 228428188179205537}
   - component: {fileID: 7619577896339582845}
   - component: {fileID: 1751217998409594580}
-  m_Layer: 14
+  m_Layer: 18
   m_Name: Fish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,7 +468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6657876945884724103}
-  m_Layer: 13
+  m_Layer: 18
   m_Name: ViewVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4473777770265437412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.093016334, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7431894563554012256}
@@ -504,7 +504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7431894563554012256}
   - component: {fileID: 2792384093004888931}
-  m_Layer: 10
+  m_Layer: 18
   m_Name: BodyOutlineImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,7 +582,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2924504142653259906}
-  m_Layer: 10
+  m_Layer: 18
   m_Name: ParticlePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,7 +613,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1681992969269902616}
   - component: {fileID: 6538359787588774956}
-  m_Layer: 10
+  m_Layer: 18
   m_Name: HeadOutlineImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -692,7 +692,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2176940523647225131}
   - component: {fileID: 2105479253849562807}
-  m_Layer: 10
+  m_Layer: 18
   m_Name: BodyBaseImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -770,7 +770,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2742760955510437075}
-  m_Layer: 10
+  m_Layer: 18
   m_Name: HealthbarPivotPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
