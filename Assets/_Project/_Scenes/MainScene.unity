@@ -604,7 +604,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 3.6865625e+35, z: 8.77e-43, w: 3.6865625e+35}
+  m_BoundingSphereOverride: {x: 1, y: 0, z: 0, w: 5.2e-44}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2763,7 +2763,7 @@ MonoBehaviour:
   CameraTargets:
   - TargetTransform: {fileID: 1529453066}
     TargetInfluenceH: 0.406
-    TargetInfluenceV: 0.52
+    TargetInfluenceV: 0.337
     TargetOffset: {x: 0, y: 0}
   OverallOffset: {x: 0, y: 0}
   UpdateType: 0
@@ -7462,8 +7462,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1529453066}
+  - component: {fileID: 1529453067}
+  - component: {fileID: 1529453068}
   m_Layer: 0
-  m_Name: ParallaxHandler
+  m_Name: ParallaxTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7483,6 +7485,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1529453067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529453065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0398bb0f9cd514e9ccb72625491bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1529453068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529453065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47fa742466a17e945a96eafaf7bf1816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transform: {fileID: 1529453066}
+  amplitudeY: 0.2
+  amplitudeX: 3.5
+  frequencyY: 1.5
+  frequencyX: 0.2
 --- !u!1 &1531701026
 GameObject:
   m_ObjectHideFlags: 0

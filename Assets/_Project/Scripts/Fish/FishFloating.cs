@@ -9,30 +9,35 @@ public class FishFloating : MonoBehaviour
 
 	public float amplitudeY; // Set strength in Unity
 	public float amplitudeX;
-	float curAmpl;
+	float curAmplY;
+	float curAmplX;
 
 	public float frequencyY = 0.1f; // Set strength in Unity
 	public float frequencyX = 0.1f;
 
-	float resFrequ;
+	float resFrequY;
+	float resFrequX;
 
 	System.Random _random;
 
 	private void Awake()
 	{
 		_random = new System.Random();
-		curAmpl = amplitudeY;
+		curAmplY = amplitudeY;
 
-		curAmpl = UnityEngine.Random.Range(.05f, amplitudeY);
-		resFrequ = UnityEngine.Random.Range(.5f, frequencyY);
+		curAmplY = UnityEngine.Random.Range(.05f, amplitudeY);
+		curAmplX = UnityEngine.Random.Range(.05f, amplitudeX);
+
+		resFrequY = UnityEngine.Random.Range(.5f, frequencyY);
+		resFrequX = UnityEngine.Random.Range(.5f, frequencyX);
 	}
 
 	private void Update()
 	{
-		float valY = Mathf.Sin(Time.fixedTime * resFrequ) * curAmpl /*UnityEngine.Random.Range(0, amplitudeY)*/  /** (float)_random.NextDouble()*/;
-		float valX = Mathf.Sin(Time.fixedTime * frequencyX) * amplitudeX /*UnityEngine.Random.Range(0, amplitudeY)*/  /** (float)_random.NextDouble()*/;
+		float valX = Mathf.Sin(Time.fixedTime * resFrequX) * curAmplX /*UnityEngine.Random.Range(0, amplitudeY)*/  /** (float)_random.NextDouble()*/;
+		float valY = Mathf.Sin(Time.fixedTime * resFrequY) * curAmplY /*UnityEngine.Random.Range(0, amplitudeY)*/  /** (float)_random.NextDouble()*/;		
 
-		_transform.localPosition = new Vector2(_transform.localPosition.x, valY);
+		_transform.localPosition = new Vector2(valX, valY);
 
 		//float curPosY = (float)Math.Round(transform.localPosition.y, 3, MidpointRounding.ToEven);
 		//float curBound = (float)Math.Round(curAmpl, 3, MidpointRounding.ToEven);
