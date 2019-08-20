@@ -39,7 +39,7 @@ MonoBehaviour:
       type: 3}
   - type: 50
     bubbleThrowDelay: 0.2
-    bubbleBaseSpeed: 0
+    bubbleBaseSpeed: 2
     bounceRateMin: 6
     bounceRateMax: 8
     bounceRateGrowthStep: 1

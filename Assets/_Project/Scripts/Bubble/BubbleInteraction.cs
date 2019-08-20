@@ -51,9 +51,6 @@ namespace BrightFish
 
 		void IPointerUpHandler.OnPointerUp(PointerEventData data)
 		{
-			//Debug.LogFormat("Swipe {0}, {1}", GetDirection().x, GetDirection().y);
-			Debug.Log("released");
-
 			// single click
 			if (data.delta.normalized.y == 0)
 			{

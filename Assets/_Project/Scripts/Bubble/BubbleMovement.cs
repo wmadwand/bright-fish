@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Terminus.Game.Messages;
+using UnityEngine;
 
 namespace BrightFish
 {
@@ -23,6 +24,9 @@ namespace BrightFish
 		private Level _currentLevelSettings;
 		private TubeSettings _tubeSettings;
 
+		private float _speedPrev;
+		bool isPaused;
+
 		//----------------------------------------------------------------		
 
 		public void Init(TubeSettings tubeSettings)
@@ -42,15 +46,40 @@ namespace BrightFish
 			follower = GetComponent<BubblePathFollower>();
 
 			GetComponent<BubbleInteraction>().OnInteract += AddBounceForce;
+			MessageBus.OnGamePause.Receive += OnGamePause_Receive;
+		}
+
+		private void OnGamePause_Receive(bool value)
+		{
+			if (value)
+			{
+				_speedPrev = follower.speed;
+				follower.speed = 0;
+
+				isPaused = true;
+			}
+			else
+			{
+				follower.speed = _speedPrev;
+
+				isPaused = false;
+			}
 		}
 
 		private void OnDestroy()
 		{
 			GetComponent<BubbleInteraction>().OnInteract -= AddBounceForce;
+
+			MessageBus.OnGamePause.Receive -= OnGamePause_Receive;
 		}
 
 		private void Update()
 		{
+			if (isPaused)
+			{
+				return;
+			}
+
 			if (_isSwipeGesture)
 			{
 				follower.speed = _targetSpeed;
