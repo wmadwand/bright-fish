@@ -23,7 +23,7 @@ namespace BrightFish
 
 			Physics2D.queriesStartInColliders = false;
 
-			_fishLayer = 1 << LayerMask.NameToLayer("Fish");
+			_fishLayer = 1 << LayerMask.NameToLayer("ParallaxActiveGameObjects");
 		}
 
 		private void Update()

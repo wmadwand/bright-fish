@@ -41,7 +41,7 @@ namespace BrightFish
 			_fishView = GetComponent<FishView>();
 			_fishHealth = GetComponent<FishHealth>();
 
-			_attackLayer = 1 << LayerMask.NameToLayer("Fish");
+			_attackLayer = 1 << LayerMask.NameToLayer("ParallaxActiveGameObjects");
 		}
 
 		private void Update()
