@@ -35,9 +35,11 @@ public class FishFloating : MonoBehaviour
 	private void Update()
 	{
 		float valX = Mathf.Sin(Time.fixedTime * resFrequX) * curAmplX /*UnityEngine.Random.Range(0, amplitudeY)*/  /** (float)_random.NextDouble()*/;
-		float valY = Mathf.Sin(Time.fixedTime * resFrequY) * curAmplY /*UnityEngine.Random.Range(0, amplitudeY)*/  /** (float)_random.NextDouble()*/;		
+		float valY = Mathf.Sin(Time.fixedTime * resFrequY) * curAmplY /*UnityEngine.Random.Range(0, amplitudeY)*/  /** (float)_random.NextDouble()*/;
 
-		_transform.localPosition = new Vector2(valX, valY);
+		var xResult = (frequencyX == 0 || amplitudeX == 0) ? _transform.localPosition.x : valX;
+
+		_transform.localPosition = new Vector2(xResult, valY);
 
 		//float curPosY = (float)Math.Round(transform.localPosition.y, 3, MidpointRounding.ToEven);
 		//float curBound = (float)Math.Round(curAmpl, 3, MidpointRounding.ToEven);
