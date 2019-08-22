@@ -20,6 +20,8 @@ public class FishFloating : MonoBehaviour
 
 	System.Random _random;
 
+	bool _isActive;
+
 	private void Awake()
 	{
 		_random = new System.Random();
@@ -34,6 +36,11 @@ public class FishFloating : MonoBehaviour
 
 	private void Update()
 	{
+		if (!_isActive)
+		{
+			return;
+		}
+
 		float valX = Mathf.Sin(Time.fixedTime * resFrequX) * curAmplX /*UnityEngine.Random.Range(0, amplitudeY)*/  /** (float)_random.NextDouble()*/;
 		float valY = Mathf.Sin(Time.fixedTime * resFrequY) * curAmplY /*UnityEngine.Random.Range(0, amplitudeY)*/  /** (float)_random.NextDouble()*/;
 
@@ -48,6 +55,11 @@ public class FishFloating : MonoBehaviour
 		//{
 		//	curAmpl = UnityEngine.Random.Range(0, amplitudeY);
 		//}
+	}
+
+	public void SetActive(bool value)
+	{
+		_isActive = value;
 	}
 
 	public static float NextFloat(System.Random random)
