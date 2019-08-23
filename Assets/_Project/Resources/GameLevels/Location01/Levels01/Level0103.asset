@@ -21,7 +21,7 @@ MonoBehaviour:
   _tubes:
   - type: 50
     bubbleThrowDelay: 0.2
-    bubbleBaseSpeed: 2
+    bubbleBaseSpeed: 4
     bounceRateMin: 6
     bounceRateMax: 7
     bounceRateGrowthStep: 1
@@ -30,7 +30,7 @@ MonoBehaviour:
       type: 3}
   - type: 50
     bubbleThrowDelay: 0.2
-    bubbleBaseSpeed: 2
+    bubbleBaseSpeed: 10
     bounceRateMin: 6
     bounceRateMax: 7
     bounceRateGrowthStep: 1
@@ -45,8 +45,8 @@ MonoBehaviour:
   _enableFishMovementAI: 0
   _fishHealthFadeRate: 0
   _bubbleBounceUpSpeed: 2
-  _bubbleBounceUpRate: 0.6
+  _bubbleBounceUpRate: 5
   _bubbleBounceDownRate: 0.95
   _dragRate: 4
-  _bubbleSwipeSpeed: 15
+  _bubbleSwipeSpeed: 25
   _bubbleEnlargeSizeClickCount: 1

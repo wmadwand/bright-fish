@@ -45,12 +45,17 @@ namespace BrightFish
 			{
 				Vector2 currentPosition = data.position;
 				Vector2 directionRaw = currentPosition - _origin;
+
+				Debug.Log($"directionRaw = {directionRaw}");
+
 				_direction = directionRaw.normalized;
 			}
 		}
 
 		void IPointerUpHandler.OnPointerUp(PointerEventData data)
 		{
+			Debug.Log($"data.scrollDelta = {data.scrollDelta}, IS data.dragging= {data.dragging}, data.delta.magnitude = {data.delta.magnitude}");
+
 			// single click
 			if (data.delta.normalized.y == 0)
 			{
@@ -78,6 +83,8 @@ namespace BrightFish
 				}
 
 				_isSwipeInProgress = true;
+
+				Debug.Log($"SWIPE with data.delta.normalized.y = {data.delta.normalized.y}");
 
 				OnInteract(_currentLevelSettings.BubbleSwipeSpeed * data.delta.normalized.y * -1, true, true);
 			}

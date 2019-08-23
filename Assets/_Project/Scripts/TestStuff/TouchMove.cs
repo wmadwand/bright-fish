@@ -11,6 +11,9 @@ public class TouchMove : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 
 	bool dragStarted;
 
+	Vector2 currentPoint;
+	Vector3 offset;
+
 	public void OnBeginDrag(PointerEventData eventData)
 	{
 		if ((eventData != null && eventData.used))
@@ -18,23 +21,30 @@ public class TouchMove : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 			return;
 		}
 
+		currentPoint = Camera.main.ScreenToWorldPoint(eventData.position);
+		offset = (Vector3)currentPoint - transform.position;
+
 		dragStarted = true;
 	}
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		////Very nice for 2D objects dragging
-		//transform.position = eventData.position;
+		Debug.Log($"offset {offset} | transform.position {transform.position}");
 
+		////Very nice for 2D objects dragging
+		//transform.position = Camera.main.ScreenToWorldPoint(eventData.position);
+		transform.position = new Vector3(Camera.main.ScreenToWorldPoint(eventData.position).x - offset.x, 0, 0);
 
 		// Solution #01
-		Plane plane = new Plane(Vector3.forward, transform.position);
-		Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
+		//Plane plane = new Plane(Vector3.forward, transform.position);
+		//Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
 
-		if (plane.Raycast(ray, out float distamce))
-		{
-			transform.position = ray.origin + ray.direction * distamce;
-		}
+		//if (plane.Raycast(ray, out float distamce))
+		//{
+		//	transform.position = ray.origin + ray.direction * distamce;
+		//}
+
+		//transform.position = eventData.pointerCurrentRaycast.screenPosition;
 
 		// Solution #02
 		//Ray R = Camera.main.ScreenPointToRay(Input.mousePosition); // Get the ray from mouse position
