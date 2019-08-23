@@ -38,6 +38,11 @@ namespace BrightFish
 			//transform.position = eventData.position;
 
 
+			// !!!
+			//transform.position = eventData.pointerCurrentRaycast.screenPosition;
+			// !!!
+
+
 			// Solution #01
 			Plane plane = new Plane(Vector3.forward, _parent.position);
 			Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 11400000}
   - component: {fileID: 3215948946945877302}
   - component: {fileID: 1863196593593611349}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: HappyFishPaint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4720,7 +4720,7 @@ GameObject:
   - component: {fileID: 400002}
   - component: {fileID: 19800002}
   - component: {fileID: 19900002}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: CFX4 Splats Round
   m_TagString: Untagged
   m_Icon: {fileID: 0}
