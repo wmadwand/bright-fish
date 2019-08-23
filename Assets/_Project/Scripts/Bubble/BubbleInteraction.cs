@@ -44,11 +44,7 @@ namespace BrightFish
 			if (data.pointerId == _pointerID)
 			{
 				Vector2 currentPosition = data.position;
-				Vector2 directionRaw = currentPosition - _origin;
-
-				Debug.Log($"directionRaw = {directionRaw}");
-
-				_direction = directionRaw.normalized;
+				_direction = currentPosition - _origin;
 			}
 		}
 
@@ -57,7 +53,7 @@ namespace BrightFish
 			Debug.Log($"data.scrollDelta = {data.scrollDelta}, IS data.dragging= {data.dragging}, data.delta.magnitude = {data.delta.magnitude}");
 
 			// single click
-			if (data.delta.normalized.y == 0)
+			if (Mathf.Abs(_direction.y) < .5f)
 			{
 				if (GetComponent<BubbleView>().IsBubbleBurst || _isSwipeInProgress)
 				{
@@ -84,9 +80,8 @@ namespace BrightFish
 
 				_isSwipeInProgress = true;
 
-				Debug.Log($"SWIPE with data.delta.normalized.y = {data.delta.normalized.y}");
-
-				OnInteract(_currentLevelSettings.BubbleSwipeSpeed * data.delta.normalized.y * -1, true, true);
+				var normalizedDirY = _direction.normalized.y < 0 ? -1 : 1;
+				OnInteract(_currentLevelSettings.BubbleSwipeSpeed * normalizedDirY * -1, true, true);
 			}
 		}
 
