@@ -10,6 +10,9 @@ namespace BrightFish
 		public bool _isDraggable;
 		private Transform _parent;
 
+		private Vector2 _currentPointerPos;
+		private Vector3 _offset;
+
 		private void Awake()
 		{
 			_parent = transform.root;
@@ -17,6 +20,9 @@ namespace BrightFish
 
 		void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
 		{
+			_currentPointerPos = Camera.main.ScreenToWorldPoint(eventData.position);
+			_offset = (Vector3)_currentPointerPos - transform.position;
+
 			_isCollided = false;
 			_isDraggable = true;
 			_originPosition = _parent.position;
@@ -34,29 +40,33 @@ namespace BrightFish
 				_isCollided = false;
 			}
 
+			// The best solution with the offset so as not to center fish view to the pointer position
+			//
+			var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
+			var xMin = GameController.Instance.fishSpawner.SpawnPoints[0].x;
+			var xMax = GameController.Instance.fishSpawner.SpawnPoints[spawnPointsLength - 1].x;
+
+			var resultPos = Camera.main.ScreenToWorldPoint(eventData.position) - _offset;
+			_parent.position = new Vector2(Mathf.Clamp(resultPos.x, xMin, xMax), _parent.position.y);
+
+
 			////Very nice approach for 2D objects dragging
 			//transform.position = eventData.position;
 
-
-			// !!!
-			//transform.position = eventData.pointerCurrentRaycast.screenPosition;
-			// !!!
-
-
 			// Solution #01
-			Plane plane = new Plane(Vector3.forward, _parent.position);
-			Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
+			//Plane plane = new Plane(Vector3.forward, _parent.position);
+			//Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
 
-			if (plane.Raycast(ray, out float distance))
-			{
-				var vec = ray.origin + ray.direction * distance;
+			//if (plane.Raycast(ray, out float distance))
+			//{
+			//	var vec = ray.origin + ray.direction * distance;
 
-				var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
+			//	var spawnPointsLength = GameController.Instance.fishSpawner.SpawnPoints.Length;
 
-				var xMin = GameController.Instance.fishSpawner.SpawnPoints[0].x;
-				var xMax = GameController.Instance.fishSpawner.SpawnPoints[spawnPointsLength - 1].x;
-				_parent.position = new Vector2(Mathf.Clamp(vec.x, xMin, xMax), _parent.position.y);
-			}
+			//	var xMin = GameController.Instance.fishSpawner.SpawnPoints[0].x;
+			//	var xMax = GameController.Instance.fishSpawner.SpawnPoints[spawnPointsLength - 1].x;
+			//	_parent.position = new Vector2(Mathf.Clamp(vec.x, xMin, xMax), _parent.position.y);
+			//}
 
 			// Solution #02
 			//Ray R = Camera.main.ScreenPointToRay(Input.mousePosition); // Get the ray from mouse position
