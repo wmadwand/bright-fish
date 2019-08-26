@@ -27,6 +27,13 @@ namespace BrightFish
 
 		private static void OnLevelComplete(Level lvl)
 		{
+			var location = GameController.Instance.levelFactory.CurrentLocation;
+
+			if (location.GetLevelIndex(lvl.ID) < location.GetLevelIndex(GameProgress.GetMaxAvailableLevelId()))
+			{
+				return;
+			}
+
 			var newValue = CurrentPaintValue - lvl.PaintRateInput;
 
 			MessageBus.OnLocationPaint.Send(newValue);
