@@ -18,11 +18,11 @@ namespace BrightFish
 			}
 		}
 
-		void Update()
+		void FixedUpdate()
 		{
 			if (pathCreator != null)
 			{
-				distanceTravelled += speed * Time.deltaTime;
+				distanceTravelled += speed * Time.fixedDeltaTime;
 				transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
 
 				//transform.GetComponent<Rigidbody2D>().position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);

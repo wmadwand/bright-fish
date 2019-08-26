@@ -73,7 +73,7 @@ namespace BrightFish
 			MessageBus.OnGamePause.Receive -= OnGamePause_Receive;
 		}
 
-		private void Update()
+		private void FixedUpdate()
 		{
 			if (_isGamePaused)
 			{
@@ -90,7 +90,7 @@ namespace BrightFish
 			{
 				follower.speed = Mathf.Lerp(_targetSpeed * -1, 0, _t);
 
-				_t += _bounceRateUp * Time.deltaTime;
+				_t += _bounceRateUp * Time.fixedDeltaTime;
 
 				if (follower.speed >= 0)
 				{
@@ -103,7 +103,7 @@ namespace BrightFish
 			{
 				follower.speed = Mathf.Lerp(_targetSpeed * -1, _baseSpeed, _t);
 
-				_t += _velocity + (_bounceRateDown * Time.deltaTime);
+				_t += _velocity + (_bounceRateDown * Time.fixedDeltaTime);
 
 				if (follower.speed <= _baseSpeed)
 				{
@@ -117,7 +117,7 @@ namespace BrightFish
 			if (_isClickGesture && _isBounceFinished && follower.speed >= 0)
 			{
 				follower.speed = Mathf.Lerp(0, _baseSpeed, _t);
-				_t += _bounceRateUp * Time.deltaTime;
+				_t += _bounceRateUp * Time.fixedDeltaTime;
 
 				if (_t > 1)
 				{
@@ -128,7 +128,7 @@ namespace BrightFish
 			else if (!_isSwipeGesture && _isBounceFinished && follower.speed > 0)
 			{
 				follower.speed = Mathf.Lerp(follower.speed, _baseSpeed, _t);
-				_t += _bounceRateUp * Time.deltaTime;
+				_t += _bounceRateUp * Time.fixedDeltaTime;
 
 				if (_t > 1)
 				{
