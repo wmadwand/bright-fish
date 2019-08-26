@@ -16,8 +16,9 @@ MonoBehaviour:
   _name: 4
   _difficulty: 50
   _timer: 120
-  _rescuedFishesTargetCount: 10
+  _rescuedFishesTargetCount: 1
   _colorTypes: 000000000100000002000000
+  _paintRateInput: 0.1
   _tubes:
   - type: 50
     bubbleThrowDelay: 0.2
