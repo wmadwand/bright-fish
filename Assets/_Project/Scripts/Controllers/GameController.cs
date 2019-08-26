@@ -91,7 +91,7 @@ namespace BrightFish
 			MessageBus.OnLevelBuilt.Receive -= OnLevelBuilt_Receive;
 		}
 
-		private void LevelController_OnLevelComplete()
+		private void LevelController_OnLevelComplete(Level level)
 		{
 			IsGameActive = false;
 

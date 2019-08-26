@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Terminus.Game.Messages;
+﻿using Terminus.Game.Messages;
 using UnityEngine;
 
 namespace BrightFish
@@ -10,9 +8,11 @@ namespace BrightFish
 		static GameProgress()
 		{
 			MessageBus.OnLevelComplete.Receive += OnLevelComplete;
+			Debug.Log("GameProgress");
+
 		}
 
-		private static void OnLevelComplete()
+		private static void OnLevelComplete(Level level)
 		{
 			var justFinishedLevel = GameController.Instance.levelController.CurrentLevel;
 			var location = GameController.Instance.levelFactory.CurrentLocation;
@@ -51,7 +51,7 @@ namespace BrightFish
 			return !PlayerPrefs.HasKey("Level");
 		}
 
-		public static void DeleteKEyLEvel()
+		public static void DeleteKeyLevel()
 		{
 			PlayerPrefs.DeleteKey("Level");
 		}

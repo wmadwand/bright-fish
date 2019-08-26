@@ -109,12 +109,13 @@ namespace Terminus.Game.Messages
 
 		public static readonly Message<string> OnLevelSelected = new Message<string>();
 		public static readonly Message<string> OnLevelBuilt = new Message<string>();
-		public static readonly Message OnLevelComplete = new Message();
-		public static readonly Message OnLevelFailed = new Message();
+		public static readonly Message<Level> OnLevelComplete = new Message<Level>();
+		public static readonly Message<Level> OnLevelFailed = new Message<Level>();
 
 		public static readonly Message OnPlayerLivesOut = new Message();
 
 		public static readonly Message OnGameProgressReset = new Message();
+		public static readonly Message<float> OnLocationPaint = new Message<float>();
 	}
 
 	//public sealed class PvpBattleSurrenderMessageArgs
