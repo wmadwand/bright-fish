@@ -103,6 +103,8 @@ namespace BrightFish
 			_fishHealth = GetComponent<FishHealth>();
 			_fishView = GetComponent<FishView>();
 
+
+			GetComponent<FishFloating>().SetActive(true);
 			//_bubbleLayer = 1 << LayerMask.NameToLayer("PhysicsObject")/* | 1 << LayerMask.NameToLayer("Player")*/;
 
 
