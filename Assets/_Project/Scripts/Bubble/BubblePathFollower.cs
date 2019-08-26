@@ -18,7 +18,7 @@ namespace BrightFish
 			}
 		}
 
-		void Update()
+		void FixedUpdate()
 		{
 			if (pathCreator != null)
 			{

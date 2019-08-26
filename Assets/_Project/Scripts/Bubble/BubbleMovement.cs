@@ -25,7 +25,7 @@ namespace BrightFish
 		private TubeSettings _tubeSettings;
 
 		private float _speedPrev;
-		bool isPaused;
+		private bool _isGamePaused;
 
 		//----------------------------------------------------------------		
 
@@ -56,13 +56,13 @@ namespace BrightFish
 				_speedPrev = follower.speed;
 				follower.speed = 0;
 
-				isPaused = true;
+				_isGamePaused = true;
 			}
 			else
 			{
 				follower.speed = _speedPrev;
 
-				isPaused = false;
+				_isGamePaused = false;
 			}
 		}
 
@@ -73,9 +73,9 @@ namespace BrightFish
 			MessageBus.OnGamePause.Receive -= OnGamePause_Receive;
 		}
 
-		private void Update()
+		private void FixedUpdate()
 		{
-			if (isPaused)
+			if (_isGamePaused)
 			{
 				return;
 			}
