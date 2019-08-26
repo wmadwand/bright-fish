@@ -23,7 +23,7 @@ namespace BrightFish
 
 		private void OnLevelSelected_Receive(string obj)
 		{
-			Create(obj);
+			CreateLevel(obj);
 
 			Debug.Log("OnLevelSelected_Receive");
 		}
@@ -33,7 +33,7 @@ namespace BrightFish
 			return _location.GetLevel(id);
 		}
 
-		private void Create(string id)
+		private void CreateLevel(string id)
 		{
 			var lvlSettings = GetLevelSettings(id);
 

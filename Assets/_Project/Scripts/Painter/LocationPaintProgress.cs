@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Terminus.Game.Messages;
+﻿using Terminus.Game.Messages;
 using UnityEngine;
 
 namespace BrightFish
@@ -17,14 +15,19 @@ namespace BrightFish
 			Debug.Log("LocationPaintProgress");
 		}
 
+		public static void UpdatePaintLocation()
+		{
+			MessageBus.OnLocationPaint.Send(CurrentPaintValue);
+		}
+
 		private static void OnGameProgressReset_Receive()
 		{
 			Reset();
 		}
 
 		private static void OnLevelComplete(Level lvl)
-		{			
-			var newValue = CurrentPaintValue + lvl.PaintRateInput;
+		{
+			var newValue = CurrentPaintValue - lvl.PaintRateInput;
 
 			MessageBus.OnLocationPaint.Send(newValue);
 
@@ -38,8 +41,8 @@ namespace BrightFish
 
 		private static void Reset()
 		{
-			PlayerPrefs.SetFloat("LocationPaintValue", 0);
-			MessageBus.OnLocationPaint.Send(0);
+			PlayerPrefs.SetFloat("LocationPaintValue", 1);
+			MessageBus.OnLocationPaint.Send(CurrentPaintValue);
 		}
 	}
 }

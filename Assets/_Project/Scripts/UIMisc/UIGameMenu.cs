@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Terminus.Game.Messages;
+﻿using Terminus.Game.Messages;
 using UnityEngine;
 
 namespace BrightFish
@@ -10,6 +8,20 @@ namespace BrightFish
 		public GameObject mainScreen;
 		public GameObject chooseLevelScreen;
 		public GameObject howToPlayScreen;
+
+		private void Awake()
+		{
+			MessageBus.OnLevelSelected.Receive += OnLevelSelected_Receive;
+		}
+		private void OnDestroy()
+		{
+			MessageBus.OnLevelSelected.Receive -= OnLevelSelected_Receive;
+		}
+
+		private void OnLevelSelected_Receive(string obj)
+		{
+			MainScreen();
+		}
 
 		public void ChooseLevelScreen()
 		{

@@ -28,7 +28,7 @@ namespace BrightFish
 			MessageBus.OnFishFinishedSmiling.Receive += OnFishFinishedSmiling;
 			MessageBus.OnLocationPaint.Receive += OnLocationPaint_Receive;
 
-			ChangeSaturation(_saturationIntence);
+			ChangeSaturation(LocationPaintProgress.CurrentPaintValue);
 		}
 
 		private void OnLocationPaint_Receive(float obj)
