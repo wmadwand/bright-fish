@@ -68,7 +68,7 @@ namespace BrightFish
 
 		private void LiveController_OnLivesOut()
 		{
-			MessageBus.OnLevelFailed.Send();
+			MessageBus.OnLevelFailed.Send(CurrentLevel);
 		}
 
 		private void OnFishRescued(Fish fish, ColorType arg1, Vector3 arg2)
@@ -78,7 +78,7 @@ namespace BrightFish
 
 			if (_rescuedFishCurrentCount >= _rescuedFishTargetCount)
 			{
-				MessageBus.OnLevelComplete.Send();
+				MessageBus.OnLevelComplete.Send(CurrentLevel);
 			}
 		}
 

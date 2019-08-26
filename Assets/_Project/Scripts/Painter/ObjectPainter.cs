@@ -10,6 +10,8 @@ namespace BrightFish
 		private GameSettings _gameSettings;
 		private float _saturationIntence = 1;
 
+		//----------------------------------------------------------------
+
 		[Inject]
 		private void Construct(GameSettings gameSettings)
 		{
@@ -24,21 +26,27 @@ namespace BrightFish
 		private void Start()
 		{
 			MessageBus.OnFishFinishedSmiling.Receive += OnFishFinishedSmiling;
+			MessageBus.OnLocationPaint.Receive += OnLocationPaint_Receive;
 
-			ChangeSaturation(_saturationIntence);
+			ChangeSaturation(LocationPaintProgress.CurrentPaintValue);
+		}
+
+		private void OnLocationPaint_Receive(float obj)
+		{
+			ChangeSaturation(obj);
 		}
 
 		private void OnDestroy()
 		{
 			MessageBus.OnFishFinishedSmiling.Receive -= OnFishFinishedSmiling;
+			MessageBus.OnLocationPaint.Receive -= OnLocationPaint_Receive;
 		}
 
 		private void OnFishFinishedSmiling(Fish arg1, ColorType arg2, Vector3 arg3)
 		{
-			//_saturationIntence -= _gameSettings.RescuedFishTargetCount * .01f;
-			_saturationIntence -= GameController.Instance.levelController.CurrentLevel.RescueFishTargetCount * .01f;
+			//_saturationIntence -= GameController.Instance.levelController.CurrentLevel.RescueFishTargetCount * .01f;
 
-			ChangeSaturation(_saturationIntence);
+			//ChangeSaturation(_saturationIntence);
 		}
 
 		private void ChangeSaturation(float value)

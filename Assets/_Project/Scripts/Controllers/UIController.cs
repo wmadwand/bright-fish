@@ -26,6 +26,10 @@ public class UIController : MonoBehaviour
 
 	private void Start()
 	{
+		ResetPanels();
+	}
+	public void ResetPanels()
+	{
 		HideAllPanels();
 		_gameStartPanel.SetActive(true);
 	}

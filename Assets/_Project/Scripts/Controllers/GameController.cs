@@ -18,6 +18,7 @@ namespace BrightFish
 		public TubeSpawner tubeSpawner;
 		public LevelController levelController;
 		public LevelFactory levelFactory;
+		public UIController uiController;
 		public Canvas canvas;
 
 		public AudioSource audioSource;
@@ -47,8 +48,13 @@ namespace BrightFish
 
 		public void ResetScene()
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-			//StartGame();
+			//SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			////StartGame();
+
+			//LocationPaintProgress.UpdatePaintLocation();
+
+			uiController.ResetPanels();
+
 		}
 
 		//----------------------------------------------------------------
@@ -78,10 +84,14 @@ namespace BrightFish
 		{
 			PlayBgMusic();
 
+			Debug.Log(LocationPaintProgress.CurrentPaintValue);
+
 			if (GameProgress.InitialGameLaunch())
 			{
 				GameProgress.Reset();
 			}
+
+			LocationPaintProgress.UpdatePaintLocation();
 		}
 
 		private void OnDestroy()
@@ -91,7 +101,7 @@ namespace BrightFish
 			MessageBus.OnLevelBuilt.Receive -= OnLevelBuilt_Receive;
 		}
 
-		private void LevelController_OnLevelComplete()
+		private void LevelController_OnLevelComplete(Level level)
 		{
 			IsGameActive = false;
 
