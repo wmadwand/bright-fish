@@ -384,6 +384,7 @@ MonoBehaviour:
   _scoreTextSpawnPoint: {fileID: 7041403533798403033}
   _myCollider: {fileID: 3778083021059816565}
   _rescuedFishValue: 1
+  _distance: 1.8
 --- !u!114 &8659573865520767744
 MonoBehaviour:
   m_ObjectHideFlags: 0

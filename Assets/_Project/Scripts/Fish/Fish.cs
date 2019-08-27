@@ -130,6 +130,7 @@ namespace BrightFish
 		private void Update()
 		{
 			CheckForContact2();
+			CheckForContact();
 
 			if (_isDead)
 			{
@@ -230,13 +231,37 @@ namespace BrightFish
 
 			if (_hit1)
 			{
-				OnContact(_hit1.collider);
+				OnContact2(_hit1.collider);
 			}
 			else if(_hit2)
 			{
-				OnContact(_hit2.collider);
+				OnContact2(_hit2.collider);
 			}
 
+		}
+
+		private void OnContact2(Collider2D other)
+		{
+			var movement = GetComponentInChildren<FishMovement>();
+
+			if (!movement._isDraggable)
+			{
+				return;
+			}
+
+			movement._isCollided = true;
+
+			transform.position = other.GetComponentInParent<Fish>().transform.position;
+			other.GetComponentInParent<Fish>().transform.position = movement._originPosition;
+			movement._originPosition = transform.position;
+
+
+			if (!movement._isCollided)
+			{
+				transform.position = movement._originPosition;
+			}
+
+			movement._isDraggable = false;
 		}
 
 		private void CheckForContact()
@@ -334,26 +359,26 @@ namespace BrightFish
 			}
 			else if (other.GetComponentInParent<Fish>() && other is BoxCollider2D)
 			{
-				var movement = GetComponentInChildren<FishMovement>();
+				//var movement = GetComponentInChildren<FishMovement>();
 
-				if (!movement._isDraggable)
-				{
-					return;
-				}
+				//if (!movement._isDraggable)
+				//{
+				//	return;
+				//}
 
-				movement._isCollided = true;
+				//movement._isCollided = true;
 
-				transform.position = other.GetComponentInParent<Fish>().transform.position;
-				other.GetComponentInParent<Fish>().transform.position = movement._originPosition;
-				movement._originPosition = transform.position;
+				//transform.position = other.GetComponentInParent<Fish>().transform.position;
+				//other.GetComponentInParent<Fish>().transform.position = movement._originPosition;
+				//movement._originPosition = transform.position;
 
 
-				if (!movement._isCollided)
-				{
-					transform.position = movement._originPosition;
-				}
+				//if (!movement._isCollided)
+				//{
+				//	transform.position = movement._originPosition;
+				//}
 
-				movement._isDraggable = false;
+				//movement._isDraggable = false;
 			}
 		}
 
