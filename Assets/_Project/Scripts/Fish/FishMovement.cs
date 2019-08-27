@@ -49,7 +49,7 @@ namespace BrightFish
 			var resultPos = Camera.main.ScreenToWorldPoint(eventData.position) - _offset;
 			_parent.position = new Vector2(Mathf.Clamp(resultPos.x, xMin, xMax), _parent.position.y);
 
-
+			#region Alternative drag solutions
 			////Very nice approach for 2D objects dragging
 			//transform.position = eventData.position;
 
@@ -75,7 +75,8 @@ namespace BrightFish
 			//float t = Vector3.Dot(PO - R.origin, PN) / Vector3.Dot(R.direction, PN); // plane vs. line intersection in algebric form. It find t as distance from the camera of the new point in the ray's direction.
 			//Vector3 P = R.origin + R.direction * t; // Find the new point.
 
-			//transform.position = P;
+			//transform.position = P; 
+			#endregion
 		}
 
 		void IEndDragHandler.OnEndDrag(PointerEventData eventData)
