@@ -52,8 +52,8 @@ namespace BrightFish
 			}
 
 			hit = CastRay();
-			IsTargetDetected = hit && hit.collider.GetComponent<FishHealth>() && !hit.collider.GetComponent<FishHealth>().IsDead && !hit.collider.GetComponent<FishPredator>() ? true : false;
-			_currentFish = IsTargetDetected ? hit.collider.GetComponent<Fish>() : null;
+			IsTargetDetected = hit && hit.collider.GetComponentInParent<FishHealth>() && !hit.collider.GetComponentInParent<FishHealth>().IsDead && !hit.collider.GetComponentInParent<FishPredator>() ? true : false;
+			_currentFish = IsTargetDetected ? hit.collider.GetComponentInParent<Fish>() : null;
 
 			if (IsTargetDetected && !_isTargetFound)
 			{
@@ -86,7 +86,7 @@ namespace BrightFish
 		{
 			hit = CastRay();
 
-			if (!hit || hit && hit.collider.GetComponent<FishHealth>() == null)
+			if (!hit || hit && hit.collider.GetComponentInParent<FishHealth>() == null)
 			{
 				IsAttacking = false;
 				return;
@@ -94,8 +94,8 @@ namespace BrightFish
 
 			IsAttacking = true;
 
-			_targetFishHealth = hit.collider.GetComponent<FishHealth>();
-			_targetFish = hit.collider.GetComponent<Fish>();
+			_targetFishHealth = hit.collider.GetComponentInParent<FishHealth>();
+			_targetFish = hit.collider.GetComponentInParent<Fish>();
 
 			AnimateBite(MakeDamage);
 		}
