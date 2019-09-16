@@ -179,7 +179,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 144175655
   m_SortingLayer: 2
-  m_SortingOrder: 90
+  m_SortingOrder: 91
   m_Sprite: {fileID: 21300000, guid: 52687d255cb6a7e44a3db54eacfebff0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -371,7 +371,7 @@ MonoBehaviour:
   _sprites:
   - {fileID: 21300000, guid: 1e0805722eaa02b4184a010a895d3081, type: 3}
   - {fileID: 21300000, guid: 001303f39d81f3442a043883341bd744, type: 3}
-  - {fileID: 21300000, guid: 38e34991938b39445ad16a4fa857fb5a, type: 3}
+  - {fileID: 21300000, guid: 21c99bd9eca9eff408a96192d8b1abbe, type: 3}
   _headSpriteRenderer: {fileID: 4861931125810321071}
   _bodySpriteRenderer: {fileID: 2105479253849562807}
   feedFishGood: 2
