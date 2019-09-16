@@ -16,14 +16,14 @@ MonoBehaviour:
   _name: 2
   _difficulty: 50
   _timer: 120
-  _rescuedFishesTargetCount: 50
+  _rescuedFishesTargetCount: 2
   _colorTypes: 0000000001000000
   _paintRateInput: 0.1
   _tubes:
   - type: 50
     bubbleThrowDelay: 0.5
-    bubbleBaseSpeed: 1.5
-    bounceRateMin: 4
+    bubbleBaseSpeed: 1
+    bounceRateMin: 3
     bounceRateMax: 5
     bounceRateGrowthStep: 1
     _difficulty: 50
@@ -31,8 +31,8 @@ MonoBehaviour:
       type: 3}
   - type: 50
     bubbleThrowDelay: 0.5
-    bubbleBaseSpeed: 2
-    bounceRateMin: 4
+    bubbleBaseSpeed: 1.5
+    bounceRateMin: 3
     bounceRateMax: 5
     bounceRateGrowthStep: 1
     _difficulty: 50

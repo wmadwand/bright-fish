@@ -12,13 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f749209d6eea024cbc556ba2ef85134, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  _godMode: 1
+  _godMode: 0
   _colorMode: 1
   _livesCount: 3
-  _bubbleMoveSpeed: 8
-  _bounceRate: 7
-  _dragRate: 4
-  _enlargeSizeClickCount: 1
   _clickEnlargeSizePairs:
   - clickNumber: 0
     sizeRate: 0.47
