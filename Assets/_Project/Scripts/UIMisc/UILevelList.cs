@@ -53,10 +53,10 @@ namespace BrightFish
 				}
 				else
 				{
-					item.button.interactable = false;
+					//item.button.interactable = false;
 				}
 
-				//item.button.interactable = true;
+				item.button.interactable = true;
 
 				item.gameObject.SetActive(true);
 			}

@@ -6910,7 +6910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1495016202}
   m_Layer: 5
-  m_Name: GameStartPanel (1)
+  m_Name: GameStartMenuPanel (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
