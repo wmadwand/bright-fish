@@ -80,7 +80,7 @@ namespace BrightFish
 				_levelsList.Add(new LevelListItem(item.ID, obj.GetComponentInChildren<Button>(), obj));
 			}
 
-			AddDummyLevels();
+			//AddDummyLevels();
 		}
 
 		private void AddDummyLevels()
