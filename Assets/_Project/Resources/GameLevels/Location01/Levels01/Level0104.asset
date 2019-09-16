@@ -16,7 +16,7 @@ MonoBehaviour:
   _name: 4
   _difficulty: 50
   _timer: 120
-  _rescuedFishesTargetCount: 10
+  _rescuedFishesTargetCount: 5
   _colorTypes: 000000000100000002000000
   _paintRateInput: 0.1
   _tubes:
@@ -46,7 +46,7 @@ MonoBehaviour:
   _enableFishMovementAI: 0
   _fishHealthFadeRate: 0
   _bubbleBounceUpSpeed: 2
-  _bubbleBounceUpRate: 1
+  _bubbleBounceUpRate: 1.5
   _bubbleBounceDownRate: 0.95
   _dragRate: 4
   _bubbleSwipeSpeed: 15

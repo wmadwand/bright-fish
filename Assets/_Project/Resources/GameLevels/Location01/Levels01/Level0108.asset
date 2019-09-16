@@ -16,7 +16,7 @@ MonoBehaviour:
   _name: 8
   _difficulty: 50
   _timer: 120
-  _rescuedFishesTargetCount: 20
+  _rescuedFishesTargetCount: 15
   _colorTypes: 00000000010000000200000004000000
   _paintRateInput: 0.1
   _tubes:
@@ -57,7 +57,7 @@ MonoBehaviour:
     pathCreator: {fileID: 4627170322014694883, guid: 86c0bbf0bbfe3ed4cabea7288d5dfdcd,
       type: 3}
   _fishes: 3200000032000000
-  _fishSpawnProbability: {fileID: 11400000, guid: afa002e972ae8e749b56e16a2791b48e,
+  _fishSpawnProbability: {fileID: 11400000, guid: 1b3fdf57ca298694fab152b5493c81d5,
     type: 2}
   _predatorFishesMaxCount: 1
   _enablePredatorFishMovementAI: 0

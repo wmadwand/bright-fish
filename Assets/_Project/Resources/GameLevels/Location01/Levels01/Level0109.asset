@@ -16,7 +16,7 @@ MonoBehaviour:
   _name: 9
   _difficulty: 50
   _timer: 120
-  _rescuedFishesTargetCount: 25
+  _rescuedFishesTargetCount: 15
   _colorTypes: 0000000001000000020000000300000004000000
   _paintRateInput: 0.1
   _tubes:
