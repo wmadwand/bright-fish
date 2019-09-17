@@ -152,6 +152,7 @@ namespace BrightFish
 			}
 			else if (_fishHealth.IsFedUp)
 			{
+				GameController.Instance.sound.PlaySound(fishHappy);
 				_isDead = true;
 
 				MessageBus.OnFishRescued.Send(this, _type, transform.position);

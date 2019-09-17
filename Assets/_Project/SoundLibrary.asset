@@ -29,11 +29,11 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 72c97e08ea9a0184bb31abc21af384c4, type: 3}
     volume: 0.5
   - name: 5
-    audioClip: {fileID: 8300000, guid: 0b972192b6a0b42e19182b3aaa54e819, type: 3}
-    volume: 0.5
+    audioClip: {fileID: 8300000, guid: 2d951062ec648824485ce452879e3588, type: 3}
+    volume: 0.2
   - name: 6
     audioClip: {fileID: 8300000, guid: ca5119b2eadea40eba7e35ae4eb17509, type: 3}
     volume: 0.5
   - name: 7
-    audioClip: {fileID: 8300000, guid: fde59a9feb868664588ccf35b9e59fdc, type: 3}
-    volume: 0.3
+    audioClip: {fileID: 8300000, guid: 963bb2581ddac894795f8d7fad5af12d, type: 3}
+    volume: 0.6
