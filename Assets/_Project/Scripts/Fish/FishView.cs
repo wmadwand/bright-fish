@@ -17,8 +17,8 @@ namespace BrightFish
 
 		[SerializeField] private SpriteRenderer _bodySpriteRenderer;
 
-		private Vector2 dropStartPos = new Vector2(0.76f, 0.5f);
-		private Vector2 dropFinishPos = new Vector2(0.76f, 0.3f);
+		private Vector2 dropStartPos = new Vector2(0.35f, 0.6f);
+		private Vector2 dropFinishPos = new Vector2(0.35f, 0.48f);
 
 		private Tween _sweatDropTween;
 

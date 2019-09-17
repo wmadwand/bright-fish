@@ -160,10 +160,10 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.thumbsup.brightfish
+    Android: com.wmadwand.brightfish
   buildNumber:
     iPhone: 0
-  AndroidBundleVersionCode: 1
+  AndroidBundleVersionCode: 6
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -253,11 +253,11 @@ PlayerSettings:
   clonedFromGUID: c0afd0d1d80e3634a9dac47e8a0426ea
   templatePackageId: com.unity.template.3d@1.3.0
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  AndroidTargetArchitectures: 5
+  AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/GameDev/MyGames/FishColor/Workflow/_keystore/key01.keystore
-  AndroidKeyaliasName: key01
+  AndroidKeystoreName: C:/GameDev/MyGames/FishColor/Workflow/_keystore/wmdwnd_key.keystore
+  AndroidKeyaliasName: wmdwnd
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
@@ -275,7 +275,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 04a111bd187db4445884b1dc2cb0083a, type: 3}
+      m_Icon: {fileID: 2800000, guid: 637004cbc4c21f942bc0294d4957466e, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -663,7 +663,7 @@ PlayerSettings:
     28: UNITY_POST_PROCESSING_STACK_V2
   platformArchitecture: {}
   scriptingBackend:
-    Android: 0
+    Android: 1
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}

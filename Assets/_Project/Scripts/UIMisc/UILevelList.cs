@@ -53,10 +53,10 @@ namespace BrightFish
 				}
 				else
 				{
-					item.button.interactable = false;
+					//item.button.interactable = false;
 				}
 
-				//item.button.interactable = true;
+				item.button.interactable = true;
 
 				item.gameObject.SetActive(true);
 			}
@@ -80,7 +80,7 @@ namespace BrightFish
 				_levelsList.Add(new LevelListItem(item.ID, obj.GetComponentInChildren<Button>(), obj));
 			}
 
-			AddDummyLevels();
+			//AddDummyLevels();
 		}
 
 		private void AddDummyLevels()

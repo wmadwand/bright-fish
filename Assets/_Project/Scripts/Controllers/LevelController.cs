@@ -73,6 +73,7 @@ namespace BrightFish
 
 		private void OnFishRescued(Fish fish, ColorType arg1, Vector3 arg2)
 		{
+			// e.g. get 2 rescued fishes for one fed up predator
 			_rescuedFishCurrentCount += fish.RescuedFishValue;
 			UpdateText();
 

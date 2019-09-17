@@ -16,10 +16,8 @@ namespace BrightFish
 		[SerializeField] private SpriteRenderer _bodySpriteRenderer;
 		[SerializeField] private Sounds feedFishGood, feedFishBad, fishDead, fishHappy;
 		[SerializeField] private GameObject _fishHealthBarTemplate;
-		//[SerializeField] private GameObject _particleTemplate;
 		[SerializeField] private Transform _healthbarPoint;
 		[SerializeField] private Transform _scoreTextSpawnPoint;
-		//[SerializeField] private Transform _particleSpawnPoint;
 		[SerializeField] private Collider2D _myCollider;
 		[SerializeField] private int _rescuedFishValue = 1;
 
@@ -103,6 +101,7 @@ namespace BrightFish
 			_fishHealth = GetComponent<FishHealth>();
 			_fishView = GetComponent<FishView>();
 
+			Physics2D.queriesStartInColliders = false;
 
 			GetComponent<FishFloating>().SetActive(true);
 			//_bubbleLayer = 1 << LayerMask.NameToLayer("PhysicsObject")/* | 1 << LayerMask.NameToLayer("Player")*/;
@@ -130,6 +129,7 @@ namespace BrightFish
 
 		private void Update()
 		{
+			CheckForContact2();
 			CheckForContact();
 
 			if (_isDead)
@@ -166,6 +166,102 @@ namespace BrightFish
 			}
 
 			UpdateSprite();
+		}
+
+		private void FixedUpdate()
+		{
+			//CheckForContact();
+
+		}
+
+		private RaycastHit2D CastRay(Vector3 direction)
+		{
+			return Physics2D.Raycast(transform.position, direction, _distance);
+		}
+
+		//RaycastHit2D[] results = new RaycastHit2D[1];
+
+		//private RaycastHit2D CastLine(Vector3 direction)
+		//{
+		//	var start = new Vector2(transform.position.x - _distance, transform.position.y);
+		//	var end = new Vector2(transform.position.x + _distance, transform.position.y);
+
+		//	Physics2D.LinecastNonAlloc(start, end, results);
+
+		//	if (results.le)
+		//	{
+
+		//	}
+		//}
+
+		[SerializeField] private float _distance = 3;
+
+		private RaycastHit2D _hit1;
+		private RaycastHit2D _hit2;
+
+		private void CheckForContact2()
+		{
+			_hit1 = CastRay(transform.right);
+			_hit2 = CastRay(-transform.right);
+
+			Debug.DrawLine(transform.position, new Vector3(transform.position.x + _distance, transform.position.y));
+			Debug.DrawLine(transform.position, new Vector3(transform.position.x - _distance, transform.position.y));
+
+			//Debug.DrawLine(transform.position, transform.right, _distance);
+
+			//if (_hit1 /*&& _hit1.collider.GetComponent<Fish>() */|| _hit2 /*&& _hit2.collider.GetComponent<Fish>()*/)
+			//{
+			//	//if (_hit1.collider.GetComponent<Fish>() || _hit2.collider.GetComponent<Fish>())
+			//	//{
+			//	//	Debug.Log("OnContact");
+
+			//	//}
+
+			//	if (_hit1 && _hit1.collider.GetComponent<Fish>())
+			//	{
+			//		Debug.Log("OnContact");
+			//	}
+			//	else if (_hit2 && _hit2.collider.GetComponent<Fish>())
+			//	{
+			//		Debug.Log("OnContact");
+
+			//	}
+
+			//}
+
+			if (_hit1)
+			{
+				OnContact2(_hit1.collider);
+			}
+			else if(_hit2)
+			{
+				OnContact2(_hit2.collider);
+			}
+
+		}
+
+		private void OnContact2(Collider2D other)
+		{
+			var movement = GetComponentInChildren<FishMovement>();
+
+			if (!movement._isDraggable)
+			{
+				return;
+			}
+
+			movement._isCollided = true;
+
+			transform.position = other.GetComponentInParent<Fish>().transform.position;
+			other.GetComponentInParent<Fish>().transform.position = movement._originPosition;
+			movement._originPosition = transform.position;
+
+
+			if (!movement._isCollided)
+			{
+				transform.position = movement._originPosition;
+			}
+
+			movement._isDraggable = false;
 		}
 
 		private void CheckForContact()
@@ -263,26 +359,26 @@ namespace BrightFish
 			}
 			else if (other.GetComponentInParent<Fish>() && other is BoxCollider2D)
 			{
-				var movement = GetComponentInChildren<FishMovement>();
+				//var movement = GetComponentInChildren<FishMovement>();
 
-				if (!movement._isDraggable)
-				{
-					return;
-				}
+				//if (!movement._isDraggable)
+				//{
+				//	return;
+				//}
 
-				movement._isCollided = true;
+				//movement._isCollided = true;
 
-				transform.position = other.GetComponentInParent<Fish>().transform.position;
-				other.GetComponentInParent<Fish>().transform.position = movement._originPosition;
-				movement._originPosition = transform.position;
+				//transform.position = other.GetComponentInParent<Fish>().transform.position;
+				//other.GetComponentInParent<Fish>().transform.position = movement._originPosition;
+				//movement._originPosition = transform.position;
 
 
-				if (!movement._isCollided)
-				{
-					transform.position = movement._originPosition;
-				}
+				//if (!movement._isCollided)
+				//{
+				//	transform.position = movement._originPosition;
+				//}
 
-				movement._isDraggable = false;
+				//movement._isDraggable = false;
 			}
 		}
 

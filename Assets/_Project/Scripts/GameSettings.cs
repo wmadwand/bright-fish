@@ -48,11 +48,11 @@ namespace BrightFish
 		//[SerializeField] private bool _TubeBubbleThrowDelay = false;
 		//[SerializeField] private float _bubbleInitialBounceRate = -4;
 
-		[Header("Bubble behaviour")]
-		[SerializeField] private float _bubbleMoveSpeed = 8;
-		[SerializeField] private float _bounceRate = 10;
-		[SerializeField] private float _dragRate = 4;
-		[SerializeField] private int _enlargeSizeClickCount = 2;
+		//[Header("Bubble behaviour")]
+		//[SerializeField] private float _bubbleMoveSpeed = 8;
+		//[SerializeField] private float _bounceRate = 10;
+		//[SerializeField] private float _dragRate = 4;
+		//[SerializeField] private int _enlargeSizeClickCount = 2;
 
 		[SerializeField] ClickEnlargeSizePair[] _clickEnlargeSizePairs;
 		[SerializeField] private float _blinkRate = 0.15f;

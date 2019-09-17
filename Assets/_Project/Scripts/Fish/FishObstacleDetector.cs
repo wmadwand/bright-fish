@@ -36,8 +36,8 @@ namespace BrightFish
 			_hit1 = CastRay(transform.right);
 			_hit2 = CastRay(-transform.right);
 
-			if (_hit1 && _hit1.collider.GetComponent<FishPredator>() && IsInObstacleSight(_hit1.transform)
-				|| _hit2 && _hit2.collider.GetComponent<FishPredator>() && IsInObstacleSight(_hit2.transform))
+			if (_hit1 && _hit1.collider.GetComponentInParent<FishPredator>() && IsInObstacleSight(_hit1.transform)
+				|| _hit2 && _hit2.collider.GetComponentInParent<FishPredator>() && IsInObstacleSight(_hit2.transform))
 			{
 				_isPredatorFound = true;
 				_fishView.OnPredatorFound();
