@@ -4,14 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SoundLibrary", menuName = "NinjaEditor/SoundLibrary")]
 public class SoundLibrary : ScriptableObject
 {
-    [SerializeField]
-    List<Sound> data;
+	public List<Sound> Data => _data;
 
-    public List<Sound> Data
-    {
-        get
-        {
-            return data;
-        }
-    }
+	[SerializeField] private List<Sound> _data;
 }

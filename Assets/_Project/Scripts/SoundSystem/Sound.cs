@@ -10,7 +10,10 @@ public enum Sounds
     fishDead,
 	fishHappy,
 	fishSpawn,
-	backgroundMusic
+	backgroundMusic,
+	fishSwap,
+	tubeProduceBubble,
+	bubbleSwipe
 }
 
 [Serializable]
