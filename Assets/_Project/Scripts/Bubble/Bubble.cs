@@ -119,6 +119,13 @@ namespace BrightFish
 			_rigidbody2D = GetComponentInChildren<Rigidbody2D>();
 			_selfDestroyTimeRate = _gameSettings.SelfDestroyTime;
 			_currentLevelSettings = GameController.Instance.levelController.CurrentLevel;
+
+			MessageBus.OnGameStop.Receive += OnGameStop_Receive;
+		}
+
+		private void OnGameStop_Receive(bool obj)
+		{
+			SelfDestroy();
 		}
 
 		private void Update()
@@ -132,6 +139,11 @@ namespace BrightFish
 					SelfDestroy();
 				}
 			}
+		}
+
+		private void OnDestroy()
+		{
+			MessageBus.OnGameStop.Receive -= OnGameStop_Receive;
 		}
 
 		public void OnClick()
