@@ -39,6 +39,11 @@ namespace BrightFish
 			if (_hit1 && _hit1.collider.GetComponentInParent<FishPredator>() && IsInObstacleSight(_hit1.transform)
 				|| _hit2 && _hit2.collider.GetComponentInParent<FishPredator>() && IsInObstacleSight(_hit2.transform))
 			{
+				if (!_isPredatorFound)
+				{
+					GameController.Instance.sound.PlaySound(Sounds.evilFishCome);
+				}
+
 				_isPredatorFound = true;
 				_fishView.OnPredatorFound();
 

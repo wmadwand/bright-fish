@@ -82,6 +82,8 @@ namespace BrightFish
 
 				var normalizedDirY = _direction.normalized.y < 0 ? -1 : 1;
 				OnInteract(_currentLevelSettings.BubbleSwipeSpeed * normalizedDirY * -1, true, true);
+
+				GameController.Instance.sound.PlaySound(Sounds.bubbleSwipe);
 			}
 		}
 

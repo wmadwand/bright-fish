@@ -13,7 +13,8 @@ public enum Sounds
 	backgroundMusic,
 	fishSwap,
 	tubeProduceBubble,
-	bubbleSwipe
+	bubbleSwipe,
+	evilFishCome
 }
 
 [Serializable]

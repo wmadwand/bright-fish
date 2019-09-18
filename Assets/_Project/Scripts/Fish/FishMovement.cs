@@ -87,6 +87,8 @@ namespace BrightFish
 			}
 
 			_isDraggable = false;
+
+			GameController.Instance.sound.PlaySound(Sounds.fishSwap);
 		}
 	}
 }

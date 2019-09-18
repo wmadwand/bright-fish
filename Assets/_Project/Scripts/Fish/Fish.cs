@@ -314,7 +314,10 @@ namespace BrightFish
 					_fishHealth.ChangeHealth(-30);
 					UpdateHealthBar(_fishHealth.Value);
 
-					GameController.Instance.sound.PlaySound(feedFishBad);
+					if (!_fishHealth.IsDead)
+					{
+						GameController.Instance.sound.PlaySound(feedFishBad); 
+					}
 
 					bubble.SelfDestroy(isRequiredBadSound: false);
 				}
