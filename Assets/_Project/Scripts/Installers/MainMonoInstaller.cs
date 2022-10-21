@@ -22,6 +22,8 @@ namespace BrightFish
 
 			Container.BindFactory<Fish, Fish.FishDIFactory>().FromComponentInNewPrefab(_fishPrefab)/*.UnderTransformGroup("Fishes")*/;
 			Container.BindFactory<Fish, Fish.FishPredatorDIFactory>().FromComponentInNewPrefab(_fishPredatorPrefab)/*.UnderTransformGroup("Fishes")*/;
+
+            Container.Bind<NonMonoBeh>().AsSingle();
 		}
 	} 
 }

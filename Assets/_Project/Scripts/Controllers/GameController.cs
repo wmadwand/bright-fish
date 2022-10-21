@@ -30,6 +30,8 @@ namespace BrightFish
 		GameSettingsA _gameSettingsA;
 		GameSettings _gameSettingsB;
 
+        [Inject] NonMonoBeh nonMono;
+
 		//----------------------------------------------------------------
 
 		//public void StartGame()
@@ -44,7 +46,9 @@ namespace BrightFish
 			var levelId = GameProgress.GetMaxAvailableLevelId();
 
 			MessageBus.OnLevelSelected.Send(levelId);
-		}
+
+
+        }
 
 		public void ResetScene()
 		{
@@ -92,7 +96,10 @@ namespace BrightFish
 			}
 
 			LocationPaintProgress.UpdatePaintLocation();
-		}
+
+
+            nonMono.Go();
+        }
 
 		private void OnDestroy()
 		{

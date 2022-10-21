@@ -340,11 +340,11 @@ namespace Com.LuisPedroFonseca.ProCamera2D
                     var arrowSize = cameraDimensions.x * .1f;
                     if ((nextTargetPos - targetPos).magnitude > arrowSize)
                     {
-                        UnityEditor.Handles.ArrowCap(
-                            i, 
-                            targetPos, 
-                            Quaternion.LookRotation(nextTargetPos - targetPos), 
-                            cameraDimensions.x * .1f);
+                        //UnityEditor.Handles.ArrowCap(
+                        //    i, 
+                        //    targetPos, 
+                        //    Quaternion.LookRotation(nextTargetPos - targetPos), 
+                        //    cameraDimensions.x * .1f);
                     }
                 }
             }

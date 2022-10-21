@@ -97,10 +97,10 @@ public class BezierSplineInspector : Editor {
 			size *= 2f;
 		}
 		Handles.color = modeColors[(int)spline.GetControlPointMode(index)];
-		if (Handles.Button(point, handleRotation, size * handleSize, size * pickSize, Handles.DotCap)) {
-			selectedIndex = index;
+		//if (Handles.Button(point, handleRotation, size * handleSize, size * pickSize, Handles.DotCap)) {
+		//	selectedIndex = index;
 			Repaint();
-		}
+		//}
 		if (selectedIndex == index) {
 			EditorGUI.BeginChangeCheck();
 			point = Handles.DoPositionHandle(point, handleRotation);

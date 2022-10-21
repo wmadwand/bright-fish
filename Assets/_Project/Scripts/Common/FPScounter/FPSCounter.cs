@@ -12,7 +12,7 @@ using UnityEngine.UI;
 /* **************************************************************************
  * CLASS: FPS COUNTER
  * *************************************************************************/
-[RequireComponent(typeof(GUIText))]
+//[RequireComponent(typeof(GUIText))]
 public class FPSCounter : MonoBehaviour
 {
     /* Public Variables */
